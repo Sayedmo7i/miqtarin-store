@@ -22,6 +22,7 @@ backend/public/hot
 backend/public/storage
 backend/storage/*.key
 backend/storage/debugbar/
+backend/.phpunit.result.cache
 
 # Laravel storage logs and cache
 backend/storage/logs/*.log

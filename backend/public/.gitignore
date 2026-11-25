@@ -1,2 +1,3 @@
-*
-!.gitignore
+/hot
+/storage
+/build
