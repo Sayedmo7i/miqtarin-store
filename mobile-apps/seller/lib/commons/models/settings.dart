@@ -1,0 +1,167 @@
+import 'package:eshopplus_seller/commons/models/language.dart';
+import 'package:eshopplus_seller/commons/models/systemSettings.dart';
+
+class Settings {
+  final String? logo;
+  final String? privacyPolicy;
+  final String? sellerPrivacyPolicy;
+  final String? sellerTermsAndConditions;
+  final String? termsAndConditions;
+  final String? contactUs;
+  final String? aboutUs;
+  final String? currency;
+  final SystemSettings? systemSettings;
+  final String? shippingPolicy;
+  final String? returnPolicy;
+  final PusherSettings? pusherSettings;
+  final List<AdminPreference>? adminPreference;
+  final List<Language>? languages;
+  final ShippingMethod? shippingMethods;
+
+  Settings({
+    this.aboutUs,
+    this.contactUs,
+    this.currency,
+    this.logo,
+    this.privacyPolicy,
+    this.sellerTermsAndConditions,
+    this.sellerPrivacyPolicy,
+    this.termsAndConditions,
+    this.systemSettings,
+    this.returnPolicy,
+    this.shippingPolicy,
+    this.pusherSettings,
+    this.adminPreference,
+    this.languages,
+    this.shippingMethods,
+  });
+
+  static Settings fromJson(Map<String, dynamic> json) {
+    return Settings(
+      sellerPrivacyPolicy: ((json['seller_privacy_policy'] ?? [""]) as List)
+          .map((e) => (e ?? "").toString())
+          .first,
+      sellerTermsAndConditions: json['seller_terms_and_conditions'] != null
+          ? ((json['seller_terms_and_conditions'] ?? [""]) as List)
+                .map((e) => (e ?? "").toString())
+                .first
+          : "",
+      aboutUs: ((json['about_us'] ?? [""]) as List)
+          .map((e) => (e ?? "").toString())
+          .first,
+      contactUs: ((json['contact_us'] ?? [""]) as List)
+          .map((e) => (e ?? "").toString())
+          .first,
+      currency: json['currency'] as String?,
+      logo: ((json['logo'] ?? [""]) as List)
+          .map((e) => (e ?? "").toString())
+          .first,
+      privacyPolicy: ((json['privacy_policy'] ?? [""]) as List)
+          .map((e) => (e ?? "").toString())
+          .first,
+      termsAndConditions: ((json['terms_conditions'] ?? [""]) as List)
+          .map((e) => (e ?? "").toString())
+          .first,
+      systemSettings: SystemSettings.fromJson(
+        (json['system_settings'] ?? [{}]).first,
+      ),
+      returnPolicy: ((json['return_policy'] ?? [""]) as List)
+          .map((e) => (e ?? "").toString())
+          .first,
+      shippingPolicy: ((json['shipping_policy'] ?? [""]) as List)
+          .map((e) => (e ?? "").toString())
+          .first,
+      pusherSettings: json['pusher_settings'] != null
+          ? PusherSettings.fromJson((json['pusher_settings'] ?? [{}]).first)
+          : PusherSettings(),
+      adminPreference: json['admin_preference'] != null
+          ? (json['admin_preference'] as List)
+                .map((e) => AdminPreference.fromJson(e))
+                .toList()
+          : null,
+      languages: json['languages'] != null
+          ? (json['languages'] as List)
+                .map((e) => Language.fromJson(Map.from(e ?? {})))
+                .toList()
+          : null,
+      shippingMethods: json['shipping_method'] != null
+          ? _parseShippingMethods(json['shipping_method'])
+          : null,
+    );
+  }
+
+  static ShippingMethod? _parseShippingMethods(dynamic value) {
+    if (value is List) {
+      return ShippingMethod.fromJson(Map.from(value.first ?? {}));
+    } else if (value is Map) {
+      return ShippingMethod.fromJson(Map.from(value));
+    }
+    return null;
+  }
+}
+
+class PusherSettings {
+  String? pusherAppCluster;
+  String? pusherScheme;
+  String? pusherPort;
+  String? pusherAppSecret;
+  String? pusherAppKey;
+  String? pusherAppId;
+  String? pusherChannelName;
+
+  PusherSettings({
+    this.pusherAppCluster,
+    this.pusherScheme,
+    this.pusherPort,
+    this.pusherAppSecret,
+    this.pusherAppKey,
+    this.pusherAppId,
+    this.pusherChannelName,
+  });
+
+  PusherSettings.fromJson(Map<String, dynamic> json) {
+    pusherAppCluster = json['pusher_app_cluster'];
+    pusherScheme = json['pusher_scheme'];
+    pusherPort = json['pusher_port'];
+    pusherAppSecret = json['pusher_app_secret'];
+    pusherAppKey = json['pusher_app_key'];
+    pusherAppId = json['pusher_app_id'];
+    pusherChannelName = json['pusher_channel_name'];
+  }
+}
+
+class AdminPreference {
+  final String? storeMode;
+  final int? orderNotification;
+
+  AdminPreference({this.storeMode, this.orderNotification});
+
+  AdminPreference.fromJson(Map<String, dynamic> json)
+    : storeMode = json['store_mode'],
+      orderNotification = json['order_notification'];
+}
+
+class ShippingMethod {
+  final int? localShippingMethod;
+  final int? shiprocketShippingMethod;
+  final int? standardShippingFreeDelivery;
+  final String? minimumFreeDeliveryOrderAmount;
+
+  ShippingMethod({
+    this.localShippingMethod,
+    this.shiprocketShippingMethod,
+    this.standardShippingFreeDelivery,
+    this.minimumFreeDeliveryOrderAmount,
+  });
+
+  factory ShippingMethod.fromJson(Map<String, dynamic> json) {
+    return ShippingMethod(
+      localShippingMethod: json['local_shipping_method'] as int?,
+      shiprocketShippingMethod: json['shiprocket_shipping_method'] as int?,
+      standardShippingFreeDelivery:
+          json['standard_shipping_free_delivery'] as int?,
+      minimumFreeDeliveryOrderAmount:
+          json['minimum_free_delivery_order_amount'] as String?,
+    );
+  }
+}

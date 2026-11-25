@@ -1,0 +1,180 @@
+import 'package:eshop_plus/commons/blocs/deliveryLocationCubit.dart';
+import 'package:eshop_plus/core/constants/themeConstants.dart';
+import 'package:eshop_plus/ui/cart/blocs/getUserCart.dart';
+import 'package:eshop_plus/commons/blocs/settingsAndLanguagesCubit.dart';
+import 'package:eshop_plus/ui/cart/models/cart.dart';
+import 'package:eshop_plus/commons/product/models/product.dart';
+import 'package:eshop_plus/core/theme/colors.dart';
+import 'package:eshop_plus/commons/widgets/customTextContainer.dart';
+import 'package:eshop_plus/core/localization/labelKeys.dart';
+import 'package:eshop_plus/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class PriceDetailContainer extends StatelessWidget {
+  final Cart cart;
+  PriceDetailContainer({Key? key, required this.cart}) : super(key: key);
+  TextStyle? bodyMedtextStyle;
+  @override
+  Widget build(BuildContext context) {
+    bodyMedtextStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
+      color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.8),
+    );
+    return BlocBuilder<GetUserCartCubit, GetUserCartState>(
+      builder: (context, state) {
+        return Container(
+          padding: const EdgeInsetsDirectional.symmetric(
+            vertical: appContentVerticalSpace,
+          ),
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: Column(
+            crossAxisAlignment: .start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsetsDirectional.symmetric(
+                  horizontal: appContentHorizontalPadding,
+                ),
+                child: CustomTextContainer(
+                  textKey:
+                      '${context.read<SettingsAndLanguagesCubit>().getTranslatedValue(labelKey: priceDetailsKey)} (${cart.cartProducts!.length} Items)',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              const Divider(height: 12, thickness: 0.5),
+              Column(
+                crossAxisAlignment: .start,
+                children: <Widget>[
+                  buildPriceDetailRow(
+                    '${context.read<SettingsAndLanguagesCubit>().getTranslatedValue(labelKey: itemTotalKey)} (${context.read<SettingsAndLanguagesCubit>().getTranslatedValue(labelKey: taxAlreadyIncludedKey)})',
+                    Utils.priceWithCurrencySymbol(
+                      price: cart.itemTotal ?? 0,
+                      context: context,
+                    ),
+                  ),
+                  buildPriceDetailRow(
+                    discountKey,
+                    cart.discount != 0
+                        ? '-${Utils.priceWithCurrencySymbol(price: cart.discount ?? 0, context: context)}'
+                        : Utils.priceWithCurrencySymbol(
+                            price: cart.discount ?? 0,
+                            context: context,
+                          ),
+                    textStyle: cart.discount != 0
+                        ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: successStatusColor,
+                          )
+                        : null,
+                  ),
+                  buildPriceDetailRow(
+                    couponDiscountKey,
+                    context.read<GetUserCartCubit>().getCheckoutState().promoCode != null && context.read<GetUserCartCubit>().getCheckoutState().promoCode!.isCashback == 1
+                        ? Utils.priceWithCurrencySymbol(
+                            price: 0,
+                            context: context,
+                          )
+                        : context.read<GetUserCartCubit>().getCheckoutState().couponDiscount != null &&
+                              context.read<GetUserCartCubit>().getCheckoutState().couponDiscount != 0
+                        ? '-${Utils.priceWithCurrencySymbol(price: context.read<GetUserCartCubit>().getCheckoutState().couponDiscount ?? 0, context: context)}'
+                        : Utils.priceWithCurrencySymbol(
+                            price: context.read<GetUserCartCubit>().getCheckoutState().couponDiscount ?? 0,
+                            context: context,
+                          ),
+                    textStyle:
+                        context.read<GetUserCartCubit>().getCheckoutState().promoCode != null &&
+                            context.read<GetUserCartCubit>().getCheckoutState().promoCode!.isCashback == 0 &&
+                            context.read<GetUserCartCubit>().getCheckoutState().couponDiscount != 0
+                        ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: successStatusColor,
+                          )
+                        : null,
+                  ),
+                  if (cart.cartProducts![0].type != digitalProductType &&
+                      context
+                              .read<DeliveryLocationCubit>()
+                              .currentSelectedAddress !=
+                          null)
+                    buildPriceDetailRow(
+                      deliveryChargesKey,
+                      cart.deliveryCharge != 0
+                          ? '+${Utils.priceWithCurrencySymbol(price: cart.deliveryCharge ?? 0, context: context)}'
+                          : Utils.priceWithCurrencySymbol(
+                              price: cart.deliveryCharge ?? 0,
+                              context: context,
+                            ),
+                    ),
+                  if (context.read<GetUserCartCubit>().getCheckoutState().useWalletBalance == true)
+                    buildPriceDetailRow(
+                      walletBalanceKey,
+                      context.read<GetUserCartCubit>().getCheckoutState().walletAmount != 0
+                          ? '-${Utils.priceWithCurrencySymbol(price: context.read<GetUserCartCubit>().getCheckoutState().walletAmount ?? 0, context: context)}'
+                          : Utils.priceWithCurrencySymbol(
+                              price: context.read<GetUserCartCubit>().getCheckoutState().walletAmount ?? 0,
+                              context: context,
+                            ),
+                    ),
+                  const Divider(height: 20, thickness: 0.5),
+                  buildPriceDetailRow(
+                    totalAmountKey,
+                    Utils.priceWithCurrencySymbol(
+                      price: cart.overallAmount ?? 0,
+                      context: context,
+                    ),
+                    textStyle: Theme.of(context).textTheme.titleSmall!,
+                  ),
+                  Padding(
+                    padding: const .symmetric(
+                      horizontal: appContentHorizontalPadding,
+                    ),
+                    child: Column(
+                      children: [
+                        if (context.read<GetUserCartCubit>().getCheckoutState().promoCode != null &&
+                            context.read<GetUserCartCubit>().getCheckoutState().promoCode!.isCashback == 1)
+                          Padding(
+                            padding: const .symmetric(vertical: 8.0),
+                            child: CustomTextContainer(
+                              textKey:
+                                  '${context.read<SettingsAndLanguagesCubit>().getTranslatedValue(labelKey: couponDiscountKey)} : ${Utils.priceWithCurrencySymbol(price: double.parse(context.read<GetUserCartCubit>().getCheckoutState().couponDiscount.toString()), context: context)} will be added to your wallet after your order is successfully delivered.',
+                            ),
+                          ),
+                        if (context
+                                .read<DeliveryLocationCubit>()
+                                .currentSelectedAddress ==
+                            null)
+                          Padding(
+                            padding: const .symmetric(vertical: 8.0),
+                            child: CustomTextContainer(
+                              textKey: deliveryChargeNoteKey,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  buildPriceDetailRow(String title, String value, {TextStyle? textStyle}) {
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(
+        start: appContentHorizontalPadding,
+        end: appContentHorizontalPadding,
+        bottom: 8,
+      ),
+      child: Row(
+        mainAxisAlignment: .spaceBetween,
+        children: <Widget>[
+          CustomTextContainer(textKey: title, style: bodyMedtextStyle),
+          CustomTextContainer(
+            textKey: value,
+            style: textStyle ?? bodyMedtextStyle,
+          ),
+        ],
+      ),
+    );
+  }
+}
