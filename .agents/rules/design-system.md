@@ -16,7 +16,8 @@
    - Use logical properties in CSS: `margin-inline-start`, `padding-inline-end`, `inset-inline-start`.
    - In Flutter, use `EdgeInsetsDirectional` instead of `EdgeInsets.only(left: ...)`.
 4. **Icons & Logos**:
-   - Use `/assets/brand/logo.svg` for brand banners and headers.
-   - Use `/assets/brand/icon.svg` for marks and icons.
+   - Use `backend/public/assets/brand/logo.svg` (`/assets/brand/logo.svg`) for brand banners and headers.
+   - Use `backend/public/assets/brand/icon.svg` (`/assets/brand/icon.svg`) for marks and icons.
+   - Use `backend/public/assets/img/default_full_logo.png` (`/assets/img/default_full_logo.png`) or `/assets/brand/icon.svg` as fallback images.
 5. **Specification Reference**:
    - Consult `/DESIGN.md` and `/tokens/design-tokens.json` for all measurements, paddings, and status colors.

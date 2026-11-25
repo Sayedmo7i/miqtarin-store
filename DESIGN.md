@@ -18,14 +18,14 @@
 
 ### Official Brand Assets
 
-All standard brand assets are preserved at `/backend/public/assets/brand/`:
+All standard brand assets are stored in [`backend/public/assets/brand/`](backend/public/assets/brand/) and served publicly at `/assets/brand/`:
 
-| Asset | Format | File Path | Usage |
-|---|---|---|---|
-| **Full Brand Logo** | SVG | `/assets/brand/logo.svg` | Web headers, Admin sidebar, Auth screens |
-| **Full Brand Logo** | High-Res Raster | `/assets/brand/logo.jpg` | Fallbacks, email templates, social meta |
-| **App Icon / Monogram** | SVG | `/assets/brand/icon.svg` | Mobile app icons, Favicon, Touch icon |
-| **App Icon / Monogram** | High-Res Raster | `/assets/brand/icon.jpg` | App splash screens, Store listing |
+| Asset | Format | Repo Path | Web URL Path | Usage |
+|---|---|---|---|---|
+| **Full Brand Logo** | SVG | `backend/public/assets/brand/logo.svg` | `/assets/brand/logo.svg` | Web headers, Admin sidebar, Auth screens |
+| **Full Brand Logo** | High-Res Raster | `backend/public/assets/brand/logo.jpg` | `/assets/brand/logo.jpg` | Fallbacks, email templates, social meta |
+| **App Icon / Monogram** | SVG | `backend/public/assets/brand/icon.svg` | `/assets/brand/icon.svg` | Mobile app icons, Favicon, Touch icon |
+| **App Icon / Monogram** | High-Res Raster | `backend/public/assets/brand/icon.jpg` | `/assets/brand/icon.jpg` | App splash screens, Store listing |
 
 ---
 
@@ -120,4 +120,4 @@ Every AI Agent writing frontend code, templates, or Flutter widgets in this repo
 4. **Button Height Standardization**:
    - Web buttons: Height `44px` or `48px` with radius `8px`.
    - Mobile Flutter buttons: Minimum tap target `48px`.
-5. **No Broken Image Placeholders**: When an image asset is dynamic, always provide `default_full_logo.png` or `/assets/brand/icon.svg` as a graceful fallback.
+5. **No Broken Image Placeholders**: When an image asset is dynamic, always provide `backend/public/assets/img/default_full_logo.png` (`/assets/img/default_full_logo.png`) or `backend/public/assets/brand/icon.svg` (`/assets/brand/icon.svg`) as a graceful fallback.

@@ -19,4 +19,19 @@ class ExampleTest extends TestCase
             ->assertStatus(200)
             ->assertSee('Admin Login');
     }
+
+    public function test_brand_assets_and_fallback_logo_exist(): void
+    {
+        $assets = [
+            'assets/brand/logo.svg',
+            'assets/brand/icon.svg',
+            'assets/brand/logo.jpg',
+            'assets/brand/icon.jpg',
+            'assets/img/default_full_logo.png',
+        ];
+
+        foreach ($assets as $asset) {
+            $this->assertFileExists(public_path($asset));
+        }
+    }
 }
