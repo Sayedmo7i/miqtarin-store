@@ -1,0 +1,194 @@
+import 'package:eshop_plus/commons/models/store.dart';
+import 'package:eshop_plus/commons/repositories/storeRepository.dart';
+import 'package:eshop_plus/core/constants/hiveConstants.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+
+abstract class StoresState {}
+
+class StoresInitial extends StoresState {}
+
+class StoresFetchInProgress extends StoresState {}
+
+class StoresFetchSuccess extends StoresState {
+  final List<Store> stores;
+  final Store defaultStore;
+  StoresFetchSuccess({required this.stores, required this.defaultStore});
+}
+
+class StoresFetchFailure extends StoresState {
+  final String errorMessage;
+
+  StoresFetchFailure(this.errorMessage);
+}
+
+class StoresCubit extends Cubit<StoresState> {
+  final StoreRepository _storeRepository;
+
+  StoresCubit(this._storeRepository) : super(StoresInitial());
+
+  Future<void> fetchStores({List<Store>? stores}) async {
+    if (stores == null) {
+      emit(StoresFetchInProgress());
+    }
+    _storeRepository
+        .getStores()
+        .then((value) {
+          setupStores(stores: value);
+        })
+        .catchError((e) {
+          emit(StoresFetchFailure(e.toString()));
+        });
+  }
+
+  void setupStores({required List<Store> stores}) {
+    if (stores.isEmpty) {
+      return;
+    }
+
+    ///[Default store set remotly by admin ]
+    final defaultStoreByAdminId = stores.firstWhere(
+      (element) => element.isStoreDefault(),
+      orElse: () => stores.first,
+    );
+
+    ///[Check if store has been selcetd as default by user or not]
+    if (_storeRepository.getDefaultStoreId() == 0) {
+      _storeRepository.setDefaultStoreId(
+        storeId: defaultStoreByAdminId.id ?? 0,
+      );
+      emit(
+        StoresFetchSuccess(stores: stores, defaultStore: defaultStoreByAdminId),
+      );
+    } else {
+      ///[If default local store and default remote store is same]
+      if (defaultStoreByAdminId.id == _storeRepository.getDefaultStoreId()) {
+        emit(
+          StoresFetchSuccess(
+            stores: stores,
+            defaultStore: defaultStoreByAdminId,
+          ),
+        );
+      } else {
+        List<Store> updatedStores = List.from(stores);
+
+        ///[Set defaultStore to 0 for all stores]
+        for (var i = 0; i < updatedStores.length; i++) {
+          updatedStores[i] = updatedStores[i].copyWith(isDefaultStore: 0);
+        }
+
+        ///[Find the new default store index]
+        final newDefaultStoreIdIndex = updatedStores.indexWhere(
+          (element) => element.id == _storeRepository.getDefaultStoreId(),
+        );
+
+        if (newDefaultStoreIdIndex != -1) {
+          updatedStores[newDefaultStoreIdIndex] =
+              updatedStores[newDefaultStoreIdIndex].copyWith(isDefaultStore: 1);
+          emit(
+            StoresFetchSuccess(
+              stores: updatedStores,
+              defaultStore: updatedStores[newDefaultStoreIdIndex],
+            ),
+          );
+        } else {
+          emit(
+            StoresFetchSuccess(
+              stores: stores,
+              defaultStore: defaultStoreByAdminId,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  Store getDefaultStore() {
+    if (state is StoresFetchSuccess) {
+      final stores = (state as StoresFetchSuccess).stores;
+
+      if (stores.isEmpty) {
+        return Store.fromJson({});
+      }
+
+      // Try to find the default store
+      final defaultStore = stores.firstWhere(
+        (store) => store.isStoreDefault(),
+        orElse: () => stores.first,
+      );
+
+      return defaultStore;
+    }
+
+    return Store.fromJson({});
+  }
+
+  changeDefaultStore({required int storeId}) async {
+    _storeRepository.setDefaultStoreId(storeId: storeId);
+    if (state is StoresFetchSuccess) {
+      List<Store> stores = (state as StoresFetchSuccess).stores;
+
+      List<Store> updatedStores = List.from(stores);
+
+      ///[Set defaultStore to 0 for all stores]
+      for (var i = 0; i < stores.length; i++) {
+        updatedStores[i] = updatedStores[i].copyWith(isDefaultStore: 0);
+      }
+
+      ///[Find the new default store index]
+      final newDefaultStoreIdIndex = updatedStores.indexWhere(
+        (element) => element.id == storeId,
+      );
+
+      if (newDefaultStoreIdIndex != -1) {
+        updatedStores[newDefaultStoreIdIndex] =
+            updatedStores[newDefaultStoreIdIndex].copyWith(isDefaultStore: 1);
+        Hive.box(favoritesBoxKey).clear();
+        emit(
+          StoresFetchSuccess(
+            stores: updatedStores,
+            defaultStore: updatedStores[newDefaultStoreIdIndex],
+          ),
+        );
+      }
+    }
+  }
+
+  // resetState() {
+  //   if (state is StoresFetchSuccess) {
+  //     Hive.box(favoritesBoxKey).clear();
+  //     changeDefaultStore(
+  //         storeId: (state as StoresFetchSuccess)
+  //             .stores
+  //             .firstWhere((element) => element.panelDefaultStore == 1)
+  //             .id!,
+  //         stores: (state as StoresFetchSuccess).stores);
+  //   }
+  // }
+
+  /// Change default store by slug. Returns true if store was found and changed.
+  Future<bool> changeDefaultStoreBySlug({required String storeSlug}) async {
+    if (storeSlug.isEmpty) return false;
+    if (state is StoresFetchSuccess) {
+      final stores = (state as StoresFetchSuccess).stores;
+      final store = stores.firstWhere(
+        (s) => s.slug == storeSlug,
+        orElse: () => Store.fromJson({}),
+      );
+      if (store.id != null) {
+        await changeDefaultStore(storeId: store.id!);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  List<Store> getAllStores() {
+    if (state is StoresFetchSuccess) {
+      return (state as StoresFetchSuccess).stores;
+    }
+
+    return [];
+  }
+}

@@ -1,0 +1,152 @@
+name: CI - Quality Gate
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    name: Detect Changed Paths
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      mobile: ${{ steps.filter.outputs.mobile }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for modified paths
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+              - '.github/workflows/ci.yml'
+            mobile:
+              - 'mobile-apps/**'
+              - '.github/workflows/ci.yml'
+
+  backend-ci:
+    name: Backend CI (Laravel)
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP Environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_sqlite, bcmath, curl, gd
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --no-check-publish
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: backend/vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('backend/composer.lock') }}
+          restore-keys: |
+            composer-${{ runner.os }}-
+
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Check PHP Syntax (Lint)
+        run: |
+          find app config routes -type f -name "*.php" -exec php -l {} \;
+
+      - name: Prepare Laravel Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Run PHPUnit Tests
+        run: php artisan test --env=testing
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ':memory:'
+
+  mobile-apps-ci:
+    name: Mobile CI (${{ matrix.app }})
+    needs: changes
+    if: ${{ needs.changes.outputs.mobile == 'true' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [customer, deliveryboy, seller]
+    defaults:
+      run:
+        working-directory: mobile-apps/${{ matrix.app }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Static Code Analysis
+        run: flutter analyze
+
+      - name: Run Tests
+        run: |
+          if [ -d "test" ]; then
+            flutter test
+          else
+            echo "No test directory found; skipping."
+          fi
+
+  quality-gate:
+    name: Quality Gate
+    needs: [changes, backend-ci, mobile-apps-ci]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify All Quality Gates Passed
+        run: |
+          BACKEND_RESULT="${{ needs.backend-ci.result }}"
+          MOBILE_RESULT="${{ needs.mobile-apps-ci.result }}"
+
+          echo "Backend CI Result: $BACKEND_RESULT"
+          echo "Mobile Apps CI Result: $MOBILE_RESULT"
+
+          if [ "$BACKEND_RESULT" = "failure" ] || [ "$MOBILE_RESULT" = "failure" ]; then
+            echo "❌ One or more required CI checks failed."
+            exit 1
+          fi
+
+          if [ "$BACKEND_RESULT" = "cancelled" ] || [ "$MOBILE_RESULT" = "cancelled" ]; then
+            echo "❌ CI checks were cancelled."
+            exit 1
+          fi
+
+          echo "✅ All required quality gates passed or were safely skipped."
+          exit 0

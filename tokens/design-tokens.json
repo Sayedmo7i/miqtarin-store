@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json.schemastore.org/design-tokens.json",
+  "name": "Mo7i Store Design System",
+  "version": "1.0.0",
+  "description": "Unified Design System Tokens for Mo7i Store (Web, Admin, Customer, Seller, DeliveryBoy)",
+  "brand": {
+    "name": "Mo7i Store",
+    "name_ar": "متجر مُحي",
+    "tagline_ar": "المنصة الإلكترونية الموحدة",
+    "tagline_en": "Unified E-Commerce Platform"
+  },
+  "color": {
+    "brand": {
+      "primary": { "value": "#B52046", "description": "Mo7i Crimson - Primary actions, hero headers, buttons" },
+      "primary_hover": { "value": "#961837", "description": "Darkened crimson on hover/active" },
+      "primary_light": { "value": "#FDF2F4", "description": "Soft tinted background for badges and highlights" },
+      "secondary": { "value": "#201A1A", "description": "Deep Charcoal - Dark headers, typography, dark mode surfaces" },
+      "secondary_surface": { "value": "#2A2424", "description": "Elevated charcoal surface for cards in dark mode" }
+    },
+    "functional": {
+      "success": { "value": "#0DAE4A", "description": "Delivered, Approved, Completed status" },
+      "success_light": { "value": "#E7F8EE", "description": "Success badge background" },
+      "pending": { "value": "#E69914", "description": "Pending payment/approval status" },
+      "pending_light": { "value": "#FEF7E8", "description": "Pending badge background" },
+      "received": { "value": "#4285F4", "description": "Received order status" },
+      "processed": { "value": "#736AFF", "description": "Order processing status" },
+      "shipped": { "value": "#C44D6B", "description": "Order in transit / shipped" },
+      "error": { "value": "#EE1C2F", "description": "Cancelled order, critical errors, delete actions" },
+      "error_light": { "value": "#FDE8EA", "description": "Error alert background" },
+      "info": { "value": "#2196F3", "description": "General system notices" }
+    },
+    "neutral": {
+      "50": { "value": "#F8FAFC" },
+      "100": { "value": "#F1F5F9" },
+      "200": { "value": "#E2E8F0" },
+      "300": { "value": "#CBD5E1" },
+      "400": { "value": "#94A3B8" },
+      "500": { "value": "#64748B" },
+      "600": { "value": "#475569" },
+      "700": { "value": "#334155" },
+      "800": { "value": "#1E293B" },
+      "900": { "value": "#0F172A" },
+      "white": { "value": "#FFFFFF" },
+      "black": { "value": "#000000" }
+    }
+  },
+  "typography": {
+    "font_families": {
+      "arabic": { "value": "'Cairo', 'Tajawal', sans-serif" },
+      "english": { "value": "'Rubik', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif" },
+      "code": { "value": "'JetBrains Mono', 'Fira Code', monospace" }
+    },
+    "font_sizes": {
+      "xs": { "value": "12px", "rem": "0.75rem" },
+      "sm": { "value": "14px", "rem": "0.875rem" },
+      "base": { "value": "16px", "rem": "1.0rem" },
+      "lg": { "value": "18px", "rem": "1.125rem" },
+      "xl": { "value": "20px", "rem": "1.25rem" },
+      "2xl": { "value": "24px", "rem": "1.5rem" },
+      "3xl": { "value": "30px", "rem": "1.875rem" },
+      "4xl": { "value": "36px", "rem": "2.25rem" }
+    },
+    "font_weights": {
+      "regular": { "value": "400" },
+      "medium": { "value": "500" },
+      "semibold": { "value": "600" },
+      "bold": { "value": "700" },
+      "extrabold": { "value": "800" }
+    }
+  },
+  "spacing": {
+    "1": { "value": "4px" },
+    "2": { "value": "8px" },
+    "3": { "value": "12px" },
+    "4": { "value": "16px" },
+    "5": { "value": "20px" },
+    "6": { "value": "24px" },
+    "8": { "value": "32px" },
+    "10": { "value": "40px" },
+    "12": { "value": "48px" },
+    "16": { "value": "64px" }
+  },
+  "border_radius": {
+    "sm": { "value": "6px" },
+    "md": { "value": "8px" },
+    "lg": { "value": "12px" },
+    "xl": { "value": "16px" },
+    "2xl": { "value": "24px" },
+    "full": { "value": "9999px" }
+  },
+  "elevation": {
+    "sm": { "value": "0 1px 2px 0 rgba(0, 0, 0, 0.05)" },
+    "md": { "value": "0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05)" },
+    "lg": { "value": "0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04)" },
+    "brand_glow": { "value": "0 8px 24px rgba(181, 32, 70, 0.22)" }
+  }
+}

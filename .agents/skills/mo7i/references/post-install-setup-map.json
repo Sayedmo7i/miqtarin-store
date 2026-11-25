@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "2.3.0",
+  "description": "Curated directory of post-install setup skills, execution contracts, and completion evidence.",
+  "collections": {
+    "mattpocock/skills": {
+      "collection": "mattpocock/skills",
+      "setupSkill": "setup-matt-pocock-skills",
+      "interactive": true,
+      "description": "Configures issue tracker, triage labels, and domain doc layout for Matt Pocock engineering skills.",
+      "writes": [
+        "docs/agents/issue-tracker.md",
+        "docs/agents/domain.md",
+        "docs/agents/triage-labels.md",
+        "CLAUDE.md",
+        "AGENTS.md"
+      ],
+      "verification": {
+        "files": [
+          "docs/agents/issue-tracker.md",
+          "docs/agents/domain.md",
+          "docs/agents/triage-labels.md"
+        ],
+        "contentChecks": [
+          {
+            "files": ["CLAUDE.md", "AGENTS.md"],
+            "pattern": "## Agent skills"
+          }
+        ]
+      }
+    },
+    "setup-pre-commit": {
+      "collection": "mattpocock/skills",
+      "setupSkill": "setup-pre-commit",
+      "interactive": false,
+      "description": "Sets up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests.",
+      "writes": [
+        ".husky/pre-commit",
+        ".lintstagedrc",
+        ".prettierrc",
+        "package.json"
+      ],
+      "verification": {
+        "files": [
+          ".husky/pre-commit",
+          ".lintstagedrc"
+        ],
+        "packageJsonChecks": [
+          {
+            "field": "scripts.prepare",
+            "contains": "husky"
+          }
+        ]
+      }
+    },
+    "setup-ts-deep-modules": {
+      "collection": "mattpocock/skills",
+      "setupSkill": "setup-ts-deep-modules",
+      "interactive": true,
+      "description": "Enforces deep module boundaries via dependency-cruiser rules and entry-point constraints.",
+      "writes": [
+        ".dependency-cruiser.cjs",
+        "package.json",
+        "src/packages/README.md",
+        "packages/README.md"
+      ],
+      "verification": {
+        "files": [
+          ".dependency-cruiser.cjs"
+        ],
+        "packageJsonChecks": [
+          {
+            "field": "scripts.lint:boundaries",
+            "exists": true
+          }
+        ]
+      }
+    }
+  }
+}
