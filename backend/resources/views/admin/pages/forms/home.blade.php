@@ -319,7 +319,7 @@
                                 <span class="muqtarin-card-title-icon"><i class="bx bx-line-chart"></i></span>
                                 <h4>{{ labels('admin_labels.revenue_analytics', 'Revenue Analytics') }}</h4>
                             </div>
-                            <ul class="nav nav-pills chart-action sale-tabs" role="tablist">
+                            <ul class="nav chart-action sale-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#Daily" role="tab">{{ labels('admin_labels.today', 'Today') }}</a>
                                 </li>
@@ -998,6 +998,34 @@
                 }
             };
 
+            var getYAxisConfig = function(periodData) {
+                var allVals = [];
+                if (periodData && periodData.series) {
+                    periodData.series.forEach(function(s) {
+                        (s.data || []).forEach(function(v) {
+                            var n = Number(v);
+                            if (Number.isFinite(n)) allVals.push(n);
+                        });
+                    });
+                }
+                var maxVal = allVals.length ? Math.max.apply(null, allVals) : 0;
+                var hasNonZero = maxVal > 0;
+                return {
+                    min: 0,
+                    max: hasNonZero ? undefined : 10,
+                    tickAmount: hasNonZero ? undefined : 5,
+                    forceNiceScale: hasNonZero,
+                    labels: {
+                        formatter: function(value) {
+                            var v = Number(value);
+                            if (!Number.isFinite(v) || v < 0) return '0';
+                            if (v >= 1000) return (v / 1000).toFixed(1) + 'k';
+                            return Math.round(v).toString();
+                        }
+                    }
+                };
+            };
+
             let chartData = data['Daily'];
             updatePeriodSummary(chartData);
             var dark = isDarkTheme();
@@ -1023,17 +1051,7 @@
                     axisBorder: { show: false },
                     axisTicks: { show: false }
                 },
-                yaxis: {
-                    min: 0,
-                    forceNiceScale: true,
-                    labels: {
-                        formatter: function(value) {
-                            var v = Number(value || 0);
-                            if (v >= 1000) return (v / 1000).toFixed(1) + 'k';
-                            return Math.round(v).toString();
-                        }
-                    }
-                },
+                yaxis: getYAxisConfig(chartData),
                 fill: {
                     type: 'gradient',
                     gradient: {
@@ -1080,7 +1098,8 @@
                     if (adminChart && chartData) {
                         adminChart.updateOptions({
                             series: chartData.series,
-                            xaxis: { categories: chartData.categories }
+                            xaxis: { categories: chartData.categories },
+                            yaxis: getYAxisConfig(chartData)
                         });
                     }
                 });

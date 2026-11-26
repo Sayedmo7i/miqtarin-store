@@ -2562,15 +2562,22 @@ th {
   border-radius: 10px;
   padding: 3px;
   display: inline-flex;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
   align-items: center;
   gap: 3px;
   float: none !important;
   margin: 0 !important;
+  position: relative;
+}
+.muqtarin-dashboard .moving-tab {
+  display: none !important;
 }
 .muqtarin-dashboard .sale-tabs.chart-action li {
   padding: 0 !important;
   margin: 0 !important;
   border-radius: 7px;
+  flex-shrink: 0;
 }
 .muqtarin-dashboard .sale-tabs.chart-action li a {
   display: inline-flex;
@@ -2582,6 +2589,7 @@ th {
   font-weight: 600;
   color: var(--muted) !important;
   background: transparent !important;
+  white-space: nowrap;
   transition: all var(--transition);
 }
 .muqtarin-dashboard .sale-tabs.chart-action li a:hover {
