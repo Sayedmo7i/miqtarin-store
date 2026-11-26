@@ -12550,21 +12550,7 @@ $("#combodeliverabilityForm").submit(function (e) {
 });
 
 $(function () {
-    var webSelectNames = [
-        "web_home_page_theme",
-        "products_display_style_for_web",
-        "web_product_details_style",
-        "categories_display_style_for_web",
-        "brands_display_style_for_web",
-        "wishlist_display_style_for_web",
-    ];
-
     var previewBindings = [
-        {
-            selectSelector: "select[name='web_home_page_theme']",
-            iframeId: "web_home_page_theme_iframe",
-            urlKey: "webHomePageTheme",
-        },
         {
             selectSelector: "select[name='products_display_style_for_web']",
             iframeId: "products_display_style_for_web_iframe",
@@ -12602,21 +12588,16 @@ $(function () {
 
         var $select = $(binding.selectSelector);
         var styleVal = $select.length ? $select.val() : "";
-        var shell = document.querySelector(
-            '.mq-preview-frame-shell[data-preview-target="' + binding.iframeId + '"]',
-        );
         var docDir = document.documentElement.getAttribute("dir") === "rtl" ? "rtl" : "ltr";
         var docTheme =
             document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-        var dir = shell ? shell.getAttribute("data-dir") || docDir : docDir;
-        var theme = shell ? shell.getAttribute("data-theme") || docTheme : docTheme;
 
         try {
             iframe.contentWindow.postMessage(
                 {
                     style: styleVal,
-                    dir: dir,
-                    theme: theme,
+                    dir: docDir,
+                    theme: docTheme,
                     primaryColor: getActivePrimaryHex(),
                 },
                 "*",
@@ -12628,62 +12609,6 @@ $(function () {
         previewBindings.forEach(postPreviewState);
     }
 
-    function syncPickerCardsForField(fieldName) {
-        var $select = $('select[name="' + fieldName + '"]');
-        if (!$select.length) return;
-        var val = $select.val();
-        $('[data-mq-select-target="' + fieldName + '"]').each(function () {
-            var $card = $(this);
-            var matched = $card.attr("data-mq-option-value") === val;
-            $card.toggleClass("is-selected", matched);
-            $card.attr("aria-pressed", matched ? "true" : "false");
-        });
-    }
-
-    function syncPresetActiveState() {
-        var current = {
-            theme: $("select[name='web_home_page_theme']").val() || "",
-            productCard: $("select[name='products_display_style_for_web']").val() || "",
-            productDetails: $("select[name='web_product_details_style']").val() || "",
-            categories: $("select[name='categories_display_style_for_web']").val() || "",
-            brands: $("select[name='brands_display_style_for_web']").val() || "",
-            wishlist: $("select[name='wishlist_display_style_for_web']").val() || "",
-        };
-
-        $(".mq-preset-card[data-mq-preset]").each(function () {
-            var $btn = $(this);
-            var matched =
-                $btn.attr("data-theme") === current.theme &&
-                $btn.attr("data-product-card") === current.productCard &&
-                $btn.attr("data-product-details") === current.productDetails &&
-                $btn.attr("data-categories") === current.categories &&
-                $btn.attr("data-brands") === current.brands &&
-                $btn.attr("data-wishlist") === current.wishlist;
-            $btn.toggleClass("is-active", matched);
-        });
-    }
-
-    // Initialize preview shells to match current admin direction & theme
-    var initialDir = document.documentElement.getAttribute("dir") === "rtl" ? "rtl" : "ltr";
-    var initialTheme =
-        document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-    $(".mq-preview-frame-shell").each(function () {
-        var $shell = $(this);
-        $shell.attr("data-dir", initialDir);
-        $shell.attr("data-theme", initialTheme);
-        $shell
-            .find('.mq-preview-ctrl[data-preview-action="dir"]')
-            .removeClass("is-active")
-            .filter('[data-value="' + initialDir + '"]')
-            .addClass("is-active");
-        $shell
-            .find('.mq-preview-ctrl[data-preview-action="theme"]')
-            .removeClass("is-active")
-            .filter('[data-value="' + initialTheme + '"]')
-            .addClass("is-active");
-    });
-
-    // Wire each preview iframe and its synced select
     previewBindings.forEach(function (binding) {
         var iframe = document.getElementById(binding.iframeId);
         if (iframe) {
@@ -12705,7 +12630,6 @@ $(function () {
         });
     });
 
-    // Receive showcaseReady handshake from child iframes (especially lazy-loaded ones)
     window.addEventListener("message", function (event) {
         if (!event.data || event.data.showcaseReady !== true) return;
         previewBindings.forEach(function (binding) {
@@ -12716,128 +12640,19 @@ $(function () {
         });
     });
 
-    // Interactive preview toolbar toggles (desktop/tablet/mobile, LTR/RTL, light/dark)
-    $(document).on("click", ".mq-preview-ctrl[data-preview-action]", function () {
-        var $btn = $(this);
-        var action = $btn.attr("data-preview-action");
-        var val = $btn.attr("data-value");
-        var $shell = $btn.closest(".mq-preview-frame-shell");
-        if (!$shell.length || !action || !val) return;
-
-        $btn.closest(".mq-preview-seg")
-            .find(".mq-preview-ctrl")
-            .removeClass("is-active");
-        $btn.addClass("is-active");
-        $shell.attr("data-" + action, val);
-
-        if (action === "dir" || action === "theme") {
-            var targetId = $shell.attr("data-preview-target");
-            previewBindings.forEach(function (binding) {
-                if (binding.iframeId === targetId) {
-                    postPreviewState(binding);
-                }
-            });
-        }
-    });
-
-    // Visual card click -> update hidden <select> and trigger change
-    $(document).on(
-        "click",
-        ".mq-theme-card[data-mq-select-target], .mq-style-card[data-mq-select-target]",
-        function () {
-            var $card = $(this);
-            var targetName = $card.attr("data-mq-select-target");
-            var optionValue = $card.attr("data-mq-option-value");
-            var $select = $('select[name="' + targetName + '"]');
-            if ($select.length && optionValue !== undefined) {
-                $select.val(optionValue).trigger("change");
-            }
-        },
-    );
-
-    // Keep visual cards & active preset badge in sync with select changes
-    webSelectNames.forEach(function (fieldName) {
-        $('select[name="' + fieldName + '"]').on("change", function () {
-            syncPickerCardsForField(fieldName);
-            syncPresetActiveState();
-        });
-        syncPickerCardsForField(fieldName);
-    });
-    syncPresetActiveState();
-
-    // 1-Click MUQTARIN Preset Bundle application
-    $(document).on("click", ".mq-preset-card[data-mq-preset]", function () {
-        var $btn = $(this);
-        var map = [
-            ["web_home_page_theme", $btn.attr("data-theme")],
-            ["products_display_style_for_web", $btn.attr("data-product-card")],
-            ["web_product_details_style", $btn.attr("data-product-details")],
-            ["categories_display_style_for_web", $btn.attr("data-categories")],
-            ["brands_display_style_for_web", $btn.attr("data-brands")],
-            ["wishlist_display_style_for_web", $btn.attr("data-wishlist")],
-        ];
-
-        map.forEach(function (pair) {
-            var $select = $('select[name="' + pair[0] + '"]');
-            if ($select.length && pair[1]) {
-                $select.val(pair[1]).trigger("change");
-            }
-        });
-
-        syncPresetActiveState();
-
-        var t =
-            window.adminT ||
-            function (k, fb) {
-                return fb || k;
-            };
-        if (typeof iziToast !== "undefined") {
-            iziToast.success({
-                title: t("success", "Success"),
-                message: t("preset_applied", "MUQTARIN storefront preset applied!"),
-            });
-        }
-    });
-
-    // Explicit Pine Palette Sync button (never overwrites custom store colors silently)
-    $(document).on("click", "#mq-sync-pine-palette-btn", function () {
-        var palette = [
-            ["light_theme_color", "#0F4C3A"],
-            ["dark_theme_color", "#14634C"],
-            ["hover_color", "#0B3B2D"],
-            ["active_color", "#22C55E"],
-            ["background_color", "#F8FAFC"],
-        ];
-
-        palette.forEach(function (pair) {
-            var picker = document.getElementById(pair[0]);
-            var codeInput = document.getElementById(pair[0] + "_code");
-            if (picker) picker.value = pair[1];
-            if (codeInput) codeInput.value = pair[1];
-        });
-
-        refreshAllPreviews();
-
-        var t =
-            window.adminT ||
-            function (k, fb) {
-                return fb || k;
-            };
-        if (typeof iziToast !== "undefined") {
-            iziToast.success({
-                title: t("success", "Success"),
-                message: t(
-                    "palette_synced",
-                    "Recommended MUQTARIN Pine palette applied to Step 1 colors.",
-                ),
-            });
-        }
-    });
-
-    // Live-sync primary theme color edits into all open storefront previews
     $("#light_theme_color, #light_theme_color_code").on("input change", function () {
         refreshAllPreviews();
     });
+
+    if (typeof MutationObserver !== "undefined" && document.documentElement) {
+        var previewThemeObserver = new MutationObserver(function () {
+            refreshAllPreviews();
+        });
+        previewThemeObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["data-theme", "dir"],
+        });
+    }
 });
 $(document).on("click", ".edit-language", function () {
     var languageId = $(this).data("id");

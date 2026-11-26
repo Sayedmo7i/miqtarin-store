@@ -449,9 +449,52 @@
                                         <h5>{{ labels('admin_labels.web_home_page_theme', 'Web Home Page Theme') }}</h5>
                                     </div>
 
-                                    @include('admin.pages.forms.partials.muqtarin_web_presets_and_theme_picker', [
-                                        'storeSettings' => $store_settings,
-                                    ])
+                                    @php
+                                        $selectedWebTheme = $store_settings['web_home_page_theme'] ?? 'web_home_page_theme_1';
+                                    @endphp
+                                    <div class="mb-4">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="web_home_page_theme">
+                                                {{ labels('admin_labels.web_home_page_theme', 'Web Home Page Theme') }}
+                                            </label>
+                                            <select class="web_home_page_theme form-control form-select"
+                                                id="web_home_page_theme"
+                                                name="web_home_page_theme">
+                                                <option value="web_home_page_theme_muqtarin_editorial" {{ $selectedWebTheme === 'web_home_page_theme_muqtarin_editorial' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_editorial', 'MUQTARIN Editorial') }}</option>
+                                                <option value="web_home_page_theme_muqtarin_bento" {{ $selectedWebTheme === 'web_home_page_theme_muqtarin_bento' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_bento', 'MUQTARIN Bento Market') }}</option>
+                                                <option value="web_home_page_theme_muqtarin_glass" {{ $selectedWebTheme === 'web_home_page_theme_muqtarin_glass' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_glass', 'MUQTARIN Glass Atelier') }}</option>
+                                                <option value="web_home_page_theme_muqtarin_express" {{ $selectedWebTheme === 'web_home_page_theme_muqtarin_express' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_express', 'MUQTARIN Express') }}</option>
+                                                <option value="web_home_page_theme_1" {{ $selectedWebTheme === 'web_home_page_theme_1' ? 'selected' : '' }}>{{ labels('admin_labels.theme_1', 'Theme 1') }}</option>
+                                                <option value="web_home_page_theme_2" {{ $selectedWebTheme === 'web_home_page_theme_2' ? 'selected' : '' }}>{{ labels('admin_labels.theme_2', 'Theme 2') }}</option>
+                                                <option value="web_home_page_theme_3" {{ $selectedWebTheme === 'web_home_page_theme_3' ? 'selected' : '' }}>{{ labels('admin_labels.theme_3', 'Theme 3') }}</option>
+                                                <option value="web_home_page_theme_4" {{ $selectedWebTheme === 'web_home_page_theme_4' ? 'selected' : '' }}>{{ labels('admin_labels.theme_4', 'Theme 4') }}</option>
+                                                <option value="web_home_page_theme_5" {{ $selectedWebTheme === 'web_home_page_theme_5' ? 'selected' : '' }}>{{ labels('admin_labels.theme_5', 'Theme 5') }}</option>
+                                                <option value="web_home_page_theme_6" {{ $selectedWebTheme === 'web_home_page_theme_6' ? 'selected' : '' }}>{{ labels('admin_labels.theme_6', 'Theme 6') }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="web_home_page_theme_images store_style_box home_theme_style_box">
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_muqtarin_editorial.png') }}"
+                                                class="web_home_page_theme_muqtarin_editorial home_theme" alt="{{ labels('admin_labels.muqtarin_editorial', 'MUQTARIN Editorial') }}" />
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_muqtarin_bento.png') }}"
+                                                class="web_home_page_theme_muqtarin_bento home_theme" alt="{{ labels('admin_labels.muqtarin_bento', 'MUQTARIN Bento Market') }}" />
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_muqtarin_glass.png') }}"
+                                                class="web_home_page_theme_muqtarin_glass home_theme" alt="{{ labels('admin_labels.muqtarin_glass', 'MUQTARIN Glass Atelier') }}" />
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_muqtarin_express.png') }}"
+                                                class="web_home_page_theme_muqtarin_express home_theme" alt="{{ labels('admin_labels.muqtarin_express', 'MUQTARIN Express') }}" />
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_1.png') }}"
+                                                class="web_home_page_theme_1 home_theme" alt="{{ labels('admin_labels.theme_1', 'Theme 1') }}" />
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_2.png') }}"
+                                                class="web_home_page_theme_2 home_theme" alt="{{ labels('admin_labels.theme_2', 'Theme 2') }}" />
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_3.png') }}"
+                                                class="web_home_page_theme_3 home_theme" alt="{{ labels('admin_labels.theme_3', 'Theme 3') }}" />
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_4.png') }}"
+                                                class="web_home_page_theme_4 home_theme" alt="{{ labels('admin_labels.theme_4', 'Theme 4') }}" />
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_5.png') }}"
+                                                class="web_home_page_theme_5 home_theme" alt="{{ labels('admin_labels.theme_5', 'Theme 5') }}" />
+                                            <img src="{{ app(MediaService::class)->getImageUrl('system_images/theme_6.png') }}"
+                                                class="web_home_page_theme_6 home_theme" alt="{{ labels('admin_labels.theme_6', 'Theme 6') }}" />
+                                        </div>
+                                    </div>
 
                                     <h5 class="muqtarin-sub-heading">{{ labels('admin_labels.app_images', 'App Images') }}</h5>
                                     <div class="row g-4">
@@ -671,67 +714,43 @@
                                     </div>
 
                                     <h5 class="muqtarin-sub-heading">{{ labels('admin_labels.cards_display_style', 'Cards Display Style For Web') }}</h5>
-                                    <div class="mb-2">
-                                        <label class="form-label" for="products_display_style_for_web">
-                                            {{ labels('admin_labels.products_display_style_for_web', 'Products display style') }}
-                                        </label>
-                                        @include('admin.pages.forms.partials.muqtarin_web_style_cards', [
-                                            'fieldName' => 'products_display_style_for_web',
-                                            'selectClass' => 'products_display_style_for_web',
-                                            'selectedValue' => $store_settings['products_display_style_for_web'] ?? 'products_display_style_for_web_1',
-                                            'options' => [
-                                                [
-                                                    'value' => 'products_display_style_for_web_6',
-                                                    'label' => labels('admin_labels.muqtarin_editorial_card', 'MUQTARIN Editorial'),
-                                                    'hint' => labels('admin_labels.style_hint_editorial_card', 'Badge stack, swatches & quick-add'),
-                                                    'icon' => 'bx-leaf',
-                                                    'muqtarin' => true,
-                                                ],
-                                                [
-                                                    'value' => 'products_display_style_for_web_7',
-                                                    'label' => labels('admin_labels.muqtarin_express_card', 'MUQTARIN Express'),
-                                                    'hint' => labels('admin_labels.style_hint_express_card', 'Compact quick-commerce SKU card'),
-                                                    'icon' => 'bx-bolt-circle',
-                                                    'muqtarin' => true,
-                                                ],
-                                                ['value' => 'products_display_style_for_web_1', 'label' => labels('admin_labels.style_1', 'Style 1'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                                ['value' => 'products_display_style_for_web_2', 'label' => labels('admin_labels.style_2', 'Style 2'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                                ['value' => 'products_display_style_for_web_3', 'label' => labels('admin_labels.style_3', 'Style 3'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                                ['value' => 'products_display_style_for_web_4', 'label' => labels('admin_labels.style_4', 'Style 4'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                                ['value' => 'products_display_style_for_web_5', 'label' => labels('admin_labels.style_5', 'Style 5'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                            ],
-                                        ])
-                                        @include('admin.pages.forms.partials.muqtarin_preview_frame', [
-                                            'iframeId' => 'products_display_style_for_web_iframe',
-                                            'iframeSrc' => url('admin/web_product_card_style'),
-                                            'badge' => labels('admin_labels.live_product_card_preview', 'Live Product Card Preview'),
-                                            'height' => '410px',
-                                        ])
+                                    <div class="mb-4">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="products_display_style_for_web">
+                                                {{ labels('admin_labels.products_display_style_for_web', 'Products display style') }}
+                                            </label>
+                                            <select class="products_display_style_for_web form-control form-select"
+                                                id="products_display_style_for_web"
+                                                name="products_display_style_for_web">
+                                                <option value="products_display_style_for_web_6" {{ ($store_settings['products_display_style_for_web'] ?? '') === 'products_display_style_for_web_6' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_editorial_card', 'MUQTARIN Editorial') }}</option>
+                                                <option value="products_display_style_for_web_7" {{ ($store_settings['products_display_style_for_web'] ?? '') === 'products_display_style_for_web_7' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_express_card', 'MUQTARIN Express') }}</option>
+                                                <option value="products_display_style_for_web_1" {{ ($store_settings['products_display_style_for_web'] ?? 'products_display_style_for_web_1') === 'products_display_style_for_web_1' ? 'selected' : '' }}>{{ labels('admin_labels.style_1', 'Style 1') }}</option>
+                                                <option value="products_display_style_for_web_2" {{ ($store_settings['products_display_style_for_web'] ?? '') === 'products_display_style_for_web_2' ? 'selected' : '' }}>{{ labels('admin_labels.style_2', 'Style 2') }}</option>
+                                                <option value="products_display_style_for_web_3" {{ ($store_settings['products_display_style_for_web'] ?? '') === 'products_display_style_for_web_3' ? 'selected' : '' }}>{{ labels('admin_labels.style_3', 'Style 3') }}</option>
+                                                <option value="products_display_style_for_web_4" {{ ($store_settings['products_display_style_for_web'] ?? '') === 'products_display_style_for_web_4' ? 'selected' : '' }}>{{ labels('admin_labels.style_4', 'Style 4') }}</option>
+                                                <option value="products_display_style_for_web_5" {{ ($store_settings['products_display_style_for_web'] ?? '') === 'products_display_style_for_web_5' ? 'selected' : '' }}>{{ labels('admin_labels.style_5', 'Style 5') }}</option>
+                                            </select>
+                                        </div>
+                                        <iframe class="overflow-hidden muqtarin-clean-preview-iframe"
+                                            id="products_display_style_for_web_iframe"
+                                            src="{{ url('admin/web_product_card_style') }}"></iframe>
                                     </div>
 
                                     <h5 class="muqtarin-sub-heading">{{ labels('admin_labels.products_details_style', 'Products Details Style For Web') }}</h5>
                                     <div>
-                                        <label class="form-label" for="web_product_details_style">
-                                            {{ labels('admin_labels.products_details_style_for_web', 'Products details display style') }}
-                                        </label>
-                                        @include('admin.pages.forms.partials.muqtarin_web_style_cards', [
-                                            'fieldName' => 'web_product_details_style',
-                                            'selectClass' => 'web_product_details_style',
-                                            'selectedValue' => $store_settings['web_product_details_style'] ?? 'web_product_details_style_1',
-                                            'columns' => 'compact',
-                                            'options' => [
-                                                [
-                                                    'value' => 'web_product_details_style_3',
-                                                    'label' => labels('admin_labels.muqtarin_editorial_details', 'MUQTARIN Editorial PDP'),
-                                                    'hint' => labels('admin_labels.style_hint_editorial_pdp', 'Split gallery, trust pills & sticky buy box'),
-                                                    'icon' => 'bx-detail',
-                                                    'muqtarin' => true,
-                                                ],
-                                                ['value' => 'web_product_details_style_1', 'label' => labels('admin_labels.style_1', 'Style 1'), 'icon' => 'bx-layout', 'muqtarin' => false],
-                                                ['value' => 'web_product_details_style_2', 'label' => labels('admin_labels.style_2', 'Style 2'), 'icon' => 'bx-layout', 'muqtarin' => false],
-                                            ],
-                                        ])
-                                        <div class="web_product_details_style_images store_style_box home_theme_style_box mt-3">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="web_product_details_style">
+                                                {{ labels('admin_labels.products_details_style_for_web', 'Products details display style') }}
+                                            </label>
+                                            <select class="web_product_details_style form-control form-select"
+                                                id="web_product_details_style"
+                                                name="web_product_details_style">
+                                                <option value="web_product_details_style_3" {{ ($store_settings['web_product_details_style'] ?? '') === 'web_product_details_style_3' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_editorial_details', 'MUQTARIN Editorial PDP') }}</option>
+                                                <option value="web_product_details_style_1" {{ ($store_settings['web_product_details_style'] ?? 'web_product_details_style_1') === 'web_product_details_style_1' ? 'selected' : '' }}>{{ labels('admin_labels.style_1', 'Style 1') }}</option>
+                                                <option value="web_product_details_style_2" {{ ($store_settings['web_product_details_style'] ?? '') === 'web_product_details_style_2' ? 'selected' : '' }}>{{ labels('admin_labels.style_2', 'Style 2') }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="web_product_details_style_images store_style_box home_theme_style_box">
                                             <img src="{{ app(MediaService::class)->getImageUrl('system_images/details_3.png') }}"
                                                 class="web_product_details_style_3" alt="MUQTARIN Editorial PDP" />
                                             <img src="{{ app(MediaService::class)->getImageUrl('system_images/details_1.png') }}"
@@ -872,33 +891,22 @@
 
                                     <h5 class="muqtarin-sub-heading">{{ labels('admin_labels.cards_display_style', 'Cards Display Style For Web') }}</h5>
                                     <div>
-                                        <label class="form-label" for="categories_display_style_for_web">
-                                            {{ labels('admin_labels.categories_display_style', 'Categories Display Style') }}
-                                        </label>
-                                        @include('admin.pages.forms.partials.muqtarin_web_style_cards', [
-                                            'fieldName' => 'categories_display_style_for_web',
-                                            'selectClass' => 'categories_display_style_for_web',
-                                            'selectedValue' => $store_settings['categories_display_style_for_web'] ?? 'categories_display_style_for_web_1',
-                                            'columns' => 'compact',
-                                            'options' => [
-                                                [
-                                                    'value' => 'categories_display_style_for_web_4',
-                                                    'label' => labels('admin_labels.muqtarin_bento_categories', 'MUQTARIN Bento'),
-                                                    'hint' => labels('admin_labels.style_hint_bento_categories', 'Glass tiles, count pills & arrows'),
-                                                    'icon' => 'bx-category-alt',
-                                                    'muqtarin' => true,
-                                                ],
-                                                ['value' => 'categories_display_style_for_web_1', 'label' => labels('admin_labels.style_1', 'Style 1'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                                ['value' => 'categories_display_style_for_web_2', 'label' => labels('admin_labels.style_2', 'Style 2'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                                ['value' => 'categories_display_style_for_web_3', 'label' => labels('admin_labels.style_3', 'Style 3'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                            ],
-                                        ])
-                                        @include('admin.pages.forms.partials.muqtarin_preview_frame', [
-                                            'iframeId' => 'categories_display_style_for_web_iframe',
-                                            'iframeSrc' => url('admin/web_categories_style'),
-                                            'badge' => labels('admin_labels.live_categories_preview', 'Live Categories Preview'),
-                                            'height' => '380px',
-                                        ])
+                                        <div class="mb-3">
+                                            <label class="form-label" for="categories_display_style_for_web">
+                                                {{ labels('admin_labels.categories_display_style', 'Categories Display Style') }}
+                                            </label>
+                                            <select class="categories_display_style_for_web form-control form-select"
+                                                id="categories_display_style_for_web"
+                                                name="categories_display_style_for_web">
+                                                <option value="categories_display_style_for_web_4" {{ ($store_settings['categories_display_style_for_web'] ?? '') === 'categories_display_style_for_web_4' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_bento_categories', 'MUQTARIN Bento') }}</option>
+                                                <option value="categories_display_style_for_web_1" {{ ($store_settings['categories_display_style_for_web'] ?? 'categories_display_style_for_web_1') === 'categories_display_style_for_web_1' ? 'selected' : '' }}>{{ labels('admin_labels.style_1', 'Style 1') }}</option>
+                                                <option value="categories_display_style_for_web_2" {{ ($store_settings['categories_display_style_for_web'] ?? '') === 'categories_display_style_for_web_2' ? 'selected' : '' }}>{{ labels('admin_labels.style_2', 'Style 2') }}</option>
+                                                <option value="categories_display_style_for_web_3" {{ ($store_settings['categories_display_style_for_web'] ?? '') === 'categories_display_style_for_web_3' ? 'selected' : '' }}>{{ labels('admin_labels.style_3', 'Style 3') }}</option>
+                                            </select>
+                                        </div>
+                                        <iframe class="overflow-hidden muqtarin-clean-preview-iframe"
+                                            id="categories_display_style_for_web_iframe"
+                                            src="{{ url('admin/web_categories_style') }}"></iframe>
                                     </div>
                                 </div>
                             </div>
@@ -947,62 +955,40 @@
                                     <h5 class="muqtarin-sub-heading">{{ labels('admin_labels.brands_display_style', 'Brands & Wishlist Display Style For Web') }}</h5>
                                     <div class="row g-4">
                                         <div class="col-md-6">
-                                            <label class="form-label" for="brands_display_style_for_web">
-                                                {{ labels('admin_labels.brands_display_style', 'Brands Display Style') }}
-                                            </label>
-                                            @include('admin.pages.forms.partials.muqtarin_web_style_cards', [
-                                                'fieldName' => 'brands_display_style_for_web',
-                                                'selectClass' => 'brands_display_style_for_web',
-                                                'selectedValue' => $store_settings['brands_display_style_for_web'] ?? 'brands_display_style_for_web_1',
-                                                'columns' => 'compact',
-                                                'options' => [
-                                                    [
-                                                        'value' => 'brands_display_style_for_web_4',
-                                                        'label' => labels('admin_labels.muqtarin_brands_grid', 'MUQTARIN Showcase'),
-                                                        'hint' => labels('admin_labels.style_hint_brands_grid', 'Clean brand cards with hover glow'),
-                                                        'icon' => 'bx-purchase-tag',
-                                                        'muqtarin' => true,
-                                                    ],
-                                                    ['value' => 'brands_display_style_for_web_1', 'label' => labels('admin_labels.style_1', 'Style 1'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                                    ['value' => 'brands_display_style_for_web_2', 'label' => labels('admin_labels.style_2', 'Style 2'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                                    ['value' => 'brands_display_style_for_web_3', 'label' => labels('admin_labels.style_3', 'Style 3'), 'icon' => 'bx-grid', 'muqtarin' => false],
-                                                ],
-                                            ])
-                                            @include('admin.pages.forms.partials.muqtarin_preview_frame', [
-                                                'iframeId' => 'brands_display_style_for_web_iframe',
-                                                'iframeSrc' => url('admin/web_brands_style'),
-                                                'badge' => labels('admin_labels.live_brands_preview', 'Live Brands Preview'),
-                                                'height' => '340px',
-                                            ])
+                                            <div class="mb-3">
+                                                <label class="form-label" for="brands_display_style_for_web">
+                                                    {{ labels('admin_labels.brands_display_style', 'Brands Display Style') }}
+                                                </label>
+                                                <select class="brands_display_style_for_web form-control form-select"
+                                                    id="brands_display_style_for_web"
+                                                    name="brands_display_style_for_web">
+                                                    <option value="brands_display_style_for_web_4" {{ ($store_settings['brands_display_style_for_web'] ?? '') === 'brands_display_style_for_web_4' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_brands_grid', 'MUQTARIN Showcase') }}</option>
+                                                    <option value="brands_display_style_for_web_1" {{ ($store_settings['brands_display_style_for_web'] ?? 'brands_display_style_for_web_1') === 'brands_display_style_for_web_1' ? 'selected' : '' }}>{{ labels('admin_labels.style_1', 'Style 1') }}</option>
+                                                    <option value="brands_display_style_for_web_2" {{ ($store_settings['brands_display_style_for_web'] ?? '') === 'brands_display_style_for_web_2' ? 'selected' : '' }}>{{ labels('admin_labels.style_2', 'Style 2') }}</option>
+                                                    <option value="brands_display_style_for_web_3" {{ ($store_settings['brands_display_style_for_web'] ?? '') === 'brands_display_style_for_web_3' ? 'selected' : '' }}>{{ labels('admin_labels.style_3', 'Style 3') }}</option>
+                                                </select>
+                                            </div>
+                                            <iframe class="overflow-hidden muqtarin-clean-preview-iframe"
+                                                id="brands_display_style_for_web_iframe"
+                                                src="{{ url('admin/web_brands_style') }}"></iframe>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="form-label" for="wishlist_display_style_for_web">
-                                                {{ labels('admin_labels.wishlist_display_style', 'Wishlist Display Style') }}
-                                            </label>
-                                            @include('admin.pages.forms.partials.muqtarin_web_style_cards', [
-                                                'fieldName' => 'wishlist_display_style_for_web',
-                                                'selectClass' => 'wishlist_display_style_for_web',
-                                                'selectedValue' => $store_settings['wishlist_display_style_for_web'] ?? 'wishlist_display_style_for_web_1',
-                                                'columns' => 'compact',
-                                                'options' => [
-                                                    [
-                                                        'value' => 'wishlist_display_style_for_web_3',
-                                                        'label' => labels('admin_labels.muqtarin_wishlist_grid', 'MUQTARIN Editorial Grid'),
-                                                        'hint' => labels('admin_labels.style_hint_wishlist_grid', 'Visual card grid instead of table rows'),
-                                                        'icon' => 'bx-heart',
-                                                        'muqtarin' => true,
-                                                    ],
-                                                    ['value' => 'wishlist_display_style_for_web_1', 'label' => labels('admin_labels.style_1', 'Style 1'), 'icon' => 'bx-table', 'muqtarin' => false],
-                                                    ['value' => 'wishlist_display_style_for_web_2', 'label' => labels('admin_labels.style_2', 'Style 2'), 'icon' => 'bx-table', 'muqtarin' => false],
-                                                ],
-                                            ])
-                                            @include('admin.pages.forms.partials.muqtarin_preview_frame', [
-                                                'iframeId' => 'wishlist_display_style_for_web_iframe',
-                                                'iframeSrc' => url('admin/web_wishlist_style'),
-                                                'badge' => labels('admin_labels.live_wishlist_preview', 'Live Wishlist Preview'),
-                                                'height' => '340px',
-                                            ])
+                                            <div class="mb-3">
+                                                <label class="form-label" for="wishlist_display_style_for_web">
+                                                    {{ labels('admin_labels.wishlist_display_style', 'Wishlist Display Style') }}
+                                                </label>
+                                                <select class="wishlist_display_style_for_web form-control form-select"
+                                                    id="wishlist_display_style_for_web"
+                                                    name="wishlist_display_style_for_web">
+                                                    <option value="wishlist_display_style_for_web_3" {{ ($store_settings['wishlist_display_style_for_web'] ?? '') === 'wishlist_display_style_for_web_3' ? 'selected' : '' }}>{{ labels('admin_labels.muqtarin_wishlist_grid', 'MUQTARIN Editorial Grid') }}</option>
+                                                    <option value="wishlist_display_style_for_web_1" {{ ($store_settings['wishlist_display_style_for_web'] ?? 'wishlist_display_style_for_web_1') === 'wishlist_display_style_for_web_1' ? 'selected' : '' }}>{{ labels('admin_labels.style_1', 'Style 1') }}</option>
+                                                    <option value="wishlist_display_style_for_web_2" {{ ($store_settings['wishlist_display_style_for_web'] ?? '') === 'wishlist_display_style_for_web_2' ? 'selected' : '' }}>{{ labels('admin_labels.style_2', 'Style 2') }}</option>
+                                                </select>
+                                            </div>
+                                            <iframe class="overflow-hidden muqtarin-clean-preview-iframe"
+                                                id="wishlist_display_style_for_web_iframe"
+                                                src="{{ url('admin/web_wishlist_style') }}"></iframe>
                                         </div>
                                     </div>
                                 </div>

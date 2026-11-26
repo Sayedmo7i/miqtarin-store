@@ -66,6 +66,7 @@
 
 /* ── Dark Mode Tokens ─────────────────────────────────────────────────────── */
 [data-theme="dark"] {
+  color-scheme: dark;
   --ink:           #F1F5F9;
   --ink-soft:      #CBD5E1;
   --canvas:        #0D1117;
@@ -99,6 +100,8 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  color-scheme: light;
+  overflow-x: clip;
 }
 
 body,
@@ -114,6 +117,8 @@ body {
   color: var(--ink) !important;
   font-size: 15px !important;
   line-height: 1.6;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
   -webkit-font-smoothing: antialiased;
   transition: background-color var(--transition), color var(--transition);
 }
@@ -157,6 +162,8 @@ p { color: var(--ink-soft); }
 #db-wrapper {
   display: flex;
   min-height: 100vh;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
 }
 
 #page-content {
@@ -166,7 +173,8 @@ p { color: var(--ink-soft); }
   min-width: 0;
   max-width: 100%;
   width: auto !important;
-  overflow-x: clip;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
   background: var(--canvas);
   transition: margin-inline-start var(--transition);
 }
@@ -297,21 +305,26 @@ body.sidebar-collapsed footer.footer.bg-body {
   width: 100% !important;
   height: 100% !important;
 }
+.navbar-vertical .slimScrollBar,
+.navbar-vertical .slimScrollRail {
+  display: none !important;
+}
 
 .nav-scroller {
   display: flex;
   flex-direction: column;
   width: 100% !important;
   height: 100% !important;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
   background: transparent !important;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
+  -ms-overflow-style: none;
 }
-.nav-scroller::-webkit-scrollbar { width: 4px; }
-.nav-scroller::-webkit-scrollbar-track { background: transparent; }
-.nav-scroller::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--radius-full); }
+.nav-scroller::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none;
+}
 
 /* Sidebar Brand Header */
 .sidenav-header {
@@ -719,7 +732,6 @@ body.sidebar-collapsed footer.footer.bg-body {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  scrollbar-width: thin;
 }
 .muqtarin-flyout-group-label {
   font-size: 0.68rem;
@@ -1905,6 +1917,26 @@ th {
   border: none !important;
   margin-top: 0 !important;
   background: #FFFFFF;
+}
+.muqtarin-store-wizard .muqtarin-clean-preview-iframe {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px;
+  background: var(--surface-alt);
+  margin-top: 0 !important;
+}
+.muqtarin-store-wizard #products_display_style_for_web_iframe {
+  height: 450px !important;
+}
+.muqtarin-store-wizard #categories_display_style_for_web_iframe {
+  height: 310px !important;
+}
+.muqtarin-store-wizard #brands_display_style_for_web_iframe {
+  height: 230px !important;
+}
+.muqtarin-store-wizard #wishlist_display_style_for_web_iframe {
+  height: 350px !important;
 }
 
 /* Subpanel for Step 8 Settings */
@@ -3723,6 +3755,398 @@ th {
   border-radius: 18px;
   border: 2px solid var(--border) !important;
   box-shadow: var(--shadow-lg);
+}
+
+/* ── 18. Custom MUQTARIN Scrollbars (Slim Pine/Emerald Pill) ──────────────── */
+:root::-webkit-scrollbar,
+html::-webkit-scrollbar,
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:root::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track {
+  background: var(--canvas);
+}
+
+:root::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  background-color: rgba(15, 76, 58, 0.28);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+:root::-webkit-scrollbar-thumb:hover,
+html::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(15, 76, 58, 0.56);
+}
+
+:root::-webkit-scrollbar-thumb:active,
+html::-webkit-scrollbar-thumb:active,
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--pine);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb,
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.30);
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(34, 197, 94, 0.60);
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb:active,
+[data-theme="dark"] ::-webkit-scrollbar-thumb:active {
+  background-color: var(--emerald);
+}
+
+/* Slimmer scrollbars inside inner panels, tables, modals & dropdowns */
+.table-responsive::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar,
+.dropdown-menu::-webkit-scrollbar,
+.select2-results__options::-webkit-scrollbar,
+.listOfContacts::-webkit-scrollbar,
+.muqtarin-flyout-list::-webkit-scrollbar,
+pre::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Firefox-only fallback (never matches Chromium/Edge so ::-webkit-scrollbar stays active) */
+@supports (-moz-appearance: none) {
+  .nav-scroller {
+    scrollbar-width: none;
+  }
+
+  html,
+  .table-responsive,
+  .modal-body,
+  .muqtarin-flyout-list,
+  .listOfContacts {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(15, 76, 58, 0.34) transparent;
+  }
+
+  [data-theme="dark"],
+  [data-theme="dark"] .table-responsive,
+  [data-theme="dark"] .modal-body,
+  [data-theme="dark"] .muqtarin-flyout-list,
+  [data-theme="dark"] .listOfContacts {
+    scrollbar-color: rgba(74, 222, 128, 0.38) transparent;
+  }
+}
+
+/* ── 19. Page-Level Bento Skeleton Loader & Top Progress Bar ──────────────── */
+#muqtarin-top-loader {
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 1070;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+  background: transparent;
+  transition: opacity 200ms ease;
+}
+
+.mq-top-loader-bar {
+  width: 42%;
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--pine) 0%, var(--emerald) 55%, var(--gold) 100%);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.45);
+  transform: translateX(-120%);
+  will-change: transform;
+}
+
+html.mq-page-loading #muqtarin-top-loader,
+html.mq-nav-loading #muqtarin-top-loader {
+  opacity: 1;
+}
+
+html.mq-page-loading .mq-top-loader-bar,
+html.mq-nav-loading .mq-top-loader-bar {
+  animation: mq-top-sweep 1.15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+html[dir="rtl"].mq-page-loading .mq-top-loader-bar,
+html[dir="rtl"].mq-nav-loading .mq-top-loader-bar {
+  animation: mq-top-sweep-rtl 1.15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes mq-top-sweep {
+  0%   { transform: translateX(-110%); }
+  100% { transform: translateX(260%); }
+}
+
+@keyframes mq-top-sweep-rtl {
+  0%   { transform: translateX(110%); }
+  100% { transform: translateX(-260%); }
+}
+
+.muqtarin-page-body {
+  transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.mq-page-loading .muqtarin-page-body {
+  opacity: 0;
+}
+
+#muqtarin-page-skeleton {
+  position: fixed;
+  top: var(--header-height);
+  inset-inline-start: var(--sidebar-width);
+  inset-inline-end: 0;
+  bottom: 0;
+  z-index: 1015;
+  background: var(--canvas);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 240ms cubic-bezier(0.22, 1, 0.36, 1), visibility 240ms ease, inset-inline-start var(--transition);
+}
+
+body.sidebar-collapsed #muqtarin-page-skeleton {
+  inset-inline-start: var(--sidebar-collapsed);
+}
+
+html.mq-page-loading #muqtarin-page-skeleton,
+html.mq-nav-loading #muqtarin-page-skeleton {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Shimmer Surface Primitive */
+.mq-sk-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    var(--surface-alt) 20%,
+    var(--border-light) 45%,
+    rgba(15, 76, 58, 0.06) 52%,
+    var(--surface-alt) 80%
+  );
+  background-size: 220% 100%;
+  animation: muqtarin-shimmer 1.35s infinite linear;
+}
+
+[data-theme="dark"] .mq-sk-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface-alt) 20%,
+    rgba(255, 255, 255, 0.07) 50%,
+    var(--surface-alt) 80%
+  );
+  background-size: 220% 100%;
+}
+
+.mq-sk-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.mq-sk-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 22px 24px;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  background-image: radial-gradient(380px circle at 95% 15%, rgba(15, 76, 58, 0.05), transparent 65%);
+}
+
+[data-theme="dark"] .mq-sk-hero {
+  background-image: radial-gradient(380px circle at 95% 15%, rgba(34, 197, 94, 0.07), transparent 65%);
+}
+
+.mq-sk-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.mq-sk-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mq-sk-pill {
+  height: 36px;
+  width: 120px;
+  border-radius: 10px;
+}
+
+.mq-sk-line {
+  height: 12px;
+  border-radius: 9999px;
+}
+
+.mq-sk-line.is-lg {
+  height: 20px;
+  width: 210px;
+}
+
+.mq-sk-line.is-md {
+  height: 13px;
+  width: 150px;
+}
+
+.mq-sk-line.is-sm {
+  height: 10px;
+  width: 92px;
+}
+
+.mq-sk-chip-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.mq-sk-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.mq-sk-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.mq-sk-kpi-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.mq-sk-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.mq-sk-main-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 16px;
+  flex: 1;
+  min-height: 220px;
+}
+
+.mq-sk-chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 155px;
+  padding-top: 18px;
+}
+
+.mq-sk-bar {
+  flex: 1;
+  border-radius: 8px 8px 4px 4px;
+}
+
+.mq-sk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 14px;
+}
+
+.mq-sk-list-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mq-sk-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1199px) {
+  #muqtarin-page-skeleton {
+    inset-inline-start: 0 !important;
+    padding: 16px !important;
+  }
+  .mq-sk-chip-row,
+  .mq-sk-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mq-sk-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .mq-sk-chip-row,
+  .mq-sk-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .mq-sk-hero {
+    padding: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mq-sk-shimmer,
+  .mq-top-loader-bar {
+    animation: none !important;
+  }
 }
 
 
