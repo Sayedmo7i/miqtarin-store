@@ -45,6 +45,21 @@ class Handler extends ExceptionHandler
             }
         }
 
+        if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) {
+            if ($request->expectsJson() || $request->ajax()) {
+                $maxPost = ini_get('post_max_size') ?: '8M';
+                $msg = __('validation.custom_upload_errors.post_too_large', ['max' => $maxPost]);
+                if ($msg === 'validation.custom_upload_errors.post_too_large') {
+                    $msg = "Upload failed: total uploaded files exceed the server limit ({$maxPost}).";
+                }
+                return response()->json([
+                    'error' => true,
+                    'message' => $msg,
+                    'code' => 413,
+                ], 413);
+            }
+        }
+
         if ($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
         }

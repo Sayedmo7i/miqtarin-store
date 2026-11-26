@@ -217,8 +217,8 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
 
         if (!hasValidValue) {
             iziToast.error({
-                title: "Validation Error",
-                message: "Please provide at least one valid attribute value.",
+                title: (window.adminT ? window.adminT("validation_error", "Validation Error") : "Validation Error"),
+                message: (window.adminT ? window.adminT("please_provide_attribute_value", "Please provide at least one valid attribute value.") : "Please provide at least one valid attribute value."),
                 position: "topRight",
                 timeout: 5000,
             });
@@ -226,6 +226,7 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
         }
     }
 
+    var t = window.adminT || function (k, fb) { return fb || k; };
     var submit_btn = form.find(".submit_button"); // scoped to current form
     var btn_html = submit_btn.html();
     var btn_val = submit_btn.val();
@@ -265,7 +266,7 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
         method: method,
         data: formData,
         beforeSend: function () {
-            submit_btn.html("Please Wait..").attr("disabled", true);
+            submit_btn.html(t("please_wait", "Please Wait...")).attr("disabled", true);
         },
         contentType: false,
         processData: false,
@@ -275,23 +276,23 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
             // Handle error in successful HTTP response (JSON error field)
             if (response.error) {
                 iziToast.error({
-                    title: "Validation Error",
-                    message: response.message || "An error occurred",
+                    title: t("validation_error", "Validation Error"),
+                    message: response.message || t("an_error_occurred", "An error occurred"),
                     position: "topRight",
-                    timeout: 5000,
+                    timeout: 6000,
                 });
             } else if (response.error_message) {
                 iziToast.error({
-                    title: "Error",
+                    title: t("error", "Error"),
                     message: response.error_message,
                     position: "topRight",
-                    timeout: 5000,
+                    timeout: 6000,
                 });
             } else {
                 iziToast.success({
-                    title: "Success",
+                    title: t("success", "Success"),
                     message:
-                        response.message || "Operation completed successfully",
+                        response.message || t("operation_completed_successfully", "Operation completed successfully"),
                     position: "topRight",
                     timeout: 3000,
                 });
@@ -321,10 +322,10 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
                             if (Array.isArray(errorMessages)) {
                                 errorMessages.forEach(function (msg) {
                                     iziToast.error({
-                                        title: "Validation Error",
+                                        title: t("validation_error", "Validation Error"),
                                         message: msg,
                                         position: "topRight",
-                                        timeout: 5000,
+                                        timeout: 6000,
                                     });
                                 });
                             }
@@ -332,25 +333,48 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
                     );
                 } else if (xhr.responseJSON.message) {
                     iziToast.error({
-                        title: "Validation Error",
+                        title: t("validation_error", "Validation Error"),
                         message: xhr.responseJSON.message,
                         position: "topRight",
-                        timeout: 5000,
+                        timeout: 6000,
                     });
                 }
+            } else if (xhr.status === 413) {
+                iziToast.error({
+                    title: t("validation_error", "Validation Error"),
+                    message: (xhr.responseJSON && xhr.responseJSON.message)
+                        ? xhr.responseJSON.message
+                        : t("payload_too_large", "The uploaded files are too large for the server limit. Please use smaller images."),
+                    position: "topRight",
+                    timeout: 6000,
+                });
+            } else if (xhr.status === 419) {
+                iziToast.error({
+                    title: t("error", "Error"),
+                    message: t("session_expired_refresh", "Your session has expired. Please refresh the page and try again."),
+                    position: "topRight",
+                    timeout: 6000,
+                });
+            } else if (xhr.status === 0) {
+                iziToast.error({
+                    title: t("error", "Error"),
+                    message: t("network_error_occurred", "Network connection failed. Please check your internet and try again."),
+                    position: "topRight",
+                    timeout: 6000,
+                });
             } else if (xhr.responseJSON && xhr.responseJSON.message) {
                 iziToast.error({
-                    title: "Error",
+                    title: t("error", "Error"),
                     message: xhr.responseJSON.message,
                     position: "topRight",
-                    timeout: 5000,
+                    timeout: 6000,
                 });
             } else {
                 iziToast.error({
-                    title: "Error",
-                    message: "An unexpected error occurred",
+                    title: t("error", "Error"),
+                    message: t("unexpected_error_occurred", "An unexpected error occurred"),
                     position: "topRight",
-                    timeout: 5000,
+                    timeout: 6000,
                 });
             }
         },
@@ -8722,11 +8746,11 @@ $(".filepond").filepond({
     credits: null,
     allowFileSizeValidation: "true",
     maxFileSize: "25MB",
-    labelMaxFileSizeExceeded: "File is too large",
-    labelMaxFileSize: "Maximum file size is {filesize}",
+    labelMaxFileSizeExceeded: (window.adminT ? window.adminT("file_too_large", "File is too large") : "File is too large"),
+    labelMaxFileSize: (window.adminT ? window.adminT("maximum_file_size_is", "Maximum file size is {filesize}") : "Maximum file size is {filesize}"),
     allowFileTypeValidation: true,
 
-    labelFileTypeNotAllowed: "File of invalid type",
+    labelFileTypeNotAllowed: (window.adminT ? window.adminT("file_of_invalid_type", "File of invalid type") : "File of invalid type"),
     fileValidateTypeLabelExpectedTypes:
         "Expects {allButLastType} or {lastType}",
     storeAsFile: true,
