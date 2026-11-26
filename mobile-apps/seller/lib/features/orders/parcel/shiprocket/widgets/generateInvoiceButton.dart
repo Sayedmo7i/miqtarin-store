@@ -2,7 +2,7 @@ import 'package:eshopplus_seller/commons/widgets/customRoundedButton.dart';
 import 'package:eshopplus_seller/commons/widgets/customTextContainer.dart';
 import 'package:eshopplus_seller/core/localization/labelKeys.dart';
 import 'package:eshopplus_seller/features/orders/parcel/models/parcel.dart';
-import 'package:eshopplus_seller/features/orders/parcel/shiprocket/blocs/GenerateInvoiceCubit.dart';
+import 'package:eshopplus_seller/features/orders/parcel/shiprocket/blocs/generateInvoiceCubit.dart';
 import 'package:eshopplus_seller/features/profile/chat/blocs/downloadFileCubit.dart';
 import 'package:eshopplus_seller/utils/utils.dart';
 import 'package:flutter/material.dart';

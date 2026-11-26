@@ -9,7 +9,7 @@ import 'package:eshopplus_seller/commons/widgets/customTextContainer.dart';
 import 'package:eshopplus_seller/core/api/apiEndPoints.dart';
 
 import 'package:eshopplus_seller/core/localization/labelKeys.dart';
-import 'package:eshopplus_seller/utils/dateTimeUtils.dart';
+import 'package:eshopplus_seller/utils/datetimeUtils.dart';
 import 'package:eshopplus_seller/utils/utils.dart';
 import 'package:flutter/material.dart';
 

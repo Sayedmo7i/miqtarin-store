@@ -2,7 +2,7 @@ import 'package:eshopplus_seller/core/constants/appConstants.dart';
 import 'package:eshopplus_seller/core/constants/themeConstants.dart';
 import 'package:eshopplus_seller/features/orders/blocs/getInvoiceCubit.dart';
 import 'package:eshopplus_seller/features/orders/parcel/models/parcel.dart';
-import 'package:eshopplus_seller/utils/dateTimeUtils.dart';
+import 'package:eshopplus_seller/utils/datetimeUtils.dart';
 import 'package:eshopplus_seller/utils/designConfig.dart';
 import 'package:eshopplus_seller/features/profile/chat/blocs/downloadFileCubit.dart';
 import 'package:eshopplus_seller/commons/blocs/settingsAndLanguagesCubit.dart';

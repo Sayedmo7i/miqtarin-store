@@ -13,7 +13,7 @@ class ExampleTest extends TestCase
     {
         $this->get('/identity')
             ->assertStatus(200)
-            ->assertSee('Mo7i Store');
+            ->assertSee('MUQTARIN Store');
 
         $this->get('/admin/login')
             ->assertStatus(200)
@@ -24,6 +24,7 @@ class ExampleTest extends TestCase
     {
         $assets = [
             'assets/brand/logo.svg',
+            'assets/brand/logo-dark.svg',
             'assets/brand/icon.svg',
             'assets/brand/logo.jpg',
             'assets/brand/icon.jpg',

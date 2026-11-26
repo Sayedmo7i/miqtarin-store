@@ -8,7 +8,7 @@ import 'package:eshopplus_seller/commons/blocs/allStoreCubit.dart';
 import 'package:eshopplus_seller/commons/blocs/userDetailsCubit.dart';
 import 'package:eshopplus_seller/commons/models/userDetails.dart';
 import 'package:eshopplus_seller/commons/repositories/storeRepository.dart';
-import 'package:eshopplus_seller/features/auth/widgets/SignupPage2.dart';
+import 'package:eshopplus_seller/features/auth/widgets/signupPage2.dart';
 import 'package:eshopplus_seller/commons/widgets/customAppbar.dart';
 import 'package:eshopplus_seller/commons/widgets/customBottomButtonContainer.dart';
 import 'package:eshopplus_seller/commons/widgets/customCircularProgressIndicator.dart';

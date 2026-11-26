@@ -28,16 +28,16 @@ _Avoid_: Courier, driver
 
 ## Visual Identity & Design System
 
-**Mo7i Store (متجر مُحي)**:
-The official canonical brand identity, name, and trademark for the multi-vendor platform.
-_Avoid_: eShop Pro, eShop Plus, eZeeMart
+**MUQTARIN Store (مقترن ستور)**:
+The official canonical brand identity, name, and trademark for the multi-vendor platform, backed by the parent software company MUQTAREN (https://app.vendoratravel.com/).
+_Avoid_: Mo7i Store, eShop Pro, eShop Plus, eZeeMart
 
 **Design System**:
 The single source of truth (`DESIGN.md`) providing standardized components, color schemes, typography, and UX patterns across the entire monorepo.
 _Avoid_: Ad-hoc styling, custom CSS per page
 
 **Design Tokens**:
-Platform-agnostic key-value variables (`tokens/design-tokens.json`) representing low-level visual values (colors, spacing, radiuses) consumed by both Web and Flutter.
+Specification tokens defined in `DESIGN.md`, `.agents/rules/design-system.md`, and code theme variables (CSS variables and Flutter theme files). Note: `design-tokens.json` has been retired per owner decision.
 _Avoid_: Hardcoded hex codes
 
 **Semantic Color**:
