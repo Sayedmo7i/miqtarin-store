@@ -1,5 +1,4 @@
 <div class="header @@classList bg-white">
-    <link rel="stylesheet" href="{{ asset('/assets/boxicons/css/boxicons.css') }}">
 
     @php
         use App\Models\Store;

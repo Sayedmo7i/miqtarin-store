@@ -257,9 +257,7 @@ class MediaController extends Controller
 
     public function dynamic_image(Request $request)
     {
-        $appUrl = Config::get('app.url');
-        $awsBucket = env('AWS_BUCKET', '');
-        $url = $request->input('url', '');
+        $url = (string) $request->input('url', '');
         $width = $request->input('width', 100);
         $quality = $request->input('quality', 90);
 
@@ -268,15 +266,74 @@ class MediaController extends Controller
         $quality = (intval($quality) <= 0 || intval($quality) > 100) ? 90 : intval($quality);
 
         try {
-            // Check if the URL contains the allowed domain
-            if (strpos($url, $appUrl) === false && strpos($url, $awsBucket) === false) {
-                throw new Exception('Domain is restricted');
+            if (trim($url) === '') {
+                throw new Exception('Image URL is required');
             }
 
-            // Download the image from the provided URL
-            $imageData = @file_get_contents($url);
-            if ($imageData === false) {
-                throw new Exception('Failed to download image');
+            $parsed = parse_url($url);
+            if ($parsed === false) {
+                throw new Exception('Invalid image URL');
+            }
+
+            $appHost = parse_url((string) Config::get('app.url'), PHP_URL_HOST);
+            $requestHost = $request->getHost();
+            $forwardedHost = $request->header('X-Forwarded-Host');
+            $allowedLocalHosts = array_values(array_unique(array_filter(array_map('strtolower', [
+                (string) $appHost,
+                (string) $requestHost,
+                (string) (is_string($forwardedHost) ? explode(':', $forwardedHost)[0] : ''),
+                '127.0.0.1',
+                'localhost',
+                '::1',
+            ]))));
+
+            $urlHost = isset($parsed['host']) ? strtolower($parsed['host']) : '';
+            if ($urlHost === '' || in_array($urlHost, $allowedLocalHosts, true)) {
+                $path = rawurldecode((string) ($parsed['path'] ?? ''));
+                $relativePath = ltrim($path, '/');
+                if ($relativePath === '' || str_contains($relativePath, '..') || str_contains($relativePath, "\0")) {
+                    throw new Exception('Local file not found');
+                }
+
+                $localPath = realpath(public_path($relativePath));
+                $allowedRoots = array_filter([
+                    realpath(public_path()),
+                    realpath(public_path('storage')),
+                    realpath(storage_path('app/public')),
+                ]);
+
+                $isInsideAllowedRoot = false;
+                if ($localPath !== false && is_file($localPath)) {
+                    foreach ($allowedRoots as $root) {
+                        if (str_starts_with($localPath, $root . DIRECTORY_SEPARATOR)) {
+                            $isInsideAllowedRoot = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!$isInsideAllowedRoot) {
+                    throw new Exception('Local file not found');
+                }
+
+                $imageData = @file_get_contents($localPath);
+                if ($imageData === false) {
+                    throw new Exception('Failed to read local image');
+                }
+            } else {
+                $awsBucket = (string) (config('filesystems.disks.s3.bucket') ?: env('AWS_BUCKET', ''));
+                if ($awsBucket === '' || !str_contains($url, $awsBucket)) {
+                    throw new Exception('Domain is restricted');
+                }
+
+                $context = stream_context_create([
+                    'http' => ['timeout' => 5],
+                    'https' => ['timeout' => 5],
+                ]);
+                $imageData = @file_get_contents($url, false, $context);
+                if ($imageData === false) {
+                    throw new Exception('Failed to download image');
+                }
             }
 
             // Determine MIME type based on file content

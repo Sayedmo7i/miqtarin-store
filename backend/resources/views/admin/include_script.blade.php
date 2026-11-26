@@ -22,11 +22,10 @@
  <script src="{{ asset('assets/admin/js/sweetalert2.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/tinymce.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/jquery.repeater.min.js') }}"></script>
- <script src="{{ asset('assets/admin/js/jquery.repeater.js') }}"></script>
  <script src="{{ asset('assets/admin/js/sortable.js') }}"></script>
  <script src="{{ asset('assets/admin/js/jquery-sortable.js') }}"></script>
  <script src="{{ asset('assets/admin/js/lightbox.min.js') }}"></script>
- <script src="{{ asset('js/main.js') }}"></script>
+ <script src="{{ asset('js/main.js') }}?v={{ filemtime(public_path('js/main.js')) }}"></script>
  <script>
      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
      var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
@@ -122,7 +121,7 @@
          return fallback || key;
      };
  </script>
- <script src="{{ asset('assets/admin/js/stepper.js') }}?v={{ \Illuminate\Support\Str::random(10) }}"></script>
+ <script src="{{ asset('assets/admin/js/stepper.js') }}?v={{ filemtime(public_path('assets/admin/js/stepper.js')) }}"></script>
 
  <script src="{{ asset('/assets/js/argon-dashboard.min.js') }}"></script>
 
@@ -141,8 +140,6 @@
 
  <script src="{{ asset('/assets/admin/js/tableExport.min.js') }}"></script>
  <script src="{{ asset('/assets/admin/js/bootstrap-table-export.min.js') }}"></script>
- <script src="{{ asset('/assets/admin/js/moment.min.js') }}"></script>
- <script src="{{ asset('/assets/admin/js/daterangepicker.js') }}"></script>
 
  {{-- data sortable and dragable js --}}
 
@@ -152,7 +149,7 @@
  {{-- <script src="{{ asset('assets/admin/custom/custom.js') }}"></script> --}}
  {{-- <script src="https://eshop-pro-dev.eshopweb.store/assets/admin/custom/custom.js?v=152"></script> --}}
 
- <script src="{{ asset('assets/admin/custom/custom.js') }}?v={{ \Illuminate\Support\Str::random(10) }}"></script>
+ <script src="{{ asset('assets/admin/custom/custom.js') }}?v={{ filemtime(public_path('assets/admin/custom/custom.js')) }}"></script>
 
  <script>
      $(document).ready(function() {
@@ -277,6 +274,89 @@
              }
          });
      })();
+
+     // MUQTARIN Page-Level Skeleton Lifecycle
+     (function() {
+         var root = document.documentElement;
+         var startTs = (window.performance && performance.now) ? performance.now() : Date.now();
+         var navSafetyTimer = null;
+
+         function hideSkeleton() {
+             if (window.__mqSkeletonGuard) {
+                 clearTimeout(window.__mqSkeletonGuard);
+                 window.__mqSkeletonGuard = null;
+             }
+             if (navSafetyTimer) {
+                 clearTimeout(navSafetyTimer);
+                 navSafetyTimer = null;
+             }
+             root.classList.remove('mq-page-loading', 'mq-nav-loading');
+         }
+
+         function showSkeleton(isNav) {
+             root.classList.add('mq-page-loading');
+             if (isNav) root.classList.add('mq-nav-loading');
+             if (navSafetyTimer) clearTimeout(navSafetyTimer);
+             navSafetyTimer = setTimeout(hideSkeleton, 4500);
+         }
+
+         window.muqtarinHideSkeleton = hideSkeleton;
+         window.muqtarinShowSkeleton = showSkeleton;
+
+         function scheduleReveal() {
+             var now = (window.performance && performance.now) ? performance.now() : Date.now();
+             var elapsed = now - startTs;
+             var wait = Math.max(0, 180 - elapsed);
+             setTimeout(function() {
+                 requestAnimationFrame(hideSkeleton);
+             }, wait);
+         }
+
+         var domReadyRevealed = false;
+         function onDomReady() {
+             if (domReadyRevealed) return;
+             domReadyRevealed = true;
+             if (document.readyState === 'complete') {
+                 scheduleReveal();
+                 return;
+             }
+             var maxWait = setTimeout(scheduleReveal, 650);
+             window.addEventListener('load', function() {
+                 clearTimeout(maxWait);
+                 scheduleReveal();
+             }, { once: true });
+         }
+
+         if (document.readyState === 'loading') {
+             document.addEventListener('DOMContentLoaded', onDomReady, { once: true });
+         } else {
+             onDomReady();
+         }
+
+         // Ensure Back/Forward browser cache (bfcache) never leaves skeleton stuck
+         window.addEventListener('pageshow', hideSkeleton);
+
+         // Trigger skeleton & top progress bar on internal admin route navigation
+         document.addEventListener('click', function(e) {
+             if (e.defaultPrevented || e.button !== 0) return;
+             if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+             var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+             if (!link) return;
+             if (link.hasAttribute('download') || link.getAttribute('target') === '_blank') return;
+             if (link.hasAttribute('data-bs-toggle') || link.hasAttribute('data-toggle')) return;
+             if (link.classList.contains('no-skeleton')) return;
+
+             var rawHref = (link.getAttribute('href') || '').trim();
+             if (!rawHref || rawHref.charAt(0) === '#' || /^(javascript|mailto|tel):/i.test(rawHref)) return;
+
+             try {
+                 var url = new URL(link.href, window.location.href);
+                 if (url.origin !== window.location.origin) return;
+                 if (url.pathname === window.location.pathname && url.search === window.location.search) return;
+                 if (/(\/export|\/download|\.(pdf|csv|xlsx|xls|zip|png|jpg|jpeg|svg))$/i.test(url.pathname)) return;
+                 showSkeleton(true);
+             } catch (err) {}
+         }, false);
+     })();
  </script>
  <script src="{{ asset('assets/brand/muqtarin-cursor.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-cursor.js')) }}" defer></script>
-

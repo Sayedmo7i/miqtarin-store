@@ -8,12 +8,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         (function() {
+            var root = document.documentElement;
+            root.classList.add('mq-page-loading');
             try {
                 var t = localStorage.getItem('muqtarin_admin_theme');
                 if (t === 'dark' || t === 'light') {
-                    document.documentElement.setAttribute('data-theme', t);
+                    root.setAttribute('data-theme', t);
                 }
             } catch (e) {}
+            window.__mqSkeletonGuard = setTimeout(function() {
+                root.classList.remove('mq-page-loading', 'mq-nav-loading');
+            }, 3500);
         })();
     </script>
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/brand/icon.svg') }}">

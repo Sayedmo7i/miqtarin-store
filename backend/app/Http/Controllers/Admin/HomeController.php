@@ -263,8 +263,12 @@ class HomeController extends Controller
             }
         }
 
-        // Get missing labels summary
-        $missing_labels_summary = $this->getMissingLabelsSummary();
+        // Get missing labels summary (cached to avoid parsing all JSON translation files per request)
+        $missing_labels_summary = \Illuminate\Support\Facades\Cache::remember(
+            'admin_missing_labels_summary',
+            300,
+            fn () => $this->getMissingLabelsSummary()
+        );
 
         // dd($top_sellers);
         return view('admin.pages.forms.home', compact(

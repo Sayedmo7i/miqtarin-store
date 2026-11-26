@@ -390,9 +390,7 @@ class MediaController extends Controller
 
     public function dynamic_image_old(Request $request)
     {
-        $appUrl = Config::get('app.url');
-        $awsBucket = env('AWS_BUCKET', '');
-        $url = $request->input('url', '');
+        $url = (string) $request->input('url', '');
         $width = $request->input('width', 100);
         $quality = $request->input('quality', 90);
 
@@ -401,16 +399,7 @@ class MediaController extends Controller
         $quality = (intval($quality) <= 0 || intval($quality) > 100) ? 90 : intval($quality);
 
         try {
-            // Check if the URL contains the allowed domain
-            if (strpos($url, $appUrl) === false && strpos($url, $awsBucket) === false) {
-                throw new Exception('Domain is restricted');
-            }
-
-            // Download the image from the provided URL
-            $imageData = @file_get_contents($url);
-            if ($imageData === false) {
-                throw new Exception('Failed to download image');
-            }
+            $imageData = $this->resolveAndFetchImageData($request, $url);
 
             // Determine MIME type based on file content
             $mimeType = $this->getMimeTypeFromContent($imageData);
@@ -450,11 +439,10 @@ class MediaController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
     public function dynamic_image(Request $request)
     {
-        $appUrl = Config::get('app.url');
-        $awsBucket = env('AWS_BUCKET', '');
-        $url = $request->input('url', '');
+        $url = (string) $request->input('url', '');
         $width = intval($request->input('width', 100));
         $quality = intval($request->input('quality', 90));
 
@@ -462,33 +450,6 @@ class MediaController extends Controller
         $quality = ($quality <= 0 || $quality > 100) ? 75 : $quality;
 
         try {
-            // Validate domain
-            if (strpos($url, $appUrl) === false && strpos($url, $awsBucket) === false) {
-                throw new Exception('Domain is restricted');
-            }
-
-            // Convert full URL to local file path if it's a local image
-            if (Str::startsWith($url, $appUrl)) {
-                $relativePath = str_replace($appUrl, '', $url);
-                $localPath = public_path($relativePath);
-                if (!file_exists($localPath)) {
-                    throw new Exception('Local file not found');
-                }
-                $imageData = file_get_contents($localPath);
-            } else {
-                // Fallback to remote image (e.g., from S3)
-                $imageData = @file_get_contents($url);
-                if ($imageData === false) {
-                    throw new Exception('Failed to download image');
-                }
-            }
-
-            // Detect MIME
-            $mimeType = $this->getMimeTypeFromContent($imageData);
-            if (!$mimeType) {
-                throw new Exception('Failed to determine MIME type');
-            }
-
             $cacheHeaders = [
                 'Cache-Control' => 'public, max-age=2592000, immutable',
                 'Expires' => gmdate('D, d M Y H:i:s', time() + 2592000) . ' GMT',
@@ -496,6 +457,24 @@ class MediaController extends Controller
 
             $mediaService = app(MediaService::class);
             $cachePaths = $mediaService->cachedDynamicImagePath($url, $width, $quality);
+
+            if ($cachePaths !== null && is_file($cachePaths['absolute'])) {
+                $cachedBytes = file_get_contents($cachePaths['absolute']);
+                if ($cachedBytes !== false) {
+                    $cachedMime = $this->getMimeTypeFromContent($cachedBytes) ?: 'image/jpeg';
+                    return response($cachedBytes, 200)
+                        ->header('Content-Type', $cachedMime)
+                        ->withHeaders($cacheHeaders);
+                }
+            }
+
+            $imageData = $this->resolveAndFetchImageData($request, $url);
+
+            // Detect MIME
+            $mimeType = $this->getMimeTypeFromContent($imageData);
+            if (!$mimeType) {
+                throw new Exception('Failed to determine MIME type');
+            }
 
             // Handle SVG
             if ($mimeType === 'image/svg+xml') {
@@ -536,6 +515,83 @@ class MediaController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    private function resolveAndFetchImageData(Request $request, string $url): string
+    {
+        if (trim($url) === '') {
+            throw new Exception('Image URL is required');
+        }
+
+        $parsed = parse_url($url);
+        if ($parsed === false) {
+            throw new Exception('Invalid image URL');
+        }
+
+        $appHost = parse_url((string) Config::get('app.url'), PHP_URL_HOST);
+        $requestHost = $request->getHost();
+        $forwardedHost = $request->header('X-Forwarded-Host');
+        $allowedLocalHosts = array_values(array_unique(array_filter(array_map('strtolower', [
+            (string) $appHost,
+            (string) $requestHost,
+            (string) (is_string($forwardedHost) ? explode(':', $forwardedHost)[0] : ''),
+            '127.0.0.1',
+            'localhost',
+            '::1',
+        ]))));
+
+        $urlHost = isset($parsed['host']) ? strtolower($parsed['host']) : '';
+        if ($urlHost === '' || in_array($urlHost, $allowedLocalHosts, true)) {
+            $path = rawurldecode((string) ($parsed['path'] ?? ''));
+            $relativePath = ltrim($path, '/');
+            if ($relativePath === '' || str_contains($relativePath, '..') || str_contains($relativePath, "\0")) {
+                throw new Exception('Local file not found');
+            }
+
+            $localPath = realpath(public_path($relativePath));
+            $allowedRoots = array_filter([
+                realpath(public_path()),
+                realpath(public_path('storage')),
+                realpath(storage_path('app/public')),
+            ]);
+
+            $isInsideAllowedRoot = false;
+            if ($localPath !== false && is_file($localPath)) {
+                foreach ($allowedRoots as $root) {
+                    if (str_starts_with($localPath, $root . DIRECTORY_SEPARATOR)) {
+                        $isInsideAllowedRoot = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!$isInsideAllowedRoot) {
+                throw new Exception('Local file not found');
+            }
+
+            $imageData = @file_get_contents($localPath);
+            if ($imageData === false) {
+                throw new Exception('Failed to read local image');
+            }
+
+            return $imageData;
+        }
+
+        $awsBucket = (string) (config('filesystems.disks.s3.bucket') ?: env('AWS_BUCKET', ''));
+        if ($awsBucket === '' || !str_contains($url, $awsBucket)) {
+            throw new Exception('Domain is restricted');
+        }
+
+        $context = stream_context_create([
+            'http' => ['timeout' => 5],
+            'https' => ['timeout' => 5],
+        ]);
+        $imageData = @file_get_contents($url, false, $context);
+        if ($imageData === false) {
+            throw new Exception('Failed to download image');
+        }
+
+        return $imageData;
     }
 
     private function writeImageCache($cachePaths, $bytes)
