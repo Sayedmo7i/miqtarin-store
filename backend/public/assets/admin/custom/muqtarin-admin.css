@@ -161,14 +161,16 @@ p { color: var(--ink-soft); }
 
 #page-content {
   flex: 1;
-  margin-inline-start: var(--sidebar-width);
+  margin-inline-start: var(--sidebar-width) !important;
+  margin-inline-end: 0 !important;
   min-width: 0;
+  width: auto !important;
   background: var(--canvas);
   transition: margin-inline-start var(--transition);
 }
 
 body.sidebar-collapsed #page-content {
-  margin-inline-start: var(--sidebar-collapsed);
+  margin-inline-start: var(--sidebar-collapsed) !important;
 }
 
 .container-fluid.mt-5.px-6 {
@@ -282,6 +284,8 @@ body.sidebar-collapsed footer.footer.bg-body {
   flex-direction: column;
   overflow: hidden;
   z-index: 1035;
+  margin: 0 !important;
+  max-width: none !important;
   padding: 0 !important;
   box-shadow: none !important;
   transition: width var(--transition), transform var(--transition), background-color var(--transition);
