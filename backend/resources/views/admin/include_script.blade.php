@@ -57,6 +57,7 @@
  <script src="{{ asset('assets/admin/js/wNumb.js') }}"></script>
  <script>
      window.adminUrls = window.adminUrls || {
+         webHomePageTheme: "{{ url('admin/web_home_page_theme') }}",
          webProductCardStyle: "{{ url('admin/web_product_card_style') }}",
          webCategoriesStyle: "{{ url('admin/web_categories_style') }}",
          webBrandsStyle: "{{ url('admin/web_brands_style') }}",
@@ -68,6 +69,8 @@
          'warning' => labels('admin_labels.warning', 'Warning'),
          'info' => labels('admin_labels.info', 'Info'),
          'success' => labels('admin_labels.success', 'Success'),
+         'preset_applied' => labels('admin_labels.preset_applied', 'MUQTARIN storefront preset applied!'),
+         'palette_synced' => labels('admin_labels.palette_synced', 'Recommended MUQTARIN Pine palette applied to Step 1 colors.'),
          'please_wait' => labels('admin_labels.please_wait', 'Please Wait...'),
          'an_error_occurred' => labels('admin_labels.an_error_occurred', 'An error occurred. Please check your input and try again.'),
          'unexpected_error_occurred' => labels('admin_labels.unexpected_error_occurred', 'An unexpected server error occurred. Please try again.'),

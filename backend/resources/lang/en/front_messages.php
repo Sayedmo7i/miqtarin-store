@@ -32,4 +32,12 @@
 'wishlist' => 'front_messages.wishlist',
 'compare' => 'front_messages.compare',
 'sign_out' => 'front_messages.sign_out',
+'curated_collection' => 'Curated Collection',
+'boutique_experience' => 'Boutique Experience',
+'fast_delivery' => 'Fast Delivery',
+'verified_stores' => 'Verified Stores',
+'toggle_theme' => 'Toggle Theme',
+'theme' => 'Theme',
+'saved_items' => 'Saved Items',
+'bundle' => 'Bundle',
 ];

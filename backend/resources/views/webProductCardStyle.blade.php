@@ -14,13 +14,14 @@
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/star-rating.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/star-rating.min.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/intlTelInput.css') }}?v={{ $version }}">
-    <link rel="stylesheet" href="{{ asset('frontend/elegant/css/select2.minstraße.css') }}?v={{ $version }}">
+    <link rel="stylesheet" href="{{ asset('frontend/elegant/css/select2.min.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/iziToast.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/daterangepicker.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/responsive.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/shareon.min.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/app.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/swiper-bundle.min.css') }}?v={{ $version }}">
+    @include('partials.webShowcaseBridge')
 </head>
 
 <body>
@@ -347,19 +348,96 @@
         </div>
     </div>
 
-    <!-- Style Switcher Script (Safe - Only Toggles Visibility) -->
-    <script>
-        window.addEventListener("message", function(event) {
-            const selectedStyle = event.data;
-            document.querySelectorAll(".content-section").forEach(section => {
-                section.classList.add("d-none");
-            });
-            const target = document.getElementById(selectedStyle);
-            if (target) {
-                target.classList.remove("d-none");
-            }
-        });
-    </script>
+    <!-- STYLE 6: MUQTARIN Editorial -->
+    <div id="products_display_style_for_web_6" class="content-section d-none">
+        <div class="mq-showcase-stage">
+            <div class="row g-3 justify-content-center">
+                <div class="col-6 col-md-4">
+                    <div class="mq-card">
+                        <div class="mq-card-media">
+                            <span class="mq-badge-discount">-20%</span>
+                            <img src="{{ asset('storage/system_images/product_card_style.jpeg') }}" alt="ChocoLuxe Muffins">
+                            <div class="mq-card-actions">
+                                <button type="button" class="mq-card-action-btn" aria-label="Wishlist"><i class="bx bx-heart"></i></button>
+                                <button type="button" class="mq-card-action-btn" aria-label="Quick View"><i class="bx bx-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="mq-card-body">
+                            <div class="mq-card-category" data-en="Artisan Bakery" data-ar="مخبوزات مختارة">Artisan Bakery</div>
+                            <div class="mq-card-title" data-en="ChocoLuxe Muffins" data-ar="مافن شوكولا فاخر">ChocoLuxe Muffins</div>
+                            <div class="mq-card-rating">
+                                <i class="bx bxs-star"></i><span>4.8</span>
+                            </div>
+                            <div class="mq-card-footer">
+                                <div class="mq-price-group">
+                                    <span class="mq-price-now">$40.00</span>
+                                    <span class="mq-price-old">$50.00</span>
+                                </div>
+                                <button type="button" class="mq-add-btn">
+                                    <i class="bx bx-shopping-bag"></i>
+                                    <span data-en="Add" data-ar="أضف">Add</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="mq-card">
+                        <div class="mq-card-media">
+                            <img src="{{ asset('storage/system_images/wishlist_display_style.jpeg') }}" alt="Organic Pantry">
+                            <div class="mq-card-actions">
+                                <button type="button" class="mq-card-action-btn" aria-label="Wishlist"><i class="bx bxs-heart text-danger"></i></button>
+                                <button type="button" class="mq-card-action-btn" aria-label="Quick View"><i class="bx bx-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="mq-card-body">
+                            <div class="mq-card-category" data-en="Organic Pantry" data-ar="منتجات عضوية">Organic Pantry</div>
+                            <div class="mq-card-title" data-en="Red Kidney Reserve" data-ar="فاصولياء حمراء عضوية">Red Kidney Reserve</div>
+                            <div class="mq-card-rating">
+                                <i class="bx bxs-star"></i><span>4.9</span>
+                            </div>
+                            <div class="mq-card-footer">
+                                <div class="mq-price-group">
+                                    <span class="mq-price-now">$18.00</span>
+                                </div>
+                                <button type="button" class="mq-add-btn">
+                                    <i class="bx bx-shopping-bag"></i>
+                                    <span data-en="Add" data-ar="أضف">Add</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STYLE 7: MUQTARIN Express -->
+    <div id="products_display_style_for_web_7" class="content-section d-none">
+        <div class="mq-showcase-stage">
+            <div class="row g-2 justify-content-center">
+                @for ($i = 1; $i <= 3; $i++)
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="mq-card mq-card--express">
+                            <div class="mq-card-media">
+                                <span class="mq-badge-discount">-15%</span>
+                                <img src="{{ asset('storage/system_images/product_card_style.jpeg') }}" alt="Express Product">
+                            </div>
+                            <div class="mq-card-body">
+                                <div class="mq-card-title" data-en="Express Pack #{{ $i }}" data-ar="عبوة سريعة #{{ $i }}">Express Pack #{{ $i }}</div>
+                                <div class="mq-card-footer">
+                                    <div class="mq-price-group">
+                                        <span class="mq-price-now">${{ 14 + $i * 6 }}.00</span>
+                                    </div>
+                                    <button type="button" class="mq-add-btn px-2"><i class="bx bx-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endfor
+            </div>
+        </div>
+    </div>
 
 </body>
 

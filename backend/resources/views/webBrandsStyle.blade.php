@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/shareon.min.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/app.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/swiper-bundle.min.css') }}?v={{ $version }}">
+    @include('partials.webShowcaseBridge')
 </head>
 
 <body>
@@ -79,19 +80,25 @@
         </div>
     </div>
 
-    <!-- Style Switcher (Safe - Only Toggles Visibility) -->
-    <script>
-        window.addEventListener("message", function(event) {
-            const selectedStyle = event.data;
-            document.querySelectorAll(".content-section").forEach(section => {
-                section.classList.add("d-none");
-            });
-            const target = document.getElementById(selectedStyle);
-            if (target) {
-                target.classList.remove("d-none");
-            }
-        });
-    </script>
+    <!-- BRAND STYLE 4: MUQTARIN Showcase -->
+    <div id="brands_display_style_for_web_4" class="content-section d-none">
+        <div class="mq-showcase-stage">
+            <div class="mq-brands-grid">
+                @foreach ([
+                    ['en' => 'Verdant Sip', 'ar' => 'رَشفة خضراء'],
+                    ['en' => 'Al-Noor Craft', 'ar' => 'حِرفة النور'],
+                    ['en' => 'Pine Studio', 'ar' => 'استوديو باين'],
+                ] as $brand)
+                    <a href="#!" class="mq-brand-tile" onclick="return false;">
+                        <div class="mq-brand-logo">
+                            <img src="{{ asset('storage/system_images/brand_card_style.png') }}" alt="{{ $brand['en'] }}">
+                        </div>
+                        <span class="mq-brand-name" data-en="{{ $brand['en'] }}" data-ar="{{ $brand['ar'] }}">{{ $brand['en'] }}</span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </div>
 
 </body>
 
