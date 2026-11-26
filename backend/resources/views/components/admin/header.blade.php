@@ -38,9 +38,7 @@
                 $language_code,
             );
             $isPublicDisk = $stores[0]->disk == 'public' ? 1 : 0;
-            $default_store_image = $isPublicDisk
-                ? asset(config('constants.STORE_IMG_PATH') . $stores[0]->image)
-                : $stores[0]->image;
+            $default_store_image = $stores[0]->image ?? '';
         } else {
             $default_store_id = '';
             $default_store_name = '';
@@ -57,18 +55,14 @@
         }
 
         $store_name = session('store_name') !== null && !empty(session('store_name')) ? session('store_name') : '';
-        // dd($store_name);
         if (!empty($stores) && isset($stores[0])) {
             $isPublicDisk = $stores[0]->disk == 'public' ? 1 : 0;
         } else {
             $isPublicDisk = 0;
         }
 
-        $image = $isPublicDisk
-            ? asset(config('constants.STORE_IMG_PATH') . session('store_image'))
-            : session('store_image');
-
-        $store_image = session('store_image') !== null && !empty(session('store_image')) ? $image : '';
+        $rawStoreImg = session('store_image') ?: $default_store_image;
+        $store_image = !empty($rawStoreImg) ? $rawStoreImg : '';
 
         use App\Models\Language;
 
@@ -106,7 +100,7 @@
                                     <ul class="dropdown-menu stores_dropdown" data-bs-popper="none"
                                         data-bs-placement="bottom-start" id="store-dropdown">
                                         <div class="row ms-2">
-                                            <p class="col-12 text-bold">Select Store</p>
+                                            <p class="col-12 text-bold">{{ labels('admin_labels.select_store', 'Select Store') }}</p>
                                         </div>
                                         <div class="d-flex flex-row">
                                             @forelse($store_details as $store)

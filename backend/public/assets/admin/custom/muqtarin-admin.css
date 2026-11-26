@@ -1952,3 +1952,797 @@ th {
     justify-content: center;
   }
 }
+
+/* ── 14. Dashboard Command Center (/admin/home) ───────────────────────────── */
+.muqtarin-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 12px;
+}
+
+/* Executive Hero Banner (Aceternity Dot-Grid + MagicUI Aurora) */
+.muqtarin-dash-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  background-image:
+    radial-gradient(460px circle at 100% 0%, rgba(34, 197, 94, 0.12), transparent 65%),
+    radial-gradient(380px circle at 0% 100%, rgba(246, 198, 103, 0.12), transparent 65%),
+    radial-gradient(rgba(100, 116, 139, 0.16) 1px, transparent 1px);
+  background-size: auto, auto, 18px 18px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+[dir="rtl"] .muqtarin-dash-hero {
+  background-image:
+    radial-gradient(460px circle at 0% 0%, rgba(34, 197, 94, 0.12), transparent 65%),
+    radial-gradient(380px circle at 100% 100%, rgba(246, 198, 103, 0.12), transparent 65%),
+    radial-gradient(rgba(100, 116, 139, 0.16) 1px, transparent 1px);
+}
+[data-theme="dark"] .muqtarin-dash-hero {
+  background-image:
+    radial-gradient(500px circle at 100% 0%, rgba(34, 197, 94, 0.16), transparent 65%),
+    radial-gradient(400px circle at 0% 100%, rgba(246, 198, 103, 0.08), transparent 65%),
+    radial-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+}
+[dir="rtl"][data-theme="dark"] .muqtarin-dash-hero {
+  background-image:
+    radial-gradient(500px circle at 0% 0%, rgba(34, 197, 94, 0.16), transparent 65%),
+    radial-gradient(400px circle at 100% 100%, rgba(246, 198, 103, 0.08), transparent 65%),
+    radial-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+}
+
+.muqtarin-dash-hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+.muqtarin-dash-store-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1.5px solid var(--border);
+  background: var(--surface-alt);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+.muqtarin-dash-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--pine-light);
+  color: var(--pine);
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+[data-theme="dark"] .muqtarin-dash-hero-eyebrow {
+  color: var(--emerald);
+}
+.muqtarin-dash-hero-eyebrow .muqtarin-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+}
+.muqtarin-dash-hero h2 {
+  margin: 0 !important;
+  font-size: 1.4rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+}
+.muqtarin-dash-hero p {
+  margin: 3px 0 0 !important;
+  font-size: 0.86rem;
+  color: var(--muted) !important;
+}
+
+.muqtarin-dash-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.muqtarin-hero-cta {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #0F4C3A 0%, #14634C 100%);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  box-shadow: 0 6px 16px -6px rgba(15, 76, 58, 0.45);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.muqtarin-hero-cta:hover {
+  transform: translateY(-1px);
+  color: #FFFFFF !important;
+  box-shadow: 0 10px 20px -6px rgba(15, 76, 58, 0.55);
+}
+.muqtarin-hero-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  background: var(--surface-alt);
+  color: var(--ink) !important;
+  border: 1px solid var(--border);
+  transition: border-color var(--transition), background-color var(--transition), transform var(--transition);
+}
+.muqtarin-hero-ghost:hover {
+  border-color: var(--pine);
+  background: var(--pine-50);
+  color: var(--pine) !important;
+  transform: translateY(-1px);
+}
+[data-theme="dark"] .muqtarin-hero-ghost:hover {
+  border-color: var(--emerald);
+  color: var(--emerald) !important;
+}
+
+/* Setup Checklist Card (OriginUI / MagicUI) */
+.muqtarin-setup-card {
+  border-radius: var(--radius-xl) !important;
+  border: 1px solid var(--border) !important;
+  background: var(--surface) !important;
+  padding: 20px 22px;
+  box-shadow: var(--shadow-card);
+}
+.muqtarin-setup-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.muqtarin-setup-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.muqtarin-setup-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--pine-light);
+  color: var(--pine);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+[data-theme="dark"] .muqtarin-setup-icon {
+  color: var(--emerald);
+}
+.muqtarin-setup-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.muqtarin-setup-pill {
+  padding: 4px 11px;
+  border-radius: var(--radius-full);
+  background: var(--pine-light);
+  color: var(--pine);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+[data-theme="dark"] .muqtarin-setup-pill {
+  color: var(--emerald);
+}
+.muqtarin-setup-track {
+  width: 100%;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--surface-alt);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.muqtarin-setup-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--pine), var(--emerald), #4ADE80);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.muqtarin-setup-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 1199px) {
+  .muqtarin-setup-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 576px) {
+  .muqtarin-setup-grid { grid-template-columns: 1fr; }
+}
+.muqtarin-setup-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--ink) !important;
+  transition: all var(--transition);
+  text-decoration: none !important;
+}
+.muqtarin-setup-item:hover {
+  transform: translateY(-1px);
+  border-color: var(--pine);
+  background: var(--pine-50);
+}
+[data-theme="dark"] .muqtarin-setup-item:hover {
+  border-color: var(--emerald);
+}
+.muqtarin-setup-item.is-done {
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+.muqtarin-setup-item.is-active {
+  background: var(--pine-light);
+  border-color: var(--pine);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.14);
+}
+[data-theme="dark"] .muqtarin-setup-item.is-active {
+  border-color: var(--emerald);
+}
+.muqtarin-setup-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.muqtarin-setup-item.is-done .muqtarin-setup-num {
+  background: var(--success);
+  border-color: var(--success);
+  color: #FFFFFF;
+}
+.muqtarin-setup-item.is-active .muqtarin-setup-num {
+  background: var(--pine);
+  border-color: var(--pine);
+  color: #FFFFFF;
+}
+[data-theme="dark"] .muqtarin-setup-item.is-active .muqtarin-setup-num {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  color: #07291E;
+}
+.muqtarin-setup-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.muqtarin-setup-arrow {
+  font-size: 0.95rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+[dir="rtl"] .muqtarin-setup-arrow {
+  transform: scaleX(-1);
+}
+
+/* Bento KPI Grid (21st.dev Spotlight + Border Accent) */
+.muqtarin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (max-width: 1199px) {
+  .muqtarin-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 576px) {
+  .muqtarin-kpi-grid { grid-template-columns: 1fr; }
+}
+.muqtarin-kpi-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  color: var(--ink) !important;
+  text-decoration: none !important;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  --mx: 50%;
+  --my: 50%;
+}
+.muqtarin-kpi-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(240px circle at var(--mx) var(--my), rgba(34, 197, 94, 0.12), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.muqtarin-kpi-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(34, 197, 94, 0.45);
+}
+.muqtarin-kpi-card:hover::before {
+  opacity: 1;
+}
+.muqtarin-kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.muqtarin-kpi-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.muqtarin-kpi-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+.muqtarin-kpi-card:hover .muqtarin-kpi-icon {
+  transform: scale(1.06);
+}
+.muqtarin-kpi-icon.tone-pine    { background: rgba(15, 76, 58, 0.12); color: #0F4C3A; }
+.muqtarin-kpi-icon.tone-info    { background: rgba(37, 99, 235, 0.12); color: #2563EB; }
+.muqtarin-kpi-icon.tone-emerald { background: rgba(22, 163, 74, 0.12); color: #16A34A; }
+.muqtarin-kpi-icon.tone-gold    { background: rgba(246, 198, 103, 0.22); color: #B45309; }
+[data-theme="dark"] .muqtarin-kpi-icon.tone-pine    { background: rgba(34, 197, 94, 0.16); color: #4ADE80; }
+[data-theme="dark"] .muqtarin-kpi-icon.tone-info    { background: rgba(59, 130, 246, 0.18); color: #60A5FA; }
+[data-theme="dark"] .muqtarin-kpi-icon.tone-emerald { background: rgba(34, 197, 94, 0.18); color: #34D399; }
+[data-theme="dark"] .muqtarin-kpi-icon.tone-gold    { background: rgba(246, 198, 103, 0.18); color: #F6C667; }
+
+.muqtarin-kpi-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+.muqtarin-kpi-value {
+  font-family: 'Inter', 'Tajawal', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.muqtarin-kpi-go {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--surface-alt);
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all var(--transition);
+}
+.muqtarin-kpi-card:hover .muqtarin-kpi-go {
+  background: var(--pine);
+  color: #FFFFFF;
+}
+[data-theme="dark"] .muqtarin-kpi-card:hover .muqtarin-kpi-go {
+  background: var(--emerald);
+  color: #07291E;
+}
+[dir="rtl"] .muqtarin-kpi-go i {
+  transform: scaleX(-1);
+}
+
+/* Dashboard Cards & Legacy Overrides */
+.muqtarin-dash-card {
+  border-radius: var(--radius-xl) !important;
+  border: 1px solid var(--border) !important;
+  background: var(--surface) !important;
+  box-shadow: var(--shadow-card) !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.muqtarin-dash-card .card-body {
+  padding: 20px 22px !important;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.muqtarin-dashboard .revenue_card,
+.muqtarin-dashboard .customer_statistics_card,
+.muqtarin-dashboard .overview-statistic .chart-card {
+  height: 100% !important;
+  background-color: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-card) !important;
+  margin: 0 !important;
+  padding: 20px 22px !important;
+}
+.muqtarin-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+.muqtarin-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.muqtarin-card-title-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--pine-light);
+  color: var(--pine);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+[data-theme="dark"] .muqtarin-card-title-icon {
+  color: var(--emerald);
+}
+.muqtarin-card-head h4 {
+  margin: 0 !important;
+  font-size: 1.02rem !important;
+  font-weight: 700 !important;
+}
+.muqtarin-view-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: var(--radius-full);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft) !important;
+  transition: all var(--transition);
+}
+.muqtarin-view-link:hover {
+  border-color: var(--pine);
+  color: var(--pine) !important;
+  background: var(--pine-50);
+}
+[data-theme="dark"] .muqtarin-view-link:hover {
+  border-color: var(--emerald);
+  color: var(--emerald) !important;
+}
+
+/* Segmented Tabs inside Revenue Analytics (OriginUI / Shadcn) */
+.muqtarin-dashboard .sale-tabs.chart-action {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  float: none !important;
+  margin: 0 !important;
+}
+.muqtarin-dashboard .sale-tabs.chart-action li {
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 7px;
+}
+.muqtarin-dashboard .sale-tabs.chart-action li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 13px !important;
+  border-radius: 7px !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted) !important;
+  background: transparent !important;
+  transition: all var(--transition);
+}
+.muqtarin-dashboard .sale-tabs.chart-action li a:hover {
+  color: var(--ink) !important;
+}
+.muqtarin-dashboard .sale-tabs.chart-action li a.active {
+  background: var(--pine) !important;
+  color: #FFFFFF !important;
+  box-shadow: var(--shadow-sm);
+}
+[data-theme="dark"] .muqtarin-dashboard .sale-tabs.chart-action li a.active {
+  background: var(--emerald) !important;
+  color: #07291E !important;
+}
+
+/* Orders Overview Pipeline */
+.muqtarin-pipeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.muqtarin-pipeline-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.muqtarin-pipeline-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+.muqtarin-pipeline-icon.is-received  { background: rgba(37, 99, 235, 0.12); color: #2563EB; }
+.muqtarin-pipeline-icon.is-processed { background: rgba(124, 58, 237, 0.12); color: #7C3AED; }
+.muqtarin-pipeline-icon.is-shipped   { background: rgba(217, 119, 6, 0.14); color: #D97706; }
+.muqtarin-pipeline-icon.is-delivered { background: rgba(22, 163, 74, 0.14); color: #16A34A; }
+.muqtarin-pipeline-icon.is-cancelled { background: rgba(220, 38, 38, 0.12); color: #DC2626; }
+.muqtarin-pipeline-icon.is-returned  { background: rgba(236, 72, 153, 0.12); color: #EC4899; }
+
+.muqtarin-pipeline-meta {
+  flex: 1;
+  min-width: 0;
+}
+.muqtarin-pipeline-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 0.84rem;
+}
+.muqtarin-pipeline-labels span:first-child {
+  font-weight: 600;
+  color: var(--ink);
+}
+.muqtarin-pipeline-count {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.muqtarin-pipeline-track {
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--surface-alt);
+  overflow: hidden;
+}
+.muqtarin-pipeline-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.muqtarin-pipeline-bar.is-received  { background: #2563EB; }
+.muqtarin-pipeline-bar.is-processed { background: #7C3AED; }
+.muqtarin-pipeline-bar.is-shipped   { background: #D97706; }
+.muqtarin-pipeline-bar.is-delivered { background: #16A34A; }
+.muqtarin-pipeline-bar.is-cancelled { background: #DC2626; }
+.muqtarin-pipeline-bar.is-returned  { background: #EC4899; }
+
+/* Top Sellers Leaderboard */
+.muqtarin-seller-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  background: var(--surface-alt);
+  transition: border-color var(--transition), background-color var(--transition);
+}
+.muqtarin-seller-row + .muqtarin-seller-row {
+  margin-top: 8px;
+}
+.muqtarin-seller-row:hover {
+  border-color: var(--pine);
+  background: var(--pine-50);
+}
+[data-theme="dark"] .muqtarin-seller-row:hover {
+  border-color: var(--emerald);
+}
+.muqtarin-seller-rank {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.muqtarin-seller-rank.rank-1 {
+  background: rgba(246, 198, 103, 0.28);
+  border-color: rgba(246, 198, 103, 0.6);
+  color: #B45309;
+}
+[data-theme="dark"] .muqtarin-seller-rank.rank-1 {
+  color: #F6C667;
+}
+.muqtarin-seller-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+.muqtarin-seller-info {
+  flex: 1;
+  min-width: 0;
+}
+.muqtarin-seller-info .name {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.muqtarin-seller-info .store {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.muqtarin-seller-metrics {
+  text-align: end;
+  flex-shrink: 0;
+}
+.muqtarin-seller-metrics .amount {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--pine);
+  font-variant-numeric: tabular-nums;
+}
+[data-theme="dark"] .muqtarin-seller-metrics .amount {
+  color: var(--emerald);
+}
+.muqtarin-seller-metrics .comm {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* Chatify ListOfContacts Dark/Light Polish */
+.muqtarin-dashboard .listOfContacts {
+  min-height: 250px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+.muqtarin-dashboard .messenger-list-item td p,
+.muqtarin-dashboard .messenger-list-item td span {
+  color: var(--ink) !important;
+}
+.muqtarin-dashboard .messenger-list-item:hover {
+  background: var(--pine-50) !important;
+  border-radius: 10px;
+}
+
+/* Empty State Block */
+.muqtarin-empty-state {
+  flex: 1;
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 16px;
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+  background: var(--surface-alt);
+  text-align: center;
+}
+.muqtarin-empty-state i {
+  font-size: 1.9rem;
+  color: var(--muted);
+  opacity: 0.8;
+}
+.muqtarin-empty-state p {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Bootstrap-Table Dark/Light Cleanup on Dashboard */
+.muqtarin-dashboard .bootstrap-table .fixed-table-container {
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  background: var(--surface) !important;
+}
+.muqtarin-dashboard .bootstrap-table .fixed-table-pagination {
+  padding: 10px 4px 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.muqtarin-dashboard .accordion-item {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--ink) !important;
+}
+.muqtarin-dashboard .accordion-button {
+  background: var(--surface-alt) !important;
+  color: var(--ink) !important;
+}
+.muqtarin-dashboard .accordion-button:not(.collapsed) {
+  background: var(--pine-light) !important;
+  color: var(--pine) !important;
+}
+[data-theme="dark"] .muqtarin-dashboard .accordion-button:not(.collapsed) {
+  color: var(--emerald) !important;
+}
+
