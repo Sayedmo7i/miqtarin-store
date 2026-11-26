@@ -76,7 +76,7 @@
 
     @endphp
     <nav class="navbar navbar-main navbar-expand-lg px-0 shadow-none border-radius-xl" id="navbarBlur" data-scroll="false">
-        <div id="app_url" data-app-url="{{ config('app.url') }}"></div>
+        <div id="app_url" data-app-url="{{ rtrim(url('/'), '/') . '/' }}"></div>
         <div class="align-items-center d-flex px-4 py-1 w-100 muqtarin-topbar-inner">
             <button type="button" class="muqtarin-icon-btn me-2" id="muqtarin-sidebar-toggle"
                 onclick="muqtarinToggleSidebar()" title="Toggle Sidebar" aria-label="Toggle Sidebar">
