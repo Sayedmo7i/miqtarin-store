@@ -274,12 +274,15 @@
     @endphp
 
     <style>
-        * {
+        :root {
             --primary-theme-color: <?=$primary_colour ?>;
             --background_opacity_color: <?=$background_opacity_color ?>;
             --secondary-theme-color: <?=$secondary_color ?>;
             --hover-color: <?=$hover_color ?>;
             --active-color: <?=$active_color ?>;
+            /* MUQTARIN brand tokens (from DESIGN.md) */
+            --pine: <?=$primary_colour ?>;
+            --pine-hover: <?=$hover_color ?>;
         }
     </style>
 

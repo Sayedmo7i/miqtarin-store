@@ -12,8 +12,10 @@
     <link rel="icon" type="image/png"
         href="{{ app(MediaService::class)->getMediaImageUrl($system_settings['favicon']) }}">
     <title>@yield('title') | {{ $system_settings['app_name'] }}</title>
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- MUQTARIN Brand Fonts: Tajawal (Arabic) + Inter (English) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- filepond Css --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" />
 
@@ -65,8 +67,8 @@
 
 
     <link rel="stylesheet" href="{{ asset('/assets/css/theme.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('/assets/admin/custom/custom.css') }}"> --}}
+    {{-- MUQTARIN Store Admin Design System — replaces old custom.css --}}
     <link rel="stylesheet"
-        href="{{ asset('assets/admin/custom/custom.css') }}?v={{ \Illuminate\Support\Str::random(10) }}">
+        href="{{ asset('assets/admin/custom/muqtarin-admin.css') }}?v={{ \Illuminate\Support\Str::random(6) }}">
 
 </head>
