@@ -2680,14 +2680,289 @@ th {
   min-height: 250px;
   max-height: 360px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.muqtarin-dashboard .messenger-list-item {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background: var(--surface-alt);
+  padding: 6px;
+  cursor: pointer;
+  transition: border-color var(--transition), background-color var(--transition), transform var(--transition);
+}
+.muqtarin-dashboard .messenger-list-item td {
+  padding: 6px 8px !important;
+  vertical-align: middle;
+}
+.muqtarin-dashboard .messenger-list-item .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--border);
 }
 .muqtarin-dashboard .messenger-list-item td p,
 .muqtarin-dashboard .messenger-list-item td span {
   color: var(--ink) !important;
+  margin: 0;
+}
+.muqtarin-dashboard .messenger-list-item td p {
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.muqtarin-dashboard .messenger-list-item td p .contact-item-time,
+.muqtarin-dashboard .messenger-list-item td > span {
+  font-size: 0.75rem !important;
+  color: var(--muted) !important;
 }
 .muqtarin-dashboard .messenger-list-item:hover {
   background: var(--pine-50) !important;
+  border-color: var(--pine);
+  transform: translateY(-1px);
+}
+[data-theme="dark"] .muqtarin-dashboard .messenger-list-item:hover {
+  border-color: var(--emerald);
+}
+
+/* Quick Operational Telemetry Strip */
+.muqtarin-telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 991px) {
+  .muqtarin-telemetry-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 576px) {
+  .muqtarin-telemetry-strip { grid-template-columns: 1fr; }
+}
+.muqtarin-telemetry-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
+  color: var(--ink) !important;
+  text-decoration: none !important;
+  transition: border-color var(--transition), transform var(--transition), background-color var(--transition);
+}
+.muqtarin-telemetry-chip:hover {
+  border-color: var(--pine);
+  background: var(--pine-50);
+  transform: translateY(-1px);
+}
+[data-theme="dark"] .muqtarin-telemetry-chip:hover {
+  border-color: var(--emerald);
+}
+.muqtarin-telemetry-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.muqtarin-telemetry-left i {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border-light);
+  color: var(--pine);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+[data-theme="dark"] .muqtarin-telemetry-left i {
+  color: var(--emerald);
+}
+.muqtarin-telemetry-left span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.muqtarin-telemetry-val {
+  font-family: 'Inter', 'Tajawal', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Setup Checklist Collapse Toggle */
+.muqtarin-setup-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: var(--radius-full);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.muqtarin-setup-toggle:hover {
+  border-color: var(--pine);
+  color: var(--pine);
+}
+.muqtarin-setup-card.is-collapsed .muqtarin-setup-grid,
+.muqtarin-setup-card.is-collapsed .muqtarin-setup-track {
+  display: none;
+}
+.muqtarin-setup-card.is-collapsed .muqtarin-setup-head {
+  margin-bottom: 0;
+}
+
+/* Revenue Summary Pills + Zero-Data Notice */
+.muqtarin-chart-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+@media (max-width: 576px) {
+  .muqtarin-chart-kpis { grid-template-columns: 1fr; }
+}
+.muqtarin-chart-kpi {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.muqtarin-chart-kpi-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.muqtarin-chart-kpi-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.muqtarin-chart-kpi-value {
+  font-family: 'Inter', 'Tajawal', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.muqtarin-chart-zero-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--surface-alt);
+  border: 1px dashed var(--border);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+  align-self: flex-start;
+}
+
+/* Clickable Pipeline Stage & Percentage */
+.muqtarin-pipeline-row {
+  padding: 6px 8px;
+  margin: 0 -8px;
+  border-radius: 12px;
+  text-decoration: none !important;
+  transition: background-color var(--transition);
+}
+.muqtarin-pipeline-row:hover {
+  background: var(--surface-alt);
+}
+.muqtarin-pipeline-pct {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-inline-end: 6px;
+}
+
+/* Customer Statistics Breakdown Grid */
+.muqtarin-customer-breakdown {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+}
+.muqtarin-cust-pill {
+  padding: 8px 10px;
   border-radius: 10px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.muqtarin-cust-pill-top {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.muqtarin-cust-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.muqtarin-cust-pill strong {
+  font-family: 'Inter', 'Tajawal', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* MagicUI Skeleton Loader */
+.muqtarin-skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.muqtarin-skeleton-item {
+  height: 54px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--surface-alt) 25%, var(--border-light) 50%, var(--surface-alt) 75%);
+  background-size: 200% 100%;
+  animation: muqtarin-shimmer 1.4s infinite linear;
+}
+@keyframes muqtarin-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* Empty State Block */
@@ -2717,15 +2992,66 @@ th {
   color: var(--muted);
 }
 
-/* Bootstrap-Table Dark/Light Cleanup on Dashboard */
+/* Shadcn / OriginUI DataTable Polish on Dashboard */
+.muqtarin-dashboard .bootstrap-table .fixed-table-toolbar {
+  padding: 0 0 12px !important;
+  background: transparent !important;
+  border-bottom: none !important;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.muqtarin-dashboard .bootstrap-table .fixed-table-toolbar .search {
+  flex: 1;
+  min-width: 180px;
+  max-width: 280px;
+  margin: 0 !important;
+}
+.muqtarin-dashboard .bootstrap-table .fixed-table-toolbar .search input {
+  border-radius: 10px !important;
+  min-height: 36px !important;
+  height: 36px !important;
+  font-size: 0.82rem !important;
+  padding: 6px 12px !important;
+}
+.muqtarin-dashboard .bootstrap-table .fixed-table-toolbar .columns {
+  margin: 0 !important;
+}
+.muqtarin-dashboard .bootstrap-table .fixed-table-toolbar .columns .btn {
+  min-height: 36px !important;
+  height: 36px !important;
+  padding: 6px 11px !important;
+  border-radius: 10px !important;
+}
 .muqtarin-dashboard .bootstrap-table .fixed-table-container {
   border: 1px solid var(--border) !important;
-  border-radius: 12px !important;
+  border-radius: 14px !important;
   overflow: hidden;
   background: var(--surface) !important;
 }
+.muqtarin-dashboard .bootstrap-table .table tbody tr.no-records-found td {
+  padding: 32px 16px !important;
+  text-align: center !important;
+}
+.muqtarin-table-empty {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+}
+.muqtarin-table-empty i {
+  font-size: 1.75rem;
+  opacity: 0.75;
+}
+.muqtarin-table-empty span {
+  font-size: 0.84rem;
+  font-weight: 600;
+}
 .muqtarin-dashboard .bootstrap-table .fixed-table-pagination {
-  padding: 10px 4px 0;
+  padding: 12px 4px 0;
   color: var(--muted);
   font-size: 0.8rem;
 }
@@ -2745,4 +3071,3 @@ th {
 [data-theme="dark"] .muqtarin-dashboard .accordion-button:not(.collapsed) {
   color: var(--emerald) !important;
 }
-

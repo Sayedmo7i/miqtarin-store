@@ -48,7 +48,7 @@ class TicketController extends Controller
 
     public function list()
     {
-        $search = trim(request('search'));
+        $search = trim((string) request('search', ''));
         $sort = (request('sort')) ? request('sort') : "id";
         $order = (request('order')) ? request('order') : "DESC";
         $offset = $search || (request('pagination_offset')) ? (request('pagination_offset')) : 0;
@@ -223,7 +223,7 @@ class TicketController extends Controller
     {
         $ticketId = request()->input('ticket_id', '');
         $userId = request()->input('user_id', '');
-        $search = trim(request()->input('search', ''));
+        $search = trim((string) request()->input('search', ''));
         $offset = request()->input('offset', 0);
         $limit = request()->input('limit', 10);
         $sort = request()->input('sort', 'id');
@@ -327,11 +327,13 @@ class TicketController extends Controller
 
     public function getTicketList()
     {
-        $search = trim(request()->input('search'));
-        $offset = request()->input('pagination_offset', 0);
-        $limit = request()->input('limit', 10);
-        $sort = request()->input('sort', 'id');
-        $order = request()->input('order', 'ASC');
+        $search = trim((string) request()->input('search', ''));
+        $offset = (int) request()->input('pagination_offset', request()->input('offset', 0));
+        $limit = (int) request()->input('limit', 10);
+        $allowedSorts = ['id', 'subject', 'status', 'created_at', 'updated_at'];
+        $requestedSort = (string) request()->input('sort', 'id');
+        $sort = in_array($requestedSort, $allowedSorts, true) ? $requestedSort : 'id';
+        $order = strtoupper((string) request()->input('order', 'ASC')) === 'DESC' ? 'DESC' : 'ASC';
 
         $query = Ticket::with(['user', 'ticketType']);
 
@@ -389,11 +391,11 @@ class TicketController extends Controller
     </div>';
 
             $statusLabel = match ((string) $ticket->status) {
-                '1' => '<label class="badge bg-secondary">PENDING</label>',
-                '2' => '<label class="badge bg-info">OPENED</label>',
-                '3' => '<label class="badge bg-success">RESOLVED</label>',
-                '4' => '<label class="badge bg-danger">CLOSED</label>',
-                '5' => '<label class="badge bg-warning">REOPENED</label>',
+                '1' => '<span class="badge bg-secondary">' . labels('admin_labels.pending', 'Pending') . '</span>',
+                '2' => '<span class="badge bg-info">' . labels('admin_labels.opened', 'Opened') . '</span>',
+                '3' => '<span class="badge bg-success">' . labels('admin_labels.resolved', 'Resolved') . '</span>',
+                '4' => '<span class="badge bg-danger">' . labels('admin_labels.closed', 'Closed') . '</span>',
+                '5' => '<span class="badge bg-warning">' . labels('admin_labels.reopened', 'Reopened') . '</span>',
                 default => '',
             };
 
