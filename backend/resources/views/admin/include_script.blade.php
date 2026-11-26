@@ -174,6 +174,11 @@
          window.muqtarinToggleSidebar = function() {
              var isMobile = window.innerWidth < 1200;
              var sidebar = document.querySelector('.navbar-vertical');
+             var flyout = document.getElementById('muqtarin-sidebar-flyout');
+             if (flyout) {
+                 flyout.classList.remove('is-visible');
+                 flyout.setAttribute('aria-hidden', 'true');
+             }
              if (isMobile) {
                  if (sidebar) sidebar.classList.toggle('show');
                  document.body.classList.toggle('sidebar-mobile-open');

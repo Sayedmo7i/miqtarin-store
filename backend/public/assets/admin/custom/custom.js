@@ -10210,6 +10210,67 @@ function loadingTemplate() {
 // code for search meny ib side bar
 
 $(function () {
+    const $sidebarSections = $(".navbar-nav > li.sidebar-section, .navbar-nav > li.sidebar-direct");
+
+    if ($sidebarSections.length > 0) {
+        $(".menuSearch").on("input", function () {
+            const searchValue = $(this).val().trim().toLowerCase();
+
+            if (!searchValue) {
+                $sidebarSections.show();
+                $sidebarSections.find("li.nav-item").show();
+                $sidebarSections.find(".collapse").each(function () {
+                    const $col = $(this);
+                    if ($col.data("default-open") === true || $col.data("default-open") === "true") {
+                        $col.addClass("show");
+                    } else {
+                        $col.removeClass("show");
+                    }
+                });
+                $sidebarSections.find('[data-bs-toggle="collapse"]').each(function () {
+                    const target = $(this).attr("href") || $(this).attr("data-bs-target");
+                    const isOpen = target ? $(target).hasClass("show") : false;
+                    $(this).toggleClass("collapsed", !isOpen).attr("aria-expanded", isOpen ? "true" : "false");
+                });
+                return;
+            }
+
+            $sidebarSections.each(function () {
+                const $section = $(this);
+                const $trigger = $section.children(".sidebar-section-trigger, .nav-link").first();
+                const sectionTitle = $trigger.text().toLowerCase();
+                const sectionMatches = sectionTitle.includes(searchValue);
+
+                const $subItems = $section.find(".sidebar-sublist li.nav-item:not(.d-none)");
+                if ($subItems.length === 0) {
+                    $section.toggle(sectionMatches);
+                    return;
+                }
+
+                let anyChildMatch = false;
+                $subItems.each(function () {
+                    const $item = $(this);
+                    const text = $item.text().toLowerCase();
+                    const isMatch = sectionMatches || text.includes(searchValue);
+                    $item.toggle(isMatch);
+                    if (isMatch) {
+                        anyChildMatch = true;
+                        $item.parents(".collapse").addClass("show");
+                    }
+                });
+
+                if (anyChildMatch) {
+                    $section.show();
+                    $section.children(".collapse").addClass("show");
+                    $trigger.removeClass("collapsed").attr("aria-expanded", "true");
+                } else {
+                    $section.hide();
+                }
+            });
+        });
+        return;
+    }
+
     const $menuItems = $(".navbar-nav li");
     const $sidebarTitles = $(".sidebar-title");
 
