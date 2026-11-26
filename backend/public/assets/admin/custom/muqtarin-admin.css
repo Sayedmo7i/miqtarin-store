@@ -1112,6 +1112,53 @@ th {
 .swal2-title, .swal2-html-container { color: var(--ink) !important; }
 .swal2-confirm { background: var(--pine) !important; border-radius: var(--radius-md) !important; }
 
+/* Global FilePond Dropzone (OriginUI / MagicUI Light & Dark) */
+.filepond--root {
+  font-family: 'Tajawal', 'Inter', sans-serif !important;
+  margin-bottom: 0 !important;
+}
+.filepond--panel-root {
+  background-color: var(--surface-alt) !important;
+  border: 1.5px dashed var(--border) !important;
+  border-radius: 12px !important;
+  transition: border-color var(--transition), background-color var(--transition), box-shadow var(--transition);
+}
+.filepond--root:hover .filepond--panel-root {
+  border-color: var(--pine) !important;
+  background-color: var(--pine-50) !important;
+}
+[data-theme="dark"] .filepond--root:hover .filepond--panel-root {
+  border-color: var(--emerald) !important;
+  background-color: rgba(34, 197, 94, 0.07) !important;
+}
+.filepond--drop-label {
+  color: var(--ink-soft) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+.filepond--label-action {
+  color: var(--pine) !important;
+  font-weight: 700 !important;
+  text-decoration-color: rgba(15, 76, 58, 0.4) !important;
+}
+[data-theme="dark"] .filepond--label-action {
+  color: var(--emerald) !important;
+  text-decoration-color: rgba(34, 197, 94, 0.45) !important;
+}
+.filepond--drip-blob {
+  background-color: var(--pine) !important;
+}
+[data-theme="dark"] .filepond--drip-blob {
+  background-color: var(--emerald) !important;
+}
+.filepond--item-panel {
+  background-color: var(--pine) !important;
+  border-radius: 10px !important;
+}
+.filepond--credits {
+  display: none !important;
+}
+
 /* ── 12. Responsive Drawer on Mobile / Tablet ─────────────────────────────── */
 @media (max-width: 1199px) {
   #page-content {
@@ -1132,4 +1179,669 @@ th {
 @media (max-width: 768px) {
   .container-fluid.mt-5.px-6 { padding: 16px !important; }
   .card-body { padding: 16px !important; }
+}
+
+/* ── 13. Add Store Wizard (.muqtarin-store-wizard) ────────────────────────── */
+.muqtarin-store-wizard .muqtarin-wizard-rail {
+  position: sticky;
+  top: calc(var(--header-height) + 18px);
+  border-radius: var(--radius-xl) !important;
+  overflow: hidden;
+  padding: 20px !important;
+  background: var(--surface) !important;
+  background-image: radial-gradient(240px circle at 100% 0%, rgba(34, 197, 94, 0.08), transparent 70%) !important;
+}
+[dir="rtl"] .muqtarin-store-wizard .muqtarin-wizard-rail {
+  background-image: radial-gradient(240px circle at 0% 0%, rgba(34, 197, 94, 0.08), transparent 70%) !important;
+}
+
+.muqtarin-wizard-rail-head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.muqtarin-wizard-progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.muqtarin-wizard-step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--pine-light);
+  color: var(--pine);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+[data-theme="dark"] .muqtarin-wizard-step-pill {
+  color: var(--emerald);
+}
+
+.muqtarin-wizard-progress-pct {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.muqtarin-wizard-progress-track {
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--surface-alt);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+.muqtarin-wizard-progress-fill {
+  height: 100%;
+  width: 12.5%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--pine), var(--emerald));
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Override legacy #store_progressbar & .card1 inside wizard */
+.muqtarin-store-wizard .card1 {
+  margin-left: 0 !important;
+  margin-inline-start: 0 !important;
+}
+
+.muqtarin-store-wizard #store_progressbar {
+  position: static !important;
+  left: auto !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: start !important;
+}
+
+.muqtarin-store-wizard #store_progressbar li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0 !important;
+  padding: 9px 10px;
+  border-radius: 10px;
+  font-size: 0.84rem !important;
+  font-weight: 600 !important;
+  color: var(--muted) !important;
+  border: 1px solid transparent;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.muqtarin-store-wizard #store_progressbar li::before,
+.muqtarin-store-wizard #store_progressbar li::after,
+.muqtarin-store-wizard #store_progressbar li.active::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Vertical timeline connector between step dots */
+.muqtarin-store-wizard #store_progressbar li:not(:last-child) .muqtarin-step-dot::after {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 14px;
+  background: var(--border);
+  border-radius: 2px;
+  transition: background-color var(--transition);
+}
+.muqtarin-store-wizard #store_progressbar li[data-state="completed"]:not(:last-child) .muqtarin-step-dot::after {
+  background: var(--success);
+}
+
+.muqtarin-step-dot {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: var(--radius-full);
+  background: var(--surface-alt);
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  transition: all var(--transition);
+}
+
+.muqtarin-step-dot .muqtarin-step-check {
+  display: none;
+  width: 14px;
+  height: 14px;
+}
+
+.muqtarin-step-text {
+  line-height: 1.35;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+/* Active / Current Step */
+.muqtarin-store-wizard #store_progressbar li.active[data-state="current"],
+.muqtarin-store-wizard #store_progressbar li[data-state="current"] {
+  background: var(--pine-light);
+  border-color: rgba(15, 76, 58, 0.22);
+  color: var(--pine) !important;
+}
+[data-theme="dark"] .muqtarin-store-wizard #store_progressbar li.active[data-state="current"],
+[data-theme="dark"] .muqtarin-store-wizard #store_progressbar li[data-state="current"] {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.28);
+  color: var(--emerald) !important;
+}
+.muqtarin-store-wizard #store_progressbar li[data-state="current"] .muqtarin-step-dot {
+  background: var(--pine);
+  border-color: var(--pine);
+  color: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+}
+[data-theme="dark"] .muqtarin-store-wizard #store_progressbar li[data-state="current"] .muqtarin-step-dot {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  color: #07291E;
+}
+
+/* Completed Steps */
+.muqtarin-store-wizard #store_progressbar li[data-state="completed"] {
+  color: var(--ink) !important;
+  cursor: pointer;
+}
+.muqtarin-store-wizard #store_progressbar li[data-state="completed"]:hover {
+  background: var(--surface-alt);
+}
+.muqtarin-store-wizard #store_progressbar li[data-state="completed"] .muqtarin-step-dot {
+  background: var(--success);
+  border-color: var(--success);
+  color: #FFFFFF;
+}
+.muqtarin-store-wizard #store_progressbar li[data-state="completed"] .muqtarin-step-num {
+  display: none;
+}
+.muqtarin-store-wizard #store_progressbar li[data-state="completed"] .muqtarin-step-check {
+  display: block;
+}
+
+/* Form Column & Card Surface */
+.muqtarin-form-column {
+  position: relative;
+  padding-bottom: 6px;
+}
+
+.muqtarin-store-wizard .card2 {
+  margin-left: 0 !important;
+  margin-inline-start: 0 !important;
+  animation: muqtarin-step-enter 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes muqtarin-step-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.muqtarin-wizard-card {
+  border-radius: var(--radius-xl) !important;
+  padding: 24px 26px !important;
+  background: var(--surface) !important;
+  background-image: radial-gradient(420px circle at 0% 0%, rgba(34, 197, 94, 0.05), transparent 65%) !important;
+}
+[dir="rtl"] .muqtarin-wizard-card {
+  background-image: radial-gradient(420px circle at 100% 0%, rgba(34, 197, 94, 0.05), transparent 65%) !important;
+}
+
+.muqtarin-step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.muqtarin-step-header-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--pine-light);
+  color: var(--pine);
+  border: 1px solid rgba(15, 76, 58, 0.14);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+[data-theme="dark"] .muqtarin-step-header-icon {
+  color: var(--emerald);
+  border-color: rgba(34, 197, 94, 0.24);
+}
+.muqtarin-step-header-icon svg {
+  width: 19px;
+  height: 19px;
+}
+.muqtarin-step-header h5 {
+  margin: 0 !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+}
+
+.muqtarin-sub-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.94rem !important;
+  font-weight: 700 !important;
+  margin: 26px 0 14px !important;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-light);
+}
+
+/* Segmented Pill Language Tabs (shadcn / OriginUI) */
+.muqtarin-store-wizard .nav-tabs.muqtarin-segmented-tabs {
+  border-bottom: none !important;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 4px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 0 !important;
+}
+.muqtarin-store-wizard .nav-tabs.muqtarin-segmented-tabs .nav-link {
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 6px 14px !important;
+  font-size: 0.83rem !important;
+  font-weight: 600 !important;
+  color: var(--muted) !important;
+  background: transparent !important;
+  transition: all var(--transition);
+}
+.muqtarin-store-wizard .nav-tabs.muqtarin-segmented-tabs .nav-link:hover {
+  color: var(--ink) !important;
+}
+.muqtarin-store-wizard .nav-tabs.muqtarin-segmented-tabs .nav-link.active {
+  background: var(--surface) !important;
+  color: var(--pine) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  border-bottom: none !important;
+}
+[data-theme="dark"] .muqtarin-store-wizard .nav-tabs.muqtarin-segmented-tabs .nav-link.active {
+  background: #212833 !important;
+  color: var(--emerald) !important;
+}
+
+/* Switch & Selectable Option Cards (shadcn / OriginUI) */
+.muqtarin-switch-card,
+.muqtarin-option-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  transition: border-color var(--transition), background-color var(--transition), box-shadow var(--transition);
+  height: 100%;
+}
+.muqtarin-switch-card label,
+.muqtarin-option-card label {
+  margin: 0 !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+.muqtarin-switch-card:has(.form-check-input:checked),
+.muqtarin-option-card:has(.form-check-input:checked) {
+  background: var(--pine-50);
+  border-color: var(--pine);
+  box-shadow: 0 0 0 3px var(--pine-light);
+}
+[data-theme="dark"] .muqtarin-switch-card:has(.form-check-input:checked),
+[data-theme="dark"] .muqtarin-option-card:has(.form-check-input:checked) {
+  background: rgba(34, 197, 94, 0.09);
+  border-color: var(--emerald);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.14);
+}
+.muqtarin-switch-card .form-check,
+.muqtarin-option-card .form-check {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+.muqtarin-switch-card .form-check-input,
+.muqtarin-option-card .form-check-input {
+  margin: 0 !important;
+  cursor: pointer;
+  width: 2.35em !important;
+  height: 1.25em !important;
+}
+
+/* Color Token Picker Cards (OriginUI / 21st.dev) */
+.muqtarin-color-card {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.muqtarin-color-card:focus-within {
+  border-color: var(--pine);
+  box-shadow: 0 0 0 3px var(--pine-light);
+}
+[data-theme="dark"] .muqtarin-color-card:focus-within {
+  border-color: var(--emerald);
+}
+.muqtarin-color-card label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.muqtarin-color-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  padding-inline-end: 10px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.muqtarin-store-wizard .muqtarin-color-swatch {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.muqtarin-store-wizard .muqtarin-color-swatch::-webkit-color-swatch-wrapper { padding: 0; }
+.muqtarin-store-wizard .muqtarin-color-swatch::-webkit-color-swatch { border: none; border-radius: 7px; }
+.muqtarin-store-wizard .muqtarin-color-swatch::-moz-color-swatch { border: none; border-radius: 7px; }
+
+.muqtarin-store-wizard .muqtarin-color-hex {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 4px !important;
+  margin: 0 !important;
+  min-height: 32px !important;
+  height: 32px !important;
+  font-family: 'Inter', monospace !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: var(--ink) !important;
+  direction: ltr;
+  text-align: start;
+}
+
+/* Upload Tile Framing */
+.muqtarin-upload-tile {
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  height: 100%;
+}
+.muqtarin-upload-tile > label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px !important;
+  text-align: start;
+}
+
+/* Style & Theme Preview Containers (Aceternity / MagicUI Dot Grid) */
+.muqtarin-store-wizard .store_style_box,
+.muqtarin-store-wizard .home_theme_style_box,
+.muqtarin-store-wizard .category_style_box,
+.muqtarin-store-wizard .category_card_box,
+.muqtarin-store-wizard .product_style_box {
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  margin: 0 !important;
+  padding: 20px !important;
+  min-height: 185px;
+  height: auto !important;
+  max-height: 380px;
+  width: 100% !important;
+  background-color: var(--surface-alt) !important;
+  background-image: radial-gradient(rgba(100, 116, 139, 0.22) 1px, transparent 1px) !important;
+  background-size: 16px 16px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.muqtarin-store-wizard .home_theme_style_box {
+  max-height: 440px;
+  min-height: 280px;
+}
+.muqtarin-store-wizard .store_style_box img,
+.muqtarin-store-wizard .home_theme_style_box img,
+.muqtarin-store-wizard .category_style_box img,
+.muqtarin-store-wizard .category_card_box img,
+.muqtarin-store-wizard .product_style_box img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto !important;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.16);
+}
+.muqtarin-store-wizard .home_theme_style_box img {
+  max-height: 400px;
+}
+
+/* Browser Preview Chrome around Web Preview Iframes */
+.muqtarin-preview-frame {
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface-alt);
+  box-shadow: var(--shadow-sm);
+}
+.muqtarin-preview-frame-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border);
+}
+.muqtarin-preview-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.muqtarin-preview-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.muqtarin-preview-dots span:nth-child(1) { background: #F87171; }
+.muqtarin-preview-dots span:nth-child(2) { background: #FBBF24; }
+.muqtarin-preview-dots span:nth-child(3) { background: #34D399; }
+.muqtarin-preview-badge {
+  font-family: 'Inter', 'Tajawal', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.muqtarin-preview-frame iframe {
+  display: block;
+  border: none !important;
+  margin-top: 0 !important;
+  background: #FFFFFF;
+}
+
+/* Subpanel for Step 8 Settings */
+.muqtarin-subpanel {
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  margin-top: 16px;
+}
+.muqtarin-subpanel h6 {
+  margin: 0 0 14px 0 !important;
+  font-size: 0.92rem !important;
+  font-weight: 700 !important;
+}
+
+/* Action Footer (Uiverse CTA + Clean Back Button) */
+.muqtarin-store-wizard .store-next-button,
+.muqtarin-store-wizard .muqtarin-submit-wrap {
+  width: fit-content;
+  margin-inline-start: auto;
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  float: none !important;
+}
+
+.muqtarin-store-wizard .muqtarin-cta-btn {
+  position: relative;
+  overflow: hidden;
+  min-height: 44px;
+  padding: 0 24px !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #0F4C3A 0%, #14634C 100%) !important;
+  border: 1px solid rgba(34, 197, 94, 0.35) !important;
+  box-shadow: 0 8px 20px -6px rgba(15, 76, 58, 0.45) !important;
+  transition: transform 0.18s ease, box-shadow 0.2s ease !important;
+}
+.muqtarin-store-wizard .muqtarin-cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+}
+.muqtarin-store-wizard .muqtarin-cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px -6px rgba(15, 76, 58, 0.55) !important;
+}
+.muqtarin-store-wizard .muqtarin-cta-btn:hover::before {
+  left: 150%;
+}
+.muqtarin-store-wizard .muqtarin-cta-btn svg {
+  width: 16px;
+  height: 16px;
+}
+[dir="rtl"] .muqtarin-store-wizard .muqtarin-cta-btn .muqtarin-next-arrow {
+  transform: rotate(180deg);
+}
+
+.muqtarin-prev-dock {
+  position: absolute;
+  bottom: 6px;
+  inset-inline-start: 0;
+  z-index: 2;
+}
+.muqtarin-store-wizard .prev.reset-btn {
+  margin: 0 !important;
+  min-height: 44px;
+  padding: 0 18px !important;
+  border-radius: 10px !important;
+  background: var(--surface) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--border) !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  line-height: 42px !important;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition), background-color var(--transition), transform var(--transition);
+}
+.muqtarin-store-wizard .prev.reset-btn:hover {
+  background: var(--surface-alt) !important;
+  border-color: var(--pine) !important;
+  transform: translateY(-1px);
+}
+[data-theme="dark"] .muqtarin-store-wizard .prev.reset-btn:hover {
+  border-color: var(--emerald) !important;
+}
+
+@media (max-width: 1199px) {
+  .muqtarin-store-wizard .muqtarin-wizard-rail {
+    position: static;
+    margin-bottom: 16px;
+  }
+  .muqtarin-store-wizard #store_progressbar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .muqtarin-store-wizard #store_progressbar li:not(:last-child) .muqtarin-step-dot::after {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .muqtarin-wizard-card { padding: 18px 16px !important; }
+  .muqtarin-store-wizard #store_progressbar {
+    grid-template-columns: 1fr;
+  }
+  .muqtarin-prev-dock {
+    position: static;
+  }
+  .muqtarin-store-wizard .prev.reset-btn {
+    width: 100%;
+    margin-top: 10px !important;
+  }
+  .muqtarin-store-wizard .store-next-button,
+  .muqtarin-store-wizard .muqtarin-submit-wrap {
+    width: 100%;
+  }
+  .muqtarin-store-wizard .muqtarin-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
