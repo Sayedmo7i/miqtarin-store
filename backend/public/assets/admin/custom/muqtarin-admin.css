@@ -164,7 +164,9 @@ p { color: var(--ink-soft); }
   margin-inline-start: var(--sidebar-width) !important;
   margin-inline-end: 0 !important;
   min-width: 0;
+  max-width: 100%;
   width: auto !important;
+  overflow-x: clip;
   background: var(--canvas);
   transition: margin-inline-start var(--transition);
 }
@@ -768,6 +770,8 @@ body.sidebar-mobile-open .muqtarin-sidebar-backdrop {
   position: sticky;
   top: 0;
   z-index: 1020;
+  width: 100%;
+  max-width: 100%;
   background: var(--surface) !important;
   border-bottom: 1px solid var(--border);
   min-height: var(--header-height);
@@ -778,12 +782,44 @@ body.sidebar-mobile-open .muqtarin-sidebar-backdrop {
 }
 .navbar-main {
   width: 100%;
+  max-width: 100%;
   min-height: var(--header-height);
   padding: 0 !important;
 }
 .muqtarin-topbar-inner {
   min-height: var(--header-height);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  gap: 10px;
+}
+.muqtarin-topbar-store {
+  display: flex !important;
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  overflow: visible;
+}
+.muqtarin-topbar-store .navbar-nav,
+.muqtarin-topbar-store .dropdown-store,
+.muqtarin-topbar-store .module-dropdown-box,
+.muqtarin-store-trigger {
+  min-width: 0;
+  max-width: 100%;
+}
+.muqtarin-topbar-store .navbar-nav {
+  flex-direction: row;
+  align-items: center;
+}
+.muqtarin-store-trigger {
+  display: flex !important;
+  align-items: center;
+  padding: 0 !important;
+}
+.muqtarin-topbar-actions {
+  display: flex;
+  align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 /* Topbar Icon Buttons (Sidebar Toggle, Dark/Light, Globe) */
@@ -816,6 +852,11 @@ body.sidebar-mobile-open .muqtarin-sidebar-backdrop {
   color: var(--ink) !important;
   font-weight: 600;
   font-size: 0.9rem;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .header .avatar {
   width: 34px;
@@ -823,16 +864,19 @@ body.sidebar-mobile-open .muqtarin-sidebar-backdrop {
   border-radius: var(--radius-full);
   object-fit: cover;
   border: 2px solid var(--border);
+  flex-shrink: 0;
 }
 .header #profileDropDown {
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
+  flex-shrink: 0;
 }
 .header #profileDropDown .nav-link {
   color: var(--ink) !important;
   font-weight: 600;
   font-size: 0.875rem;
+  white-space: nowrap;
 }
 .muqtarin-lang-pill {
   background: var(--pine-light) !important;
@@ -840,9 +884,49 @@ body.sidebar-mobile-open .muqtarin-sidebar-backdrop {
   font-weight: 700;
   padding: 5px 10px;
   border-radius: var(--radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 [data-theme="dark"] .muqtarin-lang-pill {
   color: var(--emerald) !important;
+}
+.header .dropdown-menu {
+  max-width: calc(100vw - 24px);
+}
+
+@media (max-width: 767.98px) {
+  .muqtarin-topbar-inner {
+    padding-inline: 12px !important;
+    gap: 8px;
+  }
+  .muqtarin-lang-pill {
+    display: none !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .muqtarin-topbar-inner {
+    padding-inline: 10px !important;
+    gap: 6px;
+  }
+  .muqtarin-topbar-actions {
+    gap: 6px;
+  }
+  .muqtarin-icon-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 1.05rem;
+  }
+  .header .avatar {
+    width: 30px;
+    height: 30px;
+  }
+  .header .header_store_name {
+    font-size: 0.84rem;
+  }
+  .header #profileDropDown .nav-link-text {
+    display: none !important;
+  }
 }
 
 /* ── 7. Cards & Dashboard KPI Styling ─────────────────────────────────────── */
@@ -3071,3 +3155,23 @@ th {
 [data-theme="dark"] .muqtarin-dashboard .accordion-button:not(.collapsed) {
   color: var(--emerald) !important;
 }
+.muqtarin-dashboard .listOfContacts .center-el,
+.muqtarin-dashboard .center-el {
+  position: static !important;
+  inset: auto !important;
+  transform: none !important;
+}
+.muqtarin-dashboard .listOfContacts .message-hint {
+  display: none !important;
+}
+@media (max-width: 575.98px) {
+  .muqtarin-dash-hero {
+    padding: 18px 16px !important;
+  }
+  .muqtarin-dash-actions .muqtarin-hero-cta,
+  .muqtarin-dash-actions .muqtarin-hero-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
