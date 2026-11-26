@@ -188,8 +188,9 @@
                                     <div class="row g-3 mt-2">
                                         <div class="col-md-6">
                                             <div class="muqtarin-switch-card">
+                                                @php $defaultStoreLabel = labels('admin_labels.is_default_store', 'Is Default Store'); @endphp
                                                 <label for="is_default_store">
-                                                    {{ labels('admin_labels.is_default_store', 'Is Default Store') }}?
+                                                    {{ $defaultStoreLabel }}@if(!str_ends_with($defaultStoreLabel, '?') && !str_ends_with($defaultStoreLabel, '؟'))?@endif
                                                 </label>
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" id="is_default_store"
@@ -199,8 +200,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="muqtarin-switch-card">
+                                                @php $singleSellerLabel = labels('admin_labels.single_seller_order_system', 'Single Seller Order System'); @endphp
                                                 <label for="is_single_seller_order_system">
-                                                    {{ labels('admin_labels.single_seller_order_system', 'Single Seller Order System') }}?
+                                                    {{ $singleSellerLabel }}@if(!str_ends_with($singleSellerLabel, '?') && !str_ends_with($singleSellerLabel, '؟'))?@endif
                                                     <small class="text-muted">({{ labels('admin_labels.for_cart', 'For Cart') }})</small>
                                                 </label>
                                                 <div class="form-check form-switch">
