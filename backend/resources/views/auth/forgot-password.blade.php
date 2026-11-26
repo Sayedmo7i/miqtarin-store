@@ -94,6 +94,7 @@
     <script src="{{ asset('/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
 
     <script src="{{ asset('assets/admin/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('assets/brand/muqtarin-toast.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-toast.js')) }}"></script>
     <script src="{{ asset('assets/admin/js/dropzone.js') }}"></script>
     <script src="{{ asset('assets/admin/js/bootstrap-table.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/select2.min.js') }}"></script>
@@ -118,6 +119,7 @@
     <script src="{{ asset('/assets/js/argon-dashboard.min.js?v=2.0.4') }}"></script>
 
     <script src="{{ asset('assets/admin/custom/custom.js') }}"></script>
+    <script src="{{ asset('assets/brand/muqtarin-cursor.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-cursor.js')) }}" defer></script>
 </body>
 
 </html>

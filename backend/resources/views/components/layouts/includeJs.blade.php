@@ -10,6 +10,7 @@
 <script src="{{ asset('frontend/elegant/js/lightbox.js') }}" defer></script>
 <script src="{{ asset('frontend/elegant/js/custom.js') }}" defer></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+<script src="{{ asset('assets/brand/muqtarin-cursor.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-cursor.js')) }}" defer></script>
 @push('scripts')
 <script>
     function checkAndReload() {

@@ -1,5 +1,4 @@
 <div class="header @@classList bg-white">
-    <link rel="stylesheet" href="{{ asset('/assets/boxicons/css/boxicons.css') }}">
 
     @php
         use App\Models\Store;
@@ -38,9 +37,7 @@
                 $language_code,
             );
             $isPublicDisk = $stores[0]->disk == 'public' ? 1 : 0;
-            $default_store_image = $isPublicDisk
-                ? asset(config('constants.STORE_IMG_PATH') . $stores[0]->image)
-                : $stores[0]->image;
+            $default_store_image = $stores[0]->image ?? '';
         } else {
             $default_store_id = '';
             $default_store_name = '';
@@ -57,18 +54,14 @@
         }
 
         $store_name = session('store_name') !== null && !empty(session('store_name')) ? session('store_name') : '';
-        // dd($store_name);
         if (!empty($stores) && isset($stores[0])) {
             $isPublicDisk = $stores[0]->disk == 'public' ? 1 : 0;
         } else {
             $isPublicDisk = 0;
         }
 
-        $image = $isPublicDisk
-            ? asset(config('constants.STORE_IMG_PATH') . session('store_image'))
-            : session('store_image');
-
-        $store_image = session('store_image') !== null && !empty(session('store_image')) ? $image : '';
+        $rawStoreImg = session('store_image') ?: $default_store_image;
+        $store_image = !empty($rawStoreImg) ? $rawStoreImg : '';
 
         use App\Models\Language;
 
@@ -76,33 +69,32 @@
 
     @endphp
     <nav class="navbar navbar-main navbar-expand-lg px-0 shadow-none border-radius-xl" id="navbarBlur" data-scroll="false">
-        <div id="app_url" data-app-url="{{ config('app.url') }}"></div>
-        <div class="align-items-center d-flex px-6 py-1 w-100">
-            <div class=" mt-2 navbar-collapse justify-content-end" id="navbar">
+        <div id="app_url" data-app-url="{{ rtrim(url('/'), '/') . '/' }}"></div>
+        <div class="align-items-center d-flex px-3 px-md-4 py-1 w-100 muqtarin-topbar-inner">
+            <button type="button" class="muqtarin-icon-btn" id="muqtarin-sidebar-toggle"
+                onclick="muqtarinToggleSidebar()" title="Toggle Sidebar" aria-label="Toggle Sidebar">
+                <i class='bx bx-menu'></i>
+            </button>
+
+            <div class="navbar-collapse justify-content-start flex-grow-1 muqtarin-topbar-store" id="navbar">
                 @if ($store_count > 1 && optional($settings)->store_mode != 'single')
-                    <ul class="navbar-nav col">
-                        <li class="nav-item dropdown pe-2 d-flex align-items-center dropdown-store">
-                            <a id="nav-toggle" href="#"><i class='bx bx-bar-chart bx-rotate-90'></i></a>
+                    <ul class="navbar-nav w-100 mb-0">
+                        <li class="nav-item dropdown d-flex align-items-center dropdown-store">
                             <div class="module-dropdown-box">
-                                <a class="nav-link  dropdown-toggle hide-arrow" href="javascript:void(0);"
+                                <a class="nav-link dropdown-toggle hide-arrow d-flex align-items-center muqtarin-store-trigger" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <img src="{{ app(MediaService::class)->getMediaImageUrl($store_image, 'STORE_IMG_PATH') }}"
-                                        alt="" class="avatar rounded-circle avatar-sm">
-                                    @if (isset($store_details) && !empty($store_details))
-                                        <span
-                                            class="ms-2 header_store_name">{{ app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $store_id, $language_code) }}</span>
-                                    @else
-                                        <span
-                                            class="ms-2 header_store_name">{{ app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $store_id, $language_code) }}</span>
-                                    @endif
-                                    <i class="fas fa-angle-down ms-2 "></i>
+                                        onerror="this.onerror=null;this.src='{{ asset('assets/brand/icon.jpg') }}';"
+                                        alt="" class="avatar rounded-circle avatar-sm flex-shrink-0">
+                                    <span class="ms-2 header_store_name">{{ app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $store_id, $language_code) }}</span>
+                                    <i class="fas fa-angle-down ms-2 flex-shrink-0"></i>
                                 </a>
 
                                 <div class="moduleDropDown">
                                     <ul class="dropdown-menu stores_dropdown" data-bs-popper="none"
                                         data-bs-placement="bottom-start" id="store-dropdown">
                                         <div class="row ms-2">
-                                            <p class="col-12 text-bold">Select Store</p>
+                                            <p class="col-12 text-bold">{{ labels('admin_labels.select_store', 'Select Store') }}</p>
                                         </div>
                                         <div class="d-flex flex-row">
                                             @forelse($store_details as $store)
@@ -117,6 +109,7 @@
                                                                     'width' => 110,
                                                                     'quality' => 90,
                                                                 ]) }}"
+                                                                onerror="this.onerror=null;this.src='{{ asset('assets/brand/icon.jpg') }}';"
                                                                 class="">
                                                         </div>
                                                         <span
@@ -130,9 +123,7 @@
                                                 </li>
                                                 <div class="d-flex justify-content-center">
                                                     <i class='bx bxs-plus-circle'></i><a href="/admin/store"
-                                                        target="_blank">add
-                                                        a
-                                                        store</a>
+                                                        target="_blank">add a store</a>
                                                 </div>
                                             @endforelse
                                         </div>
@@ -142,65 +133,62 @@
                         </li>
                     </ul>
                 @else
-                    <ul class="navbar-nav col">
-                        <li class="nav-item dropdown pe-2 d-flex align-items-center dropdown-store">
-                            <a id="nav-toggle" href="#"><i class='bx bx-bar-chart bx-rotate-90'></i></a>
+                    <ul class="navbar-nav w-100 mb-0">
+                        <li class="nav-item dropdown d-flex align-items-center dropdown-store muqtarin-store-trigger">
                             <img src="{{ app(MediaService::class)->getMediaImageUrl($store_image, 'STORE_IMG_PATH') }}"
-                                alt="" class="avatar rounded-circle avatar-sm">
-                            @if (isset($store_details) && !empty($store_details))
-                                <span
-                                    class="ms-2 header_store_name">{{ app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $store_id, $language_code) }}</span>
-                            @else
-                                <span
-                                    class="ms-2 header_store_name">{{ app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $store_id, $language_code) }}</span>
-                            @endif
+                                onerror="this.onerror=null;this.src='{{ asset('assets/brand/icon.jpg') }}';"
+                                alt="" class="avatar rounded-circle avatar-sm flex-shrink-0">
+                            <span class="ms-2 header_store_name">{{ app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $store_id, $language_code) }}</span>
                         </li>
                     </ul>
                 @endif
-
             </div>
-
 
             @php
                 $language_code = session()->get('locale') ?? 'en';
                 $selected_language = fetchDetails(Language::class, ['code' => $language_code], 'language');
                 $selected_language = !$selected_language->isEmpty() ? $selected_language[0]->language : 'English';
             @endphp
-            @if (!empty($selected_language))
-                <label for="" class="badge bg-primary mx-3">{{ $selected_language }}</label>
-            @endif
 
+            <div class="muqtarin-topbar-actions">
+                @if (!empty($selected_language))
+                    <label for="" class="badge bg-primary muqtarin-lang-pill mb-0">{{ $selected_language }}</label>
+                @endif
 
-            <li class="nav-item dropdown  d-flex justify-content-center me-3 notifiationDropDown">
-                <a href="javascript:;" class="nav-link p-0" id="languageDropdown" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="bx bx-globe"></i>
-                </a>
+                <button type="button" class="muqtarin-icon-btn" onclick="muqtarinToggleTheme()"
+                    title="Toggle Dark / Light Mode" aria-label="Toggle Dark / Light Mode">
+                    <i class="bx bx-moon" id="muqtarin-theme-icon"></i>
+                </button>
 
-                <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="languageDropdown">
-                    @foreach ($languages as $language)
-                        <li>
-                            <a class="dropdown-item changeLang" data-lang-code="{{ $language->code }}">
-                                {{ ucwords($language->language) }} - {{ strtoupper($language->code) }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </li>
+                <div class="nav-item dropdown d-flex justify-content-center notifiationDropDown">
+                    <a href="javascript:;" class="muqtarin-icon-btn p-0" id="languageDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false" title="Language">
+                        <i class="bx bx-globe"></i>
+                    </a>
 
-            <div class="d-flex">
-                <li class="nav-item dropdown  d-flex justify-content-center me-3 notifiationDropDown d-none">
-                    <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton"
+                    <ul class="dropdown-menu dropdown-menu-end px-2 py-2" aria-labelledby="languageDropdown">
+                        @foreach ($languages as $language)
+                            <li>
+                                <a class="dropdown-item changeLang" data-lang-code="{{ $language->code }}">
+                                    {{ ucwords($language->language) }} - {{ strtoupper($language->code) }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="nav-item dropdown d-flex justify-content-center notifiationDropDown d-none">
+                    <a href="javascript:;" class="nav-link text-white p-0" id="notificationMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class='bx bx-bell'></i>
                     </a>
-                    <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
-                        aria-labelledby="dropdownMenuButton">
+                    <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
+                        aria-labelledby="notificationMenuButton">
                         <li class="mb-2">
                             <a class="dropdown-item border-radius-md" href="javascript:;">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
-                                        <img src="" class="avatar avatar-sm  me-3 ">
+                                        <img src="" class="avatar avatar-sm me-3">
                                     </div>
                                     <div class="d-flex flex-column justify-content-center">
                                         <h6 class="text-sm font-weight-normal mb-1">
@@ -215,32 +203,32 @@
                             </a>
                         </li>
                     </ul>
-                </li>
-                <div id="profileDropDown" class="input-group-text">
-                    <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                        <a href="javascript:;" class="nav-link d-flex align-items-center gap-2"
-                           id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="avatar rounded-circle avatar-sm"
-                                src="{{ app(MediaService::class)->getMediaImageUrl($user_image) }}"
-                                alt="{{ $user->username }}">
-                            <span class="nav-link-text">{{ $user->username }}</span>
-                            <i class="fas fa-angle-down d-none d-sm-block"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="dropdownMenuButton">
-                            <li>
-                                <a class="dropdown-item" href="/admin/account/{{ auth()->user()->id }}">
-                                    <i class='bx bx-user-circle'></i>
-                                    <span>{{ labels('admin_labels.profile', 'Profile') }}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('admin.logout') }}">
-                                    <i class='bx bx-log-in-circle'></i>
-                                    <span>{{ labels('admin_labels.logout', 'Logout') }}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                </div>
+
+                <div id="profileDropDown" class="dropdown d-flex align-items-center">
+                    <a href="javascript:;" class="nav-link d-flex align-items-center gap-2 p-0"
+                       id="profileMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="avatar rounded-circle avatar-sm flex-shrink-0"
+                            src="{{ app(MediaService::class)->getMediaImageUrl($user_image) }}"
+                            onerror="this.onerror=null;this.src='{{ asset('assets/brand/icon.jpg') }}';"
+                            alt="{{ $user->username }}">
+                        <span class="nav-link-text">{{ $user->username }}</span>
+                        <i class="fas fa-angle-down d-none d-sm-inline-block"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileMenuButton">
+                        <li>
+                            <a class="dropdown-item" href="/admin/account/{{ auth()->user()->id }}">
+                                <i class='bx bx-user-circle'></i>
+                                <span>{{ labels('admin_labels.profile', 'Profile') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('admin.logout') }}">
+                                <i class='bx bx-log-in-circle'></i>
+                                <span>{{ labels('admin_labels.logout', 'Logout') }}</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -274,12 +262,15 @@
     @endphp
 
     <style>
-        * {
+        :root {
             --primary-theme-color: <?=$primary_colour ?>;
             --background_opacity_color: <?=$background_opacity_color ?>;
             --secondary-theme-color: <?=$secondary_color ?>;
             --hover-color: <?=$hover_color ?>;
             --active-color: <?=$active_color ?>;
+            /* MUQTARIN brand tokens (from DESIGN.md) */
+            --pine: <?=$primary_colour ?>;
+            --pine-hover: <?=$hover_color ?>;
         }
     </style>
 

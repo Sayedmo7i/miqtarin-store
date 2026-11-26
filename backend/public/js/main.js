@@ -41,13 +41,8 @@
   }
 
 
-  //  slimscroll for sidebar nav
-
-  if ($(".nav-scroller").length) {
-    $(".nav-scroller").slimScroll({
-      height: "97%",
-    });
-  }
+  // Sidebar .nav-scroller uses native smooth scrolling styled via muqtarin-admin.css
+  // (Legacy slimScroll disabled to prevent a second right-edge scrollbar in RTL)
 
 
 

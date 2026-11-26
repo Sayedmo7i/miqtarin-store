@@ -1217,5 +1217,13 @@
 'order_processsed_successfully' => 'تمت معالجة الطلب بنجاح',
 'payment_status' => 'حالة الدفع',
 'categories' => 'الفئات',
-'view_all_categoiries' => 'عرض جميع الفئات  '
+'view_all_categoiries' => 'عرض جميع الفئات  ',
+'curated_collection' => 'تشكيلة مختارة',
+'boutique_experience' => 'تجربة تسوق راقية',
+'fast_delivery' => 'توصيل سريع',
+'verified_stores' => 'متاجر موثوقة',
+'toggle_theme' => 'تبديل المظهر',
+'theme' => 'المظهر',
+'saved_items' => 'العناصر المحفوظة',
+'bundle' => 'باقة',
 ];

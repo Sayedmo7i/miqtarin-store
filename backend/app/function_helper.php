@@ -1631,6 +1631,8 @@ if (!function_exists('getProductDisplayComponent')) {
             'products_display_style_for_web_3' => 'utility.cards.productCardThree',
             'products_display_style_for_web_4' => 'utility.cards.productCardFour',
             'products_display_style_for_web_5' => 'utility.cards.productCardFive',
+            'products_display_style_for_web_6' => 'utility.cards.productCardMuqtarinEditorial',
+            'products_display_style_for_web_7' => 'utility.cards.productCardMuqtarinExpress',
             default => 'utility.cards.productCardOne',
         };
     }
@@ -1643,6 +1645,7 @@ if (!function_exists('getCategoryDisplayComponent')) {
         return match ($style) {
             'categories_display_style_for_web_2' => 'utility.categories.cards.listCardTwo',
             'categories_display_style_for_web_3' => 'utility.categories.cards.listCardThree',
+            'categories_display_style_for_web_4' => 'utility.categories.cards.listCardMuqtarin',
             default => 'utility.categories.cards.listCardOne',
         };
     }
@@ -1654,6 +1657,7 @@ if (!function_exists('getWishlistDisplayComponent')) {
 
         return match ($style) {
             'wishlist_display_style_for_web_2' => 'utility.wishlist.cards.listCardTwo',
+            'wishlist_display_style_for_web_3' => 'utility.wishlist.cards.listCardMuqtarin',
             default => 'utility.wishlist.cards.listCardOne',
         };
     }
@@ -1666,6 +1670,7 @@ if (!function_exists('getBrandDisplayComponent')) {
         return match ($style) {
             'brands_display_style_for_web_2' => 'utility.brands.cards.listCardTwo',
             'brands_display_style_for_web_3' => 'utility.brands.cards.listCardThree',
+            'brands_display_style_for_web_4' => 'utility.brands.cards.listCardMuqtarin',
             default => 'utility.brands.cards.listCardTwo',
         };
     }
@@ -1681,6 +1686,10 @@ if (!function_exists('getHomeTheme')) {
             'web_home_page_theme_4' => 'livewire.' . config('constants.theme') . '.home.homeThemeFour',
             'web_home_page_theme_5' => 'livewire.' . config('constants.theme') . '.home.homeThemeFive',
             'web_home_page_theme_6' => 'livewire.' . config('constants.theme') . '.home.homeThemeSix',
+            'web_home_page_theme_muqtarin_editorial' => 'livewire.' . config('constants.theme') . '.home.homeThemeMuqtarinEditorial',
+            'web_home_page_theme_muqtarin_bento' => 'livewire.' . config('constants.theme') . '.home.homeThemeMuqtarinBento',
+            'web_home_page_theme_muqtarin_glass' => 'livewire.' . config('constants.theme') . '.home.homeThemeMuqtarinGlass',
+            'web_home_page_theme_muqtarin_express' => 'livewire.' . config('constants.theme') . '.home.homeThemeMuqtarinExpress',
             default => 'livewire.' . config('constants.theme') . '.home.home',
         };
     }
@@ -1696,7 +1705,25 @@ if (!function_exists('getHeaderStyle')) {
             'web_home_page_theme_4' => 'components.header.headerThemeFour',
             'web_home_page_theme_5' => 'components.header.headerThemeFive',
             'web_home_page_theme_6' => 'components.header.headerThemeSix',
+            'web_home_page_theme_muqtarin_editorial',
+            'web_home_page_theme_muqtarin_bento',
+            'web_home_page_theme_muqtarin_glass',
+            'web_home_page_theme_muqtarin_express' => 'components.header.headerMuqtarin',
             default => 'components.header.header',
+        };
+    }
+}
+if (!function_exists('getFooterStyle')) {
+    function getFooterStyle($store_settings)
+    {
+        $home_theme = $store_settings['web_home_page_theme'] ?? 'web_home_page_theme_1';
+
+        return match ($home_theme) {
+            'web_home_page_theme_muqtarin_editorial',
+            'web_home_page_theme_muqtarin_bento',
+            'web_home_page_theme_muqtarin_glass',
+            'web_home_page_theme_muqtarin_express' => 'components.footer.footerMuqtarin',
+            default => 'components.footer.footer',
         };
     }
 }
@@ -1707,6 +1734,7 @@ if (!function_exists('getProductDetailsStyle')) {
 
         return match ($home_theme) {
             'web_product_details_style_2' => 'livewire.' . config('constants.theme') . '.products.detailsStyleTwo',
+            'web_product_details_style_3' => 'livewire.' . config('constants.theme') . '.products.detailsStyleMuqtarin',
             default => 'livewire.' . config('constants.theme') . '.products.details',
         };
     }

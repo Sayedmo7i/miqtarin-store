@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/shareon.min.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/app.css') }}?v={{ $version }}">
     <link rel="stylesheet" href="{{ asset('frontend/elegant/css/swiper-bundle.min.css') }}?v={{ $version }}">
+    @include('partials.webShowcaseBridge')
 </head>
 
 <body>
@@ -94,19 +95,29 @@
         </div>
     </div>
 
-    <!-- Style Switcher (Safe - Only Toggles Visibility) -->
-    <script>
-        window.addEventListener("message", function(event) {
-            const selectedStyle = event.data;
-            document.querySelectorAll(".content-section").forEach(section => {
-                section.classList.add("d-none");
-            });
-            const target = document.getElementById(selectedStyle);
-            if (target) {
-                target.classList.remove("d-none");
-            }
-        });
-    </script>
+    <!-- CATEGORY STYLE 4: MUQTARIN Bento -->
+    <div id="categories_display_style_for_web_4" class="content-section d-none">
+        <div class="mq-showcase-stage">
+            <div class="mq-cat-bento-grid">
+                @foreach ([
+                    ['en' => 'Beverages Corner', 'ar' => 'ركن المشروبات', 'count' => '24'],
+                    ['en' => 'Organic Pantry', 'ar' => 'المخزن العضوي', 'count' => '18'],
+                    ['en' => 'Artisan Care', 'ar' => 'العناية المختارة', 'count' => '15'],
+                ] as $cat)
+                    <a href="#!" class="mq-cat-bento-card" onclick="return false;">
+                        <div class="mq-cat-bento-img">
+                            <img src="{{ asset('storage/system_images/category_card_style.png') }}" alt="{{ $cat['en'] }}">
+                        </div>
+                        <div class="mq-cat-bento-meta">
+                            <h5 data-en="{{ $cat['en'] }}" data-ar="{{ $cat['ar'] }}">{{ $cat['en'] }}</h5>
+                            <span>{{ $cat['count'] }} <span data-en="Products" data-ar="منتج">Products</span></span>
+                        </div>
+                        <span class="mq-cat-bento-arrow"><i class="bx bx-right-arrow-alt"></i></span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </div>
 
 </body>
 

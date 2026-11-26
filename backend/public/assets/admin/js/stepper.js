@@ -330,21 +330,22 @@ function validateComboStep(step = "") {
 //validate function for add product form stepper
 
 function validateStep(step = "") {
+    var t = window.adminT || function (k, fb) { return fb || k; };
     // Define validation rules for each step
     const validationRules = {
         step1: {
-            category_id: "Please select a category.",
-            seller_id: "Please select a seller.",
+            category_id: t("please_select_category", "Please select a category."),
+            seller_id: t("please_select_seller", "Please select a seller."),
         },
         step2: {
-            short_description: "Please enter a short description.",
-            pro_input_name: "Please enter a product name.",
+            short_description: t("please_enter_short_description", "Please enter a short description."),
+            pro_input_name: t("please_enter_product_name", "Please enter a product name."),
         },
         step6: {
-            type: "Please select product type.",
+            type: t("please_select_product_type", "Please select product type."),
         },
         step7: {
-            pro_input_image: "Please select product image.",
+            pro_input_image: t("please_select_product_image", "Please select product image."),
         },
     };
 
@@ -376,7 +377,7 @@ function validateStep(step = "") {
         if (deliverable_type == "2" || deliverable_type == "3") {
             if (!selected_zones || selected_zones.length === 0) {
                 var result = displayValidationError(
-                    "Please select valid zones."
+                    t("please_select_valid_zones", "Please select valid zones.")
                 );
             }
         }
@@ -384,7 +385,7 @@ function validateStep(step = "") {
     if (step == "step6") {
         var product_type = $(`[name='type`).val();
         if (product_type == "" || product_type == undefined) {
-            var result = displayValidationError("Please select product type.");
+            var result = displayValidationError(t("please_select_product_type", "Please select product type."));
         }
         if (product_type == "simple_product") {
             var simple_stock_management_status = $(
@@ -397,7 +398,7 @@ function validateStep(step = "") {
 
             if (simplePrice == "" || simplePrice == undefined) {
                 // Handle invalid numeric values
-                var result = displayValidationError("Please enter Price.");
+                var result = displayValidationError(t("please_enter_price", "Please enter Price."));
             }
 
             if (
@@ -406,13 +407,13 @@ function validateStep(step = "") {
             ) {
                 // Handle invalid numeric values
                 var result = displayValidationError(
-                    "Please enter Special Price."
+                    t("please_enter_special_price", "Please enter Special Price.")
                 );
             }
             if (parseFloat(simpleSpecialPrice) >= parseFloat(simplePrice)) {
                 // Handle special price greater than or equal to price
                 var result = displayValidationError(
-                    "Special price should be less than price."
+                    t("special_price_less_than_price", "Special price should be less than price.")
                 );
             }
 
@@ -425,7 +426,7 @@ function validateStep(step = "") {
                     product_sku == undefined ||
                     product_sku == null
                 ) {
-                    var result = displayValidationError("Please enter SKU.");
+                    var result = displayValidationError(t("please_enter_sku", "Please enter SKU."));
                 }
                 if (
                     product_total_stock == "" ||
@@ -433,7 +434,7 @@ function validateStep(step = "") {
                     product_total_stock == null
                 ) {
                     var result = displayValidationError(
-                        "Please enter total stock."
+                        t("please_enter_total_stock", "Please enter total stock.")
                     );
                 }
             }
@@ -620,43 +621,44 @@ function validateStep(step = "") {
 //validate function for add store form stepper
 
 function validateStoreStep(step = "") {
+    var t = window.adminT || function (k, fb) { return fb || k; };
     // Define validation rules for each step
     const validationRules = {
         step1: {
-            background_color: "Please Choose Background Color.",
-            active_color: "Please Choose Active Color.",
-            hover_color: "Please Choose Hover Color.",
-            secondary_color: "Please Choose Secondary Color.",
-            primary_color: "Please Choose Primary Color.",
-            description: "Please Enter Description.",
-            name: "Please Enter Name.",
+            background_color: t("please_choose_background_color", "Please Choose Background Color."),
+            active_color: t("please_choose_active_color", "Please Choose Active Color."),
+            hover_color: t("please_choose_hover_color", "Please Choose Hover Color."),
+            secondary_color: t("please_choose_secondary_color", "Please Choose Secondary Color."),
+            primary_color: t("please_choose_primary_color", "Please Choose Primary Color."),
+            description: t("please_enter_description", "Please Enter Description."),
+            name: t("please_enter_name", "Please Enter Name."),
         },
         step2: {
-            image: "Please Choose Image.",
-            banner_image: "Please Choose Banner Image.",
+            image: t("please_choose_image", "Please Choose Image."),
+            banner_image: t("please_choose_banner_image", "Please Choose Banner Image."),
         },
         step3: {
             banner_image_for_most_selling_product:
-                "Please Choose Banner Image.",
-            stack_image: "Please Choose Stack Image.",
-            login_image: "Please Choose Login Page Image.",
-            half_store_logo: "Please Choose Half Logo Image.",
+                t("please_choose_most_selling_banner", "Please Choose Banner Image."),
+            stack_image: t("please_choose_stack_image", "Please Choose Stack Image."),
+            login_image: t("please_choose_login_image", "Please Choose Login Page Image."),
+            half_store_logo: t("please_choose_half_logo", "Please Choose Half Logo Image."),
         },
         step4: {
-            store_style: "Please Select Store Style.",
-            product_style: "Please Select Product Style.",
+            store_style: t("please_select_store_style", "Please Select Store Style."),
+            product_style: t("please_select_product_style", "Please Select Product Style."),
         },
         step5: {
-            category_section_title: "Please Enter Category Section Title.",
-            category_style: "Please Select Category Style.",
-            category_card_style: "Please Select Category Card Style.",
+            category_section_title: t("please_enter_category_section_title", "Please Enter Category Section Title."),
+            category_style: t("please_select_category_style", "Please Select Category Style."),
+            category_card_style: t("please_select_category_card_style", "Please Select Category Card Style."),
         },
         step6: {
-            brand_style: "Please Select Brand Style.",
+            brand_style: t("please_select_brand_style", "Please Select Brand Style."),
         },
         step7: {
             // offers_style: "Please Select Offers Style.",
-            offer_slider_style: "Please Select Offer Sliders Style.",
+            offer_slider_style: t("please_select_offer_slider_style", "Please Select Offer Sliders Style."),
         },
     };
 
@@ -679,9 +681,10 @@ function validateStoreStep(step = "") {
 }
 
 function displayStoreValidationError(messages) {
+    var t = window.adminT || function (k, fb) { return fb || k; };
     Object.values(messages).forEach((message) => {
         iziToast.error({
-            title: "Error",
+            title: t("validation_error", "Validation Error"),
             message: message,
             position: "topRight",
         });
@@ -691,8 +694,9 @@ function displayStoreValidationError(messages) {
 }
 
 function displayValidationError(message) {
+    var t = window.adminT || function (k, fb) { return fb || k; };
     iziToast.error({
-        title: "Error",
+        title: t("validation_error", "Validation Error"),
         message: message,
         position: "topRight",
     });

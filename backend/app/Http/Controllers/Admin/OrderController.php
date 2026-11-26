@@ -174,7 +174,7 @@ class OrderController extends Controller
     public function list()
     {
         $store_id = app(StoreService::class)->getStoreId();
-        $search = trim(request('search'));
+        $search = trim((string) request('search', ''));
         $offset = $search || request('pagination_offset') ? request('pagination_offset') : 0;
         $limit = request('limit', 10);
         $sort = request('sort', 'id');
@@ -334,12 +334,12 @@ class OrderController extends Controller
     {
 
         $store_id = app(StoreService::class)->getStoreId();
-        $search = trim(request()->input('search'));
+        $search = trim((string) request()->input('search', ''));
         $language_code = app(TranslationService::class)->getLanguageCode();
-        $offset = $search || (request('pagination_offset')) ? (request('pagination_offset')) : 0;
-        $limit = request('limit', 10);
+        $offset = (int) ($search || request('pagination_offset') ? request('pagination_offset', 0) : request('offset', 0));
+        $limit = (int) request('limit', 10);
         $sort = 'id';
-        $order = request('order', 'DESC');
+        $order = strtoupper((string) request('order', 'DESC')) === 'ASC' ? 'ASC' : 'DESC';
         $startDate = request()->input('start_date');
         $endDate = request()->input('end_date');
         $deliveryBoyId = request()->input('delivery_boy_id');
@@ -572,35 +572,36 @@ class OrderController extends Controller
             $tempRow = [];
             switch ($item->active_status) {
                 case 'awaiting':
-                    $active_status = '<span class="badge bg-secondary">Awaiting</span>';
+                    $active_status = '<span class="badge bg-secondary">' . labels('admin_labels.awaiting', 'Awaiting') . '</span>';
                     break;
                 case 'received':
-                    $active_status = '<span class="badge bg-primary">Received</span>';
+                    $active_status = '<span class="badge bg-primary">' . labels('admin_labels.received', 'Received') . '</span>';
                     break;
                 case 'processed':
-                    $active_status = '<span class="badge bg-info text-dark">Processed</span>';
+                    $active_status = '<span class="badge bg-info text-dark">' . labels('admin_labels.processed', 'Processed') . '</span>';
                     break;
                 case 'shipped':
-                    $active_status = '<span class="badge bg-warning text-dark">Shipped</span>';
+                    $active_status = '<span class="badge bg-warning text-dark">' . labels('admin_labels.shipped', 'Shipped') . '</span>';
                     break;
                 case 'delivered':
-                    $active_status = '<span class="badge bg-success">Delivered</span>';
+                    $active_status = '<span class="badge bg-success">' . labels('admin_labels.delivered', 'Delivered') . '</span>';
                     break;
                 case 'returned':
                 case 'cancelled':
-                    $active_status = '<span class="badge bg-danger">' . ucfirst($item->active_status) . '</span>';
+                    $statusKey = $item->active_status === 'returned' ? 'returned' : 'cancelled';
+                    $active_status = '<span class="badge bg-danger">' . labels('admin_labels.' . $statusKey, ucfirst($item->active_status)) . '</span>';
                     break;
                 case 'return_request_decline':
-                    $active_status = '<span class="badge bg-danger">Return Declined</span>';
+                    $active_status = '<span class="badge bg-danger">' . labels('admin_labels.return_declined', 'Return Declined') . '</span>';
                     break;
                 case 'return_request_approved':
-                    $active_status = '<span class="badge bg-success">Return Approved</span>';
+                    $active_status = '<span class="badge bg-success">' . labels('admin_labels.return_approved', 'Return Approved') . '</span>';
                     break;
                 case 'return_request_pending':
-                    $active_status = '<span class="badge bg-secondary">Return Requested</span>';
+                    $active_status = '<span class="badge bg-secondary">' . labels('admin_labels.return_requested', 'Return Requested') . '</span>';
                     break;
                 default:
-                    $active_status = '<span class="badge bg-light text-dark">' . ucfirst($item->active_status) . '</span>';
+                    $active_status = '<span class="badge bg-light text-dark">' . ucfirst((string) $item->active_status) . '</span>';
                     break;
             }
             switch (optional($item->transaction)->status) {
@@ -614,7 +615,8 @@ class OrderController extends Controller
                     $tempRow['transaction_status'] = '<span class="badge bg-warning text-dark">Pending</span>';
                     break;
                 default:
-                    $tempRow['transaction_status'] = '<span class="badge bg-secondary">' . ucfirst(optional($item->transaction)->status) . '</span>';
+                    $txStatus = optional($item->transaction)->status;
+                    $tempRow['transaction_status'] = '<span class="badge bg-secondary">' . ($txStatus ? ucfirst((string) $txStatus) : labels('admin_labels.pending', 'Pending')) . '</span>';
                     break;
             }
             $tempRow['id'] = $count++;
@@ -650,7 +652,7 @@ class OrderController extends Controller
 
             $tempRow['delivery_boy'] = optional($item->deliveryBoy)->username;
             // $tempRow['payment_method'] = ucfirst(optional($item->order)->payment_method);
-            $tempRow['payment_method'] = ucfirst(str_replace('_', ' ', optional($item->order)->payment_method));
+            $tempRow['payment_method'] = ucfirst(str_replace('_', ' ', (string) optional($item->order)->payment_method));
             $tempRow['delivery_boy_id'] = $item->delivery_boy_id;
             $tempRow['product_variant_id'] = $item->product_variant_id;
 

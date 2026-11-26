@@ -7,7 +7,7 @@
         $pwa_settings = app(SettingService::class)->getSettings('pwa_settings', true);
         $pwa_settings = $pwa_settings ? json_decode($pwa_settings, true) : null;
         $background_color =
-            $pwa_settings && isset($pwa_settings['background_color']) ? $pwa_settings['background_color'] : '#b52046';
+            $pwa_settings && isset($pwa_settings['background_color']) ? $pwa_settings['background_color'] : '#0F4C3A';
 
         // Get SEO data
         $seoService = app(SeoService::class);
@@ -43,6 +43,26 @@
         <meta property="og:image:width" content="1024">
         <meta property="og:image:height" content="1024">
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+        <script>
+            (function() {
+                try {
+                    var t = localStorage.getItem('muqtarin_storefront_theme') || 'light';
+                    document.documentElement.setAttribute('data-theme', t);
+                } catch (e) {}
+                window.muqtarinStorefrontToggleTheme = function() {
+                    var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+                    var next = cur === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    if (document.body) document.body.setAttribute('data-theme', next);
+                    try { localStorage.setItem('muqtarin_storefront_theme', next); } catch (e) {}
+                    return next;
+                };
+            })();
+        </script>
+
         <link rel="stylesheet" href="{{ asset('frontend/elegant/css/plugins.css') }}?v={{ $version }}">
         <link rel="stylesheet"
             href="{{ asset('frontend/elegant/css/vendor/photoswipe.min.css') }}?v={{ $version }}">
@@ -61,6 +81,7 @@
         <link rel="stylesheet" href="{{ asset('frontend/elegant/css/app.css') }}?v={{ $version }}">
         <link rel="stylesheet" href="{{ asset('assets/admin/css/dropzone.css') }}?v={{ $version }}">
         <link rel="stylesheet" href="{{ asset('frontend/elegant/css/swiper-bundle.min.css') }}?v={{ $version }}">
+        <link rel="stylesheet" href="{{ asset('frontend/elegant/css/muqtarin-storefront.css') }}?v={{ $version }}">
 
 
         <script src="{{ asset('frontend/elegant/js/plugins.js') }}?v={{ $version }}"></script>
@@ -123,6 +144,14 @@
     @endphp
 
     <body {{ $is_rtl == 1 ? 'dir=rtl' : '' }}>
+        <script>
+            (function() {
+                try {
+                    var t = localStorage.getItem('muqtarin_storefront_theme') || 'light';
+                    document.body.setAttribute('data-theme', t);
+                } catch (e) {}
+            })();
+        </script>
 
         {{-- The full-screen .loading-state .screen overlay (z-index:9999) was
              removed: it was visible-by-default in HTML, only hidden by JS on

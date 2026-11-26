@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
 use App\Models\ComboProduct;
 use App\Models\Currency;
 use App\Models\OrderItems;
 use App\Models\Product;
 use App\Models\Seller;
 use App\Models\Store;
+use App\Models\Ticket;
 use App\Models\User;
 use App\Services\MediaService;
 use Illuminate\Routing\Controller;
@@ -35,6 +37,8 @@ class HomeController extends Controller
         $order_counter = app(OrderService::class)->countNewOrders();
         $product_counter = Product::where('store_id', $store_id)->count();
         $combo_product_counter = ComboProduct::where('store_id', $store_id)->count();
+        $total_categories = Category::where('store_id', $store_id)->count();
+        $pending_tickets = Ticket::whereIn('status', [1, 2, 5])->count();
 
 
         $total_products = $product_counter + $combo_product_counter;
@@ -50,12 +54,11 @@ class HomeController extends Controller
         $notconverted = AdmintotalEarnings();
 
         $defaultCurrency = Currency::where('is_default', 1)->first();
-        $defaultRate = $defaultCurrency->exchange_rate;
         $fromRate = Currency::where('code', 'USD')->value('exchange_rate');
-        $toRate   = Currency::where('code', $defaultCurrency->code)->value('exchange_rate');
+        $toRate = $defaultCurrency ? Currency::where('code', $defaultCurrency->code)->value('exchange_rate') : 1;
 
         // chatify
-        $total_earnings = ($fromRate && $fromRate > 0) ? ($notconverted / $fromRate) * $toRate : $notconverted;
+        $total_earnings = ($fromRate && $fromRate > 0 && $toRate) ? ($notconverted / $fromRate) * $toRate : $notconverted;
 
         $role_id = Auth::user() ? Auth::user()->role_id : "";
 
@@ -112,9 +115,6 @@ class HomeController extends Controller
 
         // weekly earnings
 
-        $startDate = Carbon::now()->startOfWeek(); // Start of the current week (Sunday)
-        $endDate = Carbon::now()->endOfWeek(); // End of the current week (Saturday)
-
         $weekWiseSales = [
             'total_revenue' => [],
             'total_commission' => [],
@@ -122,27 +122,20 @@ class HomeController extends Controller
             'day' => []
         ];
         $currentDate = Carbon::now();
-        // Loop to retrieve data for each day of the week
+        $weeklyDayRes = $this->getWeeklySalesData('order_items', 'created_at', 'sub_total', 'admin_commission_amount', 'quantity', $store_id);
         for ($i = 0; $i < 7; $i++) {
-            // Get the day name for the current iteration
             $dayName = $currentDate->copy()->startOfWeek()->addDays($i)->format('D, d M');
 
-            // Get sales data for the current day
-            $dayRes = $this->getWeeklySalesData('order_items', 'created_at', 'sub_total', 'admin_commission_amount', 'quantity', $store_id);
-
-            // If data exists for the current day
-            if (isset($dayRes['total_revenue'][$i])) {
-                $weekWiseSales['total_revenue'][] = intval($dayRes['total_revenue'][$i]);
-                $weekWiseSales['total_commission'][] = intval($dayRes['total_commission'][$i]);
-                $weekWiseSales['total_sales'][] = intval($dayRes['total_sales'][$i]);
+            if (isset($weeklyDayRes['total_revenue'][$i])) {
+                $weekWiseSales['total_revenue'][] = intval($weeklyDayRes['total_revenue'][$i]);
+                $weekWiseSales['total_commission'][] = intval($weeklyDayRes['total_commission'][$i]);
+                $weekWiseSales['total_sales'][] = intval($weeklyDayRes['total_sales'][$i]);
             } else {
-                // If no data exists for the current day, set totals to 0
                 $weekWiseSales['total_revenue'][] = 0;
                 $weekWiseSales['total_commission'][] = 0;
                 $weekWiseSales['total_sales'][] = 0;
             }
 
-            // Add the day name to the week-wise sales array
             $weekWiseSales['day'][] = $dayName;
         }
 
@@ -158,6 +151,7 @@ class HomeController extends Controller
         $currentDate = $startDate->copy();
         while ($currentDate->lte($endDate)) {
             $allDatesOfMonth[] = [
+                'full_date' => $currentDate->format('Y-m-d'),
                 'date' => $currentDate->format('j'),
                 'month' => $currentDate->format('M'),
                 'year' => $currentDate->format('Y')
@@ -167,10 +161,10 @@ class HomeController extends Controller
 
         $dayRes = $this->getDailySalesData('order_items', 'created_at', 'sub_total', 'admin_commission_amount', 'quantity', $store_id, 29);
 
-        // Create an associative array with date as key for easier merging
+        // Create an associative array with Y-m-d date as key for collision-free merging
         $dayData = [];
         foreach ($dayRes as $day) {
-            $dayData[$day->date] = [
+            $dayData[$day->full_date] = [
                 'total_revenue' => intval($day->total_revenue),
                 'total_commission' => intval($day->total_commission),
                 'total_sales' => intval($day->total_sales)
@@ -178,19 +172,24 @@ class HomeController extends Controller
         }
 
         // Merge fetched data with all dates of the month, filling missing dates with zeros
-        $dayWiseSales = [];
+        $dayWiseSales = [
+            'total_revenue' => [],
+            'total_commission' => [],
+            'total_sales' => [],
+            'day' => [],
+        ];
         foreach ($allDatesOfMonth as $dateInfo) {
-            $date = $dateInfo['date'];
-            if (isset($dayData[$date])) {
-                $dayWiseSales['total_revenue'][] = $dayData[$date]['total_revenue'];
-                $dayWiseSales['total_commission'][] = $dayData[$date]['total_commission'];
-                $dayWiseSales['total_sales'][] = $dayData[$date]['total_sales'];
+            $fullDate = $dateInfo['full_date'];
+            if (isset($dayData[$fullDate])) {
+                $dayWiseSales['total_revenue'][] = $dayData[$fullDate]['total_revenue'];
+                $dayWiseSales['total_commission'][] = $dayData[$fullDate]['total_commission'];
+                $dayWiseSales['total_sales'][] = $dayData[$fullDate]['total_sales'];
             } else {
                 $dayWiseSales['total_revenue'][] = 0;
                 $dayWiseSales['total_commission'][] = 0;
                 $dayWiseSales['total_sales'][] = 0;
             }
-            $dayWiseSales['day'][] = $date . '-' . $dateInfo['month'] . '-' . $dateInfo['year'];
+            $dayWiseSales['day'][] = $dateInfo['date'] . '-' . $dateInfo['month'] . '-' . $dateInfo['year'];
         }
 
         $sales[2] = $dayWiseSales;
@@ -264,8 +263,12 @@ class HomeController extends Controller
             }
         }
 
-        // Get missing labels summary
-        $missing_labels_summary = $this->getMissingLabelsSummary();
+        // Get missing labels summary (cached to avoid parsing all JSON translation files per request)
+        $missing_labels_summary = \Illuminate\Support\Facades\Cache::remember(
+            'admin_missing_labels_summary',
+            300,
+            fn () => $this->getMissingLabelsSummary()
+        );
 
         // dd($top_sellers);
         return view('admin.pages.forms.home', compact(
@@ -277,6 +280,8 @@ class HomeController extends Controller
             'currency',
             'top_sellers',
             'total_products',
+            'total_categories',
+            'pending_tickets',
             'total_store',
             'total_seller',
             'total_earnings',
@@ -361,17 +366,18 @@ class HomeController extends Controller
     private function getDailySalesData($tableName, $dateColumn, $revenueColumn, $commissionColumn, $salesColumn, $store_id, $daysBack)
     {
         $endDate = Carbon::now();
-        $startDate = $endDate->copy()->subDays($daysBack);
+        $startDate = $endDate->copy()->subDays($daysBack)->startOfDay();
 
         $res = OrderItems::selectRaw("
-        DAY(created_at) as date,
+        DATE(created_at) as full_date,
         SUM(sub_total) as total_revenue,
         SUM(admin_commission_amount) as total_commission,
         SUM(quantity) as total_sales
     ")
             ->where('store_id', $store_id)
             ->where('created_at', '>=', $startDate)
-            ->groupByRaw("DAY(created_at)")
+            ->groupByRaw("DATE(created_at)")
+            ->orderByRaw("DATE(created_at)")
             ->get();
 
         return $res;

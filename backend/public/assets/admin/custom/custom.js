@@ -217,8 +217,8 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
 
         if (!hasValidValue) {
             iziToast.error({
-                title: "Validation Error",
-                message: "Please provide at least one valid attribute value.",
+                title: (window.adminT ? window.adminT("validation_error", "Validation Error") : "Validation Error"),
+                message: (window.adminT ? window.adminT("please_provide_attribute_value", "Please provide at least one valid attribute value.") : "Please provide at least one valid attribute value."),
                 position: "topRight",
                 timeout: 5000,
             });
@@ -226,6 +226,7 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
         }
     }
 
+    var t = window.adminT || function (k, fb) { return fb || k; };
     var submit_btn = form.find(".submit_button"); // scoped to current form
     var btn_html = submit_btn.html();
     var btn_val = submit_btn.val();
@@ -265,7 +266,7 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
         method: method,
         data: formData,
         beforeSend: function () {
-            submit_btn.html("Please Wait..").attr("disabled", true);
+            submit_btn.html(t("please_wait", "Please Wait...")).attr("disabled", true);
         },
         contentType: false,
         processData: false,
@@ -275,23 +276,23 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
             // Handle error in successful HTTP response (JSON error field)
             if (response.error) {
                 iziToast.error({
-                    title: "Validation Error",
-                    message: response.message || "An error occurred",
+                    title: t("validation_error", "Validation Error"),
+                    message: response.message || t("an_error_occurred", "An error occurred"),
                     position: "topRight",
-                    timeout: 5000,
+                    timeout: 6000,
                 });
             } else if (response.error_message) {
                 iziToast.error({
-                    title: "Error",
+                    title: t("error", "Error"),
                     message: response.error_message,
                     position: "topRight",
-                    timeout: 5000,
+                    timeout: 6000,
                 });
             } else {
                 iziToast.success({
-                    title: "Success",
+                    title: t("success", "Success"),
                     message:
-                        response.message || "Operation completed successfully",
+                        response.message || t("operation_completed_successfully", "Operation completed successfully"),
                     position: "topRight",
                     timeout: 3000,
                 });
@@ -321,10 +322,10 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
                             if (Array.isArray(errorMessages)) {
                                 errorMessages.forEach(function (msg) {
                                     iziToast.error({
-                                        title: "Validation Error",
+                                        title: t("validation_error", "Validation Error"),
                                         message: msg,
                                         position: "topRight",
-                                        timeout: 5000,
+                                        timeout: 6000,
                                     });
                                 });
                             }
@@ -332,25 +333,48 @@ $(".submit_form, .aff_submit_form").on("submit", function (e) {
                     );
                 } else if (xhr.responseJSON.message) {
                     iziToast.error({
-                        title: "Validation Error",
+                        title: t("validation_error", "Validation Error"),
                         message: xhr.responseJSON.message,
                         position: "topRight",
-                        timeout: 5000,
+                        timeout: 6000,
                     });
                 }
+            } else if (xhr.status === 413) {
+                iziToast.error({
+                    title: t("validation_error", "Validation Error"),
+                    message: (xhr.responseJSON && xhr.responseJSON.message)
+                        ? xhr.responseJSON.message
+                        : t("payload_too_large", "The uploaded files are too large for the server limit. Please use smaller images."),
+                    position: "topRight",
+                    timeout: 6000,
+                });
+            } else if (xhr.status === 419) {
+                iziToast.error({
+                    title: t("error", "Error"),
+                    message: t("session_expired_refresh", "Your session has expired. Please refresh the page and try again."),
+                    position: "topRight",
+                    timeout: 6000,
+                });
+            } else if (xhr.status === 0) {
+                iziToast.error({
+                    title: t("error", "Error"),
+                    message: t("network_error_occurred", "Network connection failed. Please check your internet and try again."),
+                    position: "topRight",
+                    timeout: 6000,
+                });
             } else if (xhr.responseJSON && xhr.responseJSON.message) {
                 iziToast.error({
-                    title: "Error",
+                    title: t("error", "Error"),
                     message: xhr.responseJSON.message,
                     position: "topRight",
-                    timeout: 5000,
+                    timeout: 6000,
                 });
             } else {
                 iziToast.error({
-                    title: "Error",
-                    message: "An unexpected error occurred",
+                    title: t("error", "Error"),
+                    message: t("unexpected_error_occurred", "An unexpected error occurred"),
                     position: "topRight",
-                    timeout: 5000,
+                    timeout: 6000,
                 });
             }
         },
@@ -8722,11 +8746,11 @@ $(".filepond").filepond({
     credits: null,
     allowFileSizeValidation: "true",
     maxFileSize: "25MB",
-    labelMaxFileSizeExceeded: "File is too large",
-    labelMaxFileSize: "Maximum file size is {filesize}",
+    labelMaxFileSizeExceeded: (window.adminT ? window.adminT("file_too_large", "File is too large") : "File is too large"),
+    labelMaxFileSize: (window.adminT ? window.adminT("maximum_file_size_is", "Maximum file size is {filesize}") : "Maximum file size is {filesize}"),
     allowFileTypeValidation: true,
 
-    labelFileTypeNotAllowed: "File of invalid type",
+    labelFileTypeNotAllowed: (window.adminT ? window.adminT("file_of_invalid_type", "File of invalid type") : "File of invalid type"),
     fileValidateTypeLabelExpectedTypes:
         "Expects {allButLastType} or {lastType}",
     storeAsFile: true,
@@ -10210,6 +10234,67 @@ function loadingTemplate() {
 // code for search meny ib side bar
 
 $(function () {
+    const $sidebarSections = $(".navbar-nav > li.sidebar-section, .navbar-nav > li.sidebar-direct");
+
+    if ($sidebarSections.length > 0) {
+        $(".menuSearch").on("input", function () {
+            const searchValue = $(this).val().trim().toLowerCase();
+
+            if (!searchValue) {
+                $sidebarSections.show();
+                $sidebarSections.find("li.nav-item").show();
+                $sidebarSections.find(".collapse").each(function () {
+                    const $col = $(this);
+                    if ($col.data("default-open") === true || $col.data("default-open") === "true") {
+                        $col.addClass("show");
+                    } else {
+                        $col.removeClass("show");
+                    }
+                });
+                $sidebarSections.find('[data-bs-toggle="collapse"]').each(function () {
+                    const target = $(this).attr("href") || $(this).attr("data-bs-target");
+                    const isOpen = target ? $(target).hasClass("show") : false;
+                    $(this).toggleClass("collapsed", !isOpen).attr("aria-expanded", isOpen ? "true" : "false");
+                });
+                return;
+            }
+
+            $sidebarSections.each(function () {
+                const $section = $(this);
+                const $trigger = $section.children(".sidebar-section-trigger, .nav-link").first();
+                const sectionTitle = $trigger.text().toLowerCase();
+                const sectionMatches = sectionTitle.includes(searchValue);
+
+                const $subItems = $section.find(".sidebar-sublist li.nav-item:not(.d-none)");
+                if ($subItems.length === 0) {
+                    $section.toggle(sectionMatches);
+                    return;
+                }
+
+                let anyChildMatch = false;
+                $subItems.each(function () {
+                    const $item = $(this);
+                    const text = $item.text().toLowerCase();
+                    const isMatch = sectionMatches || text.includes(searchValue);
+                    $item.toggle(isMatch);
+                    if (isMatch) {
+                        anyChildMatch = true;
+                        $item.parents(".collapse").addClass("show");
+                    }
+                });
+
+                if (anyChildMatch) {
+                    $section.show();
+                    $section.children(".collapse").addClass("show");
+                    $trigger.removeClass("collapsed").attr("aria-expanded", "true");
+                } else {
+                    $section.hide();
+                }
+            });
+        });
+        return;
+    }
+
     const $menuItems = $(".navbar-nav li");
     const $sidebarTitles = $(".sidebar-title");
 
@@ -12465,153 +12550,109 @@ $("#combodeliverabilityForm").submit(function (e) {
 });
 
 $(function () {
-    $(".products_display_style_for_web").on("change", function () {
-        var selectedStyle = $(this).val();
-        var iframe = document.getElementById(
-            "products_display_style_for_web_iframe",
-        ).contentWindow;
+    var previewBindings = [
+        {
+            selectSelector: "select[name='products_display_style_for_web']",
+            iframeId: "products_display_style_for_web_iframe",
+            urlKey: "webProductCardStyle",
+        },
+        {
+            selectSelector: "select[name='categories_display_style_for_web']",
+            iframeId: "categories_display_style_for_web_iframe",
+            urlKey: "webCategoriesStyle",
+        },
+        {
+            selectSelector: "select[name='brands_display_style_for_web']",
+            iframeId: "brands_display_style_for_web_iframe",
+            urlKey: "webBrandsStyle",
+        },
+        {
+            selectSelector: "select[name='wishlist_display_style_for_web']",
+            iframeId: "wishlist_display_style_for_web_iframe",
+            urlKey: "webWishlistStyle",
+        },
+    ];
 
-        // Send selected style to the iframe
-        iframe.postMessage(selectedStyle, "*");
-    });
-
-    // Trigger change event on page load to set initial view
-    $(".products_display_style_for_web").trigger("change");
-});
-$(function () {
-    $(".categories_display_style_for_web").on("change", function () {
-        var selectedStyle = $(this).val();
-        var iframe = document.getElementById(
-            "categories_display_style_for_web_iframe",
-        ).contentWindow;
-
-        // Send selected style to the iframe
-        iframe.postMessage(selectedStyle, "*");
-    });
-
-    // Trigger change event on page load to set initial view
-    $(".categories_display_style_for_web").trigger("change");
-});
-$(function () {
-    $(".brands_display_style_for_web").on("change", function () {
-        var selectedStyle = $(this).val();
-        var iframe = document.getElementById(
-            "brands_display_style_for_web_iframe",
-        ).contentWindow;
-
-        // Send selected style to the iframe
-        iframe.postMessage(selectedStyle, "*");
-    });
-
-    // Trigger change event on page load to set initial view
-    $(".brands_display_style_for_web").trigger("change");
-});
-$(function () {
-    $(".wishlist_display_style_for_web").on("change", function () {
-        var selectedStyle = $(this).val();
-        var iframe = document.getElementById(
-            "wishlist_display_style_for_web_iframe",
-        ).contentWindow;
-
-        // Send selected style to the iframe
-        iframe.postMessage(selectedStyle, "*");
-    });
-
-    // Trigger change event on page load to set initial view
-    $(".wishlist_display_style_for_web").trigger("change");
-});
-
-$(function () {
-    function updateProductCardIframe(selectedStyle) {
-        var iframe = document.getElementById(
-            "products_display_style_for_web_iframe",
-        );
-
-        if (!iframe) return;
-
-        // Ensure iframe src is updated only when selection changes
-        iframe.src = window.adminUrls.webProductCardStyle;
-
-        // Wait for iframe to load before sending postMessage
-        iframe.onload = function () {
-            iframe.contentWindow.postMessage(selectedStyle, "*");
-        };
+    function getActivePrimaryHex() {
+        var raw = (
+            $("#light_theme_color_code").val() ||
+            $("#light_theme_color").val() ||
+            ""
+        ).trim();
+        return /^#[0-9A-Fa-f]{6}$/.test(raw) ? raw : null;
     }
 
-    // Get the initially selected value
-    var selectedStyle = $(".products_display_style_for_web").val();
+    function postPreviewState(binding) {
+        var iframe = document.getElementById(binding.iframeId);
+        if (!iframe || !iframe.contentWindow) return;
 
-    // Update iframe on page load
-    updateProductCardIframe(selectedStyle);
-});
-$(function () {
-    function updateCategoryCardIframe(selectedStyle) {
-        var iframe = document.getElementById(
-            "categories_display_style_for_web_iframe",
-        );
+        var $select = $(binding.selectSelector);
+        var styleVal = $select.length ? $select.val() : "";
+        var docDir = document.documentElement.getAttribute("dir") === "rtl" ? "rtl" : "ltr";
+        var docTheme =
+            document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
 
-        if (!iframe) return;
-
-        // Ensure iframe src is updated only when selection changes
-        iframe.src = window.adminUrls.webCategoriesStyle;
-
-        // Wait for iframe to load before sending postMessage
-        iframe.onload = function () {
-            iframe.contentWindow.postMessage(selectedStyle, "*");
-        };
+        try {
+            iframe.contentWindow.postMessage(
+                {
+                    style: styleVal,
+                    dir: docDir,
+                    theme: docTheme,
+                    primaryColor: getActivePrimaryHex(),
+                },
+                "*",
+            );
+        } catch (e) {}
     }
 
-    // Get the initially selected value
-    var selectedStyle = $(".categories_display_style_for_web").val();
-
-    // Update iframe on page load
-    updateCategoryCardIframe(selectedStyle);
-});
-$(function () {
-    function updateBrandCardIframe(selectedStyle) {
-        var iframe = document.getElementById(
-            "brands_display_style_for_web_iframe",
-        );
-
-        if (!iframe) return;
-
-        // Ensure iframe src is updated only when selection changes
-        iframe.src = window.adminUrls.webBrandsStyle;
-
-        // Wait for iframe to load before sending postMessage
-        iframe.onload = function () {
-            iframe.contentWindow.postMessage(selectedStyle, "*");
-        };
+    function refreshAllPreviews() {
+        previewBindings.forEach(postPreviewState);
     }
 
-    // Get the initially selected value
-    var selectedStyle = $(".brands_display_style_for_web").val();
+    previewBindings.forEach(function (binding) {
+        var iframe = document.getElementById(binding.iframeId);
+        if (iframe) {
+            if (
+                !iframe.getAttribute("src") &&
+                window.adminUrls &&
+                window.adminUrls[binding.urlKey]
+            ) {
+                iframe.src = window.adminUrls[binding.urlKey];
+            }
+            iframe.addEventListener("load", function () {
+                postPreviewState(binding);
+            });
+            postPreviewState(binding);
+        }
 
-    // Update iframe on page load
-    updateBrandCardIframe(selectedStyle);
-});
-$(function () {
-    function updateWishlistCardIframe(selectedStyle) {
-        var iframe = document.getElementById(
-            "wishlist_display_style_for_web_iframe",
-        );
+        $(binding.selectSelector).on("change", function () {
+            postPreviewState(binding);
+        });
+    });
 
-        if (!iframe) return;
+    window.addEventListener("message", function (event) {
+        if (!event.data || event.data.showcaseReady !== true) return;
+        previewBindings.forEach(function (binding) {
+            var iframe = document.getElementById(binding.iframeId);
+            if (iframe && iframe.contentWindow === event.source) {
+                postPreviewState(binding);
+            }
+        });
+    });
 
-        // Ensure iframe src is updated only when selection changes
-        iframe.src = window.adminUrls.webWishlistStyle;
+    $("#light_theme_color, #light_theme_color_code").on("input change", function () {
+        refreshAllPreviews();
+    });
 
-        // Wait for iframe to load before sending postMessage
-        iframe.onload = function () {
-            iframe.contentWindow.postMessage(selectedStyle, "*");
-        };
+    if (typeof MutationObserver !== "undefined" && document.documentElement) {
+        var previewThemeObserver = new MutationObserver(function () {
+            refreshAllPreviews();
+        });
+        previewThemeObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["data-theme", "dir"],
+        });
     }
-
-    // Get the initially selected value
-    var selectedStyle = $(".wishlist_display_style_for_web").val();
-
-    // Update iframe on page load
-    updateWishlistCardIframe(selectedStyle);
 });
 $(document).on("click", ".edit-language", function () {
     var languageId = $(this).data("id");
