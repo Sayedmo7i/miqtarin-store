@@ -29,8 +29,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import '../../../utils/utils.dart';
-import '../widgets/SignupPage1.dart';
-import '../widgets/SignupPage2.dart';
+import '../widgets/signupPage1.dart';
+import '../widgets/signupPage2.dart';
 
 class SignupScreen extends StatefulWidget {
   final bool isEditProfileScreen;
