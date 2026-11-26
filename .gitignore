@@ -39,3 +39,6 @@ mobile-apps/*/build/
 mobile-apps/*/.flutter-plugins
 mobile-apps/*/.flutter-plugins-dependencies
 mobile-apps/*/.packages
+
+# Skill binaries (auto-fetched on demand)
+.agents/skills/impeccable/scripts/bin/
