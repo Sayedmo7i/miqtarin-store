@@ -564,11 +564,6 @@
                                 data-sort-order="desc" data-mobile-responsive="true" data-toolbar=""
                                 data-show-export="false" data-maintain-selected="true"
                                 data-icons-prefix="bx" data-icons='{"refresh":"bx-refresh"}'
-                                data-format-no-matches="muqtarinTableNoMatches"
-                                data-format-search="muqtarinTableSearch"
-                                data-format-loading-message="muqtarinTableLoading"
-                                data-format-showing-rows="muqtarinTableShowingRows"
-                                data-format-records-per-page="muqtarinTableRowsPerPage"
                                 data-query-params="queryParams">
                                 <thead>
                                     <tr>
@@ -617,11 +612,6 @@
                                     data-mobile-responsive="true" data-toolbar=""
                                     data-show-export="false" data-maintain-selected="true"
                                     data-icons-prefix="bx" data-icons='{"refresh":"bx-refresh"}'
-                                    data-format-no-matches="muqtarinTableNoMatches"
-                                    data-format-search="muqtarinTableSearch"
-                                    data-format-loading-message="muqtarinTableLoading"
-                                    data-format-showing-rows="muqtarinTableShowingRows"
-                                    data-format-records-per-page="muqtarinTableRowsPerPage"
                                     data-query-params="queryParams">
                                     <thead>
                                         <tr>

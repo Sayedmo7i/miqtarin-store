@@ -22,46 +22,64 @@
                         aria-labelledby="pills-vertical-pills-design-tab">
                         <div class="row">
 
-                            <div class="nav flex-column nav-pills p-2" id="v-pills-tab" role="tablist"
+                            <ul class="nav flex-column nav-pills payment-sidebar p-2" id="v-pills-tab" role="tablist"
                                 aria-orientation="vertical">
-                                <a class="nav-link active border payment_method_title" data-bs-toggle="pill" href="#paypal"
-                                    role="tab" aria-selected="true">{{ labels('admin_labels.paypal', 'Paypal') }}</a>
-                                <a class="nav-link border payment_method_title" data-bs-toggle="pill" href="#phonepe"
-                                    role="tab" aria-selected="true">{{ labels('admin_labels.phonepe', 'phonepe') }}</a>
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#razorpay" role="tab" aria-controls="v-pills-profile" aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.razorpay', 'Razorpay') }}</a>
-
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#paystack" role="tab" aria-controls="v-pills-profile" aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.paystack', 'Paystack') }}</a>
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#stripe" role="tab" aria-controls="v-pills-profile" aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.stripe', 'Stripe') }}</a>
-
+                                <li class="nav-item">
+                                    <a class="nav-link active payment_method_title" data-bs-toggle="pill" href="#paypal"
+                                        role="tab" aria-selected="true">{{ labels('admin_labels.paypal', 'Paypal') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill" href="#phonepe"
+                                        role="tab" aria-selected="false">{{ labels('admin_labels.phonepe', 'PhonePe') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#razorpay" role="tab" aria-controls="v-pills-profile" aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.razorpay', 'Razorpay') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#paystack" role="tab" aria-controls="v-pills-profile" aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.paystack', 'Paystack') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#stripe" role="tab" aria-controls="v-pills-profile" aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.stripe', 'Stripe') }}</a>
+                                </li>
                                 @if ($hide_unwanted_payment_gateway == true)
-                                    <a class="nav-link border payment_method_title mt-2" id=""
-                                        data-bs-toggle="pill" href="#midtrans" role="tab"
-                                        aria-controls="v-pills-profile" aria-selected="false"
-                                        tabindex="-1">{{ labels('admin_labels.midtrans', 'Midtrans') }}</a>
-                                    <a class="nav-link border payment_method_title mt-2" id=""
-                                        data-bs-toggle="pill" href="#flutterwave" role="tab"
-                                        aria-controls="v-pills-profile" aria-selected="false"
-                                        tabindex="-1">{{ labels('admin_labels.flutterwave', 'Flutterwave') }}</a>
-                                    <a class="nav-link border payment_method_title mt-2" id=""
-                                        data-bs-toggle="pill" href="#fatoorah" role="tab"
-                                        aria-controls="v-pills-profile" aria-selected="false"
-                                        tabindex="-1">{{ labels('admin_labels.myfatoorah', 'Myfatoorah') }}</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link payment_method_title"
+                                            data-bs-toggle="pill" href="#midtrans" role="tab"
+                                            aria-controls="v-pills-profile" aria-selected="false"
+                                            tabindex="-1">{{ labels('admin_labels.midtrans', 'Midtrans') }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link payment_method_title"
+                                            data-bs-toggle="pill" href="#flutterwave" role="tab"
+                                            aria-controls="v-pills-profile" aria-selected="false"
+                                            tabindex="-1">{{ labels('admin_labels.flutterwave', 'Flutterwave') }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link payment_method_title"
+                                            data-bs-toggle="pill" href="#fatoorah" role="tab"
+                                            aria-controls="v-pills-profile" aria-selected="false"
+                                            tabindex="-1">{{ labels('admin_labels.myfatoorah', 'Myfatoorah') }}</a>
+                                    </li>
                                 @endif
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#direct_bank_transfer" role="tab" aria-controls="v-pills-profile"
-                                    aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.direct_bank_transfer', 'Direct Bank Transfer') }}</a>
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#cash_on_delivery" role="tab" aria-controls="v-pills-profile"
-                                    aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.cash_on_delivery', 'Cash On Delivery') }}</a>
-                            </div>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#direct_bank_transfer" role="tab" aria-controls="v-pills-profile"
+                                        aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.direct_bank_transfer', 'Direct Bank Transfer') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#cash_on_delivery" role="tab" aria-controls="v-pills-profile"
+                                        aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.cash_on_delivery', 'Cash On Delivery') }}</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

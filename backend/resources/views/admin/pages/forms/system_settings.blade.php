@@ -12,7 +12,6 @@
         'admin_labels.fine_tune_platform_dynamics_with_system_settings_mastery',
         'Fine-Tune Platform Dynamics with System Settings Mastery',
     )" :breadcrumbs="[
-        ['label' => labels('admin_labels.home', 'Home'), 'url' => route('admin.home')],
         ['label' => labels('admin_labels.settings', 'Settings'), 'url' => route('settings.index')],
         ['label' => labels('admin_labels.system_settings', 'System Settings')],
     ]" />
@@ -26,44 +25,54 @@
                         aria-labelledby="pills-vertical-pills-design-tab">
                         <div class="row">
 
-                            <div class="nav flex-column  p-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <a class="nav-link active border payment_method_title" data-bs-toggle="pill"
-                                    href="#app_setting" role="tab"
-                                    aria-selected="true">{{ labels('admin_labels.app_settings', 'App & System Settings') }}</a>
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#logo_and_storage_setting" role="tab" aria-controls="v-pills-profile"
-                                    aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.logo_and_storage', 'Logo & Storage') }}</a>
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#system_setting" role="tab" aria-controls="v-pills-profile"
-                                    aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.system_settings', 'System Settings') }}</a>
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#delivery_charge_setting" role="tab" aria-controls="v-pills-profile"
-                                    aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.delivery_boy_settings', 'Delivery Boy Settings') }}</a>
-                                {{-- <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#app_and_system_setting" role="tab" aria-controls="v-pills-profile"
-                                    aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.app_and_system_settings', 'App & System Settings') }}</a> --}}
-
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#welcome_wallet_balance" role="tab" aria-controls="v-pills-profile"
-                                    aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.welcome_wallet_balance', 'Welcome Wallet Balance') }}
-                                </a>
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#maintenance_mode" role="tab" aria-controls="v-pills-profile"
-                                    aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.maintenence_mode', 'Maintenence Mode') }}</a>
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#authentication_setting" role="tab" aria-controls="v-pills-profile"
-                                    aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.authentication_setting', 'Authentication Setting') }}</a>
-                                <a class="nav-link border payment_method_title mt-2" id="" data-bs-toggle="pill"
-                                    href="#cron_job" role="tab" aria-controls="v-pills-profile" aria-selected="false"
-                                    tabindex="-1">{{ labels('admin_labels.cron_job_url', 'Cron Job URL') }}</a>
-                            </div>
+                            <ul class="nav flex-column nav-pills payment-sidebar p-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <li class="nav-item">
+                                    <a class="nav-link active payment_method_title" data-bs-toggle="pill"
+                                        href="#app_setting" role="tab"
+                                        aria-selected="true">{{ labels('admin_labels.app_settings', 'App & System Settings') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#logo_and_storage_setting" role="tab" aria-controls="v-pills-profile"
+                                        aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.logo_and_storage', 'Logo & Storage') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#system_setting" role="tab" aria-controls="v-pills-profile"
+                                        aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.system_settings', 'System Settings') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#delivery_charge_setting" role="tab" aria-controls="v-pills-profile"
+                                        aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.delivery_boy_setting', 'Delivery Boy Settings') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#welcome_wallet_balance" role="tab" aria-controls="v-pills-profile"
+                                        aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.welcome_wallet_balance', 'Welcome Wallet Balance') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#maintenance_mode" role="tab" aria-controls="v-pills-profile"
+                                        aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.maintenence_mode', 'Maintenence Mode') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#authentication_setting" role="tab" aria-controls="v-pills-profile"
+                                        aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.authentication_setting', 'Authentication Setting') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link payment_method_title" data-bs-toggle="pill"
+                                        href="#cron_job" role="tab" aria-controls="v-pills-profile" aria-selected="false"
+                                        tabindex="-1">{{ labels('admin_labels.cron_job_url', 'Cron Job URL') }}</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -438,11 +447,12 @@
                                                         <label for="" class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
                                                         <div class="container-fluid row image-upload-section">
                                                             <div
-                                                                class="col-md-4 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
+                                                                class="col-md-4 shadow p-3 mb-4 rounded m-2 text-center grow image">
                                                                 <div class=''>
                                                                     <div class='upload-media-div'><img
                                                                             class="img-fluid mb-2"
                                                                             src="{{ asset('storage' . $settings['logo']) }}"
+                                                                            onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                             alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
                                                                     <input type="hidden" name="logo" id='logo'
                                                                         value='<?= $settings['logo'] ?>'>
@@ -452,7 +462,7 @@
                                                     @else
                                                         <div class="container-fluid row image-upload-section">
                                                             <div
-                                                                class="col-md-4 shadow p-2 mb-5 bg-white rounded m-2 text-center grow image d-none">
+                                                                class="col-md-4 shadow p-2 mb-4 rounded m-2 text-center grow image d-none">
                                                             </div>
                                                         </div>
                                                     @endif
@@ -471,8 +481,8 @@
                                                         <a class="media_link" data-input="favicon" data-isremovable="0"
                                                             data-is-multiple-uploads-allowed="0" data-bs-toggle="modal"
                                                             data-bs-target="#media-upload-modal" value="Upload Photo">
-                                                            <h4><i class='bx bx-upload'></i> {{ labels('admin_labels.upload_option', 'Upload') }}
-                                                        </a></h4>
+                                                            <h4><i class='bx bx-upload'></i> {{ labels('admin_labels.upload_option', 'Upload') }}</h4>
+                                                        </a>
                                                         <p class="image_recommendation">{{ labels('admin_labels.recommended_size_120_150_pixels', 'Recommended Size : larger than 120 x 120 & smaller than 150 x 150 pixels.') }}</p>
                                                     </div>
                                                 </div>
@@ -482,10 +492,11 @@
                                                     <label for="" class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
                                                     <div class="container-fluid row image-upload-section">
                                                         <div
-                                                            class="col-md-4 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
+                                                            class="col-md-4 shadow p-3 mb-4 rounded m-2 text-center grow image">
                                                             <div class=''>
                                                                 <div class='upload-media-div'><img class="img-fluid mb-2"
                                                                         src="{{ asset('storage' . $settings['favicon']) }}"
+                                                                        onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                         alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
                                                                 <input type="hidden" name="favicon" id='favicon'
                                                                     value='<?= $settings['favicon'] ?>'>
@@ -495,7 +506,7 @@
                                                 @else
                                                     <div class="container-fluid row image-upload-section">
                                                         <div
-                                                            class="col-md-4 shadow p-2 mb-5 bg-white rounded m-2 text-center grow image d-none">
+                                                            class="col-md-4 shadow p-2 mb-4 rounded m-2 text-center grow image d-none">
                                                         </div>
                                                     </div>
                                                 @endif
@@ -547,9 +558,10 @@
                                                     <div class="container-fluid row image-upload-section">
                                                         @foreach ($settings['on_boarding_image'] as $row)
                                                             <div
-                                                                class="bg-white grow image product-image-container rounded shadow text-center m-2">
+                                                                class="grow image product-image-container rounded shadow text-center m-2">
                                                                 <div class='image-upload-div'>
                                                                     <img class="img-fluid mb-2" alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"
+                                                                        onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                         src="{{ asset('storage' . $row) }}" />
                                                                 </div>
                                                                 <a href="javascript:void(0)" class="delete-onboard-media"
@@ -557,8 +569,8 @@
                                                                     data-table="settings" data-path="<?= $row ?>"
                                                                     data-isjson="true">
                                                                     <span
-                                                                        class="btn btn-block bg-gradient-danger text-danger btn-xs"><i
-                                                                            class="far fa-trash-alt "></i>
+                                                                        class="btn btn-sm btn-outline-danger mt-2"><i
+                                                                            class="far fa-trash-alt me-1"></i>
                                                                         {{ labels('admin_labels.title_delete', 'Delete') }}</span></a>
                                                                 <input type="hidden" name="on_boarding_image[]"
                                                                     value='<?= $row ?>'>
@@ -604,10 +616,11 @@
                                                 <div class="container-fluid row image-upload-section">
                                                     @foreach ($settings['on_boarding_video'] as $row)
                                                         <div
-                                                            class="bg-white grow image product-image-container rounded shadow text-center m-2">
+                                                            class="grow image product-image-container rounded shadow text-center m-2">
                                                             <div class='image-upload-div'>
                                                                 <img class="img-fluid mb-2"
                                                                     src='{{ config('app.url') . 'assets/admin/images/video-file.png' }}'
+                                                                    onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                     alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
                                                             </div>
                                                             <a href="javascript:void(0)" class="delete-onboard-media"
@@ -615,8 +628,8 @@
                                                                 data-table="settings" data-path="<?= $row ?>"
                                                                 data-isjson="true">
                                                                 <span
-                                                                    class="btn btn-block bg-gradient-danger text-danger btn-xs"><i
-                                                                        class="far fa-trash-alt "></i> {{ labels('admin_labels.title_delete', 'Delete') }}</span></a>
+                                                                    class="btn btn-sm btn-outline-danger mt-2"><i
+                                                                        class="far fa-trash-alt me-1"></i> {{ labels('admin_labels.title_delete', 'Delete') }}</span></a>
                                                             <input type="hidden" name="on_boarding_video[]"
                                                                 value='<?= $row ?>'>
                                                         </div>

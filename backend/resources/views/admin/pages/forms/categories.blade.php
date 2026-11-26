@@ -116,8 +116,7 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#media-upload-modal"
                                                                     value="Upload Photo">
-                                                                    <h4><i class='bx bx-upload'></i> Upload
-                                                                    </h4>
+                                                                    <h4><i class='bx bx-upload'></i> {{ labels('admin_labels.upload_option', 'Upload') }}</h4>
                                                                 </a>
 
                                                             </div>
@@ -139,12 +138,11 @@
                                             {{ labels('admin_labels.banner', 'Banner') }}
                                             <span class='text-asterisks text-sm'>*</span>
                                         </label>
-                                        </label>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="col-md-6 file_upload_box border file_upload_border mt-2">
                                                     <div class="mt-2">
-                                                        <div class="col-md-12  text-center">
+                                                        <div class="col-md-12 text-center">
                                                             <div>
                                                                 <a class="media_link" data-input="banner"
                                                                     data-isremovable="0"
@@ -152,8 +150,8 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#media-upload-modal"
                                                                     value="Upload Photo">
-                                                                    <h4><i class='bx bx-upload'></i> Upload
-                                                                </a></h4>
+                                                                    <h4><i class='bx bx-upload'></i> {{ labels('admin_labels.upload_option', 'Upload') }}</h4>
+                                                                </a>
 
                                                             </div>
 

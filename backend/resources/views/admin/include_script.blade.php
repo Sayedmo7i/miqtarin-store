@@ -12,6 +12,35 @@
  <script src="{{ asset('assets/brand/muqtarin-toast.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-toast.js')) }}"></script>
  <script src="{{ asset('assets/admin/js/dropzone.js') }}"></script>
  <script src="{{ asset('assets/admin/js/bootstrap-table.min.js') }}"></script>
+ <script>
+     (function() {
+         if (typeof $ !== 'undefined' && $.fn && $.fn.bootstrapTable && $.fn.bootstrapTable.defaults) {
+             var lblNoMatches = {!! json_encode(labels('admin_labels.no_matching_records', 'No matching records found'), JSON_UNESCAPED_UNICODE) !!};
+             var lblSearch = {!! json_encode(labels('admin_labels.search_records', 'Search records...'), JSON_UNESCAPED_UNICODE) !!};
+             var lblLoading = {!! json_encode(labels('admin_labels.loading_data', 'Loading data...'), JSON_UNESCAPED_UNICODE) !!};
+             var lblShowingRows = {!! json_encode(labels('admin_labels.table_showing_rows', 'Showing %s to %s of %s rows'), JSON_UNESCAPED_UNICODE) !!};
+             var lblRowsPerPage = {!! json_encode(labels('admin_labels.table_rows_per_page', '%s rows per page'), JSON_UNESCAPED_UNICODE) !!};
+
+             $.extend($.fn.bootstrapTable.defaults, {
+                 formatNoMatches: function() {
+                     return '<div class="muqtarin-table-empty"><i class="bx bx-inbox"></i><span>' + lblNoMatches + '</span></div>';
+                 },
+                 formatSearch: function() {
+                     return lblSearch;
+                 },
+                 formatLoadingMessage: function() {
+                     return lblLoading;
+                 },
+                 formatShowingRows: function(pageFrom, pageTo, totalRows) {
+                     return lblShowingRows.replace('%s', pageFrom).replace('%s', pageTo).replace('%s', totalRows);
+                 },
+                 formatRecordsPerPage: function(pageNumber) {
+                     return lblRowsPerPage.replace('%s', pageNumber);
+                 }
+             });
+         }
+     })();
+ </script>
  <script src="{{ asset('assets/admin/js/select2.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/tagify.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/jstree.min.js') }}"></script>

@@ -80,13 +80,15 @@
                                     <div class="form-group">
                                         <div class="card-body p-0">
                                             <div class="form-group">
-                                                <h5 class="mb-3">
-                                                    {{ labels('admin_labels.seller_privacy_policy', 'Seller Privacy Policy') }}
-                                                </h5>
-                                                <a href="{{ route('seller_privacy_policy.view') }}" target="_blank"
-                                                    class="p-2 badge bg-gradient-info" title="{{ labels('admin_labels.view_privacy_policy', 'View Privacy Policy') }}"><i
-                                                        class="fa fa-eye"></i></a>
-                                                <textarea class="form-control addr_editor"name="seller_privacy_policy" placeholder="Privacy Policy" rows="5">{{ isset($seller_privacy_policy['seller_privacy_policy']) ? $seller_privacy_policy['seller_privacy_policy'] : '' }}</textarea>
+                                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                                    <h5 class="mb-0">
+                                                        {{ labels('admin_labels.seller_privacy_policy', 'Seller Privacy Policy') }}
+                                                    </h5>
+                                                    <a href="{{ route('seller_privacy_policy.view') }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-primary" title="{{ labels('admin_labels.view_privacy_policy', 'View Privacy Policy') }}"><i
+                                                            class="bx bx-show me-1"></i>{{ labels('admin_labels.view', 'View') }}</a>
+                                                </div>
+                                                <textarea class="form-control addr_editor"name="seller_privacy_policy" placeholder="{{ labels('admin_labels.privacy_policy_placeholder', 'Privacy Policy') }}" rows="5">{{ isset($seller_privacy_policy['seller_privacy_policy']) ? $seller_privacy_policy['seller_privacy_policy'] : '' }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -107,12 +109,14 @@
                                     <div class="form-group">
                                         <div class="card-body p-0">
                                             <div class="form-group">
-                                                <h5 class="mb-3">
-                                                    {{ labels('admin_labels.seller_terms_and_conditions', 'Seller Terms & Conditions') }}
-                                                </h5>
-                                                <a href="{{ route('seller_terms_and_conditions.view') }}" target="_blank"
-                                                    class="p-2 badge bg-gradient-info" title="{{ labels('admin_labels.view_terms_and_condition', 'View Terms & Condition') }}"><i
-                                                        class="fa fa-eye"></i></a>
+                                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                                    <h5 class="mb-0">
+                                                        {{ labels('admin_labels.seller_terms_and_conditions', 'Seller Terms & Conditions') }}
+                                                    </h5>
+                                                    <a href="{{ route('seller_terms_and_conditions.view') }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-primary" title="{{ labels('admin_labels.view_terms_and_condition', 'View Terms & Condition') }}"><i
+                                                            class="bx bx-show me-1"></i>{{ labels('admin_labels.view', 'View') }}</a>
+                                                </div>
                                                 <textarea class="form-control addr_editor"name="seller_terms_and_conditions" placeholder="{{ labels('admin_labels.terms_and_conditions_placeholder', 'Terms and Conditions') }}"
                                                     rows="5">{{ isset($seller_terms_and_conditions['seller_terms_and_conditions']) ? $seller_terms_and_conditions['seller_terms_and_conditions'] : '' }}</textarea>
                                             </div>

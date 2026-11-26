@@ -1277,7 +1277,7 @@
                                                     @foreach ($other_images as $row)
                                                         <div class="col-6">
                                                             <div
-                                                                class="bg-white grow image rounded shadow text-center m-2">
+                                                                class="grow image rounded shadow text-center m-2">
                                                                 <div class="image-upload-div">
                                                                     <img class="img-fluid mb-2"
                                                                         src="{{ route('admin.dynamic_image', [
@@ -1293,8 +1293,8 @@
                                                                     data-img="{{ $row }}" data-table="products"
                                                                     data-path="{{ $row }}" data-isjson="true">
                                                                     <span
-                                                                        class="btn btn-block bg-gradient-danger text-danger btn-xs">
-                                                                        <i class="far fa-trash-alt"></i> Delete
+                                                                        class="btn btn-sm btn-outline-danger mt-2">
+                                                                        <i class="far fa-trash-alt me-1"></i> {{ labels('admin_labels.title_delete', 'Delete') }}
                                                                     </span>
                                                                 </a>
                                                                 <input type="hidden" name="other_images[]"

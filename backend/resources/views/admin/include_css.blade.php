@@ -51,15 +51,17 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/daterangepicker.css') }}">
 
     <!-- Stepper & Plugins CSS -->
-    <link id="pagestyle" href="{{ asset('/assets/admin/css/nouislider.min.css') }}" rel="stylesheet" />
-    <link id="pagestyle" href="{{ asset('/assets/css/jquery.rateyo.min.css') }}" rel="stylesheet" />
-    <link id="pagestyle" href="{{ asset('/assets/admin/css/select2.min.css') }}" rel="stylesheet" />
-    <link id="pagestyle" href="{{ asset('/assets/admin/css/tagify.min.css') }}" rel="stylesheet" />
-    <link id="pagestyle" href="{{ asset('/assets/admin/css/sweetalert2.min.css') }}" rel="stylesheet" />
-    <link id="pagestyle" href="{{ asset('/assets/admin/css/style.min.css') }}" rel="stylesheet" />
-    <link id="pagestyle" href="{{ asset('/assets/admin/css/lightbox.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/admin/css/nouislider.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/css/jquery.rateyo.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/admin/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/admin/css/tagify.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/admin/css/sweetalert2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/admin/css/style.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/assets/admin/css/lightbox.min.css') }}" rel="stylesheet" />
 
-    <link rel="stylesheet" href="{{ asset('/assets/css/theme.min.css') }}">
+    <link id="pagestyle" rel="stylesheet" href="{{ asset('/assets/css/theme.min.css') }}">
+    @yield('styles')
+    @stack('styles')
     {{-- MUQTARIN Store Admin Design System --}}
     <link rel="stylesheet"
         href="{{ asset('assets/admin/custom/muqtarin-admin.css') }}?v={{ filemtime(public_path('assets/admin/custom/muqtarin-admin.css')) }}">

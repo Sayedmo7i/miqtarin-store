@@ -18,15 +18,14 @@
             <div class="card-body">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-1">
-                            <div class="product-image-thumbs">
+                        <div class="col-12 col-md-2">
+                            <div class="product-image-thumbs d-flex d-md-block gap-2 flex-wrap">
                                 @php
                                     $other_images = json_decode($data->other_images);
                                 @endphp
                                 @if (!empty($other_images))
                                     @foreach ($other_images as $row)
                                         <div class="mb-2">
-
                                             <a href="{{ asset('/storage/' . $row) }}"
                                                 data-lightbox="image-{{ $data->id }}">
                                                 <img src="{{ route('admin.dynamic_image', [
@@ -34,7 +33,8 @@
                                                     'width' => 100,
                                                     'quality' => 100,
                                                 ]) }}"
-                                                    alt="{{ labels('admin_labels.avatar', 'Avatar') }}" class="" />
+                                                    onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                    alt="{{ labels('admin_labels.avatar', 'Avatar') }}" class="img-fluid rounded border" />
                                             </a>
                                         </div>
                                     @endforeach
@@ -42,16 +42,17 @@
                             </div>
 
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-12 col-md-4 mb-3 mb-md-0">
                             <div class="text-center">
                                 <div class="tab-pane active" id="">
-                                    <div class="">
+                                    <div class="product_detail_image_box">
                                         <img src="{{ route('admin.dynamic_image', [
                                             'url' => app(MediaService::class)->getMediaImageUrl($data->image),
                                             'width' => 500,
                                             'quality' => 100,
                                         ]) }}"
-                                            alt="{{ labels('admin_labels.avatar', 'Avatar') }}" class="" />
+                                            onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                            alt="{{ labels('admin_labels.avatar', 'Avatar') }}" class="img-fluid rounded" />
                                     </div>
                                 </div>
                             </div>

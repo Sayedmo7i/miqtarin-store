@@ -1173,7 +1173,7 @@
                                     @php $other_images = json_decode($data->other_images); @endphp
                                     @if (!empty($other_images))
                                         @foreach ($other_images as $row)
-                                            <div class="col-md-6 col-sm-12 shadow p-3 mb-3 bg-white rounded text-center image">
+                                            <div class="col-md-6 col-sm-12 shadow p-3 mb-3 rounded text-center image">
                                                 <div class='image-upload-div'>
                                                     <img class="img-fluid mb-2"
                                                         src="{{ route('admin.dynamic_image', ['url' => app(MediaService::class)->getMediaImageUrl($row), 'width' => 150, 'quality' => 90]) }}"
@@ -1182,8 +1182,8 @@
                                                 <a href="javascript:void(0)" class="delete-img m-2" data-id="{{ $data->id }}"
                                                     data-field="other_images" data-img="{{ $row }}" data-table="combo_products"
                                                     data-path="{{ $row }}" data-isjson="true">
-                                                    <span class="btn btn-block bg-gradient-danger btn-xs">
-                                                        <i class="far fa-trash-alt "></i> Delete
+                                                    <span class="btn btn-sm btn-outline-danger mt-2">
+                                                        <i class="far fa-trash-alt me-1"></i> {{ labels('admin_labels.title_delete', 'Delete') }}
                                                     </span>
                                                 </a>
                                                 <input type="hidden" name="other_images[]" value="{{ $row }}">

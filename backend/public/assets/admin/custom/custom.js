@@ -3203,7 +3203,7 @@ function create_editable_variants(
                         img_value +
                         ' data-table="product_variants" data-path=' +
                         img_value +
-                        ' data-isjson="true"> <span class="btn btn-block bg-gradient-danger text-danger btn-xs"><i class="far fa-trash-alt me-1"></i> Delete</span></a> <input type="hidden" name="variant_images[' +
+                        ' data-isjson="true"> <span class="btn btn-sm btn-outline-danger mt-2"><i class="far fa-trash-alt me-1"></i> Delete</span></a> <input type="hidden" name="variant_images[' +
                         a +
                         '][]"  value=' +
                         img_value +
@@ -3463,7 +3463,7 @@ function create_editable_variants(
                             img_value +
                             ' data-table="product_variants" data-path=' +
                             img_value +
-                            ' data-isjson="true"> <span class="btn btn-block bg-gradient-danger text-danger btn-xs"><i class="far fa-trash-alt me-1"></i> Delete</span></a> <input type="hidden" name="variant_images[' +
+                            ' data-isjson="true"> <span class="btn btn-sm btn-outline-danger mt-2"><i class="far fa-trash-alt me-1"></i> Delete</span></a> <input type="hidden" name="variant_images[' +
                             a +
                             '][]"  value=' +
                             img_value +
