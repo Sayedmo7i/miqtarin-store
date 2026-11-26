@@ -77,14 +77,18 @@
     @endphp
     <nav class="navbar navbar-main navbar-expand-lg px-0 shadow-none border-radius-xl" id="navbarBlur" data-scroll="false">
         <div id="app_url" data-app-url="{{ config('app.url') }}"></div>
-        <div class="align-items-center d-flex px-6 py-1 w-100">
-            <div class=" mt-2 navbar-collapse justify-content-end" id="navbar">
+        <div class="align-items-center d-flex px-4 py-1 w-100 muqtarin-topbar-inner">
+            <button type="button" class="muqtarin-icon-btn me-2" id="muqtarin-sidebar-toggle"
+                onclick="muqtarinToggleSidebar()" title="Toggle Sidebar" aria-label="Toggle Sidebar">
+                <i class='bx bx-menu'></i>
+            </button>
+
+            <div class="navbar-collapse justify-content-start flex-grow-1" id="navbar">
                 @if ($store_count > 1 && optional($settings)->store_mode != 'single')
                     <ul class="navbar-nav col">
                         <li class="nav-item dropdown pe-2 d-flex align-items-center dropdown-store">
-                            <a id="nav-toggle" href="#"><i class='bx bx-bar-chart bx-rotate-90'></i></a>
                             <div class="module-dropdown-box">
-                                <a class="nav-link  dropdown-toggle hide-arrow" href="javascript:void(0);"
+                                <a class="nav-link dropdown-toggle hide-arrow d-flex align-items-center" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <img src="{{ app(MediaService::class)->getMediaImageUrl($store_image, 'STORE_IMG_PATH') }}"
                                         alt="" class="avatar rounded-circle avatar-sm">
@@ -144,7 +148,6 @@
                 @else
                     <ul class="navbar-nav col">
                         <li class="nav-item dropdown pe-2 d-flex align-items-center dropdown-store">
-                            <a id="nav-toggle" href="#"><i class='bx bx-bar-chart bx-rotate-90'></i></a>
                             <img src="{{ app(MediaService::class)->getMediaImageUrl($store_image, 'STORE_IMG_PATH') }}"
                                 alt="" class="avatar rounded-circle avatar-sm">
                             @if (isset($store_details) && !empty($store_details))
@@ -167,17 +170,21 @@
                 $selected_language = !$selected_language->isEmpty() ? $selected_language[0]->language : 'English';
             @endphp
             @if (!empty($selected_language))
-                <label for="" class="badge bg-primary mx-3">{{ $selected_language }}</label>
+                <label for="" class="badge bg-primary mx-2 muqtarin-lang-pill">{{ $selected_language }}</label>
             @endif
 
+            <button type="button" class="muqtarin-icon-btn me-2" onclick="muqtarinToggleTheme()"
+                title="Toggle Dark / Light Mode" aria-label="Toggle Dark / Light Mode">
+                <i class="bx bx-moon" id="muqtarin-theme-icon"></i>
+            </button>
 
-            <li class="nav-item dropdown  d-flex justify-content-center me-3 notifiationDropDown">
-                <a href="javascript:;" class="nav-link p-0" id="languageDropdown" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+            <li class="nav-item dropdown d-flex justify-content-center me-2 notifiationDropDown list-unstyled">
+                <a href="javascript:;" class="muqtarin-icon-btn p-0" id="languageDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false" title="Language">
                     <i class="bx bx-globe"></i>
                 </a>
 
-                <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="languageDropdown">
+                <ul class="dropdown-menu dropdown-menu-end px-2 py-2" aria-labelledby="languageDropdown">
                     @foreach ($languages as $language)
                         <li>
                             <a class="dropdown-item changeLang" data-lang-code="{{ $language->code }}">

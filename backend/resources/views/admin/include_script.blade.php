@@ -152,8 +152,57 @@
              @endforeach
          @endif
      });
+
+     // MUQTARIN Admin Shell: Collapsible Sidebar (sessionStorage) & Dark/Light Mode (localStorage)
+     (function() {
+         function syncThemeButton() {
+             var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+             var icon = document.getElementById('muqtarin-theme-icon');
+             if (icon) {
+                 icon.className = isDark ? 'bx bx-sun' : 'bx bx-moon';
+             }
+         }
+
+         window.muqtarinToggleTheme = function() {
+             var html = document.documentElement;
+             var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+             html.setAttribute('data-theme', next);
+             try { localStorage.setItem('muqtarin_admin_theme', next); } catch (e) {}
+             syncThemeButton();
+         };
+
+         window.muqtarinToggleSidebar = function() {
+             var isMobile = window.innerWidth < 1200;
+             var sidebar = document.querySelector('.navbar-vertical');
+             if (isMobile) {
+                 if (sidebar) sidebar.classList.toggle('show');
+                 document.body.classList.toggle('sidebar-mobile-open');
+             } else {
+                 document.body.classList.toggle('sidebar-collapsed');
+                 var collapsed = document.body.classList.contains('sidebar-collapsed') ? '1' : '0';
+                 try { sessionStorage.setItem('muqtarin_sidebar_collapsed', collapsed); } catch (e) {}
+             }
+         };
+
+         document.addEventListener('DOMContentLoaded', function() {
+             syncThemeButton();
+             var backdrop = document.getElementById('muqtarin-sidebar-backdrop');
+             if (backdrop) {
+                 backdrop.addEventListener('click', function() {
+                     var sidebar = document.querySelector('.navbar-vertical');
+                     if (sidebar) sidebar.classList.remove('show');
+                     document.body.classList.remove('sidebar-mobile-open');
+                 });
+             }
+             var closeMobile = document.getElementById('iconSidenav');
+             if (closeMobile) {
+                 closeMobile.addEventListener('click', function() {
+                     var sidebar = document.querySelector('.navbar-vertical');
+                     if (sidebar) sidebar.classList.remove('show');
+                     document.body.classList.remove('sidebar-mobile-open');
+                 });
+             }
+         });
+     })();
  </script>
 
- </body>
-
- </html>
