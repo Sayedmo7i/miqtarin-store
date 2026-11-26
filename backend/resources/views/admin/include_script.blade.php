@@ -62,7 +62,7 @@
          webBrandsStyle: "{{ url('admin/web_brands_style') }}",
          webWishlistStyle: "{{ url('admin/web_wishlist_style') }}",
      };
-     window.adminTranslations = @json([
+     window.adminTranslations = {!! json_encode([
          'error' => labels('admin_labels.error', 'Error'),
          'validation_error' => labels('admin_labels.validation_error', 'Validation Error'),
          'warning' => labels('admin_labels.warning', 'Warning'),
@@ -111,7 +111,7 @@
          'please_enter_sku' => labels('admin_labels.please_enter_sku', 'Please enter SKU.'),
          'please_enter_total_stock' => labels('admin_labels.please_enter_total_stock', 'Please enter total stock.'),
          'please_provide_attribute_value' => labels('admin_labels.please_provide_attribute_value', 'Please provide at least one valid attribute value.'),
-     ]);
+     ], JSON_UNESCAPED_UNICODE) !!};
      window.adminT = function(key, fallback) {
          if (window.adminTranslations && Object.prototype.hasOwnProperty.call(window.adminTranslations, key) && window.adminTranslations[key]) {
              return window.adminTranslations[key];
