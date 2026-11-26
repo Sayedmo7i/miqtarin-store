@@ -176,6 +176,51 @@ body.sidebar-collapsed #page-content {
   margin-top: 0 !important;
 }
 
+/* Admin Footer */
+.bg-body {
+  background-color: var(--surface) !important;
+  color: var(--ink-soft) !important;
+}
+
+.footer,
+footer.footer.bg-body {
+  margin-top: 0 !important;
+  margin-inline-start: var(--sidebar-width);
+  background-color: var(--surface) !important;
+  color: var(--ink-soft) !important;
+  border-top: 1px solid var(--border);
+  transition: margin-inline-start var(--transition), background-color var(--transition), border-color var(--transition);
+}
+body.sidebar-collapsed .footer,
+body.sidebar-collapsed footer.footer.bg-body {
+  margin-inline-start: var(--sidebar-collapsed);
+}
+.footer .text-center {
+  text-align: start !important;
+}
+.footer .copyright {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+.footer .copyright a {
+  color: var(--pine) !important;
+  font-weight: 700;
+}
+[data-theme="dark"] .footer .copyright a {
+  color: var(--emerald) !important;
+}
+.footer .footer-version-badge {
+  background: var(--pine-light) !important;
+  color: var(--pine) !important;
+  border: 1px solid rgba(15, 76, 58, 0.22);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+[data-theme="dark"] .footer .footer-version-badge {
+  color: var(--emerald) !important;
+  border-color: rgba(34, 197, 94, 0.28);
+}
+
 /* ── 5. Sidebar (Shopify-Clean + Collapsible Icons) ───────────────────────── */
 .navbar-vertical {
   position: fixed;
@@ -1161,7 +1206,9 @@ th {
 
 /* ── 12. Responsive Drawer on Mobile / Tablet ─────────────────────────────── */
 @media (max-width: 1199px) {
-  #page-content {
+  #page-content,
+  .footer,
+  footer.footer.bg-body {
     margin-inline-start: 0 !important;
   }
   .navbar-vertical {
@@ -1179,6 +1226,16 @@ th {
 @media (max-width: 768px) {
   .container-fluid.mt-5.px-6 { padding: 16px !important; }
   .card-body { padding: 16px !important; }
+}
+
+@media (max-width: 767px) {
+  .footer .text-center,
+  .footer .text-end {
+    text-align: center !important;
+  }
+  .footer .row {
+    row-gap: 8px;
+  }
 }
 
 /* ── 13. Add Store Wizard (.muqtarin-store-wizard) ────────────────────────── */
