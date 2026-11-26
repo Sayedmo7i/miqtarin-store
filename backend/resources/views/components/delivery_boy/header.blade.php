@@ -95,16 +95,16 @@
         $primary_colour =
             isset($stores[0]->primary_color) && !empty($stores[0]->primary_color)
                 ? $stores[0]->primary_color
-                : '#B52046';
+                : '#0F4C3A';
         $background_opacity_color = $primary_colour . '10';
         $secondary_color =
             isset($stores[0]->secondary_color) && !empty($stores[0]->secondary_color)
                 ? $stores[0]->secondary_color
-                : '#201A1A';
+                : '#1F2937';
         $hover_color =
-            isset($stores[0]->hover_color) && !empty($stores[0]->hover_color) ? $stores[0]->hover_color : '#911A38';
+            isset($stores[0]->hover_color) && !empty($stores[0]->hover_color) ? $stores[0]->hover_color : '#0A3528';
         $active_color =
-            isset($stores[0]->active_color) && !empty($stores[0]->active_color) ? $stores[0]->active_color : '#6D132A';
+            isset($stores[0]->active_color) && !empty($stores[0]->active_color) ? $stores[0]->active_color : '#06231A';
 
     @endphp
 

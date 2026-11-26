@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
 Color borderColor = const Color(0xFF4282525);
-Color primaryColor = const Color(0xFFB52046);
-Color secondaryColor = const Color(0xFF201A1A);
-Color errorColor = const Color(0xFFee1c2f);
-Color successStatusColor = const Color(0xFF0DAE4A);
-Color pendingStatusColor = const Color(0xFFE69914);
-Color receivedStatusColor = const Color(0xFF4285F4);
-Color processedStatusColor = const Color(0xFF736AFF);
-Color shippedStatusColor = const Color(0xFFC44D6B);
-Color deliveredStatusColor = const Color(0xFF34A853);
-Color cancelledStatusColor = const Color(0xFFEE1C2F);
+Color primaryColor = const Color(0xFF0F4C3A);
+Color secondaryColor = const Color(0xFF1F2937);
+Color emeraldColor = const Color(0xFF22C55E);
+Color goldColor = const Color(0xFFF6C667);
+Color errorColor = const Color(0xFFDC2626);
+Color successStatusColor = const Color(0xFF16A34A);
+Color pendingStatusColor = const Color(0xFFD97706);
+Color receivedStatusColor = const Color(0xFF2563EB);
+Color processedStatusColor = const Color(0xFF7C3AED);
+Color shippedStatusColor = const Color(0xFF0F766E);
+Color deliveredStatusColor = const Color(0xFF16A34A);
+Color cancelledStatusColor = const Color(0xFFDC2626);
 Color returnedStatusColor = const Color(0xFFF48900);
 Color warningColor = const Color.fromARGB(255, 244, 202, 131);
-Color infoColor = const Color.fromARGB(255, 118, 161, 197);
+Color infoColor = const Color(0xFF0284C7);
 Color whiteColor = const Color(0xFFFFFFFF);
 Color blackColor = const Color(0xFF000000);
 Color redColor = const Color(0xFFF44336);
@@ -21,5 +23,4 @@ Color blueColor = const Color(0xFF2196F3);
 Color greenColor = const Color(0xFF4CAF50);
 Color cyanColor = const Color(0xFF00BCD4);
 Color transparentColor = Colors.transparent;
-
 MaterialColor greyColor = Colors.grey;

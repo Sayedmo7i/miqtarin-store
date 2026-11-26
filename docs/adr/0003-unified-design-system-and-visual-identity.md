@@ -14,3 +14,9 @@ The platform previously contained scattered branding identifiers (CodeCanyon lef
 
 ## Consequences
 All future UI modifications across both Laravel views and Flutter applications must adhere to the design tokens. Hardcoding arbitrary colors, fonts, or English-only layouts is strictly prevented by the quality rules.
+
+## Amendment (2026-11-26 - Rebrand to MUQTARIN Store)
+- **Rebranding**: Rebranded to **MUQTARIN Store** (`مقترن ستور`) aligned with parent entity MUQTAREN (https://app.vendoratravel.com/).
+- **Palette**: Pine (`#0F4C3A`), Emerald (`#22C55E`), Gold (`#F6C667`), Ink (`#1F2937`).
+- **Typography**: Tajawal (Arabic) and Inter (English).
+- **Tokens**: `design-tokens.json` retired per owner decision; single source of truth is `DESIGN.md` and code variables.

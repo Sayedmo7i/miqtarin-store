@@ -8,7 +8,8 @@ class AppTheme {
   static ThemeData getThemeData(BuildContext context, Store defaultStore) {
     final baseTextTheme = Theme.of(
       context,
-    ).textTheme.apply(fontFamily: 'Rubik');
+    ).textTheme.apply(fontFamily: 'Tajawal');
+
     final themeSecondaryColor =
         Utils.getColorFromHexValue(defaultStore.secondaryColor) ??
         secondaryColor;
@@ -17,6 +18,7 @@ class AppTheme {
     final themeBackgroundColor =
         Utils.getColorFromHexValue(defaultStore.backgroundColor) ??
         const Color(0xFFF5F8F9);
+
     final whiteColor = Colors.white;
     final borderColorAlpha = borderColor.withValues(alpha: 0.4);
     final secondaryColorAlpha = secondaryColor.withValues(alpha: 0.67);
@@ -107,7 +109,6 @@ class AppTheme {
           borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
-
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
         elevation: 1,

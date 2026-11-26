@@ -3,7 +3,7 @@ import 'package:eshopplus_seller/commons/widgets/customRoundedButton.dart';
 import 'package:eshopplus_seller/core/localization/labelKeys.dart';
 import 'package:eshopplus_seller/features/orders/parcel/blocs/getParcelCubit.dart';
 import 'package:eshopplus_seller/features/orders/parcel/models/parcel.dart';
-import 'package:eshopplus_seller/features/orders/parcel/shiprocket/blocs/GenerateAWBCubit.dart';
+import 'package:eshopplus_seller/features/orders/parcel/shiprocket/blocs/generateAWBCubit.dart';
 import 'package:eshopplus_seller/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -184,19 +184,19 @@ if (!empty($store_image)) {
         $primary_colour =
             isset($store_details[0]->primary_color) && !empty($store_details[0]->primary_color)
                 ? $store_details[0]->primary_color
-                : '#B52046';
+                : '#0F4C3A';
         $secondary_color =
             isset($store_details[0]->secondary_color) && !empty($store_details[0]->secondary_color)
                 ? $store_details[0]->secondary_color
-                : '#201A1A';
+                : '#1F2937';
         $hover_color =
             isset($store_details[0]->hover_color) && !empty($store_details[0]->hover_color)
                 ? $store_details[0]->hover_color
-                : '#911A38';
+                : '#0A3528';
         $active_color =
             isset($store_details[0]->active_color) && !empty($store_details[0]->active_color)
                 ? $store_details[0]->active_color
-                : '#6D132A';
+                : '#06231A';
         $background_opacity_color = $primary_colour . '10';
     @endphp
 

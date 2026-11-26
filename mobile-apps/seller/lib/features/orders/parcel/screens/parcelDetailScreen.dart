@@ -6,7 +6,7 @@ import 'package:eshopplus_seller/features/orders/blocs/orderUpdateCubit.dart';
 
 import 'package:eshopplus_seller/features/orders/models/order.dart';
 import 'package:eshopplus_seller/features/orders/parcel/models/parcel.dart';
-import 'package:eshopplus_seller/features/orders/parcel/shiprocket/widgets/RefreshParcelStatusButton.dart';
+import 'package:eshopplus_seller/features/orders/parcel/shiprocket/widgets/refreshParcelStatusButton.dart';
 import 'package:eshopplus_seller/features/orders/parcel/shiprocket/widgets/cancelShiprocketOrderButton.dart';
 import 'package:eshopplus_seller/features/orders/parcel/shiprocket/widgets/createShiprocketOrderButton.dart';
 import 'package:eshopplus_seller/features/orders/parcel/blocs/getParcelCubit.dart';

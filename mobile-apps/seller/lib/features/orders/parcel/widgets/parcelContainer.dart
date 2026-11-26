@@ -11,7 +11,7 @@ import 'package:eshopplus_seller/features/orders/parcel/models/parcel.dart';
 import 'package:eshopplus_seller/commons/widgets/customCircularProgressIndicator.dart';
 
 import 'package:eshopplus_seller/commons/widgets/customTextContainer.dart';
-import 'package:eshopplus_seller/utils/dateTimeUtils.dart';
+import 'package:eshopplus_seller/utils/datetimeUtils.dart';
 
 import 'package:eshopplus_seller/utils/designConfig.dart';
 import 'package:eshopplus_seller/core/localization/labelKeys.dart';

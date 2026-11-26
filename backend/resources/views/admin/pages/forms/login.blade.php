@@ -66,14 +66,14 @@
                 object-fit: contain;
             }
             .login_button {
-                background-color: #b52046 !important;
-                border-color: #b52046 !important;
+                background-color: #0F4C3A !important;
+                border-color: #0F4C3A !important;
                 border-radius: 8px !important;
-                box-shadow: 0 4px 12px rgba(181, 32, 70, 0.25) !important;
+                box-shadow: 0 4px 12px rgba(15, 76, 58, 0.25) !important;
                 font-weight: 600;
             }
             .login_button:hover {
-                background-color: #9c1b3c !important;
+                background-color: #0A3528 !important;
             }
             .input-group-text {
                 background-color: #f8f9fa;
@@ -83,8 +83,8 @@
                 border-color: #e9ecef;
             }
             .form-control:focus {
-                border-color: #b52046;
-                box-shadow: 0 0 0 2px rgba(181, 32, 70, 0.15);
+                border-color: #0F4C3A;
+                box-shadow: 0 0 0 2px rgba(15, 76, 58, 0.15);
             }
         </style>
     </head>
