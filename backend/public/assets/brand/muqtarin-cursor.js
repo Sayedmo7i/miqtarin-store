@@ -1,7 +1,9 @@
 /* =============================================================================
-   MUQTARIN Store — SmoothCursor (MagicUI-inspired Spring Physics Custom Cursor)
-   Disabled automatically on touch devices & prefers-reduced-motion.
-   Brand colors: Pine #0F4C3A | Emerald #22C55E | Gold #F6C667
+   MUQTARIN Store — Precision SmoothCursor
+   Zero-lag 1:1 pointer hotspot + decoupled spring-physics halo ring.
+   Automatically restores native OS cursors on text inputs, selects, iframes,
+   disabled controls, drag handles, and touch/reduced-motion environments.
+   Brand colors: Pine #0F4C3A | Deep Pine #082B21 | Emerald #22C55E | Gold #F6C667
    ============================================================================= */
 (function () {
   'use strict';
@@ -21,65 +23,88 @@
     var style = document.createElement('style');
     style.id = 'muqtarin-smooth-cursor-style';
     style.textContent = [
-      'html.muqtarin-cursor-active, html.muqtarin-cursor-active * { cursor: none !important; }',
-      'html.muqtarin-cursor-active input[type="text"],',
-      'html.muqtarin-cursor-active input[type="password"],',
-      'html.muqtarin-cursor-active input[type="email"],',
-      'html.muqtarin-cursor-active input[type="search"],',
-      'html.muqtarin-cursor-active input[type="number"],',
-      'html.muqtarin-cursor-active input[type="url"],',
-      'html.muqtarin-cursor-active input[type="tel"],',
+      'html.muqtarin-cursor-active:not(.muqtarin-cursor-native),',
+      'html.muqtarin-cursor-active:not(.muqtarin-cursor-native) * {',
+      '  cursor: none !important;',
+      '}',
+      'html.muqtarin-cursor-active input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="range"]):not([type="color"]):not([type="file"]),',
       'html.muqtarin-cursor-active textarea,',
-      'html.muqtarin-cursor-active [contenteditable="true"] { cursor: text !important; }',
+      'html.muqtarin-cursor-active [contenteditable="true"] {',
+      '  cursor: text !important;',
+      '}',
       '#muqtarin-smooth-cursor {',
       '  position: fixed;',
-      '  top: 0;',
-      '  left: 0;',
+      '  inset: 0;',
       '  z-index: 2147483647;',
       '  pointer-events: none;',
-      '  will-change: transform, opacity;',
       '  opacity: 0;',
-      '  transition: opacity 0.16s ease;',
-      '  transform: translate3d(-100px, -100px, 0);',
+      '  transition: opacity 0.14s ease;',
       '}',
       '#muqtarin-smooth-cursor.is-visible { opacity: 1; }',
-      '#muqtarin-smooth-cursor .muqtarin-cursor-arrow {',
-      '  display: block;',
-      '  width: 28px;',
-      '  height: 28px;',
-      '  margin-left: -5.5px;',
-      '  margin-top: -3.5px;',
-      '  filter: drop-shadow(0 3px 8px rgba(15, 76, 58, 0.28));',
-      '  transform-origin: 5.5px 3.5px;',
-      '}',
       '#muqtarin-smooth-cursor .muqtarin-cursor-ring {',
       '  position: fixed;',
       '  top: 0;',
       '  left: 0;',
-      '  width: 28px;',
-      '  height: 28px;',
-      '  margin-left: -14px;',
-      '  margin-top: -14px;',
+      '  width: 24px;',
+      '  height: 24px;',
+      '  margin-left: -12px;',
+      '  margin-top: -12px;',
       '  border-radius: 9999px;',
-      '  border: 1.5px solid rgba(34, 197, 94, 0.55);',
-      '  background: rgba(34, 197, 94, 0.08);',
-      '  opacity: 0;',
-      '  transform: scale(0.5);',
-      '  transition: opacity 0.18s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.18s ease;',
+      '  border: 1.5px solid rgba(15, 76, 58, 0.32);',
+      '  background: rgba(34, 197, 94, 0.04);',
+      '  opacity: 0.28;',
+      '  will-change: transform, opacity;',
+      '  transition: opacity 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;',
       '  pointer-events: none;',
       '}',
+      '[data-theme="dark"] #muqtarin-smooth-cursor .muqtarin-cursor-ring {',
+      '  border-color: rgba(74, 222, 128, 0.36);',
+      '  background: rgba(34, 197, 94, 0.05);',
+      '}',
       '#muqtarin-smooth-cursor.is-interactive .muqtarin-cursor-ring {',
-      '  opacity: 1;',
-      '  transform: scale(1.15);',
+      '  opacity: 0.92;',
+      '  border-color: rgba(34, 197, 94, 0.88);',
+      '  background: rgba(34, 197, 94, 0.12);',
+      '  box-shadow: 0 0 14px rgba(34, 197, 94, 0.24);',
       '}',
       '#muqtarin-smooth-cursor.is-pressed .muqtarin-cursor-ring {',
       '  opacity: 1;',
-      '  transform: scale(0.85);',
       '  border-color: #F6C667;',
-      '  background: rgba(246, 198, 103, 0.16);',
+      '  background: rgba(246, 198, 103, 0.22);',
+      '  box-shadow: 0 0 16px rgba(246, 198, 103, 0.36);',
+      '}',
+      '#muqtarin-smooth-cursor .muqtarin-cursor-pointer {',
+      '  position: fixed;',
+      '  top: 0;',
+      '  left: 0;',
+      '  will-change: transform;',
+      '  pointer-events: none;',
+      '}',
+      '#muqtarin-smooth-cursor .muqtarin-cursor-arrow {',
+      '  display: block;',
+      '  width: 24px;',
+      '  height: 24px;',
+      '  margin-left: -3px;',
+      '  margin-top: -2.5px;',
+      '  transform-origin: 3px 2.5px;',
+      '  filter: drop-shadow(0 2px 5px rgba(8, 43, 33, 0.35)) drop-shadow(0 0 1px rgba(15, 23, 42, 0.45));',
+      '  transition: filter 0.15s ease;',
+      '}',
+      '#muqtarin-smooth-cursor .muqtarin-cursor-facet {',
+      '  fill: #14634C;',
+      '  transition: fill 0.14s ease;',
+      '}',
+      '#muqtarin-smooth-cursor.is-interactive .muqtarin-cursor-facet {',
+      '  fill: #22C55E;',
+      '}',
+      '#muqtarin-smooth-cursor.is-pressed .muqtarin-cursor-facet {',
+      '  fill: #F6C667;',
+      '}',
+      '#muqtarin-smooth-cursor.is-interactive .muqtarin-cursor-arrow {',
+      '  filter: drop-shadow(0 3px 8px rgba(15, 76, 58, 0.42)) drop-shadow(0 0 1px rgba(34, 197, 94, 0.5));',
       '}',
       '[data-theme="dark"] #muqtarin-smooth-cursor .muqtarin-cursor-arrow {',
-      '  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.55));',
+      '  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.35));',
       '}',
       '@media (pointer: coarse) { #muqtarin-smooth-cursor { display: none !important; } }'
     ].join('\n');
@@ -95,33 +120,38 @@
     el.setAttribute('aria-hidden', 'true');
     el.innerHTML = [
       '<div class="muqtarin-cursor-ring"></div>',
-      '<svg class="muqtarin-cursor-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">',
-      '  <path d="M5.5 3.5L25.5 14.5L15.8 17.2L11.8 26.5L5.5 3.5Z" fill="#0F4C3A" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"/>',
-      '  <circle cx="15.2" cy="15.8" r="1.8" fill="#22C55E"/>',
-      '</svg>'
+      '<div class="muqtarin-cursor-pointer">',
+      '  <svg class="muqtarin-cursor-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">',
+      '    <path d="M3 2.5L19.5 11.1L12.1 13.3L8.8 20.4L3 2.5Z" fill="#0B2E24" stroke="#FFFFFF" stroke-width="1.75" stroke-linejoin="round"/>',
+      '    <path class="muqtarin-cursor-facet" d="M6.4 6.2L15.1 10.7L11.1 11.9L9.4 15.6L6.4 6.2Z"/>',
+      '  </svg>',
+      '</div>'
     ].join('');
     document.body.appendChild(el);
     return el;
   }
 
   var cursorEl = null;
+  var pointerEl = null;
   var arrowEl = null;
+  var ringEl = null;
 
   function ensureMounted() {
     if (!document.body) return false;
     if (!cursorEl || !document.body.contains(cursorEl)) {
       cursorEl = createCursorEl();
+      pointerEl = cursorEl.querySelector('.muqtarin-cursor-pointer');
       arrowEl = cursorEl.querySelector('.muqtarin-cursor-arrow');
+      ringEl = cursorEl.querySelector('.muqtarin-cursor-ring');
     }
     return true;
   }
 
-  // Spring state
+  // Exact pointer coordinates (1:1 zero lag) + spring state for ring & micro-motion
   var targetX = -100, targetY = -100;
-  var posX = -100, posY = -100;
-  var velX = 0, velY = 0;
+  var ringX = -100, ringY = -100;
+  var ringVelX = 0, ringVelY = 0;
 
-  var baseAngle = 0;
   var targetAngle = 0;
   var currentAngle = 0;
   var angleVel = 0;
@@ -130,17 +160,66 @@
   var currentScale = 1;
   var scaleVel = 0;
 
+  var targetRingScale = 0.85;
+  var currentRingScale = 0.85;
+  var ringScaleVel = 0;
+
   var lastMouseX = 0, lastMouseY = 0, lastMoveTime = 0;
   var isVisible = false;
-  var isTextTarget = false;
+  var isNativeTarget = false;
   var isPressed = false;
   var isInteractive = false;
   var rafId = null;
   var lastFrameTime = 0;
   var idleTimer = null;
 
-  var INTERACTIVE_SELECTOR = 'a, button, [role="button"], input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], select, label[for], .btn, .nav-link, .sidebar-section-trigger, .dropdown-item, [data-bs-toggle], summary, .muqtarin-icon-btn';
-  var TEXT_SELECTOR = 'input[type="text"], input[type="password"], input[type="email"], input[type="search"], input[type="number"], input[type="url"], input[type="tel"], input:not([type]), textarea, [contenteditable="true"]';
+  var INTERACTIVE_SELECTOR = [
+    'a',
+    'button',
+    '[role="button"]',
+    '[role="tab"]',
+    '[role="menuitem"]',
+    '[role="switch"]',
+    'input[type="submit"]',
+    'input[type="button"]',
+    'input[type="reset"]',
+    'input[type="checkbox"]',
+    'input[type="radio"]',
+    'label[for]',
+    '.btn',
+    '.nav-link',
+    '.page-link',
+    '.sidebar-section-trigger',
+    '.dropdown-item',
+    '[data-bs-toggle]',
+    '[data-bs-dismiss]',
+    'summary',
+    '.muqtarin-icon-btn',
+    '.mq-theme-card',
+    '.mq-style-card',
+    '.mq-preset-card',
+    '.mq-preview-ctrl',
+    '.select2-selection',
+    '.form-check-label',
+    '[onclick]'
+  ].join(', ');
+
+  var NATIVE_SELECTOR = [
+    'input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"])',
+    'textarea',
+    'select',
+    'iframe',
+    '[contenteditable="true"]',
+    '.tox-tinymce',
+    '.ck-editor',
+    '.note-editor',
+    '.select2-search__field',
+    '.noUi-handle',
+    '[draggable="true"]',
+    ':disabled',
+    '.disabled',
+    '[aria-disabled="true"]'
+  ].join(', ');
 
   function unwrapAngle(prev, next) {
     var diff = next - prev;
@@ -151,10 +230,11 @@
 
   function updateVisibility() {
     if (!cursorEl) return;
-    var shouldShow = isVisible && !isTextTarget;
+    var shouldShow = isVisible && !isNativeTarget;
     cursorEl.classList.toggle('is-visible', shouldShow);
-    cursorEl.classList.toggle('is-interactive', isInteractive && !isTextTarget);
-    cursorEl.classList.toggle('is-pressed', isPressed && !isTextTarget);
+    cursorEl.classList.toggle('is-interactive', isInteractive && !isNativeTarget);
+    cursorEl.classList.toggle('is-pressed', isPressed && !isNativeTarget);
+    document.documentElement.classList.toggle('muqtarin-cursor-native', isNativeTarget);
   }
 
   function stepSpring(current, target, velocity, stiffness, damping, mass, dt) {
@@ -164,6 +244,15 @@
     var nextVel = velocity + accel * dt;
     var nextPos = current + nextVel * dt;
     return [nextPos, nextVel];
+  }
+
+  function renderPointerTransform() {
+    if (pointerEl) {
+      pointerEl.style.transform = 'translate3d(' + targetX.toFixed(1) + 'px, ' + targetY.toFixed(1) + 'px, 0)';
+    }
+    if (arrowEl) {
+      arrowEl.style.transform = 'rotate(' + currentAngle.toFixed(2) + 'deg) scale(' + currentScale.toFixed(3) + ')';
+    }
   }
 
   function animate(now) {
@@ -177,31 +266,35 @@
     lastFrameTime = now;
 
     if (dt > 0) {
-      var sx = stepSpring(posX, targetX, velX, 520, 34, 0.65, dt);
-      posX = sx[0]; velX = sx[1];
+      var rx = stepSpring(ringX, targetX, ringVelX, 380, 28, 0.65, dt);
+      ringX = rx[0]; ringVelX = rx[1];
 
-      var sy = stepSpring(posY, targetY, velY, 520, 34, 0.65, dt);
-      posY = sy[0]; velY = sy[1];
+      var ry = stepSpring(ringY, targetY, ringVelY, 380, 28, 0.65, dt);
+      ringY = ry[0]; ringVelY = ry[1];
 
-      var sa = stepSpring(currentAngle, targetAngle, angleVel, 300, 24, 0.8, dt);
+      var sa = stepSpring(currentAngle, targetAngle, angleVel, 320, 26, 0.75, dt);
       currentAngle = sa[0]; angleVel = sa[1];
 
-      var ss = stepSpring(currentScale, targetScale, scaleVel, 500, 26, 0.7, dt);
+      var ss = stepSpring(currentScale, targetScale, scaleVel, 540, 28, 0.65, dt);
       currentScale = ss[0]; scaleVel = ss[1];
+
+      var rs = stepSpring(currentRingScale, targetRingScale, ringScaleVel, 420, 26, 0.7, dt);
+      currentRingScale = rs[0]; ringScaleVel = rs[1];
     }
 
-    cursorEl.style.transform = 'translate3d(' + posX.toFixed(2) + 'px, ' + posY.toFixed(2) + 'px, 0)';
-    if (arrowEl) {
-      arrowEl.style.transform = 'rotate(' + currentAngle.toFixed(2) + 'deg) scale(' + currentScale.toFixed(3) + ')';
+    renderPointerTransform();
+    if (ringEl) {
+      ringEl.style.transform = 'translate3d(' + ringX.toFixed(2) + 'px, ' + ringY.toFixed(2) + 'px, 0) scale(' + currentRingScale.toFixed(3) + ')';
     }
 
     var moving =
-      Math.abs(targetX - posX) > 0.08 ||
-      Math.abs(targetY - posY) > 0.08 ||
-      Math.abs(velX) > 0.08 ||
-      Math.abs(velY) > 0.08 ||
+      Math.abs(targetX - ringX) > 0.1 ||
+      Math.abs(targetY - ringY) > 0.1 ||
+      Math.abs(ringVelX) > 0.1 ||
+      Math.abs(ringVelY) > 0.1 ||
       Math.abs(targetAngle - currentAngle) > 0.1 ||
-      Math.abs(targetScale - currentScale) > 0.002;
+      Math.abs(targetScale - currentScale) > 0.002 ||
+      Math.abs(targetRingScale - currentRingScale) > 0.002;
 
     if (moving && isVisible) {
       rafId = requestAnimationFrame(animate);
@@ -218,6 +311,20 @@
     }
   }
 
+  function syncTargets() {
+    if (isPressed) {
+      targetScale = 0.86;
+      targetRingScale = 0.72;
+    } else if (isInteractive) {
+      targetScale = 1.06;
+      targetRingScale = 1.38;
+      targetAngle = unwrapAngle(currentAngle, 0);
+    } else {
+      targetScale = 1;
+      targetRingScale = 0.88;
+    }
+  }
+
   function onPointerMove(e) {
     if (e.pointerType && e.pointerType !== 'mouse') {
       disableCursor();
@@ -229,8 +336,8 @@
 
     var now = performance.now();
     if (!isVisible) {
-      posX = e.clientX;
-      posY = e.clientY;
+      ringX = e.clientX;
+      ringY = e.clientY;
       lastMouseX = e.clientX;
       lastMouseY = e.clientY;
       lastMoveTime = now;
@@ -239,15 +346,20 @@
 
     targetX = e.clientX;
     targetY = e.clientY;
+    renderPointerTransform();
+
+    var target = e.target && e.target.nodeType === 1 ? e.target : null;
+    isNativeTarget = !!(target && target.closest(NATIVE_SELECTOR));
+    isInteractive = !isNativeTarget && !!(target && target.closest(INTERACTIVE_SELECTOR));
 
     var dt = Math.max(now - lastMoveTime, 8);
     var dx = e.clientX - lastMouseX;
     var dy = e.clientY - lastMouseY;
     var dist = Math.hypot(dx, dy);
 
-    if (dist > 2) {
-      var velocityTilt = ((dx * 0.75 - dy * 0.25) / dt) * 9.5;
-      var clampedTilt = Math.max(-24, Math.min(24, velocityTilt));
+    if (dist > 2 && !isInteractive && !isNativeTarget) {
+      var velocityTilt = ((dx * 0.6 - dy * 0.15) / dt) * 3.5;
+      var clampedTilt = Math.max(-7, Math.min(7, velocityTilt));
       targetAngle = unwrapAngle(currentAngle, clampedTilt);
     }
 
@@ -257,18 +369,11 @@
 
     if (idleTimer) clearTimeout(idleTimer);
     idleTimer = setTimeout(function () {
-      targetAngle = unwrapAngle(currentAngle, baseAngle);
+      targetAngle = unwrapAngle(currentAngle, 0);
       startLoop();
-    }, 120);
+    }, 90);
 
-    var target = e.target && e.target.nodeType === 1 ? e.target : null;
-    isTextTarget = !!(target && (target.closest(TEXT_SELECTOR) || target.tagName === 'IFRAME'));
-    isInteractive = !isTextTarget && !!(target && target.closest(INTERACTIVE_SELECTOR));
-
-    if (!isPressed) {
-      targetScale = isInteractive ? 1.1 : 1;
-    }
-
+    syncTargets();
     updateVisibility();
     startLoop();
   }
@@ -276,7 +381,7 @@
   function onPointerDown(e) {
     if (e.pointerType && e.pointerType !== 'mouse') return;
     isPressed = true;
-    targetScale = 0.84;
+    syncTargets();
     updateVisibility();
     startLoop();
   }
@@ -284,7 +389,7 @@
   function onPointerUp(e) {
     if (e.pointerType && e.pointerType !== 'mouse') return;
     isPressed = false;
-    targetScale = isInteractive ? 1.1 : 1;
+    syncTargets();
     updateVisibility();
     startLoop();
   }
@@ -297,14 +402,18 @@
 
   function disableCursor() {
     hideCursor();
-    document.documentElement.classList.remove('muqtarin-cursor-active');
+    document.documentElement.classList.remove('muqtarin-cursor-active', 'muqtarin-cursor-native');
   }
 
   document.addEventListener('pointermove', onPointerMove, { passive: true });
   document.addEventListener('pointerdown', onPointerDown, { passive: true });
   document.addEventListener('pointerup', onPointerUp, { passive: true });
   document.addEventListener('mouseleave', hideCursor);
+  document.documentElement.addEventListener('pointerleave', hideCursor);
   window.addEventListener('blur', hideCursor);
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) hideCursor();
+  });
   document.addEventListener('touchstart', disableCursor, { passive: true });
 
   // Support Livewire / dynamic SPA navigation cleanly
