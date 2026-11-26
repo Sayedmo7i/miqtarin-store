@@ -200,6 +200,8 @@ class FrontLanguageController extends Controller
     {
         config(['app.locale' => $locale]);
         session()->put('locale', $locale);
+        $isRtl = (int) (Language::where('code', $locale)->value('is_rtl') ?? (in_array($locale, ['ar', 'he', 'fa', 'ur'], true) ? 1 : 0));
+        session()->put('is_rtl', $isRtl);
 
         return redirect()->back();
     }

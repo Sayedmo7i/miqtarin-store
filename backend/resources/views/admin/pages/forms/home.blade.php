@@ -932,7 +932,7 @@
             var labelCommission = {!! json_encode(labels('admin_labels.commission', 'Commission'), JSON_UNESCAPED_UNICODE) !!};
             var labelNew = {!! json_encode(labels('admin_labels.new', 'New'), JSON_UNESCAPED_UNICODE) !!};
             var labelActive = {!! json_encode(labels('admin_labels.active', 'Active'), JSON_UNESCAPED_UNICODE) !!};
-            var labelDeactive = {!! json_encode(labels('admin_labels.deactive', 'Deactive'), JSON_UNESCAPED_UNICODE) !!};
+            var labelDeactive = {!! json_encode(labels('admin_labels.deactive', 'Inactive'), JSON_UNESCAPED_UNICODE) !!};
             var labelTotal = {!! json_encode(labels('admin_labels.total', 'Total'), JSON_UNESCAPED_UNICODE) !!};
             var currencySymbol = {!! json_encode($currency, JSON_UNESCAPED_UNICODE) !!};
 

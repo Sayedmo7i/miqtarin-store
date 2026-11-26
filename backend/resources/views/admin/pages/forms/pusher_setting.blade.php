@@ -28,7 +28,7 @@
                                         <div class="row">
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="pusher_channel_name">
                                                     {{ labels('admin_labels.pusher_channel_name', 'Pusher Channel Name') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -36,14 +36,14 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.enter_pusher_channel_name_help', 'Enter the channel name used for Pusher events.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="pusher_channel_name"
                                                     placeholder="" name="pusher_channel_name"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'pusher_channel_name') ? $settings['pusher_channel_name'] : '' ?>">
 
                                             </div>
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="pusher_app_id">
                                                     {{ labels('admin_labels.pusher_app_id', 'Pusher App ID') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -51,7 +51,7 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.enter_pusher_app_id_help', 'Enter your Pusher application ID from the Pusher dashboard.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="pusher_app_id"
                                                     placeholder="" name="pusher_app_id"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'pusher_app_id') ? $settings['pusher_app_id'] : '' ?>">
 
@@ -59,7 +59,7 @@
 
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="pusher_app_key">
                                                     {{ labels('admin_labels.pusher_app_key', 'Pusher App Key') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -67,14 +67,14 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.enter_pusher_app_key_help', 'Enter your Pusher application key from the Pusher dashboard.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="pusher_app_key"
                                                     placeholder="" name="pusher_app_key"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'pusher_app_key') ? $settings['pusher_app_key'] : '' ?>">
 
                                             </div>
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="pusher_app_secret">
                                                     {{ labels('admin_labels.pusher_app_secret', 'Pusher App Secret') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -82,7 +82,7 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.enter_pusher_app_secret_help', 'Enter your Pusher application secret from the Pusher dashboard.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="pusher_app_secret"
                                                     placeholder="" name="pusher_app_secret"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'pusher_app_secret') ? $settings['pusher_app_secret'] : '' ?>">
 
@@ -91,7 +91,7 @@
                                         <div class="row">
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="pusher_port">
                                                     {{ labels('admin_labels.pusher_port', 'Pusher Port') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -99,14 +99,14 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.default_pusher_port_help', 'Default port for Pusher (usually 443).') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="pusher_port"
                                                     placeholder="" name="pusher_port" value="443" readonly>
 
                                             </div>
 
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="pusher_scheme">
                                                     {{ labels('admin_labels.pusher_scheme', 'Pusher Scheme') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -114,13 +114,13 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.pusher_scheme_help', 'Scheme used for Pusher (usually https).') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="pusher_scheme"
                                                     placeholder="" name="pusher_scheme" value="https" readonly>
 
                                             </div>
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="pusher_app_cluster">
                                                     {{ labels('admin_labels.pusher_app_cluster', 'Pusher App Cluster') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -128,7 +128,7 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.enter_pusher_cluster_help', 'Enter your Pusher cluster, e.g. ap2, eu, us2.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="pusher_app_cluster"
                                                     placeholder="" name="pusher_app_cluster"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'pusher_app_cluster') ? $settings['pusher_app_cluster'] : '' ?>">
 

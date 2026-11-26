@@ -35,7 +35,7 @@
                                 method="POST" id="smsgateway_setting_form" enctype="multipart/form-data">
                                 @csrf
                                 <div class="align-items-baseline d-flex mt-4">
-                                    <p class="mx-2 text-bold">are you confuse how to do ?? </p>
+                                    <p class="mx-2 text-bold">{{ labels('admin_labels.need_help_configuring', 'Need help configuring this?') }} </p>
                                     <a type="button" class="text-danger" data-bs-toggle="modal"
                                         data-bs-target="#sms_instuction_modal">
                                         {{ labels('admin_labels.follow_this_for_reference', 'follow this for reference') }}

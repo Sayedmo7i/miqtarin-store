@@ -56,8 +56,20 @@ class ProductController extends Controller
         $customFields = CustomField::where('store_id', $store_id)
             ->where('active', 1)
             ->get();
-        // dd($customFields);
-        return view('admin.pages.forms.products', compact('attributes', 'sellers', 'brands', 'product_deliverability_type', 'languages', 'customFields'));
+
+        $language_code = app(TranslationService::class)->getLanguageCode();
+        $categories = Category::where('store_id', $store_id)
+            ->where('status', 1)
+            ->where(function ($q) {
+                $q->whereNull('parent_id')->orWhere('parent_id', 0);
+            })
+            ->with(['children' => function ($q) use ($store_id) {
+                $q->where('store_id', $store_id)->where('status', 1)->orderBy('row_order');
+            }])
+            ->orderBy('row_order')
+            ->get();
+
+        return view('admin.pages.forms.products', compact('attributes', 'sellers', 'brands', 'product_deliverability_type', 'languages', 'customFields', 'categories', 'language_code'));
     }
     public function getAttributes(Request $request)
     {
@@ -1016,20 +1028,22 @@ class ProductController extends Controller
                 'quality' => 90
             ]);
 
+            $fallbackImg = asset('assets/img/default_full_logo.png');
+
             return [
                 'id' => $p->id,
-                'name' => app(TranslationService::class)->getDynamicTranslation(Product::class, 'name', $p->id, $language_code) . '<br><small>' . ucwords(str_replace('_', ' ', $p->type)) . '</small><br><small> By </small><b>' . $p->store_name . '</b>',
+                'name' => app(TranslationService::class)->getDynamicTranslation(Product::class, 'name', $p->id, $language_code) . '<br><small>' . ucwords(str_replace('_', ' ', $p->type)) . '</small><br><small class="text-muted">' . labels('admin_labels.by', 'By') . '</small> <b>' . e($p->store_name) . '</b>',
                 'brand' => app(TranslationService::class)->getDynamicTranslation(Brand::class, 'name', $p->brand_id, $language_code),
                 'category_name' => app(TranslationService::class)->getDynamicTranslation(Category::class, 'name', $p->category_id, $language_code),
                 'rating' => $p->rating,
                 'variations' => $variations,
-                'image' => '<div class="d-flex align-items-center"><a href="' . app(MediaService::class)->getMediaImageUrl($p->image) . '" data-lightbox="image-' . $p->id . '"><img src=' . $image . ' class="rounded mx-2"></a></div>',
+                'image' => '<div class="d-flex align-items-center"><a href="' . app(MediaService::class)->getMediaImageUrl($p->image) . '" data-lightbox="image-' . $p->id . '"><img src="' . $image . '" onerror="this.onerror=null;this.src=\'' . $fallbackImg . '\';" class="rounded mx-2" style="width:44px;height:44px;object-fit:cover;"></a></div>',
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' .
                     ($p->status == 1 ? 'active_status' : ($p->status == 2 ? 'not_approved_status bg-gray-500' : 'inactive_status')) .
                     '" data-id="' . $p->id . '" data-url="/admin/products/update_status/' . $p->id . '" aria-label="" data-toggle-status="' . $p->status . '">
                 <option value="1" ' . ($p->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                <option value="0" ' . ($p->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>' .
-                    ($p->status == 2 ? '<option value="2" ' . ($p->status == 2 ? 'selected' : '') . '>Not Approved</option>' : '') .
+                <option value="0" ' . ($p->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>' .
+                    ($p->status == 2 ? '<option value="2" ' . ($p->status == 2 ? 'selected' : '') . '>' . labels('admin_labels.not_approved', 'Not Approved') . '</option>' : '') .
                     '</select>',
                 'operate' => $action,
 
@@ -1122,6 +1136,7 @@ class ProductController extends Controller
             $store = Store::find($store_id);
             $sellers = $store->sellers()->where('seller_data.status', 1)->where('seller_store.store_id', $store_id)->get();
 
+            $categories = Category::with('children')->where('status', 1)->where('store_id', $store_id)->where('parent_id', 0)->get();
             $brands = Brand::where('status', 1)->where('store_id', $store_id)->orderBy('id', 'desc')->get();
             $brand_name = fetchDetails(Brand::class, ['id' => $data->brand], '*');
             $brand_name = $brand_name[0]->name ?? '';
@@ -1131,7 +1146,7 @@ class ProductController extends Controller
             $seller_id = fetchDetails(Product::class, ['id' => $data->id], 'seller_id')[0]->seller_id;
 
             $shipping_data = fetchDetails(PickupLocation::class, ['status' => 1, 'seller_id' => $seller_id], ['id', 'pickup_location']);
-            return view('admin.pages.forms.update_product', compact('data', 'attributes', 'sellers', 'brands', 'product_variants', 'country', 'shipping_data', 'brand_name', 'product_deliverability_type', 'languages', 'language_code', 'productCustomFieldValues', 'customFields'));
+            return view('admin.pages.forms.update_product', compact('data', 'attributes', 'sellers', 'categories', 'brands', 'product_variants', 'country', 'shipping_data', 'brand_name', 'product_deliverability_type', 'languages', 'language_code', 'productCustomFieldValues', 'customFields'));
         }
     }
     public function update(Request $request, $data)

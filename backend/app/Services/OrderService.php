@@ -2246,7 +2246,10 @@ class OrderService
             ->leftJoin('order_trackings as ot', 'ot.order_item_id', '=', 'oi.id')
             ->leftJoin('addresses as a', 'a.id', '=', 'o.address_id')
             ->leftJoin('seller_store as ss', 'ss.seller_id', '=', 'oi.seller_id')
-            ->where('oi.order_type', 'regular_order')
+            ->where(function ($q) {
+                $q->whereNull('oi.order_type')
+                    ->orWhere('oi.order_type', '!=', 'combo_order');
+            })
             ->where('o.is_pos_order', 0);
 
         if ($where) {

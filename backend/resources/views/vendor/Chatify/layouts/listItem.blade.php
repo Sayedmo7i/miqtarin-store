@@ -10,8 +10,8 @@
             </td>
             {{-- center side --}}
             <td>
-                <p data-id="{{ Auth::user()->id }}" data-type="user">Saved Messages <span>You</span></p>
-                <span>Save messages secretly</span>
+                <p data-id="{{ Auth::user()->id }}" data-type="user">{{ labels('admin_labels.saved_messages', 'Saved Messages') }} <span>{{ labels('admin_labels.you', 'You') }}</span></p>
+                <span>{{ labels('admin_labels.save_messages_secretly', 'Save messages secretly') }}</span>
             </td>
         </tr>
     </table>

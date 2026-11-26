@@ -99,7 +99,7 @@ class ComboProductAttributeController extends Controller
                     'value' => $attribute->attribute_values->pluck('value')->implode(','),
                     'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($attribute->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $attribute->id . '" data-url="/admin/combo_product_attributes/update_status/' . $attribute->id . '" aria-label="">
                   <option value="1" ' . ($attribute->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                  <option value="0" ' . ($attribute->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                  <option value="0" ' . ($attribute->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
               </select>',
                     'operate' => ' <div class="d-flex align-items-center">
             <a class="single_action_button" href="' . $edit_url . '"><i class="bx bx-pencil mx-2"></i></a>

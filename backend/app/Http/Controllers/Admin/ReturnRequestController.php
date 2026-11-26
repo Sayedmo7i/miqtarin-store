@@ -65,11 +65,11 @@ class ReturnRequestController extends Controller
            
             $delivery_boy_name = !empty($row->orderItem) ? $this->getUserName(userId: $row->orderItem->delivery_boy_id) : '';
             $statusLabels = [
-                '0' => '<span class="badge bg-success">Pending</span>',
-                '1' => '<span class="badge bg-primary">Approved</span>',
-                '2' => '<span class="badge bg-danger">Rejected</span>',
-                '8' => '<span class="badge bg-secondary">Return Pickedup</span>',
-                '3' => '<span class="badge bg-success">Returned</span>',
+                '0' => '<span class="badge bg-success">' . labels('admin_labels.pending', 'Pending') . '</span>',
+                '1' => '<span class="badge bg-primary">' . labels('admin_labels.approved', 'Approved') . '</span>',
+                '2' => '<span class="badge bg-danger">' . labels('admin_labels.rejected', 'Rejected') . '</span>',
+                '8' => '<span class="badge bg-secondary">' . labels('admin_labels.return_pickedup', 'Return Pickedup') . '</span>',
+                '3' => '<span class="badge bg-success">' . labels('admin_labels.returned', 'Returned') . '</span>',
             ];
             // dd($row->orderItem->order_id);
             $rows[] = [

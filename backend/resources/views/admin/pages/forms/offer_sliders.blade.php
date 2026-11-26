@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.select_offer', 'Select Offer') }}</label>
+                                                for="offer_sliders_offer">{{ labels('admin_labels.select_offer', 'Select Offer') }}</label>
                                             <select name="offer_ids[]" required id="offer_sliders_offer"
                                                 class="offer_sliders_offer w-100" multiple
                                                 data-placeholder=" Type to search and select offers" onload="multiselect()">

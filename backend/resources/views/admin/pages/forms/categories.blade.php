@@ -66,7 +66,7 @@
                                     <div class="tab-content mt-3" id="brandTabsContent">
                                         <!-- Default 'en' tab content -->
                                         <div class="tab-pane fade show active" id="content-en" role="tabpanel"
-                                            aria-labelledby="tab-en">
+                                            aria-labelledby="tab-en" dir="ltr">
                                             <div class="mb-3">
                                                 <label for="name" class="form-label">
                                                     {{ labels('admin_labels.name', 'Name') }}
@@ -83,10 +83,10 @@
 
                                     </div>
                                     <div class="mb-3 col-md-12">
-                                        <label class="form-label" for="basic-default-fullname">
+                                        <label class="form-label" for="parent_id">
                                             {{ labels('admin_labels.select_catgeory_for_sub_categories', 'Select Category for subCategory') }}
                                         </label>
-                                        <select id="" name="parent_id" class="form-select">
+                                        <select id="parent_id" name="parent_id" class="form-select">
                                             <option value="">
                                                 {{ labels('admin_labels.select_category', 'Select Category') }}
                                             </option>

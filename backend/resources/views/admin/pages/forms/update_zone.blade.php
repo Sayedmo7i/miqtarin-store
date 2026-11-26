@@ -41,12 +41,12 @@
                                 <div class="tab-pane fade show active" id="content-en" role="tabpanel"
                                     aria-labelledby="tab-en">
                                     <div class="mb-3">
-                                        <label for="brand_name"
+                                        <label for="zone_name"
                                             class="form-label">{{ labels('admin_labels.name', 'Name') }}<span
                                                 class="text-asterisks text-sm">*</span></label>
 
-                                        <input type="text" class="form-control" id="basic-default-fullname"
-                                            placeholder="{{ labels('admin_labels.gucci_placeholder', 'Gucci') }}" name="name"
+                                        <input type="text" class="form-control" id="zone_name"
+                                            placeholder="{{ labels('admin_labels.zone_name_placeholder', 'Enter zone name') }}" name="name"
                                             value="{{ isset($zone->name) ? json_decode($zone->name)->en : '' }}">
                                     </div>
                                 </div>

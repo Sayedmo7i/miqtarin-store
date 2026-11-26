@@ -198,9 +198,9 @@
             <label for=""
                 class="form-label body-default">{{ labels('admin_labels.select_status', 'Select Status') }}</label>
             <select class='form-select' name='status' id="statusFilter">
-                <option value=''>Select Status</option>
-                <option value='1'>Active</option>
-                <option value='0'>Deactive</option>
+                <option value=''>{{ labels('admin_labels.select_status', 'Select Status') }}</option>
+                <option value='1'>{{ labels('admin_labels.active', 'Active') }}</option>
+                <option value='0'>{{ labels('admin_labels.deactive', 'Inactive') }}</option>
             </select>
         </div>
 

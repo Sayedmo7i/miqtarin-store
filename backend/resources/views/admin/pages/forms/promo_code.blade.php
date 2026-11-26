@@ -228,7 +228,7 @@
                                         {{ labels('admin_labels.select', 'Select') }}
                                     </option>
                                     <option value="1">{{ labels('admin_labels.active_users', 'Active') }}</option>
-                                    <option value="0">{{ labels('admin_labels.deactive_users', 'Deactive') }}</option>
+                                    <option value="0">{{ labels('admin_labels.deactive_users', 'Inactive') }}</option>
                                 </select>
                             </div>
                         </div>

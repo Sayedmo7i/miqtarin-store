@@ -478,22 +478,22 @@ class CategoryController extends Controller
 
             $status = ($c->status == 3)
                 ? '<select class="form-select brand_status_dropdown change_toggle_status" disabled>
-         <option value="3" selected>Rejected</option>
+         <option value="3" selected>' . labels('admin_labels.rejected', 'Rejected') . '</option>
        </select>'
 
                 : ($c->status == 2
                     ? '<select class="form-select brand_status_dropdown change_toggle_status"
              data-id="' . $c->id . '" data-url="admin/categories/update_status/' . $c->id . '">' .
-                    '<option value="2" selected>Not Approved</option>' .
-                    '<option value="1">Approve</option>' .
-                    '<option value="3">Rejected</option>' .
+                    '<option value="2" selected>' . labels('admin_labels.not_approved', 'Not Approved') . '</option>' .
+                    '<option value="1">' . labels('admin_labels.approve', 'Approve') . '</option>' .
+                    '<option value="3">' . labels('admin_labels.rejected', 'Rejected') . '</option>' .
                     '</select>'
 
                     : '<select class="form-select brand_status_dropdown change_toggle_status ' .
                     ($c->status == 1 ? 'active_status' : 'inactive_status') . '"
             data-id="' . $c->id . '" data-url="admin/categories/update_status/' . $c->id . '">' .
                     '<option value="1" ' . ($c->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>' .
-                    '<option value="0" ' . ($c->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>' .
+                    '<option value="0" ' . ($c->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>' .
                     '</select>'
                 );
 
@@ -1088,7 +1088,7 @@ class CategoryController extends Controller
                 'categories' => $categoryNames,
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($s->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $s->id . '" data-url="/admin/category_sliders/update_status/' . $s->id . '" aria-label="">
                         <option value="1" ' . ($s->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                        <option value="0" ' . ($s->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                        <option value="0" ' . ($s->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
                         </select>',
                 'operate' => $action,
             ];

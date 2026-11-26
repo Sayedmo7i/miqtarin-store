@@ -16,9 +16,9 @@
             isset($shipping_settings['shiprocket_shipping_method']) &&
             $shipping_settings['shiprocket_shipping_method'] == 1;
     @endphp
-    <x-admin.breadcrumb :title="labels('admin_labels.add_product', 'Update Product')" :subtitle="labels('admin_labels.add_products_with_power_and_simplicity', 'Add products with power and simplicity')" :breadcrumbs="[
+    <x-admin.breadcrumb :title="labels('admin_labels.update_product', 'Update Product')" :subtitle="labels('admin_labels.add_products_with_power_and_simplicity', 'Add products with power and simplicity')" :breadcrumbs="[
         ['label' => labels('admin_labels.products', 'Products'), 'url' => route('admin.products.index')],
-        ['label' => labels('admin_labels.manage_products', 'Manage Products')],
+        ['label' => labels('admin_labels.manage_products', 'Manage Products'), 'url' => route('admin.products.manage_product')],
         ['label' => labels('admin_labels.update_product', 'Update Product')],
     ]" />
     <section>
@@ -69,7 +69,7 @@
                                         {{ labels('admin_labels.physical_product', 'Physical Product') }}
                                     </option>
                                     <option value="digital_product"
-                                        <?= $data->type == 'digital_product' ? 'checked' : '' ?>>
+                                        <?= $data->type == 'digital_product' ? 'selected' : '' ?>>
                                         {{ labels('admin_labels.digital_product', 'Digital Product') }}
                                     </option>
                                 </select>
@@ -80,7 +80,29 @@
                                     <span class='text-asterisks text-sm'>*</span>
                                 </label>
                                 <select class='form-control mt-4' name='category_id' id="category_select">
-                                    <option value="">Select Category</option>
+                                    <option value="">{{ labels('admin_labels.select_category', 'Select Category') }}</option>
+                                    @if (isset($categories))
+                                        @foreach ($categories as $category)
+                                            @php
+                                                $catName = app(TranslationService::class)->getDynamicTranslation(\App\Models\Category::class, 'name', $category->id, $language_code ?? 'en');
+                                            @endphp
+                                            <option value="{{ $category->id }}" style="font-weight: bold;"
+                                                {{ (int) ($data->category_id ?? 0) === (int) $category->id ? 'selected' : '' }}>
+                                                {{ $catName }}
+                                            </option>
+                                            @if ($category->children && $category->children->count())
+                                                @foreach ($category->children as $subCategory)
+                                                    @php
+                                                        $subCatName = app(TranslationService::class)->getDynamicTranslation(\App\Models\Category::class, 'name', $subCategory->id, $language_code ?? 'en');
+                                                    @endphp
+                                                    <option value="{{ $subCategory->id }}"
+                                                        {{ (int) ($data->category_id ?? 0) === (int) $subCategory->id ? 'selected' : '' }}>
+                                                        &nbsp;&nbsp; {{ $subCatName }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -113,12 +135,12 @@
                         <div class="tab-pane fade show active" id="content-en" role="tabpanel" aria-labelledby="tab-en">
                             <div class="row">
                                 <div class="mb-3 col-md-6">
-                                    <label for="brand_name" class="form-label">
+                                    <label for="pro_input_text" class="form-label">
                                         {{ labels('admin_labels.product_name', 'Product Name') }}
                                         <span class="text-asterisks text-sm">*</span>
                                     </label>
                                     <div class="position-relative">
-                                        <input type="text" class="form-control" placeholder="{{ labels('admin_labels.gucci_placeholder', 'Gucci') }}" id="pro_input_text"
+                                        <input type="text" class="form-control" placeholder="{{ labels('admin_labels.product_name_placeholder', 'e.g., Pro Wireless Earbuds X1') }}" id="pro_input_text"
                                             name="pro_input_name"
                                             value="{{ isset($data->name) ? json_decode($data->name)->en : '' }}">
                                     </div>
@@ -599,7 +621,7 @@
                                         <div class="d-flex justify-content-between">
                                             <div>
                                                 <label for="is_cod_allowed"
-                                                    class="form-label">{{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}?</label>
+                                                    class="form-label">{{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}</label>
                                             </div>
                                             <div class="d-flex">
                                                 <label for="" class="me-6 text-muted">[Enable/Disable]</label>
@@ -619,7 +641,7 @@
                                         <div class="d-flex justify-content-between">
                                             <div>
                                                 <label for="is_returnable"
-                                                    class="form-label">{{ labels('admin_labels.is_returnable', 'IS Returnable') }}?</label>
+                                                    class="form-label">{{ labels('admin_labels.is_returnable', 'IS Returnable') }}</label>
                                             </div>
                                             <div class="d-flex">
                                                 <label for=""
@@ -638,7 +660,7 @@
                                         <div class="d-flex justify-content-between">
                                             <div>
                                                 <label for="is_cancelable"
-                                                    class="form-label">{{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}?</label>
+                                                    class="form-label">{{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}</label>
                                             </div>
                                             <div class="d-flex">
                                                 <label for=""
@@ -658,7 +680,7 @@
                                     id='cancelable_till'>
                                     <div class="form-group">
                                         <label for="cancelable_till"
-                                            class="form-label">{{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}?</label>
+                                            class="form-label">{{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}</label>
                                         <select class='form-select' name="cancelable_till">
                                             <option value='received'
                                                 {{ isset($data->cancelable_till) && $data->cancelable_till == 'received' ? 'selected' : '' }}>
@@ -678,7 +700,7 @@
                                         <div class="d-flex justify-content-between">
                                             <div>
                                                 <label for="is_attachment_required"
-                                                    class="form-label">{{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}?</label>
+                                                    class="form-label">{{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}</label>
                                             </div>
                                             <div class="d-flex">
                                                 <label for=""
@@ -697,7 +719,7 @@
                                         <div class="d-flex justify-content-between">
                                             <div id="affiliate_info" style="display:none;">
                                                 <label for="is_in_affiliate"
-                                                    class="form-label">{{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}?</label>
+                                                    class="form-label">{{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}</label>
                                                 <i class="fas fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right" data-bs-trigger="hover focus"
                                                     data-bs-content="{{ labels('admin_labels.affiliate_category_popover_text', 'If your selected category has been marked by the admin as available for affiliate, only then you can mark the product as an affiliate product. Otherwise, this option will be disabled.') }}">
@@ -1068,7 +1090,7 @@
                                                 <div class="row form-group">
                                                     <div class="col-md-6 d-flex">
                                                         <label for="download_allowed"
-                                                            class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}?</label>
+                                                            class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}</label>
                                                         <div class="form-check form-switch">
                                                             <input class="form-check-input" type="checkbox"
                                                                 name="download_allowed" id="download_allowed"
@@ -1237,18 +1259,21 @@
                                             <p class="caption text-muted mt-2">(Recommended Size : 180 x 180 pixels)</p>
                                             <p class="caption text-danger mt-2">*Only Choose When Update is necessary</p>
                                             <div class="row mt-3 image-upload-section">
-                                                <div class="bg-white grow image rounded shadow text-center m-2">
-                                                    <div class="image-upload-div">
-                                                        <img class="img-fluid"
-                                                            src="{{ route('admin.dynamic_image', [
-                                                                'url' => app(MediaService::class)->getMediaImageUrl($data->image),
-                                                                'width' => 150,
-                                                                'quality' => 90,
-                                                            ]) }}"
-                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                <div class="col-auto">
+                                                    <div class="grow image rounded shadow text-center m-2 p-2">
+                                                        <div class="image-upload-div">
+                                                            <img class="img-fluid"
+                                                                src="{{ route('admin.dynamic_image', [
+                                                                    'url' => app(MediaService::class)->getMediaImageUrl($data->image),
+                                                                    'width' => 150,
+                                                                    'quality' => 90,
+                                                                ]) }}"
+                                                                onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}';"
+                                                                alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                        </div>
+                                                        <input type="hidden" name="pro_input_image"
+                                                            value="{{ $data->image }}">
                                                     </div>
-                                                    <input type="hidden" name="pro_input_image"
-                                                        value="{{ $data->image }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -1275,9 +1300,9 @@
                                                 @php $other_images = json_decode($data->other_images); @endphp
                                                 @if (!empty($other_images))
                                                     @foreach ($other_images as $row)
-                                                        <div class="col-6">
+                                                        <div class="col-auto">
                                                             <div
-                                                                class="grow image rounded shadow text-center m-2">
+                                                                class="grow image rounded shadow text-center m-2 p-2">
                                                                 <div class="image-upload-div">
                                                                     <img class="img-fluid mb-2"
                                                                         src="{{ route('admin.dynamic_image', [
@@ -1285,6 +1310,7 @@
                                                                             'width' => 150,
                                                                             'quality' => 90,
                                                                         ]) }}"
+                                                                        onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}';"
                                                                         alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
                                                                 </div>
                                                                 <a href="javascript:void(0)" class="delete-img"
@@ -1375,7 +1401,7 @@
                                             <p class="caption text-danger mt-2">*Only Choose When Update is necessary</p>
                                             <div class="row mt-3 image-upload-section">
                                                 <div
-                                                    class="bg-white grow image product-image-container rounded shadow text-center m-2">
+                                                    class="grow image product-image-container rounded shadow text-center m-2 p-2">
                                                     <div class='image-upload-div'>
                                                         <img class="img-fluid mb-2"
                                                             src="{{ asset('/assets/admin/images/video-file.png') }}"
@@ -1454,7 +1480,7 @@
                                 <textarea class="form-control mt-2 d-none mb-2 custom_extra_description_prompt" name="custom_extra_description_prompt"
                                     placeholder="{{ labels('admin_labels.placeholder_custom_ai_prompt', 'Enter your own AI prompt (optional)...') }}"></textarea>
                                 <textarea id="extra_input_description" name="extra_input_description"
-                                    class="form-control addr_editor extra_input_description" placeholder="{{ labels('admin_labels.place_some_text_here', 'Place some text here') }}">{{ isset($data->extra_description) ? $data->extra_description : '' }}</textarea>
+                                    class="form-control addr_editor extra_input_description" placeholder="{{ labels('admin_labels.place_some_text_here', 'Place some text here') }}">{{ isset($data->extra_description) && strtoupper(trim($data->extra_description)) !== 'NULL' ? $data->extra_description : '' }}</textarea>
 
                             </div>
                         </div>

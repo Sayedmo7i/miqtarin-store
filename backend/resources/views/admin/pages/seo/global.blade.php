@@ -238,21 +238,32 @@
 
 @section('scripts')
     <script>
-        // Character counter for meta title
-        document.getElementById('meta_title').addEventListener('input', function() {
-            document.getElementById('title-count').textContent = this.value.length;
-        });
-
-        // Character counter for meta description
-        document.getElementById('meta_description').addEventListener('input', function() {
-            document.getElementById('desc-count').textContent = this.value.length;
-        });
-
-        // Initialize counters on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('title-count').textContent = document.getElementById('meta_title').value.length;
-            document.getElementById('desc-count').textContent = document.getElementById('meta_description').value
-                .length;
-        });
+        (function() {
+            function initSeoCounters() {
+                var titleInput = document.getElementById('meta_title');
+                var descInput = document.getElementById('meta_description');
+                var titleCount = document.getElementById('title-count');
+                var descCount = document.getElementById('desc-count');
+                if (titleInput && titleCount) {
+                    var updateTitleCount = function() {
+                        titleCount.textContent = (titleInput.value || '').length;
+                    };
+                    titleInput.addEventListener('input', updateTitleCount);
+                    updateTitleCount();
+                }
+                if (descInput && descCount) {
+                    var updateDescCount = function() {
+                        descCount.textContent = (descInput.value || '').length;
+                    };
+                    descInput.addEventListener('input', updateDescCount);
+                    updateDescCount();
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initSeoCounters);
+            } else {
+                initSeoCounters();
+            }
+        })();
     </script>
 @endsection

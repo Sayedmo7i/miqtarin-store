@@ -79,7 +79,7 @@
                 </p>
                 <p class="phone d-flex align-items-center gap-2 small">
                     <ion-icon class="fs-5 flex-shrink-0" name="call-outline"></ion-icon>
-                    <a href="tel:{{ $settings->support_number }}">{{ $settings->support_number }}</a>
+                    <a dir="ltr" href="tel:{{ $settings->support_number }}">{{ $settings->support_number }}</a>
                 </p>
                 <p class="email d-flex align-items-center gap-2 small">
                     <ion-icon class="fs-5 flex-shrink-0" name="mail-outline"></ion-icon>
@@ -112,7 +112,7 @@
                 <li><i class="icon anm anm-cc-paypal"></i></li>
                 <li><i class="icon anm anm-cc-stripe"></i></li>
             </ul>
-            <div class="copytext text">{!! preg_replace('/\b\d{4}\b/', date('Y'), $settings->copyright_details) !!}</div>
+            <div class="copytext text">{!! $settings->copyright_details !!}</div>
         </div>
     </div>
 

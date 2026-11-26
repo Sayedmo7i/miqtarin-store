@@ -33,9 +33,9 @@
                                         <label
                                             class="form-label">{{ !trans()->has('admin_labels.mobile') ? 'Mobile' : trans('admin_labels.mobile') }}<span
                                                 class='text-asterisks text-sm'>*</span></label>
-                                        <div class="input-group input-group-merge">
+                                        <div class="input-group input-group-merge flex-nowrap">
                                             <select class="form-select" id="country_code" name="country_code"
-                                                style="max-width: 90px;">
+                                                style="min-width: 110px; max-width: 150px;">
                                                 <option value="93">+93 Afghanistan</option>
                                                 <option value="355">+355 Albania</option>
                                                 <option value="213">+213 Algeria</option>
@@ -94,7 +94,7 @@
                                                 <option value="1767">+1767 Dominica</option>
                                                 <option value="1809">+1809 Dominican Republic</option>
                                                 <option value="593">+593 Ecuador</option>
-                                                <option value="20">+20 Egypt</option>
+                                                <option value="20" selected>+20 Egypt</option>
                                                 <option value="503">+503 El Salvador</option>
                                                 <option value="240">+240 Equatorial Guinea</option>
                                                 <option value="291">+291 Eritrea</option>
@@ -127,7 +127,7 @@
                                                 <option value="852">+852 Hong Kong</option>
                                                 <option value="36">+36 Hungary</option>
                                                 <option value="354">+354 Iceland</option>
-                                                <option value="91" selected>+91 India</option>
+                                                <option value="91">+91 India</option>
                                                 <option value="62">+62 Indonesia</option>
                                                 <option value="98">+98 Iran</option>
                                                 <option value="964">+964 Iraq</option>
@@ -262,7 +262,7 @@
                                             </select>
 
                                             <input type="text" class="form-control" id="phone" name="mobile" maxlength="16"
-                                                placeholder="{{ labels('admin_labels.mobile_number_example', '8787878787') }}" oninput="validateNumberInput(this)"
+                                                placeholder="{{ labels('admin_labels.mobile_number_example', '01012345678') }}" oninput="validateNumberInput(this)"
                                                 value="{{ old('mobile') }}">
                                         </div>
 
@@ -486,10 +486,10 @@
                             <div class="mb-3 col-md-6">
                                 <label for="" class="form-label">{{ labels('admin_labels.mobile', 'Mobile') }}<span
                                         class='text-asterisks text-sm'>*</span></label><br>
-                                <div class="input-group input-group-merge">
+                                <div class="input-group input-group-merge flex-nowrap">
 
                                     <select class="form-select" id="edit_country_code" name="country_code"
-                                        style="max-width: 90px;">
+                                        style="min-width: 96px; max-width: 112px;">
                                         <option value="93">+93</option>
                                         <option value="355">+355</option>
                                         <option value="213">+213</option>
@@ -548,7 +548,7 @@
                                         <option value="1767">+1767</option>
                                         <option value="1809">+1809</option>
                                         <option value="593">+593</option>
-                                        <option value="20">+20</option>
+                                        <option value="20" selected>+20</option>
                                         <option value="503">+503</option>
                                         <option value="240">+240</option>
                                         <option value="291">+291</option>
@@ -581,7 +581,7 @@
                                         <option value="852">+852</option>
                                         <option value="36">+36</option>
                                         <option value="354">+354</option>
-                                        <option value="91" selected>+91</option>
+                                        <option value="91">+91</option>
                                         <option value="62">+62</option>
                                         <option value="98">+98</option>
                                         <option value="964">+964</option>
@@ -715,7 +715,7 @@
                                     </select>
 
                                     <input type="text" class="form-control" id="edit_phone" name="mobile" maxlength="16"
-                                        placeholder="8787878787" oninput="validateNumberInput(this)"
+                                        placeholder="{{ labels('admin_labels.mobile_number_example', '01012345678') }}" oninput="validateNumberInput(this)"
                                         value="{{ old('mobile') }}">
                                 </div>
 
@@ -818,7 +818,7 @@
                                     <div
                                         class="col-md-8 col-sm-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
                                         <div class='image-upload-div'><img class="img-fluid edit_front_licence_image mb-2"
-                                                src="" alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                src="{{ asset('assets/brand/icon.svg') }}" alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
                                         <input type="hidden" name="image" value=''>
                                     </div>
                                 </div>
@@ -829,7 +829,7 @@
                                     <div
                                         class="col-md-8 col-sm-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
                                         <div class='image-upload-div'><img class="img-fluid edit_back_licence_image mb-2"
-                                                src="" alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                src="{{ asset('assets/brand/icon.svg') }}" alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
                                         <input type="hidden" name="image" value=''>
                                     </div>
                                 </div>

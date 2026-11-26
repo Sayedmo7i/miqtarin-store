@@ -201,7 +201,7 @@ class CategoryController extends Controller
             ->get();
         $language_code = app(TranslationService::class)->getLanguageCode();
         $data = $categories->map(function ($c) use ($language_code) {
-            $status = ($c->status == 1) ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Deactive</span>';
+            $status = ($c->status == 1) ? '<span class="badge bg-success">' . labels('admin_labels.active', 'Active') . '</span>' : '<span class="badge bg-danger">' . labels('admin_labels.deactive', 'Inactive') . '</span>';
             $image = route('seller.dynamic_image', [
                 'url' => app(MediaService::class)->getMediaImageUrl($c->image),
                 'width' => 60,

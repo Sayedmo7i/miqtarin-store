@@ -80,7 +80,7 @@
                                             <p class="text-muted">{{ $row->size }} KB</p>
                                             <div class="d-flex">
                                                 <a class="delete-media me-1 delete-data" data-url="{{ $delete_url }}"><i class='bx bx-trash'></i></a>
-                                                <span class="path d-none">{{ config('app.url').'storage'.$row->sub_directory.'/'.$row->file_name }}</span>
+                                                <span class="path d-none">{{ asset('storage/' . ltrim($row->sub_directory . '/' . $row->file_name, '/')) }}</span>
                                                 <a class="copy-to-clipboard me-1"><i class='bx bx-copy-alt'></i></a>
                                                 <span class="relative-path d-none">{{ $row->sub_directory.'/'.$row->file_name }}</span>
                                                 <a class="copy-relative-path"><i class='bx bx-images'></i></a>

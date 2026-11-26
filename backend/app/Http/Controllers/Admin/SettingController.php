@@ -1090,7 +1090,7 @@ class SettingController extends Controller
                 'exchange_rate' => $c->exchange_rate,
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($c->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $c->id . '" data-url="/admin/currency/update_status/' . $c->id . '" aria-label="">
                   <option value="1" ' . ($c->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                  <option value="0" ' . ($c->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                  <option value="0" ' . ($c->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
               </select>',
                 'operate' => $action,
             ];

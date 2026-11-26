@@ -43,7 +43,7 @@
                                         <div class="tab-pane fade show active" id="content-en" role="tabpanel"
                                             aria-labelledby="tab-en">
                                             <div class="mb-3">
-                                                <label for="brand_name"
+                                                <label for="category_slider_title"
                                                     class="form-label">{{ labels('admin_labels.title', 'Title') }}<span
                                                         class="text-asterisks text-sm">*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -51,7 +51,7 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.category_slider_title_hint', 'Enter a title for this category slider, e.g. Popular Categories.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="category_slider_title"
                                                     placeholder="{{ labels('admin_labels.popular_categories_placeholder', 'Popular Categories') }}" name="title"
                                                     value="{{ old('title') }}">
                                             </div>
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label"
-                                            for="basic-default-fullname">{{ labels('admin_labels.select_category', 'Select Category') }}<span
+                                            for="category_sliders_category">{{ labels('admin_labels.select_category', 'Select Category') }}<span
                                                 class='text-asterisks text-sm'>*</span>
                                             <i class="fa fa-info-circle text-secondary ms-1"
                                                data-bs-toggle="popover"

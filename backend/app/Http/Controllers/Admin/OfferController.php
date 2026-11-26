@@ -536,7 +536,7 @@ class OfferController extends Controller
                 'offer_ids' => $offer_details,
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($s->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $s->id . '" data-url="/admin/offer_sliders/update_status/' . $s->id . '" aria-label="">
               <option value="1" ' . ($s->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-              <option value="0" ' . ($s->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+              <option value="0" ' . ($s->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
           </select>',
                 'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($s->image)  . '" data-lightbox="image-' . $s->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
                 'banner' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($s->banner_image)  . '" data-lightbox="banner-' . $s->id . '"><img src="' . $banner . '" alt="Avatar" class="rounded"/></a></div>',

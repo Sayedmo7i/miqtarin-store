@@ -20,7 +20,7 @@ class ReportController extends Controller
     public function list(Request $request)
     {
         $store_id = app(StoreService::class)->getStoreId();
-        $search = trim($request->input('search'));
+        $search = trim((string) $request->input('search', ''));
         $offset = $search || $request->has('pagination_offset') ? $request->input('pagination_offset', 0) : 0;
         $limit = $request->input('limit', 10);
         $sort = $request->input('sort', 'id');

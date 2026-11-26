@@ -359,6 +359,8 @@
             </div>
         </div>
 
+        <div id="app_url" data-app-url="{{ rtrim(url('/'), '/') . '/' }}"></div>
+
         <!--   Core JS Files   -->
         <script src="{{ asset('/assets/admin/js/jquery.min.js') }}"></script>
         <script src="{{ asset('/assets/admin/js/jquery.js') }}"></script>

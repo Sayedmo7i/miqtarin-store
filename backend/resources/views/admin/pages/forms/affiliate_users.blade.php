@@ -340,7 +340,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">{{ labels('admin_labels.status', 'Status') }} <span class="text-danger">*</span></label>
                                         <div class="d-flex flex-wrap gap-3">
-                                            @foreach (['0' => 'Deactive', '1' => 'Approved', '2' => 'Not-Approved'] as $value => $label)
+                                            @foreach (['0' => labels('admin_labels.deactive', 'Inactive'), '1' => labels('admin_labels.approved', 'Approved'), '2' => labels('admin_labels.not_approved', 'Not-Approved')] as $value => $label)
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="status" id="status_{{ $value }}" value="{{ $value }}">
                                                     <label class="form-check-label" for="status_{{ $value }}">{{ $label }}</label>

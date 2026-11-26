@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ session('is_rtl') == 1 ? 'rtl' : 'ltr' }}">
 
     @php
         use App\Services\SettingService;
@@ -84,47 +84,61 @@
         <link rel="stylesheet" href="{{ asset('frontend/elegant/css/muqtarin-storefront.css') }}?v={{ $version }}">
 
 
-        <script src="{{ asset('frontend/elegant/js/plugins.js') }}?v={{ $version }}"></script>
-        <script src="{{ asset('frontend/elegant/js/moment.min.js') }}?v={{ $version }}"></script>
-        <script src="{{ asset('frontend/elegant/js/sweetalert2.all.min.js') }}?v={{ $version }}"></script>
-        <script src="{{ asset('frontend/elegant/js/swiper-bundle.min.js') }}?v={{ $version }}"></script>
-        <script src="{{ asset('frontend/elegant/js/shareon.iife.js') }}?v={{ $version }}"></script>
+        <script src="{{ asset('frontend/elegant/js/plugins.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script src="{{ asset('frontend/elegant/js/moment.min.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script src="{{ asset('frontend/elegant/js/sweetalert2.all.min.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script src="{{ asset('frontend/elegant/js/swiper-bundle.min.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script src="{{ asset('frontend/elegant/js/shareon.iife.js') }}?v={{ $version }}" data-navigate-once></script>
 
-        <script type="module" src="{{ asset('frontend/elegant/js/firebase-app.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/firebase-auth.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/firebase-firestore.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/bootstrap-table.min.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/bootstrap-table-export.min.js') }}?v={{ $version }}">
+        <script type="module" src="{{ asset('frontend/elegant/js/firebase-app.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/firebase-auth.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/firebase-firestore.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/bootstrap-table.min.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/bootstrap-table-export.min.js') }}?v={{ $version }}" data-navigate-once>
         </script>
-        <script type="module" src="{{ asset('frontend/elegant/js/main.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/daterangepicker.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/ionicons.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/star-rating.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/intlTelInput.js') }}?v={{ $version }}"></script>
-        <script src="{{ asset('frontend/elegant/js/intl-tel-login.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/iziToast.min.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/star-rating.min.js') }}?v={{ $version }}"></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/select2.min.js') }}?v={{ $version }}"></script>
-        <script src="{{ asset('assets/admin/js/dropzone.js') }}"></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/main.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/daterangepicker.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/ionicons.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/star-rating.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/intlTelInput.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script src="{{ asset('frontend/elegant/js/intl-tel-login.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/iziToast.min.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/star-rating.min.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/select2.min.js') }}?v={{ $version }}" data-navigate-once></script>
+        <script src="{{ asset('assets/admin/js/dropzone.js') }}" data-navigate-once></script>
         <script type="module" src="{{ asset('frontend/elegant/js/checkout.js') }}?v={{ $version }}"
-            @if (Request::is('cart/checkout')) data-navigate-track="reload" @endif></script>
+            @if (Request::is('cart/checkout')) data-navigate-track="reload" @else data-navigate-once @endif></script>
         <script type="module" src="{{ asset('frontend/elegant/js/wallet.js') }}?v={{ $version }}" data-navigate-once ></script>
         {{-- <script src="{{ asset('frontend/elegant/js/plugins.js') }}?v={{ $version }}"></script> --}}
-        <script type="module" src="{{ asset('frontend/elegant/js/custom.js') }}?v={{ $version }}"></script>
+        <script type="module" src="{{ asset('frontend/elegant/js/custom.js') }}?v={{ $version }}" data-navigate-once></script>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         @if (session('is_rtl') == 1)
             <style>
+                html[dir="rtl"], body[dir="rtl"] {
+                    font-family: 'Tajawal', 'Cairo', system-ui, sans-serif;
+                    letter-spacing: 0 !important;
+                    font-feature-settings: "liga" 1, "calt" 1;
+                }
+                [dir="rtl"] * { letter-spacing: 0 !important; }
                 [dir="rtl"] .me-1 { margin-right: 0 !important; margin-left: 0.25rem !important; }
                 [dir="rtl"] .me-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
                 [dir="rtl"] .me-3 { margin-right: 0 !important; margin-left: 1rem !important; }
                 [dir="rtl"] .ms-1 { margin-left: 0 !important; margin-right: 0.25rem !important; }
                 [dir="rtl"] .ms-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
                 [dir="rtl"] .ms-3 { margin-left: 0 !important; margin-right: 1rem !important; }
+                [dir="rtl"] .pe-1 { padding-right: 0 !important; padding-left: 0.25rem !important; }
+                [dir="rtl"] .pe-2 { padding-right: 0 !important; padding-left: 0.5rem !important; }
+                [dir="rtl"] .pe-3 { padding-right: 0 !important; padding-left: 1rem !important; }
+                [dir="rtl"] .ps-1 { padding-left: 0 !important; padding-right: 0.25rem !important; }
+                [dir="rtl"] .ps-2 { padding-left: 0 !important; padding-right: 0.5rem !important; }
+                [dir="rtl"] .ps-3 { padding-left: 0 !important; padding-right: 1rem !important; }
                 [dir="rtl"] .button-style i + .button-text,
                 [dir="rtl"] .button-style i + .text { margin-right: 0.5rem; }
                 [dir="rtl"] .text-left { text-align: right !important; }
                 [dir="rtl"] .text-right { text-align: left !important; }
+                [dir="rtl"] .text-start { text-align: right !important; }
+                [dir="rtl"] .text-end { text-align: left !important; }
                 [dir="rtl"] .float-start { float: right !important; }
                 [dir="rtl"] .float-end { float: left !important; }
                 [dir="rtl"] .header-vertical-menu .menu-title { padding-right: 15px; padding-left: 40px; }
@@ -186,7 +200,6 @@
         @endif
         <x-include-modal.modals />
         <link rel="stylesheet" href="{{ asset('frontend/elegant/css/lightbox.css') }}">
-        <script src="{{ asset('/sw.js') }}"></script>
         <script>
             if ("serviceWorker" in navigator) {
                 // Register a service worker hosted at the root of the
@@ -240,7 +253,7 @@
         // inline script, so slick must be re-bound here.
         document.addEventListener('livewire:navigated', home_slider);
     </script>
-    <script src="{{ asset('frontend/elegant/js/vendor/jquery.elevatezoom.js') }}"></script>
+    <script src="{{ asset('frontend/elegant/js/vendor/jquery.elevatezoom.js') }}" data-navigate-once></script>
     <script>
         if (!window._livewireInitBound) {
             window._livewireInitBound = true;

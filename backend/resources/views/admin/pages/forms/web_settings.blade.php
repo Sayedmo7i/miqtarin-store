@@ -123,16 +123,18 @@
                                                                         <div
                                                                             class="row image-upload-section mt-2">
                                                                             <div
-                                                                                class="col-md-6 p-3 rounded text-center grow image">
+                                                                                class="col-auto p-3 rounded text-center grow image"
+                                                                                style="min-width: 140px; max-width: 220px;">
                                                                                 <div>
                                                                                     <div class="upload-media-div">
                                                                                         <img class="img-fluid mb-2"
+                                                                                            style="max-height: 88px; width: auto; object-fit: contain;"
                                                                                             src="{{ route('admin.dynamic_image', [
                                                                                                 'url' => app(MediaService::class)->getMediaImageUrl($web_settings['logo']),
                                                                                                 'width' => 150,
                                                                                                 'quality' => 90,
                                                                                             ]) }}"
-                                                                                            onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                                                            onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                                             alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
                                                                                     </div>
                                                                                     <input type="hidden" name="logo"
@@ -145,7 +147,8 @@
                                                                         <div
                                                                             class="row image-upload-section mt-2">
                                                                             <div
-                                                                                class="col-md-6 p-2 rounded text-center grow image d-none">
+                                                                                class="col-auto p-2 rounded text-center grow image d-none"
+                                                                                style="min-width: 140px; max-width: 220px;">
                                                                             </div>
                                                                         </div>
                                                                     @endif
@@ -175,16 +178,18 @@
                                                                         <div
                                                                             class="row image-upload-section mt-2">
                                                                             <div
-                                                                                class="col-md-6 p-3 rounded text-center grow image">
+                                                                                class="col-auto p-3 rounded text-center grow image"
+                                                                                style="min-width: 140px; max-width: 220px;">
                                                                                 <div>
                                                                                     <div class="upload-media-div">
                                                                                         <img class="img-fluid mb-2"
+                                                                                            style="max-height: 88px; width: auto; object-fit: contain;"
                                                                                             src="{{ route('admin.dynamic_image', [
                                                                                                 'url' => app(MediaService::class)->getMediaImageUrl($web_settings['favicon']),
                                                                                                 'width' => 150,
                                                                                                 'quality' => 90,
                                                                                             ]) }}"
-                                                                                            onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                                                            onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                                             alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
                                                                                     </div>
                                                                                     <input type="hidden"

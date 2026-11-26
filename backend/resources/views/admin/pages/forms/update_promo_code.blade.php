@@ -191,7 +191,7 @@
                                         {{ isset($data->status) && $data->status == '1' ? 'selected' : '' }}>{{ labels('admin_labels.active_users', 'Active') }}
                                     </option>
                                     <option value="0"
-                                        {{ isset($data->status) && $data->status == '0' ? 'selected' : '' }}>{{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                        {{ isset($data->status) && $data->status == '0' ? 'selected' : '' }}>{{ labels('admin_labels.deactive_users', 'Inactive') }}
                                     </option>
                                 </select>
                             </div>

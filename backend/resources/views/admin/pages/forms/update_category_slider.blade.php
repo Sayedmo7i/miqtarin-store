@@ -47,9 +47,9 @@
                                             aria-labelledby="tab-en">
                                             <div class="mb-3">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">{{ labels('admin_labels.title', 'Title') }}<span
+                                                    for="category_slider_title">{{ labels('admin_labels.title', 'Title') }}<span
                                                         class='text-asterisks text-sm'>*</span></label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="category_slider_title"
                                                     placeholder="{{ labels('admin_labels.popular_categories_placeholder', 'Popular Categories') }}" name="title"
                                                     value="{{ isset($data->title) ? json_decode($data->title)->en : '' }}">
                                             </div>
@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label"
-                                            for="basic-default-fullname">{{ labels('admin_labels.select_category', 'Select Category') }}<span
+                                            for="category_sliders_category">{{ labels('admin_labels.select_category', 'Select Category') }}<span
                                                 class='text-asterisks text-sm'>*</span></label>
                                         <select name="category_ids[]" required id="category_sliders_category"
                                             class="category_sliders_category w-100" multiple

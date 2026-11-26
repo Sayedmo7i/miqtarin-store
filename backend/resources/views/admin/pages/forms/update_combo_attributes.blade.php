@@ -23,13 +23,13 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label class="form-label"
-                                for="basic-default-fullname">{{ labels('admin_labels.name', 'Name') }}
+                                for="combo_attribute_name">{{ labels('admin_labels.name', 'Name') }}
                                 <i class="fa fa-info-circle text-secondary ms-1"
                                    data-bs-toggle="popover"
                                    data-bs-placement="right"
                                    data-bs-content="{{ labels('admin_labels.popover_attribute_name', 'Enter the attribute name, e.g. Size, Color.') }}"></i>
                             </label>
-                            <input type="text" class="form-control" id="basic-default-fullname" placeholder="pizza"
+                            <input type="text" class="form-control" id="combo_attribute_name" placeholder="{{ labels('admin_labels.size_placeholder', 'Size') }}"
                                 name="name" value="{{ $attribute_data->name }}">
 
                         </div>

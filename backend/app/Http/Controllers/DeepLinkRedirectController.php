@@ -14,15 +14,15 @@ class DeepLinkRedirectController extends Controller
     {
         $settings = json_decode(app(SettingService::class)->getSettings('system_settings', true), true);
         
-        $scheme = str_replace('://', '', $settings['deep_link_scheme'] ?? 'eshop');
-        $host = $settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
-        $appName = $settings['app_name'] ?? 'eShop';
+        $scheme = str_replace('://', '', $settings['deep_link_scheme'] ?? 'muqtarin');
+        $host = $settings['deep_link_host'] ?? 'muqtarin.store';
+        $appName = $settings['app_name'] ?? 'MUQTARIN Store';
         
-        $playStore = $settings['play_store_link_for_customer_app'] ?? 'https://play.google.com/store/apps/details?id=com.eshop';
-        $appStore = $settings['app_store_link_for_customer_app'] ?? 'https://apps.apple.com/app/eshop';
+        $playStore = $settings['play_store_link_for_customer_app'] ?? 'https://play.google.com/store/apps/details?id=com.muqtarin.store';
+        $appStore = $settings['app_store_link_for_customer_app'] ?? 'https://apps.apple.com/app/muqtarin-store';
         
-        $androidPackage = $settings['android_package_name'] ?? 'com.eshop';
-        if ($androidPackage == 'com.eshop' && preg_match('/id=([^&]+)/', $playStore, $matches)) {
+        $androidPackage = $settings['android_package_name'] ?? 'com.muqtarin.store';
+        if (in_array($androidPackage, ['com.eshop', 'com.muqtarin.store'], true) && preg_match('/id=([^&]+)/', $playStore, $matches)) {
             $androidPackage = $matches[1];
         }
         

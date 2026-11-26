@@ -371,6 +371,10 @@
                                                     data-visible='false'>
                                                     {{ labels('admin_labels.delivery_time', 'Delivery Time') }}
                                                 </th>
+                                                <th data-field="active_status" data-sortable='false'
+                                                    data-visible='true'>
+                                                    {{ labels('admin_labels.status', 'Status') }}
+                                                </th>
                                                 <th data-field="date_added" data-sortable='false'>
                                                     {{ labels('admin_labels.order_date', 'Order Date') }}
                                                 </th>

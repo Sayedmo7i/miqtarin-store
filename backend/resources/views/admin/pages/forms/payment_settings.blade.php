@@ -108,7 +108,7 @@
                                         </option>
                                         <option value="0"
                                             <?= isset($settings['paypal_method']) && $settings['paypal_method'] == '0' ? 'selected' : '' ?>>
-                                            {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                            {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                         </option>
                                     </select>
 
@@ -244,7 +244,7 @@
                                     </option>
                                     <option value="0"
                                         <?= isset($settings['phonepe_method']) && $settings['phonepe_method'] == '0' ? 'selected' : '' ?>>
-                                        {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                        {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                     </option>
                                 </select>
                             </div>
@@ -348,7 +348,7 @@
                                     </option>
                                     <option value="0"
                                         <?= isset($settings['razorpay_method']) && $settings['razorpay_method'] == '0' ? 'selected' : '' ?>>
-                                        {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                        {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                     </option>
                                 </select>
 
@@ -410,7 +410,7 @@
                                         {{ labels('admin_labels.active_users', 'Active') }}
                                     </option>
                                     <option value="0" <?= @$settings['paystack_method'] == '0' ? 'selected' : '' ?>>
-                                        {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                        {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                     </option>
                                 </select>
                             </div>
@@ -458,7 +458,7 @@
                                         {{ labels('admin_labels.active_users', 'Active') }}
                                     </option>
                                     <option value="0" <?= @$settings['stripe_method'] == '0' ? 'selected' : '' ?>>
-                                        {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                        {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                     </option>
                                 </select>
                             </div>
@@ -699,7 +699,7 @@
                                         </option>
                                         <option value="0"
                                             <?= @$settings['flutterwave_method'] == '0' ? 'selected' : '' ?>>
-                                            {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                            {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                         </option>
                                     </select>
                                 </div>
@@ -830,7 +830,7 @@
                                         </option>
                                         <option value="0"
                                             <?= @$settings['fatoorah_method'] == '0' ? 'selected' : '' ?>>
-                                            {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                            {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                         </option>
                                     </select>
                                 </div>
@@ -962,7 +962,7 @@
                                             </option>
                                             <option value="0"
                                                 <?= @$settings['midtrans_method'] == '0' ? 'selected' : '' ?>>
-                                                {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                                {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                             </option>
                                         </select>
                                     </div>
@@ -1054,7 +1054,7 @@
                                     </option>
                                     <option value="0"
                                         <?= @$settings['direct_bank_transfer_method'] == '0' ? 'selected' : '' ?>>
-                                        {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                        {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                     </option>
                                 </select>
                             </div>
@@ -1117,7 +1117,7 @@
                                         {{ labels('admin_labels.active_users', 'Active') }}
                                     </option>
                                     <option value="0" <?= @$settings['cod_method'] == '0' ? 'selected' : '' ?>>
-                                        {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                        {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                     </option>
                                 </select>
                             </div>

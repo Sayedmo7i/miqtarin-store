@@ -1070,33 +1070,45 @@ if (!function_exists('renderCategories')) {
 
 function labels($path, $label)
 {
-    // Extract the key from the path (e.g., 'admin_labels.dashboard' -> 'dashboard')
+    // Extract the domain prefix and key from the path (e.g., 'front_messages.my_account')
+    $domain = null;
     $key = $path;
-    
+
     if (strpos($path, '.') !== false) {
         $parts = explode('.', $path);
+        $domain = $parts[0];
         $key = end($parts);
     }
 
-    // Force usage of panel_labels.json ONLY
-    static $panelLabelsCache = [];
+    static $labelsCache = [];
     $locale = app()->getLocale();
-   
 
-    // Load panel_labels.json into cache if not already loaded for this locale
-    if (!isset($panelLabelsCache[$locale])) {
-        $jsonPath = resource_path("lang/{$locale}/panel_labels.json");
-        if (file_exists($jsonPath)) {
-            $jsonContent = file_get_contents($jsonPath);
-            $panelLabelsCache[$locale] = json_decode($jsonContent, true) ?? [];
-        } else {
-            $panelLabelsCache[$locale] = [];
-        }
+    $domainMap = [
+        'front_messages' => 'web_labels.json',
+        'seller_labels' => 'seller_labels.json',
+        'delivery_boy_labels' => 'delivery_labels.json',
+    ];
+
+    $filesToCheck = [];
+    if ($domain !== null && isset($domainMap[$domain])) {
+        $filesToCheck[] = $domainMap[$domain];
     }
+    $filesToCheck[] = 'panel_labels.json';
 
-    // Look up the key directly in panel_labels.json
-    if (isset($panelLabelsCache[$locale][$key])) {
-        return $panelLabelsCache[$locale][$key];
+    foreach ($filesToCheck as $fileName) {
+        if (!isset($labelsCache[$locale][$fileName])) {
+            $jsonPath = resource_path("lang/{$locale}/{$fileName}");
+            if (file_exists($jsonPath)) {
+                $jsonContent = file_get_contents($jsonPath);
+                $labelsCache[$locale][$fileName] = json_decode($jsonContent, true) ?? [];
+            } else {
+                $labelsCache[$locale][$fileName] = [];
+            }
+        }
+
+        if (isset($labelsCache[$locale][$fileName][$key]) && $labelsCache[$locale][$fileName][$key] !== '') {
+            return $labelsCache[$locale][$fileName][$key];
+        }
     }
 
     // Fallback to the default label if translation not found

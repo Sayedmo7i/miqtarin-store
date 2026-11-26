@@ -36,7 +36,7 @@ class TaxController extends Controller
             ->limit($limit)
             ->get()
             ->map(function ($t)  use ($language_code) {
-                $status = ($t->status == 1) ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Deactive</span>';
+                $status = ($t->status == 1) ? '<span class="badge bg-success">' . labels('admin_labels.active', 'Active') . '</span>' : '<span class="badge bg-danger">' . labels('admin_labels.deactive', 'Inactive') . '</span>';
                 return [
                     'id' => $t->id,
                     'title' => app(TranslationService::class)->getDynamicTranslation(Tax::class, 'title', $t->id, $language_code),

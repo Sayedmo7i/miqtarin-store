@@ -31,54 +31,54 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="mb-3 col-md-12">
-                                                <label class="form-label" for="basic-default-fullname">
+                                                <label class="form-label" for="smtp_email">
                                                     {{ labels('admin_labels.email', 'Email') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="smtp_email"
                                                     placeholder="" name="email"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'email') ? $settings['email'] : '' ?>">
 
                                             </div>
 
                                             <div class="mb-3 col-md-12">
-                                                <label class="form-label" for="basic-default-fullname">
+                                                <label class="form-label" for="smtp_password">
                                                     {{ labels('admin_labels.password', 'Password') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                 </label>
-                                                <input type="password" class="form-control" id="basic-default-fullname"
+                                                <input type="password" class="form-control" id="smtp_password"
                                                     placeholder="" name="password"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'password') ? $settings['password'] : '' ?>">
 
                                             </div>
                                             <div class="mb-3 col-md-12">
-                                                <label class="form-label" for="basic-default-fullname">
+                                                <label class="form-label" for="smtp_host">
                                                     {{ labels('admin_labels.smtp_host', 'SMTP Host') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
-                                                    placeholder="{{ labels('admin_labels.support_email_placeholder', 'eshop@gmail.com') }}" name="smtp_host"
+                                                <input type="text" class="form-control" id="smtp_host"
+                                                    placeholder="{{ labels('admin_labels.smtp_host_placeholder', 'smtp.muqtarin.store') }}" name="smtp_host"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'smtp_host') ? $settings['smtp_host'] : '' ?>">
 
                                             </div>
 
                                             <div class="mb-3 col-md-12">
-                                                <label class="form-label" for="basic-default-fullname">
+                                                <label class="form-label" for="smtp_port">
                                                     {{ labels('admin_labels.smtp_port', 'SMTP Port') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="smtp_port"
                                                     placeholder="" name="smtp_port"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'smtp_port') ? $settings['smtp_port'] : '' ?>">
 
                                             </div>
 
                                             <div class="mb-3 col-md-12">
-                                                <label class="form-label" for="basic-default-fullname">
+                                                <label class="form-label" for="email_content_type">
                                                     {{ labels('admin_labels.email_content_type', 'Email Content Type') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                 </label>
-                                                <select class="form-select form-select-md mb-3"
+                                                <select class="form-select form-select-md mb-3" id="email_content_type"
                                                     aria-label=".form-select-md example" name="email_content_type">
                                                     <option
                                                         {{ $settings['email_content_type'] != null && $settings['email_content_type'] == 'html' ? 'selected' : '' }}
@@ -93,11 +93,11 @@
                                             </div>
 
                                             <div class="mb-3 col-md-12">
-                                                <label class="form-label" for="basic-default-fullname">
+                                                <label class="form-label" for="smtp_encryption">
                                                     {{ labels('admin_labels.smtp_encryption', 'SMTP Encryption') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                 </label>
-                                                <select class="form-select form-select-md mb-3"
+                                                <select class="form-select form-select-md mb-3" id="smtp_encryption"
                                                     aria-label=".form-select-md example" name="smtp_encryption">
                                                     <option
                                                         {{ $settings['smtp_encryption'] != null && $settings['smtp_encryption'] == 'ssl' ? 'selected' : '' }}

@@ -16,47 +16,47 @@
                         @csrf
                         <div class="col-xl">
                             <div class="row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6 col-xl-4">
                                     <div class="mb-3">
                                         <label class="form-label"
                                             for="language">{{ labels('admin_labels.language', 'Language') }}
                                             <i class="fa fa-info-circle text-secondary ms-1"
                                                data-bs-toggle="popover"
                                                data-bs-placement="right"
-                                               data-bs-content="{{ labels('admin_labels.language_name_helper_popover', 'Enter the language name, e.g. English, Hindi.') }}"></i>
+                                               data-bs-content="{{ labels('admin_labels.language_name_helper_popover', 'Enter the language name, e.g. English, Arabic.') }}"></i>
                                         </label>
-                                        <input type="text" class="form-control" id="basic-default-fullname"
+                                        <input type="text" class="form-control" id="language"
                                             placeholder="{{ labels('admin_labels.english_placeholder', 'English') }}" name="language" value="{{ old('language') }}">
                                     </div>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-6 col-xl-2">
                                     <div class="mb-3">
                                         <label class="form-label"
                                             for="code">{{ labels('admin_labels.code', 'Code') }}
                                             <i class="fa fa-info-circle text-secondary ms-1"
                                                data-bs-toggle="popover"
                                                data-bs-placement="right"
-                                               data-bs-content="{{ labels('admin_labels.language_code_helper_popover', 'Enter the language code, e.g. en, hi.') }}"></i>
+                                               data-bs-content="{{ labels('admin_labels.language_code_helper_popover', 'Enter the language code, e.g. en, ar.') }}"></i>
                                         </label>
-                                        <input type="text" class="form-control" id="basic-default-fullname"
+                                        <input type="text" class="form-control" id="code"
                                             placeholder="{{ labels('admin_labels.en_placeholder', 'en') }}" name="code" value="{{ old('code') }}">
                                     </div>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-6 col-xl-4">
                                     <div class="mb-3">
                                         <label class="form-label"
                                             for="native_language">{{ labels('admin_labels.native_language', 'Native Language') }}
                                             <i class="fa fa-info-circle text-secondary ms-1"
                                                data-bs-toggle="popover"
                                                data-bs-placement="right"
-                                               data-bs-content="{{ labels('admin_labels.native_language_helper_popover', 'Enter the native name of the language, e.g. English, हिन्दी.') }}"></i>
+                                               data-bs-content="{{ labels('admin_labels.native_language_helper_popover', 'Enter the native name of the language, e.g. English, العربية.') }}"></i>
                                         </label>
-                                        <input type="text" class="form-control" id="basic-default-fullname"
-                                            placeholder="{{ labels('admin_labels.native_language_placeholder', 'Ex. English , हिन्दी') }}" name="native_language"
+                                        <input type="text" class="form-control" id="native_language"
+                                            placeholder="{{ labels('admin_labels.native_language_placeholder', 'Ex. English, العربية') }}" name="native_language"
                                             value="{{ old('native_language') }}">
                                     </div>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-6 col-xl-2">
                                     <label for="is_rtl"
                                         class="col-form-label">{{ labels('admin_labels.is_rtl', 'Is RTL') }}? <span
                                             class='text-asterisks text-sm'>*</span>
@@ -66,7 +66,7 @@
                                            data-bs-content="{{ labels('admin_labels.is_rtl_helper_popover', 'Enable if the language is right-to-left (e.g. Arabic, Hebrew).') }}"></i>
                                     </label>
                                     <div class="form-check form-switch">
-                                        <input type="checkbox" name="is_rtl" class="form-check-input mx-2">
+                                        <input type="checkbox" id="is_rtl" name="is_rtl" class="form-check-input mx-2">
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end">

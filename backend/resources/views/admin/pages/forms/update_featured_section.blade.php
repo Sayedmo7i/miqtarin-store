@@ -55,11 +55,11 @@
                                 <div class="tab-pane fade show active" id="content-en" role="tabpanel"
                                     aria-labelledby="tab-en">
                                     <div class="mb-3">
-                                        <label for="brand_name" class="form-label">
+                                        <label for="section_title" class="form-label">
                                             {{ labels('admin_labels.title', 'Title') }}
                                             <span class="text-asterisks text-sm">*</span>
                                         </label>
-                                        <input type="text" class="form-control" placeholder="{{ labels('admin_labels.gucci_placeholder', 'Gucci') }}" name="title"
+                                        <input type="text" id="section_title" class="form-control" placeholder="{{ labels('admin_labels.section_title_placeholder', 'Featured Collection') }}" name="title"
                                             value="{{ isset($data->title) ? json_decode($data->title)->en : '' }}">
 
                                         <label for="short_description" class="control-label mb-2 mt-2">

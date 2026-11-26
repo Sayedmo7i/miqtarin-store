@@ -656,7 +656,7 @@ textarea:focus-visible,
   padding-inline-start: 12px;
 }
 
-/* ── Collapsed Sidebar (Icons Only Mode on Desktop) ───────────────────────── */
+/* ── Collapsed Sidebar (Icons Only Mode on Desktop & Persistent Tablet Rail) ── */
 @media (min-width: 1200px) {
   body.sidebar-collapsed .navbar-vertical {
     width: var(--sidebar-collapsed);
@@ -717,6 +717,72 @@ textarea:focus-visible,
   }
   [data-theme="dark"] body.sidebar-collapsed .navbar-vertical .sidebar-section.flyout-open > .sidebar-section-trigger,
   [data-theme="dark"] body.sidebar-collapsed .navbar-vertical .sidebar-direct.flyout-open > .nav-link {
+    color: var(--emerald) !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .navbar-vertical:not(.show) {
+    width: var(--sidebar-collapsed);
+    transform: none !important;
+  }
+  .navbar-vertical:not(.show) .sidenav-header {
+    justify-content: center !important;
+    padding: 12px 8px;
+  }
+  .navbar-vertical:not(.show) .navbar-brand-img,
+  .navbar-vertical:not(.show) .btn-close-mobile {
+    display: none !important;
+  }
+  .navbar-vertical:not(.show) .navbar-brand-icon {
+    display: inline-block !important;
+  }
+  .navbar-vertical:not(.show) .sidebar-search-wrap,
+  .navbar-vertical:not(.show) .sidebar-title,
+  .navbar-vertical:not(.show) .nav-link .nav-link-text,
+  .navbar-vertical:not(.show) .nav-link .sidenav-normal,
+  .navbar-vertical:not(.show) .sidebar-section-trigger .nav-link-text,
+  .navbar-vertical:not(.show) .sidebar-section-chevron,
+  .navbar-vertical:not(.show) .nav-link .fa-angle-down,
+  .navbar-vertical:not(.show) .nav-link .badge,
+  .navbar-vertical:not(.show) .sidebar-section-trigger .badge,
+  .navbar-vertical:not(.show) .collapse {
+    display: none !important;
+  }
+  .navbar-vertical:not(.show) .navbar-nav {
+    padding: 8px 8px 24px;
+    align-items: center;
+    gap: 4px;
+  }
+  .navbar-vertical:not(.show) .navbar-nav > li {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .navbar-vertical:not(.show) .navbar-nav > li > .nav-link,
+  .navbar-vertical:not(.show) .navbar-nav > li > .sidebar-section-trigger {
+    width: 44px;
+    height: 44px;
+    padding: 0 !important;
+    justify-content: center;
+    border-inline-start: none !important;
+    border-radius: var(--radius-md) !important;
+  }
+  .navbar-vertical:not(.show) .navbar-nav > li > .nav-link .nav-icon,
+  .navbar-vertical:not(.show) .navbar-nav > li > .sidebar-section-trigger .nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .navbar-vertical:not(.show) .sidebar-unread-dot {
+    display: block;
+  }
+  .navbar-vertical:not(.show) .sidebar-section.flyout-open > .sidebar-section-trigger,
+  .navbar-vertical:not(.show) .sidebar-direct.flyout-open > .nav-link {
+    background: var(--pine-light) !important;
+    color: var(--pine) !important;
+  }
+  [data-theme="dark"] .navbar-vertical:not(.show) .sidebar-section.flyout-open > .sidebar-section-trigger,
+  [data-theme="dark"] .navbar-vertical:not(.show) .sidebar-direct.flyout-open > .nav-link {
     color: var(--emerald) !important;
   }
 }
@@ -1406,8 +1472,21 @@ th {
   display: none !important;
 }
 
-/* ── 12. Responsive Drawer on Mobile / Tablet ─────────────────────────────── */
-@media (max-width: 1199px) {
+/* ── 12. Responsive Drawer on Mobile & Persistent Icon Rail on Tablet ─────── */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  #page-content,
+  .footer,
+  footer.footer.bg-body {
+    margin-inline-start: var(--sidebar-collapsed) !important;
+  }
+  .navbar-vertical.show {
+    width: var(--sidebar-width);
+    transform: none;
+    box-shadow: var(--shadow-lg) !important;
+  }
+}
+
+@media (max-width: 767.98px) {
   #page-content,
   .footer,
   footer.footer.bg-body {
@@ -4234,6 +4313,11 @@ html.mq-nav-loading #muqtarin-page-skeleton {
   gap: 8px;
   align-items: center;
 }
+.overview-data .heading .d-flex.justify-content-end > .btn,
+.content-area .heading .d-flex.justify-content-end > .btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 
 /* Unified OriginUI Search Input Group */
 .search-input-grp {
@@ -4414,10 +4498,59 @@ html.mq-nav-loading #muqtarin-page-skeleton {
 }
 .bootstrap-table .fixed-table-container .fixed-table-body {
   background: var(--surface) !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+.bootstrap-table .fixed-table-container:has(.fixed-table-loading.open) .fixed-table-body,
+.bootstrap-table .fixed-table-container.mq-table-loading .fixed-table-body {
+  min-height: 180px;
 }
 .bootstrap-table .fixed-table-loading {
   background: var(--surface) !important;
   color: var(--muted) !important;
+  z-index: 5;
+}
+.bootstrap-table .fixed-table-container:has(.fixed-table-loading.open) tbody tr.no-records-found,
+.bootstrap-table .fixed-table-container.mq-table-loading tbody tr.no-records-found {
+  display: none !important;
+}
+.mq-table-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: min(320px, 85%);
+  padding: 20px;
+}
+.mq-table-loader-row {
+  height: 10px;
+  width: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--surface-alt) 25%, var(--border) 50%, var(--surface-alt) 75%);
+  background-size: 200% 100%;
+  animation: mqShimmer 1.4s ease-in-out infinite;
+}
+.mq-table-loader-row.is-short {
+  width: 68%;
+}
+.mq-table-loader-spinner {
+  font-size: 1.35rem;
+  color: var(--pine);
+  line-height: 1;
+}
+[data-theme="dark"] .mq-table-loader-spinner {
+  color: var(--emerald);
+}
+@keyframes mqShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (max-width: 1199.98px) {
+  .bootstrap-table .fixed-table-container .table th,
+  .bootstrap-table .fixed-table-container .table td {
+    white-space: nowrap;
+  }
 }
 .bootstrap-table .table tbody tr.no-records-found td {
   padding: 32px 16px !important;
@@ -4475,64 +4608,30 @@ html.mq-nav-loading #muqtarin-page-skeleton {
   object-fit: contain;
 }
 
-/* Row Action Dropdown Overflow Safeguard & Direction Rules */
-.fixed-table-body:has(.dropdown.show),
-.fixed-table-container:has(.dropdown.show),
-.table-responsive:has(.dropdown.show) {
-  overflow: visible !important;
+/* Row Action Dropdown Overflow Safeguard & Fixed Viewport Positioning */
+.fixed-table-body .dropdown-menu.mq-fixed-dropdown,
+.table-responsive .dropdown-menu.mq-fixed-dropdown {
+  position: fixed !important;
+  transform: none !important;
+  margin: 0 !important;
+  z-index: 1085 !important;
 }
 .action_dropdown,
 .table_dropdown {
-  position: absolute !important;
-  inset: 0px auto auto 0px !important;
   margin: 0px !important;
 }
-.stock_action_dropdown { transform: translate(-72px, 0px) !important; }
-.tax_action_dropdown { transform: translate(-35px, -60px) !important; }
-[dir="rtl"] .tax_action_dropdown { transform: translate(4px, -60px) !important; }
-.product_action_dropdown { transform: translate(-50px, -46px) !important; }
-[dir="rtl"] .product_action_dropdown { transform: translate(4px, -46px) !important; }
-.product_faq_action_dropdown { transform: translate(-72px, -35px) !important; }
-[dir="rtl"] .product_faq_action_dropdown { transform: translate(4px, -35px) !important; }
-.combo_product_action_dropdown { transform: translate(-109px, -35px) !important; }
-[dir="rtl"] .combo_product_action_dropdown { transform: translate(4px, -35px) !important; }
-.category_slider_action_dropdown { transform: translate(-110px, -25px) !important; }
-[dir="rtl"] .category_slider_action_dropdown { transform: translate(4px, -60px) !important; }
-.order_action_dropdown { transform: translate(-105px, -60px) !important; }
-[dir="rtl"] .order_action_dropdown { transform: translate(4px, -60px) !important; }
-.seller_action_dropdown { transform: translate(-105px, -25px) !important; }
-[dir="rtl"] .seller_action_dropdown { transform: translate(4px, -60px) !important; }
-.custom_message_action_dropdown { transform: translate(-110px, -44px) !important; }
-[dir="rtl"] .custom_message_action_dropdown { transform: translate(4px, -44px) !important; }
-.order_items_action_dropdown { transform: translate(-110px, -60px) !important; }
-[dir="rtl"] .order_items_action_dropdown { transform: translate(4px, -60px) !important; }
-.brand_action_dropdown { transform: translate(-38px, -35px) !important; }
-[dir="rtl"] .brand_action_dropdown { transform: translate(4px, -60px) !important; }
-.ticket_action_dropdown,
-.customer_action_dropdown { transform: translate(-75px, -35px) !important; }
-.category_action_dropdown { transform: translate(-18px, -20px) !important; }
-.slider_action_dropdown { transform: translate(-65px, -33px) !important; }
-[dir="rtl"] .slider_action_dropdown { transform: translate(4px, -33px) !important; }
-.offer_action_dropdown { transform: translate(-100px, -33px) !important; }
-[dir="rtl"] .offer_action_dropdown { transform: translate(4px, -33px) !important; }
-.blog_action_dropdown { transform: translate(0px, -30px) !important; }
-.order_tracking_action_dropdown { transform: translate(-85px, -25px) !important; }
-.zipcode_action_dropdown { transform: translate(-38px, -32px) !important; }
-[dir="rtl"] .zipcode_action_dropdown { transform: translate(4px, -32px) !important; }
-.city_action_dropdown { transform: translate(-20px, -33px) !important; }
-[dir="rtl"] .city_action_dropdown { transform: translate(4px, -33px) !important; }
-.payment_request_action_dropdown { transform: translate(-82px, 0px) !important; }
-.system_user_action_dropdown { transform: translate(-52px, -44px) !important; }
-[dir="rtl"] .system_user_action_dropdown { transform: translate(4px, -44px) !important; }
-.attribute_action_dropdown { transform: translate(-17px, 0px) !important; }
 
 /* Status Selects in Tables & Payment Settings */
+td:has(.status_dropdown),
+td:has(.brand_status_dropdown) {
+  min-width: 134px;
+}
 .status_dropdown,
 .brand_status_dropdown,
 .pickup_location_active_status,
 .pickup_location_inactive_status {
   width: auto !important;
-  min-width: 96px !important;
+  min-width: 118px !important;
   max-width: 185px;
   min-height: 32px !important;
   height: 32px !important;
@@ -4905,6 +5004,23 @@ html.mq-nav-loading #muqtarin-page-skeleton {
 .payment-sidebar {
   padding: 12px;
 }
+@media (max-width: 991.98px) {
+  .payment-sidebar {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding: 8px !important;
+    margin-bottom: 12px;
+    scrollbar-width: thin;
+  }
+  .payment-sidebar .nav-link {
+    white-space: nowrap;
+    flex: 0 0 auto;
+    margin-bottom: 0 !important;
+  }
+}
 
 /* =============================================================================
    23. Dropzones, Previews & Comprehensive Dark Mode Surface Safeguards
@@ -5244,12 +5360,18 @@ html.mq-nav-loading #muqtarin-page-skeleton {
 .product_detail_image_box {
   padding: 8px;
   width: 100%;
-  height: 440px;
+  height: clamp(280px, 38vw, 440px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   border-radius: var(--radius-lg);
   background: var(--surface-alt);
   border: 1px solid var(--border);
 }
 .product_detail_image_box img {
+  max-width: 100%;
+  max-height: 100%;
   width: 100%;
   height: 100%;
   object-fit: contain;

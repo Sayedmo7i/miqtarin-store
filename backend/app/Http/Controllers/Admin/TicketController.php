@@ -309,6 +309,25 @@ class TicketController extends Controller
             ];
         });
 
+        if ($formattedMessages->isEmpty() && !empty($ticketId) && empty($search) && empty($msgId) && (int) $offset === 0) {
+            $ticket = Ticket::with('user')->find($ticketId);
+            if ($ticket && trim((string) $ticket->description) !== '') {
+                $formattedMessages = collect([[
+                    'id' => 0,
+                    'user_type' => 'user',
+                    'user_id' => $ticket->user_id,
+                    'ticket_id' => $ticket->id,
+                    'message' => $ticket->description,
+                    'name' => $ticket->user->username ?? '',
+                    'attachments' => [],
+                    'subject' => $ticket->subject ?? '',
+                    'created_at' => Carbon::parse($ticket->created_at)->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::parse($ticket->updated_at)->format('Y-m-d H:i:s'),
+                ]]);
+                $total = 1;
+            }
+        }
+
         return [
             'error' => $formattedMessages->isEmpty(),
             'message' => $formattedMessages->isEmpty()

@@ -66,6 +66,22 @@
                             </label>
                             <select class='form-control mt-4' name='category_id' id="category_select">
                                 <option value="">{{ labels('admin_labels.select_category', 'Select Category') }}</option>
+                                @if (isset($categories))
+                                    @foreach ($categories as $category)
+                                        @php
+                                            $catName = app(\App\Services\TranslationService::class)->getDynamicTranslation(\App\Models\Category::class, 'name', $category->id, $language_code ?? 'en');
+                                        @endphp
+                                        <option value="{{ $category->id }}" style="font-weight: bold;">{{ $catName }}</option>
+                                        @if ($category->children && $category->children->count())
+                                            @foreach ($category->children as $subCategory)
+                                                @php
+                                                    $subCatName = app(\App\Services\TranslationService::class)->getDynamicTranslation(\App\Models\Category::class, 'name', $subCategory->id, $language_code ?? 'en');
+                                                @endphp
+                                                <option value="{{ $subCategory->id }}">&nbsp;&nbsp; {{ $subCatName }}</option>
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -86,7 +102,7 @@
 
 
                 <div class="tab-content mt-3" id="brandTabsContent">
-                    <div class="tab-pane fade show active" id="content-en" role="tabpanel" aria-labelledby="tab-en">
+                    <div class="tab-pane fade show active" id="content-en" role="tabpanel" aria-labelledby="tab-en" dir="ltr">
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="pro_input_text" class="form-label">
@@ -149,8 +165,11 @@
                     </div>
                     @foreach ($languages as $lang)
                         @if ($lang->code !== 'en')
+                            @php
+                                $tabDir = (($lang->is_rtl ?? 0) == 1 || in_array($lang->code, ['ar', 'he', 'fa', 'ur'], true)) ? 'rtl' : 'ltr';
+                            @endphp
                             <div class="tab-pane fade" id="content-{{ $lang->code }}" role="tabpanel"
-                                aria-labelledby="tab-{{ $lang->code }}">
+                                aria-labelledby="tab-{{ $lang->code }}" dir="{{ $tabDir }}">
                                 <div class="row">
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">
@@ -161,7 +180,7 @@
                                             <input type="text" class="form-control translated-name-input"
                                                 id="translated_name_{{ $lang->code }}"
                                                 name="translated_product_name[{{ $lang->code }}]"
-                                                data-lang="{{ $lang->code }}">
+                                                data-lang="{{ $lang->code }}" dir="{{ $tabDir }}">
                                         </div>
                                     </div>
 
@@ -470,7 +489,7 @@
 
                                     <div id="affiliate_info" style="display:none;">
                                         <label for="is_in_affiliate"
-                                            class="form-label">{{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}?
+                                            class="form-label">{{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}
                                         </label>
 
                                         <div class="d-flex">
@@ -483,7 +502,7 @@
                                     </div>
                                     <div>
                                         <label for="is_cod_allowed"
-                                            class="form-label">{{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}?
+                                            class="form-label">{{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}
                                         </label>
                                     </div>
                                     <div class="d-flex">
@@ -503,7 +522,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <label for="is_returnable"
-                                            class="form-label">{{ labels('admin_labels.is_returnable', 'IS Returnable') }}?
+                                            class="form-label">{{ labels('admin_labels.is_returnable', 'IS Returnable') }}
                                         </label>
                                     </div>
                                     <div class="d-flex">
@@ -521,7 +540,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <label for="is_cancelable"
-                                            class="form-label">{{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}?
+                                            class="form-label">{{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}
                                         </label>
                                     </div>
                                     <div class="d-flex">
@@ -540,7 +559,7 @@
                         <div class="col-md-6 mt-7 collapse" id='cancelable_till'>
                             <div class="form-group">
                                 <label for="cancelable_till"
-                                    class="form-label">{{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}?
+                                    class="form-label">{{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}
                                 </label>
                                 <select class='form-select' name="cancelable_till">
                                     <option value='received'>{{ labels('admin_labels.received_option', 'Received') }}</option>
@@ -554,7 +573,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <label for="is_attachment_required"
-                                            class="form-label">{{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}?
+                                            class="form-label">{{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}
                                         </label>
                                     </div>
                                     <div class="d-flex">
@@ -900,7 +919,7 @@
                                     <div class="row form-group">
                                         <div class="col-md-6 d-flex">
                                             <label for="download_allowed"
-                                                class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}?</label>
+                                                class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}</label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" name="download_allowed"
                                                     id="download_allowed">

@@ -253,7 +253,7 @@
                     <div class="form-group col-md-4">
                         <div class="d-flex justify-content-between align-items-center">
                             <label class="form-label">
-                                {{ labels('admin_labels.has_similar_products', 'Has similar products') }}?
+                                {{ labels('admin_labels.has_similar_products', 'Has similar products') }}
                             </label>
                             <div class="form-check form-switch">
                                 <input class="form-check-input has_similar_product" type="checkbox"
@@ -454,7 +454,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <label for="is_cod_allowed" class="form-label">
-                                        {{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}?
+                                        {{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                             data-bs-toggle="popover"
                                             data-bs-placement="right"
@@ -477,7 +477,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <label for="is_returnable" class="form-label">
-                                        {{ labels('admin_labels.is_returnable', 'IS Returnable') }}?
+                                        {{ labels('admin_labels.is_returnable', 'IS Returnable') }}
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                             data-bs-toggle="popover"
                                             data-bs-placement="right"
@@ -498,7 +498,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <label for="is_cancelable" class="form-label">
-                                        {{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}?
+                                        {{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                             data-bs-toggle="popover"
                                             data-bs-placement="right"
@@ -521,7 +521,7 @@
                     <div class="col-md-6 mt-7 collapse" id='cancelable_till'>
                         <div class="form-group">
                             <label for="cancelable_till" class="form-label">
-                                {{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}?
+                                {{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}
                                 <i class="fa fa-info-circle text-secondary ms-1"
                                     data-bs-toggle="popover"
                                     data-bs-placement="right"
@@ -539,7 +539,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <label for="is_attachment_required" class="form-label">
-                                        {{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}?
+                                        {{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                             data-bs-toggle="popover"
                                             data-bs-placement="right"
@@ -561,7 +561,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <label for="is_in_affiliate" class="form-label">
-                                        {{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}?
+                                        {{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                             data-bs-toggle="popover"
                                             data-bs-placement="right"
@@ -826,7 +826,7 @@
                                     <div class="row form-group">
                                         <div class="col-md-6 d-flex">
                                             <label for="download_allowed"
-                                                class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}?</label>
+                                                class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}</label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" name="download_allowed"
                                                     id="download_allowed">

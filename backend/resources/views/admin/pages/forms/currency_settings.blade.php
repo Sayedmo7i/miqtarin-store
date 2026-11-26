@@ -31,33 +31,33 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="">
+                                <label for="name">
                                     {{ labels('admin_labels.currency_name', 'Currency Name') }}
                                 </label>
                                 <input type="text" name="name" class="form-control" id="name"
-                                    placeholder="{{ labels('admin_labels.placeholder_india_rupee', 'India Rupee') }}">
+                                    placeholder="{{ labels('admin_labels.placeholder_currency_name', 'US Dollar') }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">
+                                <label for="symbol">
                                     {{ labels('admin_labels.currency_symbol', 'Currency Symbol') }}
                                 </label>
-                                <input type="text" name="symbol" class="form-control" id="symbol" placeholder="₹">
+                                <input type="text" name="symbol" class="form-control" id="symbol" placeholder="$">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="">
+                                <label for="code">
                                     {{ labels('admin_labels.currency_code', 'Currency Code') }}
                                 </label>
-                                <input type="text" name="code" class="form-control" id="code" placeholder="{{ labels('admin_labels.placeholder_inr', 'inr') }}">
+                                <input type="text" name="code" class="form-control" id="code" placeholder="{{ labels('admin_labels.placeholder_currency_code', 'USD') }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="">
+                                <label for="exchange_rate">
                                     {{ labels('admin_labels.currency_exchange_rate', 'Currency Exchange Rate') }}
                                 </label>
                                 <input type="number" min="0" max="1000000" name="exchange_rate" step="0.00000001"
-                                    class="form-control" id="exchange_rate" placeholder="80">
+                                    class="form-control" id="exchange_rate" placeholder="1">
                             </div>
                         </div>
 

@@ -215,7 +215,7 @@ class TaxController extends Controller
                     'operate' => $action,
                     'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($t->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $t->id . '" data-url="/admin/tax/update_status/' . $t->id . '" aria-label="">
                                   <option value="1" ' . ($t->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                                  <option value="0" ' . ($t->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                                  <option value="0" ' . ($t->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
                               </select>',
                 ];
             });

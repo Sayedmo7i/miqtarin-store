@@ -284,7 +284,7 @@ class Delivery_boyController extends Controller
             // Always show status toggle so admin can activate/deactivate delivery boy
             $b->status = '<select class="form-select status_dropdown change_toggle_status ' . ($b->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $b->id . '" data-url="/admin/delivery_boy/update_status/' . $b->id . '" aria-label="">
                     <option value="1" ' . ($b->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                    <option value="0" ' . ($b->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                    <option value="0" ' . ($b->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
                 </select>';
             $bonusBadge = ($b->bonus_type == 'percentage_per_order_item') ? '<span class="badge bg-primary">Percentage Per Order Item</span>' : '<span class="badge bg-info">Fix Amount Per Order Item</span>';
             $b->action = $action;

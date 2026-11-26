@@ -18,7 +18,7 @@
 
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-12 mb-3">
             <div class="card">
                 <div class="tab-content p-4" id="pills-tabContent-vertical-pills">
                     <div class="tab-pane tab-example-design fade show active" id="pills-vertical-pills-design" role="tabpanel"
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-lg-8 col-md-12">
             <form id="" action="{{ route('system_settings.store') }}" class="submit_form"
                 enctype="multipart/form-data" method="POST">
                 @csrf
@@ -93,17 +93,17 @@
                                 <div class="card-body">
                                     <div class="row mt-4">
 
-                                        <div class="mb-3 col-md-4">
-                                            <label class="form-label" for="basic-default-fullname">
+                                        <div class="mb-3 col-lg-4 col-md-6">
+                                            <label class="form-label" for="app_name">
                                                 {{ labels('admin_labels.app_name', 'App Name') }}<span
                                                     class='text-asterisks text-sm'>*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="app_name"
                                                 name="app_name"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'app_name') ? $settings['app_name'] : '' ?>">
                                         </div>
 
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="support_number">
                                                 {{ labels('admin_labels.support_number', 'Support Number') }}<span
                                                     class='text-asterisks text-sm'>*</span>
@@ -113,17 +113,17 @@
                                                 value="<?= isKeySetAndNotEmpty($settings, 'support_number') ? $settings['support_number'] : '' ?>">
                                         </div>
 
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="support_email">
                                                 {{ labels('admin_labels.support_email', 'Support Email') }}<span
                                                     class='text-asterisks text-sm'>*</span>
                                             </label>
                                             <input type="email" class="form-control" id="support_email"
-                                                placeholder="{{ labels('admin_labels.support_email_placeholder', 'eshop@gmail.com') }}" name="support_email"
+                                                placeholder="{{ labels('admin_labels.support_email_placeholder', 'support@muqtarin.store') }}" name="support_email"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'support_email') ? $settings['support_email'] : '' ?>">
                                         </div>
 
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="android_customer">
                                                 {{ labels('admin_labels.current_version_of_android_app', 'Current Version Of Android APP') }}
                                                 ({{ labels('admin_labels.customer_app_label', 'Customer app') }})<span class='text-asterisks text-sm'>*</span>
@@ -133,7 +133,7 @@
                                                 value="<?= isKeySetAndNotEmpty($settings, 'current_version_of_android_app') ? $settings['current_version_of_android_app'] : '' ?>">
                                         </div>
 
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="ios_customer">
                                                 {{ labels('admin_labels.current_version_of_ios_app', 'Current Version Of IOS APP') }}
                                                 ({{ labels('admin_labels.customer_app_label', 'Customer app') }})<span class='text-asterisks text-sm'>*</span>
@@ -143,7 +143,7 @@
                                                 value="<?= isKeySetAndNotEmpty($settings, 'current_version_of_ios_app') ? $settings['current_version_of_ios_app'] : '' ?>">
                                         </div>
 
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="android_seller">
                                                 {{ labels('admin_labels.current_version_of_android_app', 'Current Version Of Android APP') }}
                                                 ({{ labels('admin_labels.seller_app_label', 'Seller app') }})<span class='text-asterisks text-sm'>*</span>
@@ -153,7 +153,7 @@
                                                 value="<?= isKeySetAndNotEmpty($settings, 'current_version_of_android_app_for_seller') ? $settings['current_version_of_android_app_for_seller'] : '' ?>">
                                         </div>
 
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="ios_seller">
                                                 {{ labels('admin_labels.current_version_of_ios_app', 'Current Version Of IOS APP') }}
                                                 ({{ labels('admin_labels.seller_app_label', 'Seller app') }})<span class='text-asterisks text-sm'>*</span>
@@ -163,7 +163,7 @@
                                                 value="<?= isKeySetAndNotEmpty($settings, 'current_version_of_ios_app_for_seller') ? $settings['current_version_of_ios_app_for_seller'] : '' ?>">
                                         </div>
 
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="android_delivery">
                                                 {{ labels('admin_labels.current_version_of_android_app', 'Current Version Of Android APP') }}
                                                 ({{ labels('admin_labels.delivery_boy_app_label', 'Delivery Boy app') }})<span class='text-asterisks text-sm'>*</span>
@@ -173,7 +173,7 @@
                                                 value="<?= isKeySetAndNotEmpty($settings, 'current_version_of_android_app_for_delivery_boy') ? $settings['current_version_of_android_app_for_delivery_boy'] : '' ?>">
                                         </div>
 
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="ios_delivery">
                                                 {{ labels('admin_labels.current_version_of_ios_app', 'Current Version Of IOS APP') }}
                                                 ({{ labels('admin_labels.delivery_boy_app_label', 'Delivery Boy app') }})<span class='text-asterisks text-sm'>*</span>
@@ -183,7 +183,7 @@
                                                 value="<?= isKeySetAndNotEmpty($settings, 'current_version_of_ios_app_for_delivery_boy') ? $settings['current_version_of_ios_app_for_delivery_boy'] : '' ?>">
                                         </div>
 
-                                        <div class="mb-2 col-md-4">
+                                        <div class="mb-2 col-lg-4 col-md-6">
                                             <label class="form-label" for="version_system_status">
                                                 {{ labels('admin_labels.version_system_status', 'Version System Status') }}<span
                                                     class='text-asterisks text-sm'>*</span>
@@ -205,18 +205,18 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.tax_name', 'Tax Name') }}<span
+                                                for="app_tax_name">{{ labels('admin_labels.tax_name', 'Tax Name') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="app_tax_name"
                                                 placeholder="" name="tax_name"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'tax_name') ? $settings['tax_name'] : '' ?>">
 
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.tax_number', 'Tax Number') }}<span
+                                                for="app_tax_number">{{ labels('admin_labels.tax_number', 'Tax Number') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="app_tax_number"
                                                 placeholder="" name="tax_number"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'tax_number') ? $settings['tax_number'] : '' ?>">
                                         </div>
@@ -264,7 +264,7 @@
                                     </h6>
 
                                     <div class="row">
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <div class="row align-items-center">
                                                 <div class="col-md-4">
                                                     <label class="form-label" for="google">
@@ -280,7 +280,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <div class="row align-items-center">
                                                 <div class="col-md-12">
                                                     <label class="form-label d-flex align-items-center" for="facebook">
@@ -299,7 +299,7 @@
                                             </div>
                                         </div>
                                         <!-- Apple -->
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <div class="row align-items-center">
                                                 <div class="col-md-4">
                                                     <label class="form-label" for="apple">
@@ -320,53 +320,53 @@
                                         {{ labels('admin_labels.app_links', 'App Links  ') }}
                                     </h6>
                                     <div class="row">
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.play_store_link_for_customer_app', 'Play Store Link For Customer App') }}<span
+                                                for="play_store_link_for_customer_app">{{ labels('admin_labels.play_store_link_for_customer_app', 'Play Store Link For Customer App') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="play_store_link_for_customer_app"
                                                 placeholder="" name="play_store_link_for_customer_app"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'play_store_link_for_customer_app') ? $settings['play_store_link_for_customer_app'] : '' ?>">
                                         </div>
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.play_store_link_for_seller_app', 'Play Store Link For Seller App') }}<span
+                                                for="play_store_link_for_seller_app">{{ labels('admin_labels.play_store_link_for_seller_app', 'Play Store Link For Seller App') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="play_store_link_for_seller_app"
                                                 placeholder="" name="play_store_link_for_seller_app"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'play_store_link_for_seller_app') ? $settings['play_store_link_for_seller_app'] : '' ?>">
                                         </div>
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.play_store_link_for_delivery_boy_app', 'Play Store Link For Delivery Boy App') }}<span
+                                                for="play_store_link_for_delivery_boy_app">{{ labels('admin_labels.play_store_link_for_delivery_boy_app', 'Play Store Link For Delivery Boy App') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="play_store_link_for_delivery_boy_app"
                                                 placeholder="" name="play_store_link_for_delivery_boy_app"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'play_store_link_for_delivery_boy_app') ? $settings['play_store_link_for_delivery_boy_app'] : '' ?>">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.app_store_link_for_customer_app', 'App Store Link For Customer App') }}<span
+                                                for="app_store_link_for_customer_app">{{ labels('admin_labels.app_store_link_for_customer_app', 'App Store Link For Customer App') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="app_store_link_for_customer_app"
                                                 placeholder="" name="app_store_link_for_customer_app"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'app_store_link_for_customer_app') ? $settings['app_store_link_for_customer_app'] : '' ?>">
                                         </div>
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.app_store_link_for_seller_app', 'APP Store Link For Seller App') }}<span
+                                                for="app_store_link_for_seller_app">{{ labels('admin_labels.app_store_link_for_seller_app', 'APP Store Link For Seller App') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="app_store_link_for_seller_app"
                                                 placeholder="" name="app_store_link_for_seller_app"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'app_store_link_for_seller_app') ? $settings['app_store_link_for_seller_app'] : '' ?>">
                                         </div>
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.app_store_link_for_delivery_boy_app', 'App Store Link For Delivery Boy App') }}<span
+                                                for="app_store_link_for_delivery_boy_app">{{ labels('admin_labels.app_store_link_for_delivery_boy_app', 'App Store Link For Delivery Boy App') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="app_store_link_for_delivery_boy_app"
                                                 placeholder="" name="app_store_link_for_delivery_boy_app"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'app_store_link_for_delivery_boy_app') ? $settings['app_store_link_for_delivery_boy_app'] : '' ?>">
                                         </div>
@@ -376,37 +376,37 @@
                                         {{ labels('admin_labels.deep_linking', 'Deep Linking') }}
                                     </h6>
                                     <div class="row">
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="deep_link_scheme">
                                                 {{ labels('admin_labels.deep_link_scheme', 'Deep Link Scheme') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
                                             <input type="text" class="form-control" id="deep_link_scheme"
-                                                placeholder="{{ labels('admin_labels.deep_link_scheme_placeholder', 'eshop') }}" name="deep_link_scheme"
-                                                value="<?= isKeySetAndNotEmpty($settings, 'deep_link_scheme') ? str_replace('://', '', $settings['deep_link_scheme']) : 'eshop' ?>">
+                                                placeholder="{{ labels('admin_labels.deep_link_scheme_placeholder', 'muqtarin') }}" name="deep_link_scheme"
+                                                value="<?= isKeySetAndNotEmpty($settings, 'deep_link_scheme') ? str_replace('://', '', $settings['deep_link_scheme']) : 'muqtarin' ?>">
                                             <small class="form-text text-muted">
-                                                {{ labels('admin_labels.deep_link_scheme_hint', 'Enter only the scheme name (e.g., eshop).') }}
+                                                {{ labels('admin_labels.deep_link_scheme_hint', 'Enter only the scheme name (e.g., muqtarin).') }}
                                             </small>
                                         </div>
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="deep_link_host">
                                                 {{ labels('admin_labels.deep_link_host', 'Deep Link Host') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
                                             <input type="text" class="form-control" id="deep_link_host"
-                                                placeholder="{{ labels('admin_labels.deep_link_host_placeholder', 'eshop-pro.eshopweb.store') }}" name="deep_link_host"
-                                                value="<?= isKeySetAndNotEmpty($settings, 'deep_link_host') ? $settings['deep_link_host'] : 'eshop-pro.eshopweb.store' ?>">
+                                                placeholder="{{ labels('admin_labels.deep_link_host_placeholder', 'muqtarin.store') }}" name="deep_link_host"
+                                                value="<?= isKeySetAndNotEmpty($settings, 'deep_link_host') ? $settings['deep_link_host'] : 'muqtarin.store' ?>">
                                             <small class="form-text text-muted">
-                                                {{ labels('admin_labels.deep_link_host_hint', 'Enter the host domain (e.g., eshop-pro.eshopweb.store).') }}
+                                                {{ labels('admin_labels.deep_link_host_hint', 'Enter the host domain (e.g., muqtarin.store).') }}
                                             </small>
                                         </div>
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label" for="android_package_name">
                                                 {{ labels('admin_labels.android_package_name', 'Android Package Name') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
                                             <input type="text" class="form-control" id="android_package_name"
-                                                placeholder="{{ labels('admin_labels.android_package_name_placeholder', 'com.eshop.pro') }}" name="android_package_name"
+                                                placeholder="{{ labels('admin_labels.android_package_name_placeholder', 'com.muqtarin.store') }}" name="android_package_name"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'android_package_name') ? $settings['android_package_name'] : '' ?>">
                                             <small class="form-text text-muted">
                                                 {{ labels('admin_labels.android_package_name_hint', "Enter your Android app's package name.") }}
@@ -444,15 +444,17 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     @if (!empty($settings['logo']))
-                                                        <label for="" class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
+                                                        <label for="" class="text-muted small d-block mt-3">{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
                                                         <div class="container-fluid row image-upload-section">
                                                             <div
-                                                                class="col-md-4 shadow p-3 mb-4 rounded m-2 text-center grow image">
+                                                                class="col-auto shadow p-3 mb-4 rounded m-2 text-center grow image"
+                                                                style="min-width: 140px; max-width: 220px;">
                                                                 <div class=''>
                                                                     <div class='upload-media-div'><img
                                                                             class="img-fluid mb-2"
-                                                                            src="{{ asset('storage' . $settings['logo']) }}"
-                                                                            onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                                            style="max-height: 88px; width: auto; object-fit: contain;"
+                                                                            src="{{ asset('storage/' . ltrim($settings['logo'], '/')) }}"
+                                                                            onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                             alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
                                                                     <input type="hidden" name="logo" id='logo'
                                                                         value='<?= $settings['logo'] ?>'>
@@ -462,7 +464,8 @@
                                                     @else
                                                         <div class="container-fluid row image-upload-section">
                                                             <div
-                                                                class="col-md-4 shadow p-2 mb-4 rounded m-2 text-center grow image d-none">
+                                                                class="col-auto shadow p-2 mb-4 rounded m-2 text-center grow image d-none"
+                                                                style="min-width: 140px; max-width: 220px;">
                                                             </div>
                                                         </div>
                                                     @endif
@@ -483,20 +486,22 @@
                                                             data-bs-target="#media-upload-modal" value="Upload Photo">
                                                             <h4><i class='bx bx-upload'></i> {{ labels('admin_labels.upload_option', 'Upload') }}</h4>
                                                         </a>
-                                                        <p class="image_recommendation">{{ labels('admin_labels.recommended_size_120_150_pixels', 'Recommended Size : larger than 120 x 120 & smaller than 150 x 150 pixels.') }}</p>
+                                                        <p class="image_recommendation">{{ labels('admin_labels.recommended_size_120_150_pixels', 'Recommended Size : larger than 120 x 150 & smaller than 150 x 150 pixels.') }}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 @if (!empty($settings['favicon']))
-                                                    <label for="" class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
+                                                    <label for="" class="text-muted small d-block mt-3">{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
                                                     <div class="container-fluid row image-upload-section">
                                                         <div
-                                                            class="col-md-4 shadow p-3 mb-4 rounded m-2 text-center grow image">
+                                                            class="col-auto shadow p-3 mb-4 rounded m-2 text-center grow image"
+                                                            style="min-width: 140px; max-width: 220px;">
                                                             <div class=''>
                                                                 <div class='upload-media-div'><img class="img-fluid mb-2"
-                                                                        src="{{ asset('storage' . $settings['favicon']) }}"
-                                                                        onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                                        style="max-height: 88px; width: auto; object-fit: contain;"
+                                                                        src="{{ asset('storage/' . ltrim($settings['favicon'], '/')) }}"
+                                                                        onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                         alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
                                                                 <input type="hidden" name="favicon" id='favicon'
                                                                     value='<?= $settings['favicon'] ?>'>
@@ -506,7 +511,8 @@
                                                 @else
                                                     <div class="container-fluid row image-upload-section">
                                                         <div
-                                                            class="col-md-4 shadow p-2 mb-4 rounded m-2 text-center grow image d-none">
+                                                            class="col-auto shadow p-2 mb-4 rounded m-2 text-center grow image d-none"
+                                                            style="min-width: 140px; max-width: 220px;">
                                                         </div>
                                                     </div>
                                                 @endif
@@ -515,9 +521,9 @@
 
                                     </div>
                                     <label class="form-label"
-                                        for="basic-default-fullname">{{ labels('admin_labels.on_boarding_media_type', 'On Boarding Media Type') }}</label>
+                                        for="on_boarding_media_type">{{ labels('admin_labels.on_boarding_media_type', 'On Boarding Media Type') }}</label>
                                     <div class="col-md-6">
-                                        <select class="form-select form-select-md mb-3"
+                                        <select class="form-select form-select-md mb-3" id="on_boarding_media_type"
                                             aria-label=".form-select-md example" name="on_boarding_media_type">
                                             <option value="image"
                                                 {{ isset($settings['on_boarding_media_type']) && $settings['on_boarding_media_type'] == 'image' ? 'selected' : '' }}>
@@ -553,7 +559,7 @@
                                                     </div>
                                                 </a>
                                                 @if (!empty($settings['on_boarding_image']))
-                                                    <label for="" class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
+                                                    <label for="" class="text-muted small d-block mt-3">{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
 
                                                     <div class="container-fluid row image-upload-section">
                                                         @foreach ($settings['on_boarding_image'] as $row)
@@ -561,8 +567,8 @@
                                                                 class="grow image product-image-container rounded shadow text-center m-2">
                                                                 <div class='image-upload-div'>
                                                                     <img class="img-fluid mb-2" alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"
-                                                                        onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
-                                                                        src="{{ asset('storage' . $row) }}" />
+                                                                        onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                                        src="{{ asset('storage/' . ltrim($row, '/')) }}" />
                                                                 </div>
                                                                 <a href="javascript:void(0)" class="delete-onboard-media"
                                                                     data-field="on_boarding_image" data-img="<?= $row ?>"
@@ -611,7 +617,7 @@
                                             </a>
 
                                             @if (!empty($settings['on_boarding_video']))
-                                                <label for="" class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
+                                                <label for="" class="text-muted small d-block mt-3">{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
 
                                                 <div class="container-fluid row image-upload-section">
                                                     @foreach ($settings['on_boarding_video'] as $row)
@@ -619,8 +625,8 @@
                                                             class="grow image product-image-container rounded shadow text-center m-2">
                                                             <div class='image-upload-div'>
                                                                 <img class="img-fluid mb-2"
-                                                                    src='{{ config('app.url') . 'assets/admin/images/video-file.png' }}'
-                                                                    onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                                    src='{{ asset('assets/admin/images/video-file.png') }}'
+                                                                    onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                     alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
                                                             </div>
                                                             <a href="javascript:void(0)" class="delete-onboard-media"
@@ -644,9 +650,9 @@
                                     </div>
 
                                     <label class="form-label"
-                                        for="basic-default-fullname">{{ labels('admin_labels.storage_setting', 'Storage Setting') }}</label>
+                                        for="storage_type">{{ labels('admin_labels.storage_setting', 'Storage Setting') }}</label>
                                     <div class="col-md-6">
-                                        <select class="form-select form-select-md mb-3"
+                                        <select class="form-select form-select-md mb-3" id="storage_type"
                                             aria-label=".form-select-md example" name="storage_type">
                                             <option value="local"
                                                 {{ isKeySetAndNotEmpty($settings, 'storage_type') && $settings['storage_type'] == 'local' ? 'selected' : '' }}>
@@ -673,7 +679,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.system_timezone', 'System Timezone') }}<span
+                                                for="system_timezone">{{ labels('admin_labels.system_timezone', 'System Timezone') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
                                             <select id="system_timezone" name="system_timezone" required
                                                 class="form-control form-select col-md-12 select2">
@@ -692,11 +698,11 @@
                                         </div>
 
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label" for="basic-default-fullname">
+                                            <label class="form-label" for="minimum_cart_amount">
                                                 {{ labels('admin_labels.minimum_cart_amount', 'Minimum Cart Amount') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
-                                            <input type="number" class="form-control" id="basic-default-fullname"
+                                            <input type="number" class="form-control" id="minimum_cart_amount"
                                                 placeholder="" name="minimum_cart_amount" min=1
                                                 value="<?= isKeySetAndNotEmpty($settings, 'minimum_cart_amount') ? $settings['minimum_cart_amount'] : '' ?>">
 
@@ -705,9 +711,9 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.maximum_item_allowed_in_cart', 'Maximum Items Allowed In Cart') }}<span
+                                                for="maximum_item_allowed_in_cart">{{ labels('admin_labels.maximum_item_allowed_in_cart', 'Maximum Items Allowed In Cart') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="number" min=1 class="form-control" id="basic-default-fullname"
+                                            <input type="number" min=1 class="form-control" id="maximum_item_allowed_in_cart"
                                                 placeholder="" name="maximum_item_allowed_in_cart"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'maximum_item_allowed_in_cart') ? $settings['maximum_item_allowed_in_cart'] : '' ?>">
 
@@ -715,9 +721,9 @@
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.low_stock_limit', 'Low stock limit') }}<span
+                                                for="low_stock_limit">{{ labels('admin_labels.low_stock_limit', 'Low stock limit') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="number" min=1 class="form-control" id="basic-default-fullname"
+                                            <input type="number" min=1 class="form-control" id="low_stock_limit"
                                                 placeholder="" name="low_stock_limit"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'low_stock_limit') ? $settings['low_stock_limit'] : '' ?>">
 
@@ -727,9 +733,9 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.max_days_to_return_item', 'Max days to return item') }}<span
+                                                for="max_days_to_return_item">{{ labels('admin_labels.max_days_to_return_item', 'Max days to return item') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="number" class="form-control" id="basic-default-fullname" min=1
+                                            <input type="number" class="form-control" id="max_days_to_return_item" min=1
                                                 placeholder="" name="max_days_to_return_item"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'max_days_to_return_item') ? $settings['max_days_to_return_item'] : '' ?>">
 
@@ -737,9 +743,9 @@
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.country_code', 'Country Code') }}<span
+                                                for="country_code">{{ labels('admin_labels.country_code', 'Country Code') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="number" class="form-control" id="basic-default-fullname" min=1
+                                            <input type="number" class="form-control" id="country_code" min=1
                                                 placeholder="" name="country_code"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'country_code') ? $settings['country_code'] : '' ?>">
 
@@ -769,21 +775,21 @@
                                 <div class="card-body">
 
                                     <div class="row mt-4">
-                                        <div class="mb-3 col-md-6 d-flex align-items-center">
-                                            <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.order_delivery_otp_system', 'Order Delivery OTP System') }}
+                                        <div class="mb-3 col-md-6 d-flex align-items-center justify-content-between gap-2">
+                                            <label class="form-label mb-0"
+                                                for="order_delivery_otp_system">{{ labels('admin_labels.order_delivery_otp_system', 'Order Delivery OTP System') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
-                                            <div class="form-check form-switch mx-8">
-                                                <input class="form-check-input" type="checkbox" id=""
+                                            <div class="form-check form-switch mb-0">
+                                                <input class="form-check-input" type="checkbox" id="order_delivery_otp_system"
                                                     name="order_delivery_otp_system"
                                                     <?= $settings['order_delivery_otp_system'] != 'null' && $settings['order_delivery_otp_system'] == 1 ? 'checked' : '' ?>>
                                             </div>
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.delivery_boy_bonus', 'Delivery Boy Bonus') }}</label>
-                                            <input type="number" min=1 class="form-control" id="basic-default-fullname"
+                                                for="delivery_boy_bonus">{{ labels('admin_labels.delivery_boy_bonus', 'Delivery Boy Bonus') }}</label>
+                                            <input type="number" min=1 class="form-control" id="delivery_boy_bonus"
                                                 placeholder="" name="delivery_boy_bonus"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'delivery_boy_bonus') ? $settings['delivery_boy_bonus'] : '' ?>">
 
@@ -807,18 +813,18 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.tax_name', 'Tax Name') }}<span
+                                                for="tax_name">{{ labels('admin_labels.tax_name', 'Tax Name') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="tax_name"
                                                 placeholder="" name="tax_name"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'tax_name') ? $settings['tax_name'] : '' ?>">
 
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.tax_number', 'Tax Number') }}<span
+                                                for="tax_number">{{ labels('admin_labels.tax_number', 'Tax Number') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="text" class="form-control" id="basic-default-fullname"
+                                            <input type="text" class="form-control" id="tax_number"
                                                 placeholder="" name="tax_number"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'tax_number') ? $settings['tax_number'] : '' ?>">
                                         </div>
@@ -950,8 +956,8 @@
 
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.minimum_refer_and_earn_amount', 'Minimum Refer & Earn Order Amount') }}</label>
-                                            <input type="number" min=1 class="form-control" id="basic-default-fullname"
+                                                for="minimum_refer_and_earn_amount">{{ labels('admin_labels.minimum_refer_and_earn_amount', 'Minimum Refer & Earn Order Amount') }}</label>
+                                            <input type="number" min=1 class="form-control" id="minimum_refer_and_earn_amount"
                                                 placeholder="" name="minimum_refer_and_earn_amount"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'minimum_refer_and_earn_amount') ? $settings['minimum_refer_and_earn_amount'] : '' ?>">
 
@@ -960,16 +966,16 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.minimum_refer_and_earn_bonus', 'Minimum Refer & Earn Bonus') }}</label>
-                                            <input type="number" min=1 class="form-control" id="basic-default-fullname"
+                                                for="minimum_refer_and_earn_bonus">{{ labels('admin_labels.minimum_refer_and_earn_bonus', 'Minimum Refer & Earn Bonus') }}</label>
+                                            <input type="number" min=1 class="form-control" id="minimum_refer_and_earn_bonus"
                                                 placeholder="" name="minimum_refer_and_earn_bonus"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'minimum_refer_and_earn_bonus') ? $settings['minimum_refer_and_earn_bonus'] : '' ?>">
 
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.refer_and_earn_method', 'Refer & Earn Method') }}</label>
-                                            <select class="form-select form-select-md mb-3"
+                                                for="refer_and_earn_method">{{ labels('admin_labels.refer_and_earn_method', 'Refer & Earn Method') }}</label>
+                                            <select class="form-select form-select-md mb-3" id="refer_and_earn_method"
                                                 aria-label=".form-select-md example" name="refer_and_earn_method">
                                                 <option
                                                     <?= $settings['refer_and_earn_method'] != null && $settings['refer_and_earn_method'] == 'percentage' ? 'selected' : '' ?>
@@ -987,18 +993,18 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.max_refer_and_earn_amount', 'Maximum Refer & Earn Amount') }}<span
+                                                for="max_refer_and_earn_amount">{{ labels('admin_labels.max_refer_and_earn_amount', 'Maximum Refer & Earn Amount') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="number" min=1 class="form-control" id="basic-default-fullname"
+                                            <input type="number" min=1 class="form-control" id="max_refer_and_earn_amount"
                                                 placeholder="" name="max_refer_and_earn_amount"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'max_refer_and_earn_amount') ? $settings['max_refer_and_earn_amount'] : '' ?>">
 
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.number_of_times_bonus_given_to_customer', 'Number of times Bonus to be given to the customer') }}<span
+                                                for="number_of_times_bonus_given_to_customer">{{ labels('admin_labels.number_of_times_bonus_given_to_customer', 'Number of times Bonus to be given to the customer') }}<span
                                                     class='text-asterisks text-sm'>*</span></label>
-                                            <input type="number" min=1 class="form-control" id="basic-default-fullname"
+                                            <input type="number" min=1 class="form-control" id="number_of_times_bonus_given_to_customer"
                                                 placeholder="" name="number_of_times_bonus_given_to_customer"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'number_of_times_bonus_given_to_customer') ? $settings['number_of_times_bonus_given_to_customer'] : '' ?>">
 
@@ -1038,11 +1044,11 @@
 
 
                                         <div class="mb-3 col-md-6" id="delivery_charge_amount_field">
-                                            <label class="form-label" for="basic-default-fullname">
+                                            <label class="form-label" for="wallet_balance_amount">
                                                 {{ labels('admin_labels.wallet_balance_amount', 'Wallet Balance Amount') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
-                                            <input type="number" min=1 class="form-control" id="basic-default-fullname"
+                                            <input type="number" min=1 class="form-control" id="wallet_balance_amount"
                                                 placeholder="" name="wallet_balance_amount"
                                                 value="<?= isKeySetAndNotEmpty($settings, 'wallet_balance_amount') ? $settings['wallet_balance_amount'] : '' ?>">
 
@@ -1061,12 +1067,12 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="mb-3 col-md-4">
-                                            <div class="row">
-                                                <label class="form-label col-md-4" for="customer_app_maintenance_status">
+                                        <div class="mb-3 col-lg-4 col-md-6">
+                                            <div class="d-flex align-items-center justify-content-between gap-2">
+                                                <label class="form-label mb-0" for="customer_app_maintenance_status">
                                                     {{ labels('admin_labels.customer_app', 'Customer App') }}
                                                 </label>
-                                                <div class="form-check form-switch col-md-6">
+                                                <div class="form-check form-switch mb-0">
                                                     <input class="form-check-input" type="checkbox"
                                                         id="customer_app_maintenance_status"
                                                         name="customer_app_maintenance_status"
@@ -1074,12 +1080,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mb-3 col-md-4">
-                                            <div class="row">
-                                                <label class="form-label col-md-4" for="seller_app_maintenance_status">
+                                        <div class="mb-3 col-lg-4 col-md-6">
+                                            <div class="d-flex align-items-center justify-content-between gap-2">
+                                                <label class="form-label mb-0" for="seller_app_maintenance_status">
                                                     {{ labels('admin_labels.seller_app', 'Seller App') }}
                                                 </label>
-                                                <div class="form-check form-switch col-md-6">
+                                                <div class="form-check form-switch mb-0">
                                                     <input class="form-check-input" type="checkbox"
                                                         id="seller_app_maintenance_status"
                                                         name="seller_app_maintenance_status"
@@ -1088,13 +1094,13 @@
                                             </div>
                                         </div>
 
-                                        <div class="mb-3 col-md-4">
-                                            <div class="row">
-                                                <label class="form-label col-md-6"
+                                        <div class="mb-3 col-lg-4 col-md-6">
+                                            <div class="d-flex align-items-center justify-content-between gap-2">
+                                                <label class="form-label mb-0"
                                                     for="delivery_boy_app_maintenance_status">
                                                     {{ labels('admin_labels.delivery_boy_app', 'Delivery boy App') }}
                                                 </label>
-                                                <div class="form-check form-switch col-md-6">
+                                                <div class="form-check form-switch mb-0">
                                                     <input class="form-check-input" type="checkbox"
                                                         id="delivery_boy_app_maintenance_status"
                                                         name="delivery_boy_app_maintenance_status"
@@ -1105,24 +1111,24 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.message_for_customer_app', 'Message for Customer App') }}</label>
-                                            <textarea type="text" class="form-control" id="basic-default-fullname" placeholder=""
+                                                for="message_for_customer_app">{{ labels('admin_labels.message_for_customer_app', 'Message for Customer App') }}</label>
+                                            <textarea type="text" class="form-control" id="message_for_customer_app" placeholder=""
                                                 name="message_for_customer_app" value=""><?= isKeySetAndNotEmpty($settings, 'message_for_customer_app') ? $settings['message_for_customer_app'] : '' ?></textarea>
 
                                         </div>
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.message_for_seller_app', 'Message for Seller App') }}</label>
-                                            <textarea type="text" class="form-control" id="basic-default-fullname" placeholder=""
+                                                for="message_for_seller_app">{{ labels('admin_labels.message_for_seller_app', 'Message for Seller App') }}</label>
+                                            <textarea type="text" class="form-control" id="message_for_seller_app" placeholder=""
                                                 name="message_for_seller_app" value=""><?= isKeySetAndNotEmpty($settings, 'message_for_seller_app') ? $settings['message_for_seller_app'] : '' ?></textarea>
 
                                         </div>
-                                        <div class="mb-3 col-md-4">
+                                        <div class="mb-3 col-lg-4 col-md-6">
                                             <label class="form-label"
-                                                for="basic-default-fullname">{{ labels('admin_labels.message_for_delivery_boy_app', 'Message for Delivery Boy App') }}</label>
-                                            <textarea type="text" class="form-control" id="basic-default-fullname" placeholder=""
+                                                for="message_for_delivery_boy_app">{{ labels('admin_labels.message_for_delivery_boy_app', 'Message for Delivery Boy App') }}</label>
+                                            <textarea type="text" class="form-control" id="message_for_delivery_boy_app" placeholder=""
                                                 name="message_for_delivery_boy_app" value=""><?= isKeySetAndNotEmpty($settings, 'message_for_delivery_boy_app') ? $settings['message_for_delivery_boy_app'] : '' ?></textarea>
 
                                         </div>
@@ -1192,7 +1198,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <div class="row align-items-center">
-                                                <label class="form-label col-md-6" for="basic-default-fullname">
+                                                <label class="form-label col-md-6" for="cron_seller_commission">
                                                     {{ labels('admin_labels.seller_comission', 'Seller Commission') }}
                                                 </label>
                                                 <div class="col-md-6">
@@ -1202,13 +1208,13 @@
                                                 </div>
                                             </div>
                                             <input type="text" disabled class="form-control"
-                                                id="basic-default-fullname" placeholder="" name="seller_commission"
-                                                value="{{ config('app.url') . 'admin/cronjob/settleSellerCommission' }}">
+                                                id="cron_seller_commission" placeholder="" name="seller_commission"
+                                                value="{{ url('admin/cronjob/settleSellerCommission') }}">
                                         </div>
 
                                         <div class="mb-3 col-md-6">
                                             <div class="row align-items-center">
-                                                <label class="form-label col-md-6" for="basic-default-fullname">
+                                                <label class="form-label col-md-6" for="cron_promocode_discount">
                                                     {{ labels('admin_labels.promo_code_discount', 'Promo Code Discount') }}
                                                 </label>
                                                 <div class="col-md-6">
@@ -1218,19 +1224,19 @@
                                                 </div>
                                             </div>
                                             <input type="text" disabled class="form-control"
-                                                id="basic-default-fullname" placeholder="" name="promocode_discount"
-                                                value="{{ config('app.url') . 'admin/cronjob/settleCashbackDiscount' }}">
+                                                id="cron_promocode_discount" placeholder="" name="promocode_discount"
+                                                value="{{ url('admin/cronjob/settleCashbackDiscount') }}">
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <div class="row align-items-center">
-                                                <label class="form-label col-md-6" for="basic-default-fullname">
+                                                <label class="form-label col-md-6" for="cron_remaining_cart_items">
                                                     {{ labels('admin_labels.remaining_cart_items', 'Remaining Cart Items') }}
                                                 </label>
 
                                             </div>
                                             <input type="text" disabled class="form-control"
-                                                id="basic-default-fullname" placeholder="" name="promocode_discount"
-                                                value="{{ config('app.url') . 'admin/cronjob/sendCartReminders' }}">
+                                                id="cron_remaining_cart_items" placeholder="" name="remaining_cart_items"
+                                                value="{{ url('admin/cronjob/sendCartReminders') }}">
                                         </div>
 
                                     </div>

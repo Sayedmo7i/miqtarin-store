@@ -230,23 +230,30 @@ document.addEventListener("livewire:initialized", () => {
 // });
 
 function product_zoom() {
-    $(".zoompro").elevateZoom({
-        gallery: "gallery",
-        cursor: "pointer",
-        galleryActiveClass: "active",
-        imageCrossfade: true,
-        borderSize: 2,
-        loadingIcon: "https://www.elevateweb.co.uk/spinner.gif",
-    });
-    $(".zoompro_style_2").elevateZoom({
-        gallery: "gallery",
-        cursor: "pointer",
-        zoomType: "inner",
-        galleryActiveClass: "active",
-        imageCrossfade: true,
-        borderSize: 2,
-        loadingIcon: "https://www.elevateweb.co.uk/spinner.gif",
-    });
+    if (typeof $ === "undefined" || !$.fn || typeof $.fn.elevateZoom !== "function") {
+        return;
+    }
+    if ($(".zoompro").length) {
+        $(".zoompro").elevateZoom({
+            gallery: "gallery",
+            cursor: "pointer",
+            galleryActiveClass: "active",
+            imageCrossfade: true,
+            borderSize: 2,
+            loadingIcon: "https://www.elevateweb.co.uk/spinner.gif",
+        });
+    }
+    if ($(".zoompro_style_2").length) {
+        $(".zoompro_style_2").elevateZoom({
+            gallery: "gallery",
+            cursor: "pointer",
+            zoomType: "inner",
+            galleryActiveClass: "active",
+            imageCrossfade: true,
+            borderSize: 2,
+            loadingIcon: "https://www.elevateweb.co.uk/spinner.gif",
+        });
+    }
 }
 
 function FirebaseAuth() {
@@ -1544,13 +1551,13 @@ document.addEventListener("livewire:navigated", () => {
 
     var currency_symbol = $("#currency").val();
 
-    $(".changeLang").on("click", function () {
+    $(document).on("click", ".changeLang", function () {
         let lang = $(this).data("lang-code");
-        Livewire.dispatch("changeLang", { lang });
+        Livewire.dispatch("changeLang", { lang, currentUrl: window.location.href });
     });
-    $(".changeCurrency").on("click", function () {
+    $(document).on("click", ".changeCurrency", function () {
         let currency = $(this).data("currency-code");
-        Livewire.dispatch("changeCurrency", { currency });
+        Livewire.dispatch("changeCurrency", { currency, currentUrl: window.location.href });
     });
     if ($("#user_id").val() >= 1) {
         is_logged = true;

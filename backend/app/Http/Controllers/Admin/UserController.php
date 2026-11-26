@@ -111,12 +111,14 @@ class UserController extends Controller
             if ($user) {
                 if ($user->role->name == 'delivery_boy') {
                     if ($user->status != 1) {
+                        Auth::logout();
                         return response()->json([
                             'errors' => [
                                 'status' => ['Your account is not active. Please contact super admin.']
                             ]
                         ], 422);
                     }
+                    $request->session()->regenerate();
                     return response()->json([
                         'message' => 'Login successful',
                         'location' => '/delivery_boy/home'
@@ -127,6 +129,7 @@ class UserController extends Controller
                     $affiliate = $user->affiliateUser;
 
                     if (!$affiliate) {
+                        Auth::logout();
                         return response()->json([
                             'errors' => [
                                 'status' => ['Affiliate account not found. Please contact support.']
@@ -135,6 +138,7 @@ class UserController extends Controller
                     }
 
                     if ($affiliate->status == 2) {
+                        Auth::logout();
                         return response()->json([
                             'errors' => [
                                 'status' => ['Your affiliate account is pending approval.']
@@ -143,6 +147,7 @@ class UserController extends Controller
                     }
 
                     if ($affiliate->status == 0) {
+                        Auth::logout();
                         return response()->json([
                             'errors' => [
                                 'status' => ['Your affiliate account has been rejected.']
@@ -150,6 +155,7 @@ class UserController extends Controller
                         ], 422);
                     }
 
+                    $request->session()->regenerate();
                     return response()->json([
                         'message' => 'Login successful',
                         'location' => '/affiliate/home'
@@ -157,6 +163,7 @@ class UserController extends Controller
                 }
 
                 if ($user->role->name == 'seller') {
+                    $request->session()->regenerate();
                     return response()->json([
                         'message' => 'Login successful',
                         'location' => '/seller/home'
@@ -164,18 +171,21 @@ class UserController extends Controller
                 }
 
                 if (in_array($user->role->name, ['super_admin', 'admin', 'editor'])) {
+                    $request->session()->regenerate();
                     return response()->json([
                         'message' => 'Login successful',
                         'location' => '/admin/home'
                     ]);
                 }
 
+                Auth::logout();
                 return response()->json([
                     'errors' => [
                         'role' => ['You do not have access to this panel']
                     ]
                 ], 422);
             } else {
+                Auth::logout();
                 return response()->json([
                     'errors' => [
                         'account' => ['Your account is not activated yet. Please wait for activation.']
@@ -526,7 +536,7 @@ class UserController extends Controller
                 'operate' => $action,
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($row->active == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $row->id . '" data-url="/admin/customers/update_status/' . $row->id . '" aria-label="">
                   <option value="1" ' . ($row->active == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                  <option value="0" ' . ($row->active == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                  <option value="0" ' . ($row->active == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
               </select>',
 
             ];

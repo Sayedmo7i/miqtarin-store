@@ -156,7 +156,7 @@
                                                             data-bs-content="{{ labels('admin_labels.store_name_instruction', 'Enter the store name as it will appear to customers.') }}"></i>
                                                     </label>
                                                     <input type="text" class="form-control"
-                                                        placeholder="{{ labels('admin_labels.gucci_placeholder', 'Gucci') }}"
+                                                        placeholder="{{ labels('admin_labels.store_name_placeholder', 'MUQTARIN Store') }}"
                                                         name="name"
                                                         value="{{ $decodedName['en'] ?? '' }}">
                                                 </div>
@@ -812,10 +812,10 @@
                                             role="tabpanel" aria-labelledby="tab-en">
                                             <div class="mb-3">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">{{ labels('admin_labels.categories_section_title', 'Categories Section Title') }}<span
+                                                    for="category_section_title">{{ labels('admin_labels.categories_section_title', 'Categories Section Title') }}<span
                                                         class='text-asterisks text-sm'>*</span></label>
                                                 <input type="text" class="form-control"
-                                                    id="basic-default-fullname"
+                                                    id="category_section_title"
                                                     placeholder="{{ labels('admin_labels.shop_by_categories_placeholder', 'Shop By Categories') }}"
                                                     name="category_section_title"
                                                     value="{{ isset($store_settings['category_section_title'])

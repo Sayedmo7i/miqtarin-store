@@ -36,7 +36,17 @@ class LanguageManager
             session()->put('is_rtl', $is_rtl);
         }
 
-        App::setLocale(session()->get('locale'));
+        $activeLocale = session()->get('locale', 'en');
+        if (!session()->has('is_rtl')) {
+            try {
+                $isRtl = (int) (Language::where('code', $activeLocale)->value('is_rtl') ?? (in_array($activeLocale, ['ar', 'he', 'fa', 'ur'], true) ? 1 : 0));
+            } catch (\Throwable $e) {
+                $isRtl = in_array($activeLocale, ['ar', 'he', 'fa', 'ur'], true) ? 1 : 0;
+            }
+            session()->put('is_rtl', $isRtl);
+        }
+
+        App::setLocale($activeLocale);
 
         return $next($request);
     }

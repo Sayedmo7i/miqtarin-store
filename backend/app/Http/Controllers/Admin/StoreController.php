@@ -441,7 +441,7 @@ class StoreController extends Controller
                             </div>',
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($s->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $s->id . '" data-url="/admin/store/update_status/' . $s->id . '" aria-label="">
                       <option value="1" ' . ($s->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                      <option value="0" ' . ($s->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                      <option value="0" ' . ($s->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
                   </select>',
                 'operate' => $action,
             ];

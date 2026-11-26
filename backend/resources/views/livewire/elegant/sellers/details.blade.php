@@ -72,8 +72,8 @@
         $store_slug = session('store_slug') ?? '';
         $system_settings = app(\App\Services\SettingService::class)->getSettings('system_settings', true);
         $system_settings = $system_settings ? json_decode($system_settings, true) : null;
-        $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'eshop');
-        $host = $system_settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
+        $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'muqtarin');
+        $host = $system_settings['deep_link_host'] ?? 'muqtarin.store';
         $deepLinkUrl =
             $scheme .
             '://' .
