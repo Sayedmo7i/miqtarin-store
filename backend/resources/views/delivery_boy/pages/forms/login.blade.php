@@ -392,6 +392,7 @@
         <script src="{{ asset('/assets/js/argon-dashboard.min.js?v=2.0.4') }}"></script>
 
         <script src="{{ asset('assets/admin/custom/custom.js') }}"></script>
+        <script src="{{ asset('assets/brand/muqtarin-cursor.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-cursor.js')) }}" defer></script>
     </body>
 
 </html>

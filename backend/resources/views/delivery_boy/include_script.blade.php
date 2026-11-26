@@ -68,6 +68,7 @@
  <script src="{{ asset('/assets/admin/js/daterangepicker.js') }}"></script>
 
  <script src="{{ asset('assets/admin/custom/custom.js') }}"></script>
+ <script src="{{ asset('assets/brand/muqtarin-cursor.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-cursor.js')) }}" defer></script>
 
  </body>
 

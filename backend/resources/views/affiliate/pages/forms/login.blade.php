@@ -406,6 +406,7 @@
         <script src="{{ asset('/assets/js/argon-dashboard.min.js') }}"></script>
 
         <script src="{{ asset('assets/admin/custom/custom.js') }}?v={{ \Illuminate\Support\Str::random(10) }}"></script>
+        <script src="{{ asset('assets/brand/muqtarin-cursor.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-cursor.js')) }}" defer></script>
     </body>
 
 </html>

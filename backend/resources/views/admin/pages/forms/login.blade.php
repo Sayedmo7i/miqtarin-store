@@ -828,5 +828,6 @@
 
             syncLoginThemeIcon();
         </script>
+        <script src="{{ asset('assets/brand/muqtarin-cursor.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-cursor.js')) }}" defer></script>
     </body>
 </html>

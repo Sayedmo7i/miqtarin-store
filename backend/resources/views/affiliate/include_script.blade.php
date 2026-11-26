@@ -75,6 +75,7 @@
  {{-- <script src="https://eshop-pro-dev.eshopweb.store/assets/admin/custom/custom.js?v=152"></script> --}}
 
  <script src="{{ asset('assets/admin/custom/custom.js') }}?v={{ \Illuminate\Support\Str::random(10) }}"></script>
+ <script src="{{ asset('assets/brand/muqtarin-cursor.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-cursor.js')) }}" defer></script>
 
  </body>
 

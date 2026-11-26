@@ -96,6 +96,7 @@
          toastr.warning("{{ session('warning') }}");
      @endif
  </script>
+ <script src="{{ asset('assets/brand/muqtarin-cursor.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-cursor.js')) }}" defer></script>
 
  @yield('script')
 
