@@ -789,6 +789,7 @@
         <script src="{{ asset('/assets/js/core/popper.min.js') }}"></script>
         <script src="{{ asset('/assets/js/core/bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets/admin/js/iziToast.min.js') }}"></script>
+        <script src="{{ asset('assets/brand/muqtarin-toast.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-toast.js')) }}"></script>
         <script src="{{ asset('assets/admin/js/sweetalert2.min.js') }}"></script>
         <script src="{{ asset('assets/admin/custom/custom.js') }}"></script>
 
