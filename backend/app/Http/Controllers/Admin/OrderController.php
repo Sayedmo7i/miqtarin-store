@@ -615,7 +615,8 @@ class OrderController extends Controller
                     $tempRow['transaction_status'] = '<span class="badge bg-warning text-dark">Pending</span>';
                     break;
                 default:
-                    $tempRow['transaction_status'] = '<span class="badge bg-secondary">' . ucfirst(optional($item->transaction)->status) . '</span>';
+                    $txStatus = optional($item->transaction)->status;
+                    $tempRow['transaction_status'] = '<span class="badge bg-secondary">' . ($txStatus ? ucfirst((string) $txStatus) : labels('admin_labels.pending', 'Pending')) . '</span>';
                     break;
             }
             $tempRow['id'] = $count++;
@@ -651,7 +652,7 @@ class OrderController extends Controller
 
             $tempRow['delivery_boy'] = optional($item->deliveryBoy)->username;
             // $tempRow['payment_method'] = ucfirst(optional($item->order)->payment_method);
-            $tempRow['payment_method'] = ucfirst(str_replace('_', ' ', optional($item->order)->payment_method));
+            $tempRow['payment_method'] = ucfirst(str_replace('_', ' ', (string) optional($item->order)->payment_method));
             $tempRow['delivery_boy_id'] = $item->delivery_boy_id;
             $tempRow['product_variant_id'] = $item->product_variant_id;
 
