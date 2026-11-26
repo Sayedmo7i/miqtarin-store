@@ -1038,7 +1038,7 @@
                 </form>
 
                 <div class="muqtarin-prev-dock">
-                    <p class="prev btn reset-btn">{{ labels('admin_labels.go_back', 'Go Back') }}</p>
+                    <p class="prev btn reset-btn" style="display: none;">{{ labels('admin_labels.go_back', 'Go Back') }}</p>
                 </div>
             </div>
         </div>
@@ -1055,6 +1055,17 @@
             var pctEl = document.getElementById('muqtarin-wizard-pct');
             var fillEl = document.getElementById('muqtarin-wizard-progress-fill');
             var prevBtn = wizard.querySelector('.prev');
+            var lastIdx = -1;
+
+            function scrollWizardIntoView() {
+                var rect = wizard.getBoundingClientRect();
+                if (rect.top < 72) {
+                    window.scrollTo({
+                        top: Math.max(0, window.scrollY + rect.top - 84),
+                        behavior: 'smooth'
+                    });
+                }
+            }
 
             function syncWizardState() {
                 var currentIdx = 0;
@@ -1063,6 +1074,10 @@
                         currentIdx = i;
                         break;
                     }
+                }
+
+                for (var k = 0; k < cards.length; k++) {
+                    cards[k].style.display = '';
                 }
 
                 for (var j = 0; j < steps.length; j++) {
@@ -1078,10 +1093,19 @@
                     }
                 }
 
+                if (prevBtn) {
+                    prevBtn.style.display = currentIdx === 0 ? 'none' : 'block';
+                }
+
                 var pct = Math.round(((currentIdx + 1) / cards.length) * 100);
                 if (counterEl) counterEl.textContent = (currentIdx + 1) + ' / ' + cards.length;
                 if (pctEl) pctEl.textContent = pct + '%';
                 if (fillEl) fillEl.style.width = pct + '%';
+
+                if (lastIdx !== -1 && lastIdx !== currentIdx) {
+                    scrollWizardIntoView();
+                }
+                lastIdx = currentIdx;
             }
 
             // Observe class changes made by stepper.js on .card2
@@ -1097,17 +1121,13 @@
                 stepEl.addEventListener('click', function() {
                     if (stepEl.getAttribute('data-state') !== 'completed') return;
                     cards.forEach(function(card, idx) {
+                        card.style.display = '';
                         if (idx === targetIdx) {
                             card.classList.add('show');
-                            card.style.display = 'block';
                         } else {
                             card.classList.remove('show');
-                            card.style.display = 'none';
                         }
                     });
-                    if (prevBtn) {
-                        prevBtn.style.display = targetIdx === 0 ? 'none' : 'block';
-                    }
                     syncWizardState();
                 });
             });

@@ -1389,6 +1389,14 @@ th {
   padding-bottom: 6px;
 }
 
+/* Legacy / Wizard Stepper Cards (.card2) — show only active .show step */
+.card2 {
+  display: none;
+}
+.card2.show {
+  display: block;
+}
+
 .muqtarin-store-wizard .card2 {
   margin-left: 0 !important;
   margin-inline-start: 0 !important;
