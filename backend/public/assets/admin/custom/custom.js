@@ -15287,3 +15287,56 @@ $(document).ready(function () {
         });
     }
 });
+
+$(function () {
+    if (typeof $.fn.daterangepicker !== "function") {
+        return;
+    }
+    const isAr = (document.documentElement.lang || "").toLowerCase().startsWith("ar");
+    const localeOpts = isAr
+        ? {
+              format: "YYYY-MM-DD",
+              applyLabel: "تطبيق",
+              cancelLabel: "مسح",
+              daysOfWeek: ["ح", "ن", "ث", "ر", "خ", "ج", "س"],
+              monthNames: [
+                  "يناير",
+                  "فبراير",
+                  "مارس",
+                  "أبريل",
+                  "مايو",
+                  "يونيو",
+                  "يوليو",
+                  "أغسطس",
+                  "سبتمبر",
+                  "أكتوبر",
+                  "نوفمبر",
+                  "ديسمبر",
+              ],
+          }
+        : {
+              format: "YYYY-MM-DD",
+              applyLabel: "Apply",
+              cancelLabel: "Clear",
+          };
+
+    $(".mq-single-datepicker").each(function () {
+        const $el = $(this);
+        if ($el.data("daterangepicker")) {
+            return;
+        }
+        $el.daterangepicker({
+            singleDatePicker: true,
+            autoUpdateInput: false,
+            showDropdowns: true,
+            locale: localeOpts,
+        });
+        $el.on("apply.daterangepicker", function (ev, picker) {
+            $(this).val(picker.startDate.format("YYYY-MM-DD")).trigger("change");
+        });
+        $el.on("cancel.daterangepicker", function () {
+            $(this).val("").trigger("change");
+        });
+    });
+});
+

@@ -43,7 +43,7 @@
                             @if ($lang->code !== 'en')
                                 <div class="mb-3 col-md-12">
                                     <label for="translated_name_{{ $lang->code }}" class="form-label">
-                                        {{ labels('admin_labels.name', 'Name') }} ({{ $lang->language }})
+                                        {{ labels('admin_labels.name', 'Name') }} ({{ $lang->native_language ?: $lang->language }})
                                     </label>
                                     <input type="text" class="form-control translated_name_{{ $lang->code }}"
                                         id="translated_name_{{ $lang->code }}"
@@ -116,7 +116,7 @@
                             @if ($lang->code !== 'en')
                                 <div class="mb-3 col-md-12">
                                     <label for="translated_name_{{ $lang->code }}" class="form-label">
-                                        {{ labels('admin_labels.name', 'Name') }} ({{ $lang->language }})
+                                        {{ labels('admin_labels.name', 'Name') }} ({{ $lang->native_language ?: $lang->language }})
                                     </label>
                                     <input type="text" class="form-control translated_name_{{ $lang->code }}"
                                         id="translated_name_{{ $lang->code }}"

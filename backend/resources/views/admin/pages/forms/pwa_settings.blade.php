@@ -112,7 +112,7 @@
                                             <div class=''>
                                                 <div class='upload-media-div'><img class="img-fluid mb-2"
                                                         src="{{ asset('storage' . $pwa_settings['logo']) }}"
-                                                        alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                        alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}"></div>
                                                 <input type="hidden" name="logo" id='logo'
                                                     value='<?= $pwa_settings['logo'] ?>'>
                                             </div>

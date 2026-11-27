@@ -510,8 +510,8 @@ class CategoryController extends Controller
                 'width' => 60,
                 'quality' => 90
             ]);
-            $image = '<div class="d-flex justify-content-around"><a href="' . app(MediaService::class)->getMediaImageUrl($c->image) . '" data-lightbox="image-' . $c->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>';
-            $banner = '<div><a href="' . app(MediaService::class)->getMediaImageUrl($c->banner) . '" data-lightbox="banner-' . $c->id . '"><img src="' . $banner . '" alt="Avatar" class="rounded"/></a></div>';
+            $image = '<div class="d-flex justify-content-around"><a href="' . app(MediaService::class)->getMediaImageUrl($c->image) . '" data-lightbox="image-' . $c->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>';
+            $banner = '<div><a href="' . app(MediaService::class)->getMediaImageUrl($c->banner) . '" data-lightbox="banner-' . $c->id . '"><img src="' . $banner . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>';
 
             // Format 'operate' field with dropdown menu HTML
             $action = '<div class="dropdown bootstrap-table-dropdown">

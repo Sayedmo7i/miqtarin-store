@@ -25,10 +25,10 @@
                                 </h5>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label for="firstName" class="form-label">{{ labels('admin_labels.name', 'Name') }}
+                                        <label for="name" class="form-label">{{ labels('admin_labels.name', 'Name') }}
                                             <span class="text-asterisks text-sm">*</span>
                                         </label>
-                                        <input class="form-control" type="text" placeholder="{{ labels('admin_labels.john_doe_placeholder', 'Ahmed Hassan') }}" id="name"
+                                        <input class="form-control" type="text" placeholder="{{ labels('admin_labels.john_doe_placeholder', 'Enter seller full name') }}" id="name"
                                             name="name" value="{{ old('name') }}" autofocus />
                                     </div>
                                     <div class="mb-3 col-md-6">
@@ -771,7 +771,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="require_products_approval"
-                                                class="col-sm-6 col-form-label">{{ labels('admin_labels.require_product_approvel', 'Require Product Approvel') }}?
+                                                class="col-sm-6 col-form-label">{{ labels('admin_labels.require_product_approvel', 'Require Product Approvel') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="{{ labels('admin_labels.enable_if_products_require_approval_before_listing', 'Enable if products require approval before being listed.') }}"></i>
@@ -786,7 +786,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="customer_privacy"
-                                                class="col-sm-5 col-form-label">{{ labels('admin_labels.view_customer_details', 'View Customer Details') }}?
+                                                class="col-sm-5 col-form-label">{{ labels('admin_labels.view_customer_details', 'View Customer Details') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="{{ labels('admin_labels.enable_if_seller_can_view_customer_details', 'Enable if seller can view customer details.') }}"></i>
@@ -803,7 +803,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="view_order_otp"
-                                                class="col-sm-8 col-form-label">{{ labels('admin_labels.view_order_otp_and_change_delivery_status', 'View Order OTP & Can Change Delivery Status') }}?
+                                                class="col-sm-8 col-form-label">{{ labels('admin_labels.view_order_otp_and_change_delivery_status', 'View Order OTP & Can Change Delivery Status') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="{{ labels('admin_labels.enable_if_seller_can_view_order_otp_and_change_delivery_status', 'Enable if seller can view order OTP and change delivery status.') }}"></i>

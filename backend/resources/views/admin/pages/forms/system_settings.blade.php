@@ -455,7 +455,7 @@
                                                                             style="max-height: 88px; width: auto; object-fit: contain;"
                                                                             src="{{ asset('storage/' . ltrim($settings['logo'], '/')) }}"
                                                                             onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
-                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}"></div>
                                                                     <input type="hidden" name="logo" id='logo'
                                                                         value='<?= $settings['logo'] ?>'>
                                                                 </div>
@@ -502,7 +502,7 @@
                                                                         style="max-height: 88px; width: auto; object-fit: contain;"
                                                                         src="{{ asset('storage/' . ltrim($settings['favicon'], '/')) }}"
                                                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
-                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}"></div>
                                                                 <input type="hidden" name="favicon" id='favicon'
                                                                     value='<?= $settings['favicon'] ?>'>
                                                             </div>
@@ -566,7 +566,7 @@
                                                             <div
                                                                 class="grow image product-image-container rounded shadow text-center m-2">
                                                                 <div class='image-upload-div'>
-                                                                    <img class="img-fluid mb-2" alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"
+                                                                    <img class="img-fluid mb-2" alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}"
                                                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
                                                                         src="{{ asset('storage/' . ltrim($row, '/')) }}" />
                                                                 </div>
@@ -627,7 +627,7 @@
                                                                 <img class="img-fluid mb-2"
                                                                     src='{{ asset('assets/admin/images/video-file.png') }}'
                                                                     onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
-                                                                    alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                    alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                             </div>
                                                             <a href="javascript:void(0)" class="delete-onboard-media"
                                                                 data-field="on_boarding_video" data-img="<?= $row ?>"

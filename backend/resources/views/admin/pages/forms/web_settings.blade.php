@@ -135,7 +135,7 @@
                                                                                                 'quality' => 90,
                                                                                             ]) }}"
                                                                                             onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
-                                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                                                     </div>
                                                                                     <input type="hidden" name="logo"
                                                                                         id="logo"
@@ -190,7 +190,7 @@
                                                                                                 'quality' => 90,
                                                                                             ]) }}"
                                                                                             onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
-                                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                                                     </div>
                                                                                     <input type="hidden"
                                                                                         name="favicon"

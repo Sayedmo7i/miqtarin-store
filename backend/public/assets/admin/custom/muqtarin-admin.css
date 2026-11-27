@@ -4593,22 +4593,68 @@ html.mq-nav-loading #muqtarin-page-skeleton {
   100% { background-position: -200% 0; }
 }
 @media (max-width: 1199.98px) {
+  .bootstrap-table .fixed-table-container {
+    max-width: 100%;
+  }
+  .bootstrap-table .fixed-table-container .fixed-table-body {
+    overflow-x: auto !important;
+    max-width: 100%;
+  }
+  .bootstrap-table .fixed-table-container .table {
+    width: 100% !important;
+  }
   .bootstrap-table .fixed-table-container .table th {
     white-space: normal;
-    padding: 8px 8px !important;
-    font-size: 0.78rem;
+    padding: 8px 7px !important;
+    font-size: 0.76rem;
     vertical-align: middle;
   }
   .bootstrap-table .fixed-table-container .table td {
-    white-space: nowrap;
-    padding: 8px 10px !important;
-    font-size: 0.8rem;
+    white-space: normal;
+    overflow-wrap: break-word;
+    padding: 7px 8px !important;
+    font-size: 0.79rem;
     vertical-align: middle;
+  }
+  .bootstrap-table .fixed-table-container .table td .badge,
+  .bootstrap-table .fixed-table-container .table td .btn,
+  .bootstrap-table .fixed-table-container .table td .action-buttons,
+  .bootstrap-table .fixed-table-container .table td .dropdown {
+    white-space: nowrap;
   }
   .bootstrap-table .fixed-table-container .table th .th-inner {
     white-space: normal;
     line-height: 1.25;
     padding: 4px 2px !important;
+  }
+}
+@media (max-width: 991.98px) {
+  .bootstrap-table .fixed-table-container .table th {
+    padding: 7px 6px !important;
+    font-size: 0.73rem;
+  }
+  .bootstrap-table .fixed-table-container .table td {
+    padding: 6px 6px !important;
+    font-size: 0.77rem;
+  }
+  .bootstrap-table .fixed-table-container .table td:last-child,
+  .bootstrap-table .fixed-table-container .table th:last-child {
+    white-space: nowrap;
+  }
+  .bootstrap-table .table-image,
+  .bootstrap-table .image-box-100,
+  .bootstrap-table .image-box-100 a {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media (max-width: 767.98px) {
+  .bootstrap-table .fixed-table-toolbar .search {
+    min-width: 140px;
+    max-width: 100%;
+  }
+  .bootstrap-table .fixed-table-container .fixed-table-body {
+    scrollbar-width: thin;
   }
 }
 .bootstrap-table .table tbody tr.no-records-found td {

@@ -136,7 +136,7 @@
                                                         data-bs-target="#content-{{ $lang->code }}" type="button"
                                                         role="tab" aria-controls="content-{{ $lang->code }}"
                                                         aria-selected="false">
-                                                        {{ $lang->language }}
+                                                        {{ $lang->native_language ?: $lang->language }}
                                                     </button>
                                                 </li>
                                             @endif
@@ -181,7 +181,7 @@
                                                             <label for="translated_title_{{ $lang->code }}"
                                                                 class="form-label">
                                                                 {{ labels('admin_labels.name', 'Name') }}
-                                                                ({{ $lang->language }})
+                                                                ({{ $lang->native_language ?: $lang->language }})
                                                             </label>
                                                             <input type="text" class="form-control"
                                                                 name="translated_store_name[{{ $lang->code }}]"
@@ -191,7 +191,7 @@
                                                             <label for="translated_short_description_{{ $lang->code }}"
                                                                 class="form-label">
                                                                 {{ labels('admin_labels.description', 'Description') }}
-                                                                ({{ $lang->language }})
+                                                                ({{ $lang->native_language ?: $lang->language }})
                                                             </label>
                                                             <input type="text" class="form-control"
                                                                 name="translated_store_description[{{ $lang->code }}]"
@@ -373,7 +373,7 @@
                                                                                 'width' => 150,
                                                                                 'quality' => 90,
                                                                             ]) }}"
-                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                     </div>
                                                                     <input type="hidden" name="image" value="{{ $data->image }}">
                                                                 </div>
@@ -411,7 +411,7 @@
                                                                                 'width' => 150,
                                                                                 'quality' => 90,
                                                                             ]) }}"
-                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                     </div>
                                                                     <input type="hidden" name="banner_image" value="{{ $data->banner_image }}">
                                                                 </div>
@@ -520,7 +520,7 @@
                                                                                 'width' => 150,
                                                                                 'quality' => 90,
                                                                             ]) }}"
-                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                     </div>
                                                                     <input type="hidden" name="banner_image_for_most_selling_product"
                                                                         value="{{ $data->banner_image_for_most_selling_product }}">
@@ -557,7 +557,7 @@
                                                                                 'width' => 150,
                                                                                 'quality' => 90,
                                                                             ]) }}"
-                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                     </div>
                                                                     <input type="hidden" name="stack_image" value="{{ $data->stack_image }}">
                                                                 </div>
@@ -593,7 +593,7 @@
                                                                                 'width' => 150,
                                                                                 'quality' => 90,
                                                                             ]) }}"
-                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                     </div>
                                                                     <input type="hidden" name="login_image" value="{{ $data->login_image }}">
                                                                 </div>
@@ -629,7 +629,7 @@
                                                                                 'width' => 150,
                                                                                 'quality' => 90,
                                                                             ]) }}"
-                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                     </div>
                                                                     <input type="hidden" name="half_store_logo" value="{{ $data->half_store_logo }}">
                                                                 </div>
@@ -800,7 +800,7 @@
                                                         type="button" role="tab"
                                                         aria-controls="content-{{ $lang->code }}"
                                                         aria-selected="false">
-                                                        {{ $lang->language }}
+                                                        {{ $lang->native_language ?: $lang->language }}
                                                     </button>
                                                 </li>
                                             @endif
@@ -835,7 +835,7 @@
                                                             for="translated_categories_section_title_{{ $lang->code }}"
                                                             class="form-label">
                                                             {{ labels('admin_labels.categories_section_title', 'Categories Section Title') }}
-                                                            ({{ $lang->language }})
+                                                            ({{ $lang->native_language ?: $lang->language }})
                                                         </label>
                                                         <input type="text" class="form-control"
                                                             name="translated_categories_section_title[{{ $lang->code }}]"

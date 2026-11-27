@@ -80,7 +80,7 @@
                                                         'width' => 120,
                                                         'quality' => 90,
                                                     ]) }}"
-                                                        alt="Avatar" class="rounded">
+                                                        alt="{{ labels('admin_labels.image_preview', 'Image preview') }}" class="rounded">
                                                 </a>
                                             </div>
                                             <div class="media-title">

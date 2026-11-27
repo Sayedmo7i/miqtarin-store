@@ -142,7 +142,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <label for="image_checkbox"
-                                            class="form-label">{{ labels('admin_labels.include_image', 'Include Image') }}?
+                                            class="form-label">{{ labels('admin_labels.include_image', 'Include Image') }}
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                            data-bs-toggle="popover"
                                            data-bs-placement="right"

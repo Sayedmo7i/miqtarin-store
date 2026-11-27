@@ -141,7 +141,7 @@ use App\Services\MediaService;
                                             <span>{{ labels('front_messages.cancelable_till', 'Cancelable Till') }}</span>
                                         </div>
                                         <div class="right">
-                                            <span>{{ $user_order_item['cancelable_till'] }}</span>
+                                            <span>{{ labels('front_messages.' . strtolower(trim($user_order_item['cancelable_till'])), ucfirst(str_replace('_', ' ', $user_order_item['cancelable_till']))) }}</span>
                                         </div>
                                     </li>
                                     @endif

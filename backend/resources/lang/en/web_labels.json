@@ -672,5 +672,9 @@
     "security_service_title": "Payment Security",
     "security_service_desc": "Trusted & encrypted payment methods",
     "return_service_title": "30-Day Returns",
-    "return_service_desc": "Flexible returns within 30 days"
+    "return_service_desc": "Flexible returns within 30 days",
+    "dont_have_an_account": "Don't have an account?",
+    "lets_get_in_touch": "Let's Get in touch!",
+    "seller_dont_have_any_products": "Seller Don't Have Any Products",
+    "you_dont_have_any_items_in_your_search": "You don't have any items in your search."
 }

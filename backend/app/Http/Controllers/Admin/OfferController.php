@@ -195,8 +195,8 @@ class OfferController extends Controller
                     'link' => $o->link,
                     'min_discount' => $o->min_discount,
                     'max_discount' => $o->max_discount,
-                    'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($o->image)   . '" data-lightbox="image-' . $o->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
-                    'banner_image' => '<div class=""><a href="' . app(MediaService::class)->getMediaImageUrl($o->banner_image)  . '" data-lightbox="image-' . $o->id . '"><img src="' . $banner . '" alt="Avatar" class="rounded"/></a></div>',
+                    'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($o->image)   . '" data-lightbox="image-' . $o->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
+                    'banner_image' => '<div class=""><a href="' . app(MediaService::class)->getMediaImageUrl($o->banner_image)  . '" data-lightbox="image-' . $o->id . '"><img src="' . $banner . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
                 ];
             });
 
@@ -538,8 +538,8 @@ class OfferController extends Controller
               <option value="1" ' . ($s->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
               <option value="0" ' . ($s->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
           </select>',
-                'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($s->image)  . '" data-lightbox="image-' . $s->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
-                'banner' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($s->banner_image)  . '" data-lightbox="banner-' . $s->id . '"><img src="' . $banner . '" alt="Avatar" class="rounded"/></a></div>',
+                'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($s->image)  . '" data-lightbox="image-' . $s->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
+                'banner' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($s->banner_image)  . '" data-lightbox="banner-' . $s->id . '"><img src="' . $banner . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
                 'operate' => $action,
             ];
         });

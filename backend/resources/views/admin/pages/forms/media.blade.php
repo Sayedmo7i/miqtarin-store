@@ -70,7 +70,7 @@
                                         <div class="media-image-box">
                                             <a href="{{ $imagePath }}" data-lightbox="image-{{ $row->id }}">
                                                 <img src="{{ route('admin.dynamic_image', ['url' => $imagePath, 'width' => 120, 'quality' => 90]) }}"
-                                                    alt="Avatar" class="rounded">
+                                                    alt="{{ labels('admin_labels.image_preview', 'Image preview') }}" class="rounded">
                                             </a>
                                         </div>
                                         <div class="media-title">

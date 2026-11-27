@@ -144,11 +144,11 @@ class DemoDatabaseSeeder extends Seeder
         // 4. Categories
         $categoriesData = [
             ['slug' => 'electronics-smart-devices', 'en' => 'Electronics & Smart Devices', 'ar' => 'الإلكترونيات والأجهزة الذكية', 'image' => 'media/prod-headphones.jpg', 'banner' => 'media/hero-editorial-1.jpg'],
-            ['slug' => 'fashion-apparel', 'en' => 'Fashion & Apparel', 'ar' => 'الأزياء والملابس', 'image' => 'media/prod-jacket.png', 'banner' => 'media/hero-editorial-2.jpg'],
+            ['slug' => 'fashion-apparel', 'en' => 'Fashion & Apparel', 'ar' => 'الأزياء والملابس', 'image' => 'media/prod-jacket.jpg', 'banner' => 'media/hero-editorial-2.jpg'],
             ['slug' => 'home-kitchen', 'en' => 'Home & Kitchen', 'ar' => 'المنزل والمطبخ', 'image' => 'media/prod-espresso.jpg', 'banner' => 'media/hero-editorial-2.jpg'],
             ['slug' => 'groceries-organic', 'en' => 'Groceries & Fresh Food', 'ar' => 'البقالة والأغذية الطازجة', 'image' => 'media/prod-coffee.jpg', 'banner' => 'media/hero-editorial-1.jpg'],
-            ['slug' => 'beauty-personal-care', 'en' => 'Beauty & Personal Care', 'ar' => 'الجمال والعناية الشخصية', 'image' => 'media/prod-serum.png', 'banner' => 'media/hero-editorial-2.jpg'],
-            ['slug' => 'sports-fitness', 'en' => 'Sports & Fitness', 'ar' => 'الرياضة واللياقة', 'image' => 'media/prod-sneakers.png', 'banner' => 'media/hero-editorial-1.jpg'],
+            ['slug' => 'beauty-personal-care', 'en' => 'Beauty & Personal Care', 'ar' => 'الجمال والعناية الشخصية', 'image' => 'media/prod-serum.jpg', 'banner' => 'media/hero-editorial-2.jpg'],
+            ['slug' => 'sports-fitness', 'en' => 'Sports & Fitness', 'ar' => 'الرياضة واللياقة', 'image' => 'media/prod-sneakers.jpg', 'banner' => 'media/hero-editorial-1.jpg'],
         ];
         $categoryIds = [];
         foreach ($categoriesData as $idx => $cat) {
@@ -183,9 +183,9 @@ class DemoDatabaseSeeder extends Seeder
         // 5. Brands
         $brandsData = [
             ['slug' => 'muqtarin-tech', 'en' => 'MUQTARIN Tech', 'ar' => 'مقترن تك', 'image' => 'media/prod-smartwatch.jpg'],
-            ['slug' => 'al-noor-home', 'en' => 'Al-Noor Home', 'ar' => 'النور هوم', 'image' => 'media/prod-lamp.png'],
-            ['slug' => 'oasis-style', 'en' => 'Oasis Style', 'ar' => 'واحة ستايل', 'image' => 'media/prod-polo.png'],
-            ['slug' => 'pure-nature', 'en' => 'Pure Nature', 'ar' => 'نقاء الطبيعة', 'image' => 'media/prod-honey.png'],
+            ['slug' => 'al-noor-home', 'en' => 'Al-Noor Home', 'ar' => 'النور هوم', 'image' => 'media/prod-lamp.jpg'],
+            ['slug' => 'oasis-style', 'en' => 'Oasis Style', 'ar' => 'واحة ستايل', 'image' => 'media/prod-polo.jpg'],
+            ['slug' => 'pure-nature', 'en' => 'Pure Nature', 'ar' => 'نقاء الطبيعة', 'image' => 'media/prod-honey.jpg'],
         ];
         $brandIds = [];
         foreach ($brandsData as $b) {
@@ -341,7 +341,7 @@ class DemoDatabaseSeeder extends Seeder
                 'rating' => 4.7,
                 'no_of_ratings' => 36,
                 'logo' => 'seller-fashion.png',
-                'thumb' => 'seller-banner-home.jpg',
+                'thumb' => 'seller-banner-fashion.jpg',
             ],
             [
                 'username' => 'khaled_home',
@@ -369,7 +369,7 @@ class DemoDatabaseSeeder extends Seeder
                 'rating' => 4.3,
                 'no_of_ratings' => 21,
                 'logo' => 'seller-organic.png',
-                'thumb' => 'seller-banner-tech.jpg',
+                'thumb' => 'seller-banner-organic.jpg',
             ],
         ];
         $sellerUserIds = [];
@@ -476,16 +476,16 @@ class DemoDatabaseSeeder extends Seeder
         $productsData = [
             ['slug' => 'pro-wireless-earbuds-x1', 'en' => 'Pro Wireless Earbuds X1', 'ar' => 'سماعات لاسلكية برو X1', 'cat' => 0, 'seller' => 0, 'brand' => 0, 'price' => 149, 'special' => 119, 'rating' => 4.9, 'no_of_ratings' => 38, 'image' => 'media/prod-earbuds.jpg', 'tags' => 'audio,earbuds,wireless,anc,bluetooth', 'warranty' => '12 Months'],
             ['slug' => 'smart-watch-emerald-s4', 'en' => 'Smart Watch Emerald S4', 'ar' => 'ساعة ذكية إيميرالد S4', 'cat' => 0, 'seller' => 0, 'brand' => 0, 'price' => 240, 'special' => 199, 'rating' => 4.8, 'no_of_ratings' => 29, 'image' => 'media/prod-smartwatch.jpg', 'tags' => 'smartwatch,fitness,amoled,wearable', 'warranty' => '24 Months'],
-            ['slug' => 'fast-gan-charger-65w', 'en' => 'GaN Fast Charger 65W', 'ar' => 'شاحن سريع 65 واط GaN', 'cat' => 0, 'seller' => 0, 'brand' => 0, 'price' => 55, 'special' => 45, 'rating' => 4.6, 'no_of_ratings' => 22, 'image' => 'media/prod-charger.png', 'tags' => 'charger,usb-c,gan,65w,fast-charge', 'warranty' => '18 Months'],
-            ['slug' => 'linen-summer-jacket', 'en' => 'Linen Tailored Jacket', 'ar' => 'جاكيت كتان عصري', 'cat' => 1, 'seller' => 1, 'brand' => 2, 'price' => 135, 'special' => 110, 'rating' => 4.5, 'no_of_ratings' => 19, 'image' => 'media/prod-jacket.png', 'tags' => 'fashion,jacket,linen,menswear', 'warranty' => '14 Days Exchange'],
-            ['slug' => 'cotton-polo-classic', 'en' => 'Premium Cotton Polo', 'ar' => 'قميص بولو قطن فاخر', 'cat' => 1, 'seller' => 1, 'brand' => 2, 'price' => 65, 'special' => 49, 'rating' => 4.4, 'no_of_ratings' => 16, 'image' => 'media/prod-polo.png', 'tags' => 'polo,cotton,casual,apparel', 'warranty' => '14 Days Exchange'],
-            ['slug' => 'urban-running-sneakers', 'en' => 'Urban Comfort Sneakers', 'ar' => 'حذاء رياضي مريح للمشي', 'cat' => 5, 'seller' => 1, 'brand' => 2, 'price' => 120, 'special' => 95, 'rating' => 4.7, 'no_of_ratings' => 27, 'image' => 'media/prod-sneakers.png', 'tags' => 'sneakers,running,footwear,comfort', 'warranty' => '6 Months'],
+            ['slug' => 'fast-gan-charger-65w', 'en' => 'GaN Fast Charger 65W', 'ar' => 'شاحن سريع 65 واط GaN', 'cat' => 0, 'seller' => 0, 'brand' => 0, 'price' => 55, 'special' => 45, 'rating' => 4.6, 'no_of_ratings' => 22, 'image' => 'media/prod-charger.jpg', 'tags' => 'charger,usb-c,gan,65w,fast-charge', 'warranty' => '18 Months'],
+            ['slug' => 'linen-summer-jacket', 'en' => 'Linen Tailored Jacket', 'ar' => 'جاكيت كتان عصري', 'cat' => 1, 'seller' => 1, 'brand' => 2, 'price' => 135, 'special' => 110, 'rating' => 4.5, 'no_of_ratings' => 19, 'image' => 'media/prod-jacket.jpg', 'tags' => 'fashion,jacket,linen,menswear', 'warranty' => '14 Days Exchange'],
+            ['slug' => 'cotton-polo-classic', 'en' => 'Premium Cotton Polo', 'ar' => 'قميص بولو قطن فاخر', 'cat' => 1, 'seller' => 1, 'brand' => 2, 'price' => 65, 'special' => 49, 'rating' => 4.4, 'no_of_ratings' => 16, 'image' => 'media/prod-polo.jpg', 'tags' => 'polo,cotton,casual,apparel', 'warranty' => '14 Days Exchange'],
+            ['slug' => 'urban-running-sneakers', 'en' => 'Urban Comfort Sneakers', 'ar' => 'حذاء رياضي مريح للمشي', 'cat' => 5, 'seller' => 1, 'brand' => 2, 'price' => 120, 'special' => 95, 'rating' => 4.7, 'no_of_ratings' => 27, 'image' => 'media/prod-sneakers.jpg', 'tags' => 'sneakers,running,footwear,comfort', 'warranty' => '6 Months'],
             ['slug' => 'espresso-barista-maker', 'en' => 'Compact Espresso Maker', 'ar' => 'ماكينة إسبريسو منزلية', 'cat' => 2, 'seller' => 2, 'brand' => 1, 'price' => 310, 'special' => 265, 'rating' => 4.9, 'no_of_ratings' => 41, 'image' => 'media/prod-espresso.jpg', 'tags' => 'espresso,coffee,kitchen,appliance', 'warranty' => '24 Months'],
             ['slug' => 'ceramic-dinnerware-set', 'en' => 'Ceramic Dinnerware 16-Pc Set', 'ar' => 'طقم سفرة سيراميك 16 قطعة', 'cat' => 2, 'seller' => 2, 'brand' => 1, 'price' => 160, 'special' => 135, 'rating' => 4.3, 'no_of_ratings' => 14, 'image' => 'media/prod-ceramics.jpg', 'tags' => 'ceramic,dinnerware,kitchen,home', 'warranty' => '12 Months'],
-            ['slug' => 'smart-desk-lamp-led', 'en' => 'Minimalist LED Desk Lamp', 'ar' => 'مصباح مكتب ذكي LED', 'cat' => 2, 'seller' => 2, 'brand' => 1, 'price' => 75, 'special' => 59, 'rating' => 4.6, 'no_of_ratings' => 24, 'image' => 'media/prod-lamp.png', 'tags' => 'lamp,led,lighting,desk,smart-home', 'warranty' => '12 Months'],
-            ['slug' => 'sidr-organic-honey-500g', 'en' => 'Pure Sidr Honey 500g', 'ar' => 'عسل سدر عضوي 500 جم', 'cat' => 3, 'seller' => 3, 'brand' => 3, 'price' => 85, 'special' => 72, 'rating' => 4.8, 'no_of_ratings' => 33, 'image' => 'media/prod-honey.png', 'tags' => 'honey,sidr,organic,natural,grocery', 'warranty' => 'Freshness Guaranteed'],
+            ['slug' => 'smart-desk-lamp-led', 'en' => 'Minimalist LED Desk Lamp', 'ar' => 'مصباح مكتب ذكي LED', 'cat' => 2, 'seller' => 2, 'brand' => 1, 'price' => 75, 'special' => 59, 'rating' => 4.6, 'no_of_ratings' => 24, 'image' => 'media/prod-lamp.jpg', 'tags' => 'lamp,led,lighting,desk,smart-home', 'warranty' => '12 Months'],
+            ['slug' => 'sidr-organic-honey-500g', 'en' => 'Pure Sidr Honey 500g', 'ar' => 'عسل سدر عضوي 500 جم', 'cat' => 3, 'seller' => 3, 'brand' => 3, 'price' => 85, 'special' => 72, 'rating' => 4.8, 'no_of_ratings' => 33, 'image' => 'media/prod-honey.jpg', 'tags' => 'honey,sidr,organic,natural,grocery', 'warranty' => 'Freshness Guaranteed'],
             ['slug' => 'specialty-arabica-beans', 'en' => 'Specialty Arabica Coffee 1kg', 'ar' => 'حبوب قهوة أرابيكا مختصة 1 كجم', 'cat' => 3, 'seller' => 3, 'brand' => 3, 'price' => 58, 'special' => 48, 'rating' => 4.7, 'no_of_ratings' => 26, 'image' => 'media/prod-coffee.jpg', 'tags' => 'coffee,arabica,specialty,roast', 'warranty' => 'Freshness Guaranteed'],
-            ['slug' => 'argan-botanical-serum', 'en' => 'Botanical Argan Care Serum', 'ar' => 'سيروم الأرغان الطبيعي للعناية', 'cat' => 4, 'seller' => 3, 'brand' => 3, 'price' => 68, 'special' => 54, 'rating' => 4.2, 'no_of_ratings' => 15, 'image' => 'media/prod-serum.png', 'tags' => 'argan,serum,skincare,organic,beauty', 'warranty' => '12 Months Shelf Life'],
+            ['slug' => 'argan-botanical-serum', 'en' => 'Botanical Argan Care Serum', 'ar' => 'سيروم الأرغان الطبيعي للعناية', 'cat' => 4, 'seller' => 3, 'brand' => 3, 'price' => 68, 'special' => 54, 'rating' => 4.2, 'no_of_ratings' => 15, 'image' => 'media/prod-serum.jpg', 'tags' => 'argan,serum,skincare,organic,beauty', 'warranty' => '12 Months Shelf Life'],
         ];
         $variants = [];
         foreach ($productsData as $idx => $p) {
@@ -869,6 +869,18 @@ class DemoDatabaseSeeder extends Seeder
         }
 
         // 12B. Media Library Records
+        DB::table('media')
+            ->whereIn('file_name', [
+                'prod-charger.png',
+                'prod-jacket.png',
+                'prod-polo.png',
+                'prod-sneakers.png',
+                'prod-lamp.png',
+                'prod-honey.png',
+                'prod-serum.png',
+            ])
+            ->delete();
+
         $mediaFiles = [
             ['file' => 'hero-editorial-1.jpg', 'name' => 'MUQTARIN Hero Editorial 1'],
             ['file' => 'hero-editorial-2.jpg', 'name' => 'MUQTARIN Hero Editorial 2'],
@@ -876,16 +888,16 @@ class DemoDatabaseSeeder extends Seeder
             ['file' => 'muqtarin-icon.svg', 'name' => 'MUQTARIN Brand Icon'],
             ['file' => 'prod-earbuds.jpg', 'name' => 'Pro Wireless Earbuds X1'],
             ['file' => 'prod-smartwatch.jpg', 'name' => 'Smart Watch Emerald S4'],
-            ['file' => 'prod-charger.png', 'name' => 'GaN Fast Charger 65W'],
-            ['file' => 'prod-jacket.png', 'name' => 'Linen Tailored Jacket'],
-            ['file' => 'prod-polo.png', 'name' => 'Premium Cotton Polo'],
-            ['file' => 'prod-sneakers.png', 'name' => 'Urban Comfort Sneakers'],
+            ['file' => 'prod-charger.jpg', 'name' => 'GaN Fast Charger 65W'],
+            ['file' => 'prod-jacket.jpg', 'name' => 'Linen Tailored Jacket'],
+            ['file' => 'prod-polo.jpg', 'name' => 'Premium Cotton Polo'],
+            ['file' => 'prod-sneakers.jpg', 'name' => 'Urban Comfort Sneakers'],
             ['file' => 'prod-espresso.jpg', 'name' => 'Compact Espresso Maker'],
             ['file' => 'prod-ceramics.jpg', 'name' => 'Ceramic Dinnerware 16-Pc Set'],
-            ['file' => 'prod-lamp.png', 'name' => 'Minimalist LED Desk Lamp'],
-            ['file' => 'prod-honey.png', 'name' => 'Pure Sidr Honey 500g'],
+            ['file' => 'prod-lamp.jpg', 'name' => 'Minimalist LED Desk Lamp'],
+            ['file' => 'prod-honey.jpg', 'name' => 'Pure Sidr Honey 500g'],
             ['file' => 'prod-coffee.jpg', 'name' => 'Specialty Arabica Coffee 1kg'],
-            ['file' => 'prod-serum.png', 'name' => 'Botanical Argan Care Serum'],
+            ['file' => 'prod-serum.jpg', 'name' => 'Botanical Argan Care Serum'],
             ['file' => 'prod-headphones.jpg', 'name' => 'Studio Wireless Headphones'],
         ];
         foreach ($mediaFiles as $idx => $mf) {
@@ -924,6 +936,14 @@ class DemoDatabaseSeeder extends Seeder
                     'uuid' => (string) Str::uuid(),
                     'object_url' => null,
                     'created_at' => $now,
+                    'updated_at' => $now,
+                ]);
+            } else {
+                DB::table('media')->where('id', $exists->id)->update([
+                    'name' => $mf['name'],
+                    'extension' => $ext,
+                    'mime_type' => $mime,
+                    'size' => (string) File::size($fullPath),
                     'updated_at' => $now,
                 ]);
             }
@@ -1364,6 +1384,21 @@ class DemoDatabaseSeeder extends Seeder
             ['value' => json_encode($pwaVal, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), 'updated_at' => $now]
         );
 
+        $affRow = DB::table('settings')->where('variable', 'affiliate_settings')->first();
+        $affVal = $affRow ? (json_decode($affRow->value, true) ?: []) : [];
+        if (empty($affVal['min_amount_for_withdrawal_request']) || empty($affVal['max_amount_for_withdrawal_request'])) {
+            $affVal['min_amount_for_withdrawal_request'] = !empty($affVal['min_amount_for_withdrawal_request'])
+                ? $affVal['min_amount_for_withdrawal_request']
+                : '50';
+            $affVal['max_amount_for_withdrawal_request'] = !empty($affVal['max_amount_for_withdrawal_request'])
+                ? $affVal['max_amount_for_withdrawal_request']
+                : '5000';
+            DB::table('settings')->updateOrInsert(
+                ['variable' => 'affiliate_settings'],
+                ['value' => json_encode($affVal, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), 'updated_at' => $now]
+            );
+        }
+
         if (\Illuminate\Support\Facades\Schema::hasTable('seo_settings')) {
             DB::table('seo_settings')
                 ->where('seo_type', 'global')
@@ -1428,10 +1463,10 @@ class DemoDatabaseSeeder extends Seeder
         }
 
         $policyDefaults = [
-            'privacy_policy' => '<h4>MUQTARIN Store Privacy Policy</h4><p>MUQTARIN Store (مقترن ستور) is committed to protecting your personal data. We collect only the details required to process orders, verify accounts, coordinate courier deliveries, and prevent fraudulent activity.</p><h5>1. Information We Collect</h5><p>When you register, browse, or place an order, we store your name, contact number, email address, delivery addresses, and order history. Payment card numbers are processed through certified gateways and are never stored in plain text on our servers.</p><h5>2. How We Use Your Data</h5><p>Your information is shared strictly with the fulfilling verified seller and assigned delivery partner to complete shipment, issue invoices, and support 30-day return requests. You may request account review or deletion anytime via support@muqtarinstore.com.</p>',
-            'return_policy' => '<h4>MUQTARIN Store Return &amp; Refund Policy</h4><p>Customer satisfaction is central to MUQTARIN Store. Eligible items purchased on the marketplace may be returned or exchanged within <strong>30 days</strong> of delivery.</p><h5>1. Eligibility Criteria</h5><p>Returned products must be unused, unwashed, and enclosed in their original packaging with all accessories, manuals, and seller invoice intact. Perishable organic groceries and opened personal-care seals are eligible only if damaged or defective on arrival.</p><h5>2. Pickup &amp; Refund Timeline</h5><p>Submit a return request from your order details page. Once approved, a MUQTARIN courier collects the item within 48 hours. After inspection, refunds are credited within 3–5 business days to your original payment method or instantly to your MUQTARIN wallet.</p>',
-            'shipping_policy' => '<h4>MUQTARIN Store Shipping &amp; Delivery Policy</h4><p>We partner with trusted local and regional couriers to deliver curated marketplace orders quickly and safely across all active service zones.</p><h5>1. Dispatch &amp; Transit Times</h5><p>Verified sellers dispatch confirmed orders within 24 business hours. Standard delivery takes 24–48 hours inside Greater Cairo &amp; Giza, and 2–4 business days across Alexandria and other governorates.</p><h5>2. Free Delivery &amp; Order Tracking</h5><p>Orders meeting the zone minimum threshold qualify automatically for free standard delivery. Real-time tracking codes (MUQ-TRK) and Cash-on-Delivery OTP verification keep every handoff transparent.</p>',
-            'terms_and_conditions' => '<h4>MUQTARIN Store Terms &amp; Conditions</h4><p>Welcome to MUQTARIN Store (مقترن ستور). By creating an account or placing an order through our web storefront or mobile apps, you agree to comply with these marketplace terms.</p><h5>1. Accounts &amp; Orders</h5><p>Customers must provide accurate contact and delivery information. Prices include applicable VAT where marked and remain confirmed once an order is accepted by the seller.</p><h5>2. Buyer Protection &amp; Disputes</h5><p>All purchases carry buyer protection covering damaged, counterfeit, or non-delivered items, backed by our 30-day return window and dedicated support team at support@muqtarinstore.com.</p>',
+            'privacy_policy' => '<h4>MUQTARIN Store Privacy Policy</h4><p>MUQTARIN Store (مقترن ستور) respects your privacy and is committed to safeguarding personal information collected across our web storefront, mobile applications, and customer support channels. This policy explains what data we collect, how it is processed, and the rights available to every shopper.</p><h5>1. Information We Collect</h5><p>When you create an account, place an order, save delivery addresses, or contact support, we collect your full name, phone number, email address, shipping coordinates, and transaction history. Payment card credentials are encrypted and processed exclusively through PCI-compliant payment gateways and are never stored in plain text on MUQTARIN Store servers.</p><h5>2. How We Use &amp; Share Your Data</h5><p>Your order details are shared strictly on a need-to-know basis with the fulfilling verified merchant and assigned courier partner so items can be packed, invoiced, delivered with OTP verification, and serviced for 30-day returns. We do not sell, rent, or trade customer contact lists to third-party advertisers.</p><h5>3. Cookies, Sessions &amp; Data Security</h5><p>Essential cookies preserve your shopping cart, preferred language (English or العربية), selected currency, and authenticated session. Access to customer records inside our platform is protected by role-based permissions, TLS transport encryption, and audit logs.</p><h5>4. Your Privacy Rights &amp; Contact</h5><p>You may review, update, export, or request deletion of your personal account records at any time through your account settings or by contacting our privacy desk at <a href="mailto:support@muqtarinstore.com">support@muqtarinstore.com</a> or calling +20 100 245 8810.</p>',
+            'return_policy' => '<h4>MUQTARIN Store Return &amp; Refund Policy</h4><p>Customer confidence is foundational to MUQTARIN Store (مقترن ستور). Eligible items purchased from verified marketplace sellers may be returned or exchanged within <strong>30 calendar days</strong> from the confirmed delivery date.</p><h5>1. Return Eligibility &amp; Condition</h5><p>Items must be returned unused, unwashed, undamaged, and complete with original manufacturer packaging, tags, accessories, manuals, and seller invoice. Perishable organic groceries, opened skincare seals, and hygiene-sensitive goods qualify for return only if delivered damaged, expired, defective, or incorrect.</p><h5>2. How to Request a Return</h5><p>Open <strong>My Orders</strong> in your account, select the delivered item, choose a return reason, and attach clear photos if an item arrived damaged or mismatched. Once the seller or marketplace team reviews the request within 24 hours, a MUQTARIN courier pickup is scheduled within 48 hours at no pickup charge for verified defects.</p><h5>3. Inspection &amp; Refund Timeline</h5><p>Returned parcels are inspected at the fulfillment hub or seller warehouse within 2 business days of collection. Approved refunds are credited automatically within <strong>3–5 business days</strong> to your original payment card, or credited immediately to your MUQTARIN Store Wallet for Cash-on-Delivery orders.</p><h5>4. Exchanges &amp; Dispute Support</h5><p>Where size or variant stock is available, you may request a direct replacement instead of a refund. For escalated return questions, contact <a href="mailto:support@muqtarinstore.com">support@muqtarinstore.com</a>.</p>',
+            'shipping_policy' => '<h4>MUQTARIN Store Shipping &amp; Delivery Policy</h4><p>MUQTARIN Store (مقترن ستور) partners with vetted regional and last-mile couriers to provide reliable, trackable doorstep delivery from verified multi-vendor sellers across all active service zones.</p><h5>1. Order Processing &amp; Dispatch</h5><p>Confirmed orders are queued immediately with the assigned seller and packed within 24 business hours (Saturday through Thursday, excluding official holidays). Multi-seller carts may ship in separate seller parcels so faster items arrive without waiting.</p><h5>2. Estimated Transit Times &amp; Service Zones</h5><p>Standard delivery takes <strong>24–48 hours</strong> within Greater Cairo &amp; Giza, and <strong>2–4 business days</strong> across Alexandria, Delta cities, and Upper Egypt governorates. Express same-day or next-day windows appear at checkout where supported by your postal zone.</p><h5>3. Shipping Fees &amp; Free Delivery Threshold</h5><p>Delivery charges are calculated transparently by serviceable city and weight before checkout confirmation. Orders totaling <strong>$250 or more</strong> qualify automatically for Free Standard Delivery on eligible marketplace items.</p><h5>4. Live Tracking &amp; OTP Handoff</h5><p>Every dispatched parcel receives a live tracking reference (MUQ-TRK) in your order details page. For Cash-on-Delivery and high-value orders, couriers confirm a one-time delivery OTP before completing handoff.</p>',
+            'terms_and_conditions' => '<h4>MUQTARIN Store Terms &amp; Conditions</h4><p>Welcome to MUQTARIN Store (مقترن ستور). By accessing our website, creating a shopper or seller account, or placing an order, you agree to be bound by these Terms &amp; Conditions and our published marketplace policies.</p><h5>1. Marketplace Accounts &amp; Accuracy</h5><p>Shoppers must provide accurate contact numbers, delivery addresses, and payment details and keep account credentials confidential. MUQTARIN Store hosts independent verified merchants who fulfill orders directly under marketplace quality standards.</p><h5>2. Pricing, Taxes &amp; Order Confirmation</h5><p>All product prices are displayed clearly in the active store currency with applicable VAT noted prior to checkout. An order is confirmed once payment is authorized or Cash-on-Delivery validation succeeds and the fulfilling seller accepts the order. In rare cases of stock discrepancy or manifest pricing error, orders may be canceled with a full immediate refund.</p><h5>3. Buyer Protection, Warranty &amp; Returns</h5><p>Every eligible purchase is backed by MUQTARIN Buyer Protection covering non-delivery, damaged transit, or counterfeit claims, alongside published manufacturer warranties and our 30-day return window.</p><h5>4. Intellectual Property &amp; Governing Law</h5><p>All MUQTARIN Store trademarks, storefront software, and curated content remain protected intellectual property. These terms are governed by applicable Egyptian commercial and consumer-protection laws, and disputes may be addressed via <a href="mailto:support@muqtarinstore.com">support@muqtarinstore.com</a>.</p>',
             'about_us' => '<h4>About MUQTARIN Store</h4><p>MUQTARIN Store (مقترن ستور) is a bilingual multi-vendor marketplace connecting trusted Egyptian and regional merchants with shoppers seeking verified quality across electronics, fashion, home living, and organic goods.</p><h5>1. Curated &amp; Verified Sellers</h5><p>Every merchant completes identity, tax, and catalog verification before going live, ensuring authentic items, transparent pricing, and reliable fulfillment.</p><h5>2. Built for Seamless Shopping</h5><p>With instant Arabic/English switching, Cash on Delivery, real-time courier tracking, and a 30-day return guarantee, MUQTARIN Store delivers confidence from checkout to doorstep.</p>',
             'admin_privacy_policy' => '<h4>Admin Portal Privacy Policy</h4><p>Administrative accounts on MUQTARIN Store operate under strict confidentiality and least-privilege access controls across all tenant stores.</p><h5>1. Access &amp; Audit Logging</h5><p>Administrators access customer, seller KYC, payout, and order dispute records solely for operational governance, compliance review, and fraud prevention.</p><h5>2. Data Handling</h5><p>Exporting personal contact details outside authorized administrative workflows is prohibited under MUQTARIN data-protection policy.</p>',
             'admin_terms_and_conditions' => '<h4>Admin Portal Terms &amp; Conditions</h4><p>Platform administrators are responsible for maintaining accurate catalog approvals, verified seller onboarding, and fair dispute resolution.</p><h5>1. Operational Governance</h5><p>Administrators must review flagged listings, return escalations, and wallet settlement batches within target SLAs while preserving impartial marketplace standards.</p><h5>2. Account Security</h5><p>Portal credentials must never be shared and all sessions should be locked when unattended.</p>',
@@ -1440,14 +1475,16 @@ class DemoDatabaseSeeder extends Seeder
             'delivery_boy_privacy_policy' => '<h4>Courier Privacy Policy</h4><p>MUQTARIN Store collects courier identity documents, active zone assignments, and route telemetry solely to coordinate deliveries and settle bonuses.</p><h5>1. Route &amp; Contact Privacy</h5><p>Customer phone numbers and delivery locations visible in the courier app may only be used to complete active dispatches and OTP confirmation.</p>',
             'delivery_boy_terms_and_conditions' => '<h4>Courier Terms &amp; Conditions</h4><p>Delivery partners represent MUQTARIN Store at the customer’s doorstep and must uphold safe package handling and courteous service.</p><h5>1. OTP &amp; COD Settlement</h5><p>Couriers must verify delivery OTPs where enabled, collect exact Cash-on-Delivery amounts, and reconcile collected cash on schedule to receive bonus payouts.</p>',
         ];
+        $storefrontPolicies = ['privacy_policy', 'return_policy', 'shipping_policy', 'terms_and_conditions'];
         foreach ($policyDefaults as $varName => $html) {
             $row = DB::table('settings')->where('variable', $varName)->first();
             $rawVal = $row ? (string) $row->value : '';
             $decoded = $row ? (json_decode($rawVal, true) ?: []) : [];
             $currentText = is_array($decoded) ? trim((string) ($decoded[$varName] ?? '')) : '';
+            $minLen = in_array($varName, $storefrontPolicies, true) ? 1100 : 350;
             $needsClean = !$row
                 || $currentText === ''
-                || mb_strlen(strip_tags($currentText)) < 350
+                || mb_strlen(strip_tags($currentText)) < $minLen
                 || preg_match('/14\s*days|ezeemart|eshop|cityecommerce/i', $rawVal)
                 || substr_count($currentText, '<h5') > 4;
             if ($needsClean) {

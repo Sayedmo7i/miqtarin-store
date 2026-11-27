@@ -124,7 +124,7 @@
                                     <button class="language-nav-link nav-link" id="tab-{{ $lang->code }}"
                                         data-bs-toggle="tab" data-bs-target="#content-{{ $lang->code }}" type="button"
                                         role="tab" aria-controls="content-{{ $lang->code }}" aria-selected="false">
-                                        {{ $lang->language }}
+                                        {{ $lang->native_language ?: $lang->language }}
                                     </button>
                                 </li>
                             @endif
@@ -160,19 +160,19 @@
                                             </div>
                                             <button type="button"
                                                 class="btn btn-sm btn-outline-primary generate_short_description">
-                                                Generate with AI
+                                                {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                             </button>
                                             <div id="prompt_actions" class="d-none">
                                                 <button type="button"
                                                     class="btn btn-sm btn-outline-secondary get_prompt_suggestions">
-                                                    Get Prompt Suggestions
+                                                    {{ labels('admin_labels.get_prompt_suggestions', 'Get Prompt Suggestions') }}
                                                 </button>
                                             </div>
 
                                             <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                                 data-bs-toggle="popover" data-bs-placement="top"
                                                 data-bs-content="{{ labels('admin_labels.popover_use_ai_assistance', 'Use AI Assistance :Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can use suggested prompts or write your own.') }}">
-                                                How It Works?
+                                                {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                             </button>
 
                                         </div>
@@ -200,7 +200,7 @@
                                             <div class="mb-3">
                                                 <label for="translated_title_{{ $lang->code }}" class="form-label">
                                                     {{ labels('admin_labels.product_name', 'Product Name') }}
-                                                    ({{ $lang->language }})
+                                                    ({{ $lang->native_language ?: $lang->language }})
                                                 </label>
                                                 <input type="text" class="form-control translated-name-input"
                                                     id="translated_name_{{ $lang->code }}"
@@ -215,7 +215,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label class="form-label mb-0">
                                                         {{ labels('admin_labels.short_description', 'Short Description') }}
-                                                        ({{ $lang->language }})
+                                                        ({{ $lang->native_language ?: $lang->language }})
                                                     </label>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div class="form-check form-switch">
@@ -230,20 +230,20 @@
                                                             class="btn btn-sm btn-outline-primary generate_translated_short_description"
                                                             data-lang="{{ $lang->code }}"
                                                             data-lang-name="{{ $lang->language }}">
-                                                            Generate with AI
+                                                            {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                                         </button>
                                                         <div id="language_prompt_action_{{ $lang->code }}"
                                                             class="language_prompt_action d-none">
                                                             <button type="button"
                                                                 class="btn btn-sm btn-outline-secondary get_language_prompt_suggestions">
-                                                                Get Prompt Suggestions
+                                                                {{ labels('admin_labels.get_prompt_suggestions', 'Get Prompt Suggestions') }}
                                                             </button>
                                                         </div>
                                                         <button type="button" class="btn btn-secondary btn-sm"
                                                             data-container="body" data-bs-toggle="popover"
                                                             data-bs-placement="top"
                                                             data-bs-content="{{ labels('admin_labels.popover_use_ai_assistance', 'Use AI Assistance :Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can use suggested prompts or write your own.') }}">
-                                                            How It Works?
+                                                            {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                                         </button>
 
                                                     </div>
@@ -1269,7 +1269,7 @@
                                                                     'quality' => 90,
                                                                 ]) }}"
                                                                 onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}';"
-                                                                alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                         </div>
                                                         <input type="hidden" name="pro_input_image"
                                                             value="{{ $data->image }}">
@@ -1311,7 +1311,7 @@
                                                                             'quality' => 90,
                                                                         ]) }}"
                                                                         onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}';"
-                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                 </div>
                                                                 <a href="javascript:void(0)" class="delete-img"
                                                                     data-id="{{ $data->id }}"
@@ -1436,12 +1436,12 @@
                                         </div>
                                         <button type="button"
                                             class="btn btn-sm btn-outline-primary generate_description">
-                                            Generate with AI
+                                            {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                         </button>
                                         <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                             data-bs-toggle="popover" data-bs-placement="top"
                                             data-bs-content="{{ labels('admin_labels.popover_generate_description_no_custom', 'Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can write your own.') }}">
-                                            How It Works?
+                                            {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                         </button>
                                     </div>
 
@@ -1467,12 +1467,12 @@
                                         </div>
                                         <button type="button"
                                             class="btn btn-sm btn-outline-primary generate_extra_description">
-                                            Generate with AI
+                                            {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                         </button>
                                         <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                             data-bs-toggle="popover" data-bs-placement="top"
                                             data-bs-content="{{ labels('admin_labels.popover_generate_description_no_custom', 'Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can write your own.') }}">
-                                            How It Works?
+                                            {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                         </button>
                                     </div>
 

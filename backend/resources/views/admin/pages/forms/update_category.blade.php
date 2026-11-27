@@ -106,7 +106,7 @@
                                                                     'width' => 150,
                                                                     'quality' => 90,
                                                                 ]) }}"
-                                                                alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                                alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                         </div>
                                                         <input type="hidden" name="category_image"
                                                             value='{{ $data->image }}'>
@@ -145,7 +145,7 @@
                                                                     'width' => 150,
                                                                     'quality' => 90,
                                                                 ]) }}"
-                                                                alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                                alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                         </div>
                                                         <input type="hidden" name="banner"
                                                             value='{{ $data->banner }}'>

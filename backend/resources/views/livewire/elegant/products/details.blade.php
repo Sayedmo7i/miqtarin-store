@@ -105,8 +105,9 @@
                                         class="d-block">
                                         <img id="zoompro" class="zoompro rounded-0"
                                             src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
-                                            alt="{{ $product_details->name }}" loading="lazy" decoding="async" />
+                                            alt="{{ $product_details->name }}" loading="eager" fetchpriority="high" decoding="async" />
                                     </a>
+                                    <link rel="preload" as="image" href="{{ $main_image_zoom }}">
                                 </div>
                                 <div class="d-none mq-lightbox-album" aria-hidden="true">
                                     @foreach ($product_details->other_images as $images)
@@ -432,7 +433,7 @@
                                     class="fs-5 me-2"></ion-icon>
                                 @if ($product_details->is_cancelable == 1)
                                     <b class="freeShip me-1">{{ labels('front_messages.cancel_till', 'Cancel Till') }}
-                                        {{ $product_details->cancelable_till }}</b>
+                                        {{ labels('front_messages.' . strtolower(trim($product_details->cancelable_till)), ucfirst(str_replace('_', ' ', $product_details->cancelable_till))) }}</b>
                                 @else
                                     {{ labels('front_messages.non_cancelable', 'Non Cancelable') }}
                                 @endif

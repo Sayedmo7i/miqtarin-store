@@ -431,7 +431,7 @@ class StoreController extends Controller
                           <input class="form-check-input" type="checkbox" role="switch"></a>',
                 'image' => '<div>
                                 <a href="' . app(MediaService::class)->getMediaImageUrl($s->image, 'STORE_IMG_PATH') . '" data-lightbox="image-' . $s->id . '">
-                                    <img src="' . $image_src . '" alt="Avatar" class="rounded" />
+                                    <img src="' . $image_src . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded" />
                                 </a>
                             </div>',
                 'banner' => '<div>

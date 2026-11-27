@@ -13,7 +13,7 @@
                     <span class="mq-eyebrow"><i class="bx bxs-leaf"></i> {{ $settings->site_title ?? 'MUQTARIN Store' }}</span>
                 </div>
                 <p class="small mb-3" style="color: #94A3B8; line-height: 1.7;">
-                    {{ $settings->app_short_description ?? '' }}
+                    {{ app()->getLocale() === 'ar' ? labels('front_messages.site_short_description', $settings->app_short_description ?? '') : ($settings->app_short_description ?? '') }}
                 </p>
                 @if (
                     $settings->twitter_link !== null ||

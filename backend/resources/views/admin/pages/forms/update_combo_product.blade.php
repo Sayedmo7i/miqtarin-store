@@ -112,7 +112,7 @@
                                     <button class="language-nav-link nav-link" id="tab-{{ $lang->code }}" data-bs-toggle="tab"
                                         data-bs-target="#content-{{ $lang->code }}" type="button" role="tab"
                                         aria-controls="content-{{ $lang->code }}" aria-selected="false">
-                                        {{ $lang->language }}
+                                        {{ $lang->native_language ?: $lang->language }}
                                     </button>
                                 </li>
                             @endif
@@ -191,7 +191,7 @@
                                             <div class="mb-3">
                                                 <label for="translated_title_{{ $lang->code }}" class="form-label">
                                                     {{ labels('admin_labels.product_name', 'Product Name') }}
-                                                    ({{ $lang->language }})
+                                                    ({{ $lang->native_language ?: $lang->language }})
                                                 </label>
                                                 <input type="text" class="form-control translated-name-input"
                                                     name="translated_product_title[{{ $lang->code }}]"
@@ -206,7 +206,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label class="form-label mb-0">
                                                         {{ labels('admin_labels.short_description', 'Short Description') }}
-                                                        ({{ $lang->language }})
+                                                        ({{ $lang->native_language ?: $lang->language }})
                                                     </label>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div class="form-check form-switch">
@@ -231,7 +231,7 @@
                                                         <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                                             data-bs-toggle="popover" data-bs-placement="top"
                                                             data-bs-content="Use AI Assistance :Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can use suggested prompts or write your own.">
-                                                            How It Works?
+                                                            {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                                         </button>
                                                     </div>
 
@@ -1211,12 +1211,12 @@
                                             Prompt</label>
                                     </div>
                                     <button type="button" class="btn btn-sm btn-outline-primary generate_description">
-                                        Generate with AI
+                                        {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                     </button>
                                     <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                         data-bs-toggle="popover" data-bs-placement="top"
                                         data-bs-content="Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can write your own.">
-                                        How It Works?
+                                        {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                     </button>
                                 </div>
 

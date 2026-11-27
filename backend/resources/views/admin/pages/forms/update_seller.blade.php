@@ -719,7 +719,7 @@
                                                                             'width' => 150,
                                                                             'quality' => 90,
                                                                         ]) }}"
-                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1024,7 +1024,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="require_products_approval"
-                                                class="col-sm-6 col-form-label">{{ labels('admin_labels.require_product_approvel', 'Require Product Approvel') }}?
+                                                class="col-sm-6 col-form-label">{{ labels('admin_labels.require_product_approvel', 'Require Product Approvel') }}
                                             </label>
                                             <div class="col-sm-6 form-check form-switch">
                                                 <input type="checkbox" class="form-check-input mx-2 float-end"
@@ -1036,7 +1036,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="customer_privacy"
-                                                class="col-sm-5 col-form-label">{{ labels('admin_labels.view_customer_details', 'View Customer Details') }}?
+                                                class="col-sm-5 col-form-label">{{ labels('admin_labels.view_customer_details', 'View Customer Details') }}
                                             </label>
                                             <div class="col-sm-7 form-check form-switch">
                                                 <input type="checkbox" name="customer_privacy"
@@ -1050,7 +1050,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="view_order_otp"
-                                                class="col-sm-8 col-form-label">{{ labels('admin_labels.view_order_otp_and_change_delivery_status', 'View Order OTP & Can Change Delivery Status') }}?
+                                                class="col-sm-8 col-form-label">{{ labels('admin_labels.view_order_otp_and_change_delivery_status', 'View Order OTP & Can Change Delivery Status') }}
                                             </label>
                                             <div class="col-sm-4 form-check form-switch">
                                                 <input type="checkbox" name="view_order_otp"

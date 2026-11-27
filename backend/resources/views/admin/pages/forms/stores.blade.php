@@ -161,7 +161,7 @@
                                                             <label for="translated_title_{{ $lang->code }}"
                                                                 class="form-label">
                                                                 {{ labels('admin_labels.name', 'Name') }}
-                                                                ({{ $lang->language }})
+                                                                ({{ $lang->native_language ?: $lang->language }})
                                                             </label>
                                                             <input type="text" class="form-control"
                                                                 id="translated_title_{{ $lang->code }}"
@@ -172,7 +172,7 @@
                                                             <label for="translated_short_description_{{ $lang->code }}"
                                                                 class="form-label">
                                                                 {{ labels('admin_labels.description', 'Description') }}
-                                                                ({{ $lang->language }})
+                                                                ({{ $lang->native_language ?: $lang->language }})
                                                             </label>
                                                             <input type="text" class="form-control"
                                                                 id="translated_short_description_{{ $lang->code }}"
@@ -634,7 +634,7 @@
                                                         type="button" role="tab"
                                                         aria-controls="content-{{ $lang->code }}"
                                                         aria-selected="false">
-                                                        {{ $lang->language }}
+                                                        {{ $lang->native_language ?: $lang->language }}
                                                     </button>
                                                 </li>
                                             @endif
@@ -665,7 +665,7 @@
                                                             for="translated_categories_section_title_{{ $lang->code }}"
                                                             class="form-label">
                                                             {{ labels('admin_labels.categories_section_title', 'Categories Section Title') }}
-                                                            ({{ $lang->language }})
+                                                            ({{ $lang->native_language ?: $lang->language }})
                                                         </label>
                                                         <input type="text" class="form-control"
                                                             name="translated_categories_section_title[{{ $lang->code }}]">

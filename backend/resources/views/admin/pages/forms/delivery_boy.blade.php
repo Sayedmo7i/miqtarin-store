@@ -818,7 +818,7 @@
                                     <div
                                         class="col-md-8 col-sm-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
                                         <div class='image-upload-div'><img class="img-fluid edit_front_licence_image mb-2"
-                                                src="{{ asset('assets/brand/icon.svg') }}" alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                src="{{ asset('assets/brand/icon.svg') }}" alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}"></div>
                                         <input type="hidden" name="image" value=''>
                                     </div>
                                 </div>
@@ -829,7 +829,7 @@
                                     <div
                                         class="col-md-8 col-sm-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
                                         <div class='image-upload-div'><img class="img-fluid edit_back_licence_image mb-2"
-                                                src="{{ asset('assets/brand/icon.svg') }}" alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                src="{{ asset('assets/brand/icon.svg') }}" alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}"></div>
                                         <input type="hidden" name="image" value=''>
                                     </div>
                                 </div>

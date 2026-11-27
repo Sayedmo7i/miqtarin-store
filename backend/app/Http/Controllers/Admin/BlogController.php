@@ -203,7 +203,7 @@ class BlogController extends Controller
                     'width' => 60,
                     'quality' => 90
                 ]);
-                $imageHtml = '<div class="d-flex justify-content-center"><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>';
+                $imageHtml = '<div class="d-flex justify-content-center"><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>';
             }
             return [
                 'id' => $b->id,
@@ -346,7 +346,7 @@ class BlogController extends Controller
                   <option value="1" ' . ($b->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
                   <option value="0" ' . ($b->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
               </div></select>',
-                'image' => '<div class="d-flex justify-content-center"><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
+                'image' => '<div class="d-flex justify-content-center"><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
                 'operate' => $action,
             ];
         });

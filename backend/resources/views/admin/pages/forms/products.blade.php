@@ -174,7 +174,7 @@
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">
                                             {{ labels('admin_labels.product_name', 'Product Name') }}
-                                            ({{ $lang->language }})
+                                            ({{ $lang->native_language ?: $lang->language }})
                                         </label>
                                         <div class="position-relative">
                                             <input type="text" class="form-control translated-name-input"
@@ -188,7 +188,7 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label class="form-label mb-0">
                                                 {{ labels('admin_labels.short_description', 'Short Description') }}
-                                                ({{ $lang->language }})
+                                                ({{ $lang->native_language ?: $lang->language }})
                                             </label>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div class="form-check form-switch">

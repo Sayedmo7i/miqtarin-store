@@ -151,7 +151,7 @@ class BrandController extends Controller
                     '<option value="3" ' . ($b->status == 3 ? 'selected' : '') . '>' . labels('admin_labels.rejected', 'Rejected') . '</option>' .
                     '</select>',
 
-                'image' => '<div class=""><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
+                'image' => '<div class=""><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
             ];
         });
 

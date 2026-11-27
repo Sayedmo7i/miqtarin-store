@@ -317,7 +317,6 @@
 @endsection
 
 @section('scripts')
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.translation-file-input').forEach(function(input) {

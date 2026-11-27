@@ -20,8 +20,8 @@
     "processed": "تم المعالجة",
     "shipped": "تم الشحن",
     "delivered": "تم التسليم",
-    "cancelled": "ملغى",
-    "returned": "تم الإرجاع",
+    "cancelled": "ملغي",
+    "returned": "مُرتجع",
     "return_request_pending": "طلب الإرجاع قيد الانتظار",
     "return_request_approved": "تمت الموافقة على طلب الإرجاع",
     "return_request_decline": "تم رفض طلب الإرجاع",
@@ -244,7 +244,7 @@
     "delivery_charges_may_apply_as_per_your_address_preferences_you_will_see_final_amount_in_checkout_screen": "قد تُطبق رسوم التوصيل حسب تفضيلات عنوانك. سترى المبلغ النهائي في شاشة الدفع",
     "you_can_eiher_use_wallet_balance_or_payment_method_to_pay_for_your_order": "يمكنك استخدام رصيد المحفظة أو طريقة الدفع لدفع طلبك",
     "proceed_to_checkout": "المتابعة إلى الدفع",
-    "awaiting": "في الانتظار",
+    "awaiting": "قيد الانتظار",
     "best_seller": "الأكثر مبيعاً",
     "new_arrival": "وصول جديد",
     "check_out_this_amazing_product": "تحقق من هذا المنتج الرائع",
@@ -672,5 +672,9 @@
     "security_service_title": "دفع آمن",
     "security_service_desc": "معاملات مشفرة ومحمية بالكامل",
     "return_service_title": "استرجاع حتى 30 يوماً",
-    "return_service_desc": "سياسة إرجاع مرنة وخالية من التعقيد"
+    "return_service_desc": "سياسة إرجاع مرنة وخالية من التعقيد",
+    "dont_have_an_account": "ليس لديك حساب؟",
+    "lets_get_in_touch": "لنتواصل معاً!",
+    "seller_dont_have_any_products": "لا يملك هذا البائع أي منتجات حالياً",
+    "you_dont_have_any_items_in_your_search": "لم يتم العثور على منتجات مطابقة لبحثك."
 }

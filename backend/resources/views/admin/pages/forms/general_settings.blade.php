@@ -32,7 +32,7 @@
                                         for="site_title">{{ labels('admin_labels.site_title', 'Site Title') }}
                                         <span class='text-asterisks text-xs'>*</span>
                                     </label>
-                                    <input type="text" class="form-control" name="site_title"
+                                    <input type="text" class="form-control" name="site_title" id="site_title"
                                         value="<?= isset($web_settings['site_title']) ? outputEscaping($web_settings['site_title']) : '' ?>"
                                         placeholder="{{ labels('admin_labels.placeholder_prefix_title_website', 'Prefix title for the website.') }} " />
                                 </div>
@@ -41,7 +41,7 @@
                                         for="support_number">{{ labels('admin_labels.support_number', 'Support Number') }}
                                         <span class='text-asterisks text-xs'>*</span>
                                     </label>
-                                    <input type="text" class="form-control" name="support_number"
+                                    <input type="text" class="form-control" name="support_number" id="support_number"
                                         value="<?= isset($web_settings['support_number']) ? outputEscaping($web_settings['support_number']) : '' ?>"
                                         placeholder="{{ labels('admin_labels.placeholder_customer_support_mobile', 'Customer support mobile number') }}" />
                                 </div>
@@ -50,13 +50,13 @@
                                         for="support_email">{{ labels('admin_labels.support_email', 'Support Email') }}
                                         <span class='text-asterisks text-xs'>*</span>
                                     </label>
-                                    <input type="text" class="form-control" name="support_email"
+                                    <input type="text" class="form-control" name="support_email" id="support_email"
                                         value="<?= isset($web_settings['support_email']) ? outputEscaping($web_settings['support_email']) : '' ?>"
                                         placeholder="{{ labels('admin_labels.placeholder_customer_support_email', 'Customer support email') }}" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="mb-3 mt-3"
-                                        for="address">{{ labels('admin_labels.copyright_details', 'Copyright Details') }}
+                                        for="copyright_details">{{ labels('admin_labels.copyright_details', 'Copyright Details') }}
                                         <span class='text-asterisks text-xs'>*</span>
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                            data-bs-toggle="popover"
@@ -100,7 +100,7 @@
                                 </h5>
 
                                 <div class="col-md-12 form-group">
-                                    <label for="image">{{ labels('admin_labels.logo', 'Logo') }}
+                                    <label for="logo">{{ labels('admin_labels.logo', 'Logo') }}
                                         <span class='text-asterisks text-sm'>*</span>
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                            data-bs-toggle="popover"
@@ -123,14 +123,14 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @if (!empty($web_settings['logo']))
-                                                    <label for="" class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
+                                                    <label class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
                                                     <div class="container-fluid row image-upload-section">
                                                         <div
                                                             class="col-md-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
                                                             <div class=''>
                                                                 <div class='upload-media-div'><img class="img-fluid mb-2"
-                                                                        src="{{ asset('storage' . $web_settings['logo']) }}"
-                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                                        src="{{ asset('storage/' . ltrim($web_settings['logo'], '/')) }}"
+                                                                        alt="{{ labels('admin_labels.logo', 'Logo') }}"></div>
                                                                 <input type="hidden" name="logo" id='logo'
                                                                     value='<?= $web_settings['logo'] ?>'>
                                                             </div>
@@ -150,7 +150,7 @@
 
 
                                 <div class="col-md-12 form-group">
-                                    <label for="image">{{ labels('admin_labels.favicon', 'Favicon') }}
+                                    <label for="favicon">{{ labels('admin_labels.favicon', 'Favicon') }}
                                         <span class='text-asterisks text-sm'>*</span>
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                            data-bs-toggle="popover"
@@ -165,22 +165,22 @@
                                                         <a class="media_link" data-input="favicon" data-isremovable="0"
                                                             data-is-multiple-uploads-allowed="0" data-bs-toggle="modal"
                                                             data-bs-target="#media-upload-modal" value="{{ labels('admin_labels.upload_photo', 'Upload Photo') }}">
-                                                            <h4><i class='bx bx-upload'></i> Upload
-                                                        </a></h4>
+                                                            <h4><i class='bx bx-upload'></i> {{ labels('admin_labels.upload_option', 'Upload') }}</h4>
+                                                        </a>
                                                         <p class="image_recommendation">{{ labels('admin_labels.recommended_size_120_150_pixels', 'Recommended Size : larger than 120 x 120 & smaller than 150 x 150 pixels.') }}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 @if (!empty($web_settings['favicon']))
-                                                    <label for="" class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
+                                                    <label class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_necessary', 'Only Choose When Update is necessary') }}</label>
                                                     <div class="container-fluid row image-upload-section">
                                                         <div
                                                             class="col-md-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
                                                             <div class=''>
                                                                 <div class='upload-media-div'><img class="img-fluid mb-2"
-                                                                        src="{{ asset('storage' . $web_settings['favicon']) }}"
-                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                                        src="{{ asset('storage/' . ltrim($web_settings['favicon'], '/')) }}"
+                                                                        alt="{{ labels('admin_labels.favicon', 'Favicon') }}"></div>
                                                                 <input type="hidden" name="favicon" id='favicon'
                                                                     value='<?= $web_settings['favicon'] ?>'>
                                                             </div>
@@ -199,7 +199,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label class="mb-3 mt-3"
-                                        for="support_email">{{ labels('admin_labels.meta_keywords', 'Meta Keywords') }}<span
+                                        for="meta_keywords">{{ labels('admin_labels.meta_keywords', 'Meta Keywords') }}<span
                                             class='text-danger text-xs'>*</span>
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                            data-bs-toggle="popover"
@@ -210,7 +210,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label class="mb-3 mt-3"
-                                        for="support_email">{{ labels('admin_labels.meta_description', 'Meta Description') }}
+                                        for="meta_description">{{ labels('admin_labels.meta_description', 'Meta Description') }}
                                         <span class='text-asterisks text-xs'>*</span>
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                            data-bs-toggle="popover"
@@ -234,33 +234,33 @@
                                     <label class="mb-3 mt-3"
                                         for="twitter_link">{{ labels('admin_labels.twitter', 'Twitter') }}
                                     </label>
-                                    <input type="text" class="form-control" name="twitter_link"
+                                    <input type="text" class="form-control" name="twitter_link" id="twitter_link"
                                         value="<?= isset($web_settings['twitter_link']) ? outputEscaping($web_settings['twitter_link']) : '' ?>"
-                                        placeholder="Twitter Link" />
+                                        placeholder="https://x.com/muqtarinstore" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="mb-3 mt-3"
                                         for="facebook_link">{{ labels('admin_labels.facebook', 'Facebook') }}
                                     </label>
-                                    <input type="text" class="form-control" name="facebook_link"
+                                    <input type="text" class="form-control" name="facebook_link" id="facebook_link"
                                         value="<?= isset($web_settings['facebook_link']) ? outputEscaping($web_settings['facebook_link']) : '' ?>"
-                                        placeholder="Facebook Link" />
+                                        placeholder="https://www.facebook.com/muqtarinstore" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="mb-3 mt-3"
                                         for="instagram_link">{{ labels('admin_labels.instagram', 'Instagram') }}
                                     </label>
-                                    <input type="text" class="form-control" name="instagram_link"
+                                    <input type="text" class="form-control" name="instagram_link" id="instagram_link"
                                         value="<?= isset($web_settings['instagram_link']) ? outputEscaping($web_settings['instagram_link']) : '' ?>"
-                                        placeholder="Instagram Link" />
+                                        placeholder="https://www.instagram.com/muqtarinstore" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="mb-3 mt-3"
                                         for="youtube_link">{{ labels('admin_labels.youtube', 'Youtube') }}
                                     </label>
-                                    <input type="text" class="form-control" name="youtube_link"
+                                    <input type="text" class="form-control" name="youtube_link" id="youtube_link"
                                         value="<?= isset($web_settings['youtube_link']) ? outputEscaping($web_settings['youtube_link']) : '' ?>"
-                                        placeholder="Youtube Link" />
+                                        placeholder="https://www.youtube.com/@muqtarinstore" />
                                 </div>
                             </div>
                         </div>
@@ -289,7 +289,7 @@
                                         for="app_download_section_title">{{ labels('admin_labels.title', 'Title') }}
                                         <span class='text-asterisks text-xs'>*</span>
                                     </label>
-                                    <input type="text" class="form-control" name="app_download_section_title"
+                                    <input type="text" class="form-control" name="app_download_section_title" id="app_download_section_title"
                                         value="<?= isset($web_settings['app_download_section_title']) ? outputEscaping($web_settings['app_download_section_title']) : '' ?>"
                                         placeholder="{{ labels('admin_labels.placeholder_app_download_section_title', 'App download section title.') }} " />
                                 </div>
@@ -298,7 +298,7 @@
                                         for="app_download_section_tagline">{{ labels('admin_labels.tagline', 'Tagline') }}<span
                                             class='text-danger text-xs'>*</span>
                                     </label>
-                                    <input type="text" class="form-control" name="app_download_section_tagline"
+                                    <input type="text" class="form-control" name="app_download_section_tagline" id="app_download_section_tagline"
                                         value="<?= isset($web_settings['app_download_section_tagline']) ? outputEscaping($web_settings['app_download_section_tagline']) : '' ?>"
                                         placeholder="{{ labels('admin_labels.placeholder_app_download_section_tagline', 'App download section Tagline.') }}" />
                                 </div>
@@ -312,19 +312,19 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label class="mb-3 mt-3"
-                                        for="app_download_section_title">{{ labels('admin_labels.playstore_url', 'Playstore URL') }}<span
+                                        for="app_download_section_playstore_url">{{ labels('admin_labels.playstore_url', 'Playstore URL') }}<span
                                             class='text-danger text-xs'>*</span>
                                     </label>
-                                    <input type="text" class="form-control" name="app_download_section_playstore_url"
+                                    <input type="text" class="form-control" name="app_download_section_playstore_url" id="app_download_section_playstore_url"
                                         value="<?= isset($web_settings['app_download_section_playstore_url']) ? outputEscaping($web_settings['app_download_section_playstore_url']) : '' ?>"
                                         placeholder="{{ labels('admin_labels.placeholder_playstore_url', 'Playstore URL.') }} " />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="mb-3 mt-3"
-                                        for="app_download_section_tagline">{{ labels('admin_labels.app_store_url', 'App Store URL') }}<span
+                                        for="app_download_section_appstore_url">{{ labels('admin_labels.app_store_url', 'App Store URL') }}<span
                                             class='text-danger text-xs'>*</span>
                                     </label>
-                                    <input type="text" class="form-control" name="app_download_section_appstore_url"
+                                    <input type="text" class="form-control" name="app_download_section_appstore_url" id="app_download_section_appstore_url"
                                         value="<?= isset($web_settings['app_download_section_appstore_url']) ? outputEscaping($web_settings['app_download_section_appstore_url']) : '' ?>"
                                         placeholder="{{ labels('admin_labels.placeholder_appstore_url', 'Appstore URL.') }}" />
                                 </div>
@@ -355,13 +355,13 @@
                                     <label class="mb-3 mt-3"
                                         for="support_title">{{ labels('admin_labels.title', 'Title') }}
                                     </label>
-                                    <input type="text" class="form-control" name="support_title"
+                                    <input type="text" class="form-control" name="support_title" id="support_title"
                                         value="<?= isset($web_settings['support_title']) ? outputEscaping($web_settings['support_title']) : '' ?>"
                                         placeholder="Support Title" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="mb-3 mt-3"
-                                        for="shipping_description">{{ labels('admin_labels.description', 'Description') }}
+                                        for="support_description">{{ labels('admin_labels.description', 'Description') }}
                                     </label>
                                     <textarea name="support_description" class="form-control" id="support_description" cols="30" rows="4"
                                         placeholder="Support Description"><?= isset($web_settings['support_description']) ? outputEscaping($web_settings['support_description']) : '' ?></textarea>
@@ -392,7 +392,7 @@
                                     <label class="mb-3 mt-3"
                                         for="shipping_title">{{ labels('admin_labels.title', 'Title') }}
                                     </label>
-                                    <input type="text" class="form-control" name="shipping_title"
+                                    <input type="text" class="form-control" name="shipping_title" id="shipping_title"
                                         value="<?= isset($web_settings['shipping_title']) ? outputEscaping($web_settings['shipping_title']) : '' ?>"
                                         placeholder="Shipping Title" />
                                 </div>
@@ -430,7 +430,7 @@
                                     <label class="mb-3 mt-3"
                                         for="safety_security_title">{{ labels('admin_labels.title', 'Title') }}
                                     </label>
-                                    <input type="text" class="form-control" name="safety_security_title"
+                                    <input type="text" class="form-control" name="safety_security_title" id="safety_security_title"
                                         value="<?= isset($web_settings['safety_security_title']) ? outputEscaping($web_settings['safety_security_title']) : '' ?>"
                                         placeholder="Safety & Security Title" />
                                 </div>
@@ -467,7 +467,7 @@
                                     <label class="mb-3 mt-3"
                                         for="return_title">{{ labels('admin_labels.title', 'Title') }}
                                     </label>
-                                    <input type="text" class="form-control" name="return_title"
+                                    <input type="text" class="form-control" name="return_title" id="return_title"
                                         value="<?= isset($web_settings['return_title']) ? outputEscaping($web_settings['return_title']) : '' ?>"
                                         placeholder="Return Title" />
                                 </div>
@@ -481,6 +481,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 <div class="d-flex justify-content-end mt-4">
                     <button type="reset"
                         class="btn mx-2 reset_button">{{ labels('admin_labels.reset', 'Reset') }}</button>

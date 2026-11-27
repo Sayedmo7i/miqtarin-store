@@ -290,8 +290,8 @@ class Delivery_boyController extends Controller
             $b->action = $action;
             $b->bonus_type = $bonusBadge;
             $b->serviceable_zones = $this->get_zones_by_ids($b->serviceable_zones, $language_code);
-            $b->front_licence_image = '<div><a href="' . app(MediaService::class)->getMediaImageUrl($b->front_licence_image, 'DELIVERY_BOY_IMG_PATH') . '" data-lightbox="image-' . $b->pid . '"><img src="' . $front_licence_image . '" alt="Avatar" class="rounded"/></a></div>';
-            $b->back_licence_image = '<div><a href="' . app(MediaService::class)->getMediaImageUrl($b->back_licence_image, 'DELIVERY_BOY_IMG_PATH') . '" data-lightbox="image-' . $b->pid . '"><img src="' . $back_licence_image . '" alt="Avatar" class="rounded"/></a></div>';
+            $b->front_licence_image = '<div><a href="' . app(MediaService::class)->getMediaImageUrl($b->front_licence_image, 'DELIVERY_BOY_IMG_PATH') . '" data-lightbox="image-' . $b->pid . '"><img src="' . $front_licence_image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>';
+            $b->back_licence_image = '<div><a href="' . app(MediaService::class)->getMediaImageUrl($b->back_licence_image, 'DELIVERY_BOY_IMG_PATH') . '" data-lightbox="image-' . $b->pid . '"><img src="' . $back_licence_image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>';
 
             return $b;
         });

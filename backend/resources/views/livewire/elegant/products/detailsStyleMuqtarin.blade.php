@@ -59,8 +59,10 @@
                                                 class="d-block">
                                                 <img id="zoompro" class="zoompro w-100 rounded-4"
                                                     src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
-                                                    alt="{{ $product_details->name }}" width="625" height="720">
+                                                    alt="{{ $product_details->name }}" width="625" height="720"
+                                                    loading="eager" fetchpriority="high">
                                             </a>
+                                            <link rel="preload" as="image" href="{{ $main_image_zoom }}">
                                         </div>
                                         <div class="d-none mq-lightbox-album" aria-hidden="true">
                                             @foreach ($product_details->other_images as $images)
@@ -545,7 +547,7 @@
                                     <div>
                                         <h6 class="mb-0 fw-bold">{{ labels('front_messages.cancel_till', 'Cancel Till') }}</h6>
                                         <p class="small mb-0" style="color: var(--mq-muted);">
-                                            {{ $product_details->is_cancelable == 1 ? $product_details->cancelable_till : labels('front_messages.non_cancelable', 'Non Cancelable') }}
+                                            {{ $product_details->is_cancelable == 1 ? labels('front_messages.' . strtolower(trim($product_details->cancelable_till)), ucfirst(str_replace('_', ' ', $product_details->cancelable_till))) : labels('front_messages.non_cancelable', 'Non Cancelable') }}
                                         </p>
                                     </div>
                                 </div>

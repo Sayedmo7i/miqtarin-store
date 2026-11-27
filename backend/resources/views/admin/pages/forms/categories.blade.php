@@ -55,7 +55,7 @@
                                                         data-bs-toggle="tab" data-bs-target="#content-{{ $lang->code }}"
                                                         type="button" role="tab"
                                                         aria-controls="content-{{ $lang->code }}" aria-selected="false">
-                                                        {{ $lang->language }}
+                                                        {{ $lang->native_language ?: $lang->language }}
                                                     </button>
                                                 </li>
                                             @endif

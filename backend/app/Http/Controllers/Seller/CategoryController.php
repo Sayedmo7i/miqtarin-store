@@ -145,7 +145,7 @@ class CategoryController extends Controller
                     . app(MediaService::class)->getMediaImageUrl($c->image)
                     . '" data-lightbox="image-' . $c->id
                     . '"><img src="' . $image
-                    . '" alt="Avatar" class="rounded"/></a></div>',
+                    . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
 
                 'banner' => '<div><a href="'
                     . app(MediaService::class)->getMediaImageUrl($c->banner)
@@ -216,8 +216,8 @@ class CategoryController extends Controller
                 'id' => $c->id,
                 'name' => app(TranslationService::class)->getDynamicTranslation(Category::class, 'name', $c->id, $language_code),
                 'status' => $status,
-                'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($c->image)  . '" data-lightbox="image-' . $c->id . '"><img src="' . $image  . '" alt="Avatar" class="rounded"/></a></div>',
-                'banner' => '<div ><a href="' . app(MediaService::class)->getMediaImageUrl($c->banner) . '" data-lightbox="banner-' . $c->id . '"><img src="' . $banner  . '" alt="Avatar" class="rounded"/></a></div>',
+                'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($c->image)  . '" data-lightbox="image-' . $c->id . '"><img src="' . $image  . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
+                'banner' => '<div ><a href="' . app(MediaService::class)->getMediaImageUrl($c->banner) . '" data-lightbox="banner-' . $c->id . '"><img src="' . $banner  . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
             ];
         });
 

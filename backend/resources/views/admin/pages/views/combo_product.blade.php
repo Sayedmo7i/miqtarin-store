@@ -31,7 +31,7 @@
                                                 'quality' => 100,
                                             ]) }}"
                                                 onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
-                                                alt="{{ labels('admin_labels.avatar', 'Avatar') }}" class="img-fluid rounded border" />
+                                                alt="{{ labels('admin_labels.product_image', 'Product image') }}" class="img-fluid rounded border" />
                                         </a>
                                     </div>
                                 @endforeach
@@ -48,7 +48,7 @@
                                         'quality' => 100,
                                     ]) }}"
                                         onerror="this.src='{{ asset('assets/img/default_full_logo.png') }}'"
-                                        alt="{{ labels('admin_labels.avatar', 'Avatar') }}" class="img-fluid rounded" />
+                                        alt="{{ labels('admin_labels.product_image', 'Product image') }}" class="img-fluid rounded" />
                                 </div>
                             </div>
                         </div>

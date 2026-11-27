@@ -563,7 +563,7 @@
                                             {{ labels('front_messages.cancel_till', 'Cancel Till') }}</h5>
                                         @if ($product_details->is_cancelable == 1)
                                             <p class="text text-muted text-small">
-                                                {{ $product_details->cancelable_till }}</p>
+                                                {{ labels('front_messages.' . strtolower(trim($product_details->cancelable_till)), ucfirst(str_replace('_', ' ', $product_details->cancelable_till))) }}</p>
                                         @else
                                             <p class="text text-muted text-small">
                                                 {{ labels('front_messages.non_cancelable', 'Non Cancelable') }}</p>

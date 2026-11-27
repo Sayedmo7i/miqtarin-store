@@ -222,7 +222,7 @@ class MediaController extends Controller
 
                 'id' => $m->id,
                 'name' => $m->file_name,
-                'image' => '<div class="image-container table-image"><a href="' . $fileUrl . '" data-lightbox="image-' . $m->id . '"><img src="' . $fileUrl . '" alt="Avatar" class="rounded"/>' .
+                'image' => '<div class="image-container table-image"><a href="' . $fileUrl . '" data-lightbox="image-' . $m->id . '"><img src="' . $fileUrl . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/>' .
                     "<span class='path d-none'>" . $fileUrl . "</span>" .
                     "<span class='relative-path d-none'>" . '/' . $m->file_name . "</span></a></div>",
                 'size' => app(MediaService::class)->formatSize($m->size),
