@@ -45,7 +45,7 @@
   --shipped:       #0F766E;
 
   /* Layout */
-  --sidebar-width:     256px;
+  --sidebar-width:     296px;
   --sidebar-collapsed: 68px;
   --header-height:     60px;
   --radius-sm:         6px;
@@ -500,11 +500,11 @@ textarea:focus-visible,
 .navbar-vertical .sidebar-section-trigger {
   display: flex !important;
   align-items: center;
-  gap: 10px;
-  padding: 8px 11px !important;
+  gap: 8px;
+  padding: 8px 10px !important;
   border-radius: var(--radius-md) !important;
   color: var(--sidebar-ink) !important;
-  font-size: 0.86rem;
+  font-size: 0.83rem;
   font-weight: 600;
   transition: all var(--transition);
   position: relative;

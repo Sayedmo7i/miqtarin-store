@@ -81,6 +81,7 @@
         <link rel="stylesheet" href="{{ asset('frontend/elegant/css/app.css') }}?v={{ $version }}">
         <link rel="stylesheet" href="{{ asset('assets/admin/css/dropzone.css') }}?v={{ $version }}">
         <link rel="stylesheet" href="{{ asset('frontend/elegant/css/swiper-bundle.min.css') }}?v={{ $version }}">
+        <link rel="stylesheet" href="{{ asset('assets/boxicons/css/boxicons.min.css') }}?v={{ $version }}">
         <link rel="stylesheet" href="{{ asset('frontend/elegant/css/muqtarin-storefront.css') }}?v={{ $version }}">
 
 
@@ -98,7 +99,6 @@
         </script>
         <script type="module" src="{{ asset('frontend/elegant/js/main.js') }}?v={{ $version }}" data-navigate-once></script>
         <script type="module" src="{{ asset('frontend/elegant/js/daterangepicker.js') }}?v={{ $version }}" data-navigate-once></script>
-        <script type="module" src="{{ asset('frontend/elegant/js/ionicons.js') }}?v={{ $version }}" data-navigate-once></script>
         <script type="module" src="{{ asset('frontend/elegant/js/star-rating.js') }}?v={{ $version }}" data-navigate-once></script>
         <script type="module" src="{{ asset('frontend/elegant/js/intlTelInput.js') }}?v={{ $version }}" data-navigate-once></script>
         <script src="{{ asset('frontend/elegant/js/intl-tel-login.js') }}?v={{ $version }}" data-navigate-once></script>

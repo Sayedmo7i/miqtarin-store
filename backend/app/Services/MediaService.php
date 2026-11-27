@@ -22,14 +22,54 @@ class MediaService
         }
         return false;
     }
-public function getImageUrl($path, $image_type = '', $image_size = '', $file_type = 'image', $const = 'MEDIA_PATH')
+    private function resolvePublicAssetUrl(string $path, string $const = 'MEDIA_PATH'): ?string
+    {
+        $normalized = ltrim(str_replace('\\', '/', $path), '/');
+        if ($normalized === '') {
+            return null;
+        }
+
+        $bases = [rtrim((string) config('constants.' . $const), '/')];
+        if ($const !== 'MEDIA_PATH') {
+            $bases[] = rtrim((string) config('constants.MEDIA_PATH'), '/');
+        }
+        $bases[] = '';
+
+        foreach (array_values(array_unique($bases)) as $base) {
+            $rel = $base !== '' ? $base . '/' . $normalized : $normalized;
+            if (File::exists(public_path($rel))) {
+                return asset($rel);
+            }
+        }
+
+        return null;
+    }
+
+    public function formatSize($bytes): string
+    {
+        $bytes = (int) $bytes;
+        if ($bytes <= 0) {
+            return '0 KB';
+        }
+        if ($bytes < 1024) {
+            return $bytes . ' B';
+        }
+        if ($bytes < 1048576) {
+            $kb = round($bytes / 1024, 1);
+            return (fmod($kb, 1.0) == 0.0 ? (string) intval($kb) : number_format($kb, 1)) . ' KB';
+        }
+        $mb = round($bytes / 1048576, 2);
+        return number_format($mb, 2) . ' MB';
+    }
+
+    public function getImageUrl($path, $image_type = '', $image_size = '', $file_type = 'image', $const = 'MEDIA_PATH')
     {
         // If the path is already a full URL (S3 or external), just return it
         if (filter_var($path, FILTER_VALIDATE_URL)) {
             return $path;
         }
 
-        $pathParts = explode('/', $path);
+        $pathParts = explode('/', (string) $path);
         $subdirectory = implode("/", array_slice($pathParts, 0, -1));
         $image_name = end($pathParts);
         $file_main_dir = str_replace('\\', '/', public_path(config('constants.' . $const) . $subdirectory));
@@ -45,16 +85,15 @@ public function getImageUrl($path, $image_type = '', $image_size = '', $file_typ
                     return asset(config('constants.' . $const) . '/' . $path);
                 } elseif (File::exists($file_main_dir . '/' . $image_name)) {
                     return asset(config('constants.' . $const) . '/' . $path);
-                } else {
-                    return asset(Config::get('constants.NO_IMAGE'));
                 }
             } else {
                 if (File::exists($file_main_dir . '/' . $image_name)) {
                     return asset(config('constants.' . $const) . '/' . $path);
-                } else {
-                    return asset(Config::get('constants.NO_IMAGE'));
                 }
             }
+
+            $fallbackUrl = $this->resolvePublicAssetUrl((string) $path, $const);
+            return $fallbackUrl ?? asset(Config::get('constants.NO_IMAGE'));
         } else {
             $file = new SplFileInfo($file_main_dir . '/' . $image_name);
             $ext = $file->getExtension();
@@ -156,29 +195,29 @@ private function buildPublicFilePath($image, $const = 'MEDIA_PATH')
     $normalized = ltrim($image, '/');
     return public_path($basePath . '/' . $normalized);
 }
-public function getMediaImageUrl($image, $const = 'MEDIA_PATH')
-{
-    if (empty($image)) {
-        return asset(config('constants.NO_IMAGE'));
+    public function getMediaImageUrl($image, $const = 'MEDIA_PATH')
+    {
+        if (empty($image)) {
+            return asset(config('constants.NO_IMAGE'));
+        }
+
+        // Already full URL
+        if (Str::startsWith($image, ['http://', 'https://'])) {
+            return $image;
+        }
+
+        // Build proper path
+        $filePath = $this->buildPublicFilePath($image, $const);
+
+        if (File::exists($filePath)) {
+            $basePath = rtrim(config('constants.' . $const), '/');
+            $normalized = ltrim($image, '/');
+            return asset($basePath . '/' . $normalized);
+        }
+
+        $fallbackUrl = $this->resolvePublicAssetUrl((string) $image, $const);
+        return $fallbackUrl ?? asset(config('constants.NO_IMAGE'));
     }
-
-    // Already full URL
-    if (Str::startsWith($image, ['http://', 'https://'])) {
-        return $image;
-    }
-
-    // Build proper path
-    $filePath = $this->buildPublicFilePath($image, $const);
-
-    if (File::exists($filePath)) {
-        // Corrected asset path generation
-        $basePath = rtrim(config('constants.' . $const), '/');
-        $normalized = ltrim($image, '/');
-        return asset($basePath . '/' . $normalized);
-    }
-
-    return asset(config('constants.NO_IMAGE'));
-}
 
 
 

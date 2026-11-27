@@ -77,7 +77,7 @@
                                             <h6>{{ Str::limit($row->name, 22, '...') }}</h6>
                                         </div>
                                         <div class="media-details d-flex justify-content-between">
-                                            <p class="text-muted">{{ $row->size }} KB</p>
+                                            <p class="text-muted">{{ app(\App\Services\MediaService::class)->formatSize($row->size) }}</p>
                                             <div class="d-flex">
                                                 <a class="delete-media me-1 delete-data" data-url="{{ $delete_url }}"><i class='bx bx-trash'></i></a>
                                                 <span class="path d-none">{{ asset('storage/' . ltrim($row->sub_directory . '/' . $row->file_name, '/')) }}</span>

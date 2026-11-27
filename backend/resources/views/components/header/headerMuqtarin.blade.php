@@ -112,17 +112,13 @@
     <header wire:ignore.self class="header mq-header {{ $home_theme === 'web_home_page_theme_muqtarin_glass' ? 'mq-header-glass' : '' }} d-flex align-items-center header-fixed">
         <div id="app_url" data-app-url="{{ route('home') }}"></div>
         @php
-            $img =
-                !empty($store_details[0]->half_store_logo) &&
-                file_exists(public_path(config('constants.STORE_IMG_PATH') . $store_details[0]->half_store_logo))
-                    ? app(MediaService::class)->getImageUrl(
-                        $store_details[0]->half_store_logo,
-                        '',
-                        '',
-                        'image',
-                        'STORE_IMG_PATH',
-                    )
-                    : app(MediaService::class)->getImageUrl($settings->logo);
+            $halfStoreLogoUrl = !empty($store_details[0]->half_store_logo)
+                ? app(MediaService::class)->getMediaImageUrl($store_details[0]->half_store_logo, 'STORE_IMG_PATH')
+                : '';
+            $noImageUrl = asset(config('constants.NO_IMAGE'));
+            $img = (!empty($halfStoreLogoUrl) && $halfStoreLogoUrl !== $noImageUrl)
+                ? $halfStoreLogoUrl
+                : app(MediaService::class)->getMediaImageUrl($settings->logo);
             $img = app(MediaService::class)->dynamic_image($img, 150);
             $store_display_name = !empty($store_details[0]->id)
                 ? app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $store_details[0]->id, $language_code)

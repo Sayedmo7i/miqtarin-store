@@ -10425,19 +10425,35 @@ $(function () {
             var errorMsg = t.loadError || "Unable to load records right now.";
             var retryLabel = t.retry || "Retry";
             $container.removeClass("mq-table-loading");
-            var $emptyCell = $table.find("tbody tr.no-records-found td").first();
-            if ($emptyCell.length) {
-                var $box = $('<div class="mq-table-load-error" role="alert"></div>');
-                $box.append('<i class="bx bx-error-circle"></i>');
-                $box.append($("<span></span>").text(errorMsg));
-                var $btn = $('<button type="button" class="btn btn-sm btn-outline-primary"></button>').text(retryLabel);
-                $btn.on("click", function () {
-                    $container.addClass("mq-table-loading");
-                    $table.bootstrapTable("refresh");
-                });
-                $box.append($btn);
-                $emptyCell.empty().append($box);
+            $container.find(".fixed-table-loading").hide().removeClass("open");
+
+            var $tbody = $table.find("tbody");
+            if ($tbody.length === 0) {
+                $tbody = $("<tbody></tbody>").appendTo($table);
             }
+            var $emptyCell = $tbody.find("tr.no-records-found td").first();
+            if ($emptyCell.length === 0) {
+                var colCount = $table.find("thead tr").last().find("th").length || 1;
+                $tbody.empty().append(
+                    '<tr class="no-records-found"><td colspan="' + colCount + '"></td></tr>'
+                );
+                $emptyCell = $tbody.find("tr.no-records-found td").first();
+            }
+
+            var $box = $('<div class="mq-table-load-error" role="alert"></div>');
+            $box.append('<i class="bx bx-error-circle"></i>');
+            $box.append($("<span></span>").text(errorMsg));
+            var $btn = $('<button type="button" class="btn btn-sm btn-outline-primary"></button>').text(retryLabel);
+            $btn.on("click", function () {
+                $container.find(".mq-table-load-error").remove();
+                $container.addClass("mq-table-loading");
+                try {
+                    $table.bootstrapTable("showLoading");
+                } catch (e) {}
+                $table.bootstrapTable("refresh", { silent: false });
+            });
+            $box.append($btn);
+            $emptyCell.empty().append($box);
         }
     );
     $(document).on(

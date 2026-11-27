@@ -52,14 +52,14 @@ $store_image = session('store_image', '');
 
 // If store_image is set, generate the asset URL
 if (!empty($store_image)) {
-    $store_image = asset(config('constants.STORE_IMG_PATH') . $store_image);
-        }
+    $store_image = app(MediaService::class)->getMediaImageUrl($store_image, 'STORE_IMG_PATH');
+}
 
         use App\Models\Language;
         $languages = Language::all();
     @endphp
     <nav class="navbar navbar-main navbar-expand-lg px-0 shadow-none border-radius-xl" id="navbarBlur" data-scroll="false">
-        <div id="app_url" data-app-url="{{ config('app.url') }}"></div>
+        <div id="app_url" data-app-url="{{ rtrim(url('/'), '/') . '/' }}"></div>
         <div class="align-items-center d-flex px-6 py-1 w-100">
             <div class=" mt-2 navbar-collapse justify-content-end" id="navbar">
 

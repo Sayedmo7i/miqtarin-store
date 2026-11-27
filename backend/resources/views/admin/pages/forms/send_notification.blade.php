@@ -297,7 +297,7 @@
                                                         {{ labels('admin_labels.message', 'Message') }}
                                                     </th>
                                                     <th data-field="send_to" data-sortable="false">
-                                                        {{ labels('admin_labels.title', 'Title') }}
+                                                        {{ labels('admin_labels.send_to', 'Send To') }}
                                                     </th>
 
                                                     <th data-field="users" data-sortable="false">

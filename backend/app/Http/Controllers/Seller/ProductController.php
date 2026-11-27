@@ -896,7 +896,7 @@ class ProductController extends Controller
 
             return [
                 'id' => $p->id,
-                'name' => app(TranslationService::class)->getDynamicTranslation(Product::class, 'name', $p->id, $language_code) . '<br><small>' . ucwords(str_replace('_', ' ', $p->type)) . '</small><br><small class="text-muted">' . labels('admin_labels.by', 'By') . '</small> <b dir="auto">' . e($p->store_name) . '</b>',
+                'name' => app(TranslationService::class)->getDynamicTranslation(Product::class, 'name', $p->id, $language_code) . '<br><small>' . ucwords(str_replace('_', ' ', $p->type)) . '</small><br><small class="text-muted">' . labels('admin_labels.by', 'By') . ' </small><b dir="auto">' . e($p->store_name) . '</b>',
                 'brand' => app(TranslationService::class)->getDynamicTranslation(Brand::class, 'name', $p->brand_id, $language_code),
                 'category_name' => app(TranslationService::class)->getDynamicTranslation(Category::class, 'name', $p->category_id, $language_code),
                 'rating' => $p->rating,

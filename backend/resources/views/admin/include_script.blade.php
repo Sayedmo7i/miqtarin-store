@@ -30,6 +30,9 @@
 
          if (typeof $ !== 'undefined' && $.fn && $.fn.bootstrapTable && $.fn.bootstrapTable.defaults) {
              $.extend($.fn.bootstrapTable.defaults, {
+                 ajaxOptions: {
+                     timeout: 15000
+                 },
                  formatNoMatches: function() {
                      return '<div class="muqtarin-table-empty"><i class="bx bx-inbox"></i><span>' + lblNoMatches + '</span></div>';
                  },

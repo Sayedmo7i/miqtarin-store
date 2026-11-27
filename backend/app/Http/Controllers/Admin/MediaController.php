@@ -223,9 +223,9 @@ class MediaController extends Controller
                 'id' => $m->id,
                 'name' => $m->file_name,
                 'image' => '<div class="image-container table-image"><a href="' . $fileUrl . '" data-lightbox="image-' . $m->id . '"><img src="' . $fileUrl . '" alt="Avatar" class="rounded"/>' .
-                    "<span class='path d-none'>" . config('app.url') . 'storage' . '/' . $m->file_name . "</span>" .
+                    "<span class='path d-none'>" . $fileUrl . "</span>" .
                     "<span class='relative-path d-none'>" . '/' . $m->file_name . "</span></a></div>",
-                'size' => $m->size,
+                'size' => app(MediaService::class)->formatSize($m->size),
                 'extension' => $m->extension,
                 'sub_directory' => $m->sub_directory,
                 'disk' => $m->disk,
@@ -619,6 +619,17 @@ class MediaController extends Controller
         $svg = new SimpleXMLElement($svgData);
         $originalWidth = (float) $svg['width'];
         $originalHeight = (float) $svg['height'];
+        if (($originalWidth <= 0 || $originalHeight <= 0 || str_contains((string) $svg['width'], '%')) && !empty($svg['viewBox'])) {
+            $parts = preg_split('/[\s,]+/', trim((string) $svg['viewBox']));
+            if (count($parts) === 4 && (float) $parts[2] > 0 && (float) $parts[3] > 0) {
+                $originalWidth = (float) $parts[2];
+                $originalHeight = (float) $parts[3];
+            }
+        }
+        if ($originalWidth <= 0 || $originalHeight <= 0) {
+            return $svgData;
+        }
+        $targetWidth = (float) ($targetWidth ?: $originalWidth);
         $aspectRatio = $originalWidth / $originalHeight;
         $targetHeight = $targetWidth / $aspectRatio;
         $svg['width'] = $targetWidth;

@@ -39,10 +39,30 @@ class DemoDatabaseSeeder extends Seeder
 
         // 1. Cities
         $citiesData = [
-            ['slug' => 'Cairo', 'en' => 'Cairo', 'ar' => 'القاهرة', 'min' => 250, 'charge' => 25],
-            ['slug' => 'Giza', 'en' => 'Giza', 'ar' => 'الجيزة', 'min' => 250, 'charge' => 30],
-            ['slug' => 'Alexandria', 'en' => 'Alexandria', 'ar' => 'الإسكندرية', 'min' => 300, 'charge' => 35],
-            ['slug' => 'Riyadh', 'en' => 'Riyadh', 'ar' => 'الرياض', 'min' => 350, 'charge' => 40],
+            [
+                'slug' => 'Cairo', 'en' => 'Cairo', 'ar' => 'القاهرة', 'min' => 250, 'charge' => 25,
+                'address' => '15 Tahrir Square, Downtown', 'landmark' => 'Near Sadat Metro Station', 'area' => 'Downtown District',
+                'state' => 'Cairo', 'country' => 'Egypt', 'country_code' => 20, 'lat' => '30.0444', 'lng' => '31.2357',
+                'order_address' => '15 Tahrir Square, Cairo, Egypt',
+            ],
+            [
+                'slug' => 'Giza', 'en' => 'Giza', 'ar' => 'الجيزة', 'min' => 250, 'charge' => 30,
+                'address' => '42 Gameat El Dewal St, Mohandessin', 'landmark' => 'Near Sphinx Square', 'area' => 'Mohandessin',
+                'state' => 'Giza', 'country' => 'Egypt', 'country_code' => 20, 'lat' => '30.0511', 'lng' => '31.2045',
+                'order_address' => '42 Gameat El Dewal St, Giza, Egypt',
+            ],
+            [
+                'slug' => 'Alexandria', 'en' => 'Alexandria', 'ar' => 'الإسكندرية', 'min' => 300, 'charge' => 35,
+                'address' => '118 Corniche Road, Stanley', 'landmark' => 'Near Stanley Bridge', 'area' => 'Stanley',
+                'state' => 'Alexandria', 'country' => 'Egypt', 'country_code' => 20, 'lat' => '31.2333', 'lng' => '29.9497',
+                'order_address' => '118 Corniche Road, Alexandria, Egypt',
+            ],
+            [
+                'slug' => 'Riyadh', 'en' => 'Riyadh', 'ar' => 'الرياض', 'min' => 350, 'charge' => 40,
+                'address' => '240 Olaya Street, Al Olaya', 'landmark' => 'Near Kingdom Centre', 'area' => 'Al Olaya',
+                'state' => 'Riyadh', 'country' => 'Saudi Arabia', 'country_code' => 966, 'lat' => '24.7117', 'lng' => '46.6744',
+                'order_address' => '240 Olaya Street, Riyadh, Saudi Arabia',
+            ],
         ];
         $cityIds = [];
         foreach ($citiesData as $c) {
@@ -584,21 +604,22 @@ class DemoDatabaseSeeder extends Seeder
         if (DB::table('orders')->where('store_id', $storeId)->count() === 0) {
             $addressIds = [];
             foreach ($customerIds as $idx => $custId) {
+                $cityMeta = $citiesData[$idx % count($citiesData)];
                 $addressIds[$custId] = DB::table('addresses')->insertGetId([
                     'user_id' => $custId,
                     'name' => $customersData[$idx]['username'],
                     'type' => 'Home',
                     'mobile' => $customersData[$idx]['mobile'],
-                    'address' => '15 Tahrir Square, Downtown',
-                    'landmark' => 'Near Metro Station',
+                    'address' => $cityMeta['address'],
+                    'landmark' => $cityMeta['landmark'],
                     'city_id' => $cityIds[$idx % count($cityIds)],
-                    'city' => $citiesData[$idx % count($citiesData)]['en'],
-                    'area' => 'Downtown District',
+                    'city' => $cityMeta['en'],
+                    'area' => $cityMeta['area'],
                     'pincode' => $zipcodesData[$idx % count($zipcodesData)]['code'],
                     'system_pincode' => 1,
-                    'country_code' => 20,
-                    'state' => 'Cairo',
-                    'country' => 'Egypt',
+                    'country_code' => $cityMeta['country_code'],
+                    'state' => $cityMeta['state'],
+                    'country' => $cityMeta['country'],
                     'is_default' => 1,
                     'created_at' => $now,
                     'updated_at' => $now,
@@ -636,6 +657,7 @@ class DemoDatabaseSeeder extends Seeder
             foreach ($orderPlans as $idx => $plan) {
                 $custIdx = $idx % count($customerIds);
                 $custId = $customerIds[$custIdx];
+                $cityMeta = $citiesData[$custIdx % count($citiesData)];
                 $driverId = $driverIds[$idx % count($driverIds)];
                 $variant = $variants[$plan['v']];
                 $ts = $now->copy()->subDays($plan['days_ago'])->subHours($plan['hours_ago']);
@@ -662,9 +684,9 @@ class DemoDatabaseSeeder extends Seeder
                     'total_payable' => $finalTotal,
                     'final_total' => $finalTotal,
                     'payment_method' => $plan['pay'],
-                    'latitude' => '30.0444',
-                    'longitude' => '31.2357',
-                    'address' => '15 Tahrir Square, Cairo, Egypt',
+                    'latitude' => $cityMeta['lat'],
+                    'longitude' => $cityMeta['lng'],
+                    'address' => $cityMeta['order_address'],
                     'delivery_time' => '10:00 AM - 02:00 PM',
                     'delivery_date' => $ts->toDateString(),
                     'otp' => 1234 + $idx,
@@ -715,6 +737,40 @@ class DemoDatabaseSeeder extends Seeder
                     'created_at' => $ts,
                     'updated_at' => $ts,
                 ]);
+            }
+        } else {
+            $cityByName = [];
+            foreach ($citiesData as $cm) {
+                $cityByName[$cm['en']] = $cm;
+            }
+            foreach (DB::table('addresses')->whereIn('user_id', $customerIds)->get() as $addr) {
+                if (isset($cityByName[$addr->city])) {
+                    $cm = $cityByName[$addr->city];
+                    DB::table('addresses')->where('id', $addr->id)->update([
+                        'address' => $cm['address'],
+                        'landmark' => $cm['landmark'],
+                        'area' => $cm['area'],
+                        'country_code' => $cm['country_code'],
+                        'state' => $cm['state'],
+                        'country' => $cm['country'],
+                        'updated_at' => $now,
+                    ]);
+                }
+            }
+            $addrCityMap = DB::table('addresses')
+                ->whereIn('user_id', $customerIds)
+                ->pluck('city', 'id');
+            foreach (DB::table('orders')->where('store_id', $storeId)->get() as $ord) {
+                $cityName = $addrCityMap[$ord->address_id] ?? null;
+                if ($cityName && isset($cityByName[$cityName])) {
+                    $cm = $cityByName[$cityName];
+                    DB::table('orders')->where('id', $ord->id)->update([
+                        'latitude' => $cm['lat'],
+                        'longitude' => $cm['lng'],
+                        'address' => $cm['order_address'],
+                        'updated_at' => $now,
+                    ]);
+                }
             }
         }
 
@@ -1036,6 +1092,10 @@ class DemoDatabaseSeeder extends Seeder
         }
 
         // 12G. Storefront FAQs (/faqs)
+        $freeShippingFaq = [
+            'question' => 'متى أحصل على توصيل مجاني؟ / When do I qualify for free shipping?',
+            'answer' => "الشحن مجاني للطلبات التي تتجاوز \$250 حسب نطاق التوصيل الخاص بك.\nOrders above the free-delivery threshold (\$250 in Greater Cairo) qualify automatically at checkout.",
+        ];
         if (DB::table('faqs')->count() === 0) {
             $storeFaqs = [
                 [
@@ -1058,10 +1118,7 @@ class DemoDatabaseSeeder extends Seeder
                     'question' => 'هل جميع البائعين والمنتجات موثقون؟ / Are all sellers and products verified?',
                     'answer' => "نعم، يخضع كل بائع في مقترن ستور لمراجعة المستندات التجارية وضمان جودة المنتجات قبل النشر.\nYes, every MUQTARIN seller completes verification and quality checks before listing products.",
                 ],
-                [
-                    'question' => 'متى أحصل على توصيل مجاني؟ / When do I qualify for free shipping?',
-                    'answer' => "الشحن مجاني للطلبات التي تتجاوز 250 ج.م / \$250 حسب نطاق التوصيل الخاص بك.\nOrders above the free-delivery threshold (\$250 in Greater Cairo) qualify automatically at checkout.",
-                ],
+                $freeShippingFaq,
             ];
             foreach ($storeFaqs as $idx => $sf) {
                 DB::table('faqs')->insert([
@@ -1072,6 +1129,13 @@ class DemoDatabaseSeeder extends Seeder
                     'updated_at' => $now,
                 ]);
             }
+        } else {
+            DB::table('faqs')
+                ->where('question', $freeShippingFaq['question'])
+                ->update([
+                    'answer' => $freeShippingFaq['answer'],
+                    'updated_at' => $now,
+                ]);
         }
 
         // 12F. Ticket Messages for Support Tickets

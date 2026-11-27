@@ -10,6 +10,13 @@
  <script src="{{ asset('assets/brand/muqtarin-toast.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-toast.js')) }}"></script>
  <script src="{{ asset('assets/admin/js/dropzone.js') }}"></script>
  <script src="{{ asset('assets/admin/js/bootstrap-table.min.js') }}"></script>
+ <script>
+     if (typeof $ !== 'undefined' && $.fn && $.fn.bootstrapTable && $.fn.bootstrapTable.defaults) {
+         $.extend($.fn.bootstrapTable.defaults, {
+             ajaxOptions: { timeout: 15000 }
+         });
+     }
+ </script>
  <script src="{{ asset('assets/admin/js/select2.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/tagify.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/jstree.min.js') }}"></script>

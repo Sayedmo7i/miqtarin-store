@@ -758,13 +758,23 @@ class OrderController extends Controller
         $store_id = app(StoreService::class)->getStoreId();
         $search = trim($request->input('search', ''));
         $offset = (int) $request->input('pagination_offset', 0);
-        $limit = (int) $request->input('limit', 10);
-        $sort = $request->input('sort', 'id');
-        $order = $request->input('order', 'DESC');
+        $limit = max(1, min(200, (int) $request->input('limit', 10)));
+        $requestedSort = (string) $request->input('sort', 'id');
+        $sortMap = [
+            'id' => 'id',
+            'order_id' => 'order_id',
+            'order_item_id' => 'order_item_id',
+            'courier_agency' => 'courier_agency',
+            'tracking_id' => 'tracking_id',
+            'date' => 'created_at',
+            'created_at' => 'created_at',
+        ];
+        $sort = $sortMap[$requestedSort] ?? 'id';
+        $order = strtoupper((string) $request->input('order', 'DESC')) === 'ASC' ? 'ASC' : 'DESC';
         $order_id = $request->input('order_id');
 
         // Base query
-        $query = OrderTracking::with(['order', 'orderItem'])
+        $query = OrderTracking::query()
             ->whereHas('orderItem', function ($q) use ($store_id) {
                 $q->where('store_id', $store_id);
             });
