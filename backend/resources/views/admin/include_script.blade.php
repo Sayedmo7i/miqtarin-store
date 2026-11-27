@@ -266,7 +266,9 @@
          };
 
          window.muqtarinToggleSidebar = function() {
-             var isMobile = window.innerWidth < 1200;
+             var width = window.innerWidth;
+             var isMobile = width < 768;
+             var isTablet = width >= 768 && width < 1200;
              var sidebar = document.querySelector('.navbar-vertical');
              var flyout = document.getElementById('muqtarin-sidebar-flyout');
              if (flyout) {
@@ -276,6 +278,10 @@
              if (isMobile) {
                  if (sidebar) sidebar.classList.toggle('show');
                  document.body.classList.toggle('sidebar-mobile-open');
+             } else if (isTablet) {
+                 document.body.classList.toggle('sidebar-tablet-expanded');
+                 var expanded = document.body.classList.contains('sidebar-tablet-expanded') ? '1' : '0';
+                 try { sessionStorage.setItem('muqtarin_tablet_sidebar_expanded', expanded); } catch (e) {}
              } else {
                  document.body.classList.toggle('sidebar-collapsed');
                  var collapsed = document.body.classList.contains('sidebar-collapsed') ? '1' : '0';
@@ -299,6 +305,10 @@
                      var sidebar = document.querySelector('.navbar-vertical');
                      if (sidebar) sidebar.classList.remove('show');
                      document.body.classList.remove('sidebar-mobile-open');
+                     if (window.innerWidth >= 768 && window.innerWidth < 1200) {
+                         document.body.classList.remove('sidebar-tablet-expanded');
+                         try { sessionStorage.setItem('muqtarin_tablet_sidebar_expanded', '0'); } catch (e) {}
+                     }
                  });
              }
          });

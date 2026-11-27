@@ -1022,7 +1022,7 @@
                                     <div class='image-upload-div'>
                                         <img class="img-fluid mb-2"
                                             src="{{ route('admin.dynamic_image', ['url' => app(MediaService::class)->getMediaImageUrl($data->image), 'width' => 150, 'quality' => 90]) }}"
-                                            alt="Not Found" />
+                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                     </div>
                                     <input type="hidden" name="image" value="{{ $data->image }}">
                                 </div>
@@ -1056,7 +1056,7 @@
                                         <div class='image-upload-div'>
                                             <img class="img-fluid mb-2"
                                                 src="{{ route('admin.dynamic_image', ['url' => app(MediaService::class)->getMediaImageUrl($row), 'width' => 150, 'quality' => 90]) }}"
-                                                alt="Not Found" />
+                                                alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                         </div>
                                         <a href="javascript:void(0)" class="delete-img m-2"
                                             data-id="{{ $data->id }}" data-field="other_images"

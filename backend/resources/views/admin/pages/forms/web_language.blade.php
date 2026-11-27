@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="form-group col-12 col-sm-4 col-xl-2">
                                     <label for="is_rtl"
-                                        class="col-form-label">{{ labels('admin_labels.is_rtl', 'Is RTL') }}? <span
+                                        class="col-form-label">{{ labels('admin_labels.is_rtl', 'Is RTL?') }} <span
                                             class='text-asterisks text-sm'>*</span>
                                         <i class="fa fa-info-circle text-secondary ms-1"
                                            data-bs-toggle="popover"

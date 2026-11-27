@@ -67,8 +67,9 @@ class CustomerRatings extends Component
         $product_ratings = $this->getProductRating($this->product_id, $product_details->type);
         foreach ($product_ratings as $key => $ratings) {
             $user_profile = fetchDetails(User::class, ['id' => $ratings->user_id], ['image', 'username']);
-            $product_ratings[$key]->user_profile = $user_profile[$key]->image ?? "";
-            $product_ratings[$key]->user_name = $user_profile[$key]->username ?? "";
+            $userRow = $user_profile[0] ?? null;
+            $product_ratings[$key]->user_profile = !empty($userRow?->image) ? $userRow->image : 'demo-avatar.jpg';
+            $product_ratings[$key]->user_name = !empty($userRow?->username) ? $userRow->username : 'Verified Customer';
         }
 
         $sortedReviews = $this->sortReviews($product_ratings, $this->user_id);

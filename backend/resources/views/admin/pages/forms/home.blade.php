@@ -504,7 +504,7 @@
                                     </div>
                                     <div class="muqtarin-seller-metrics">
                                         <p class="amount">{{ $currency }} {{ number_format((float) $item['total_sales']) }}</p>
-                                        <p class="comm">{{ $item['total_commission'] }} {{ labels('admin_labels.sales_count_label', 'Sales') }}</p>
+                                        <p class="comm">{{ $item['orders_count'] }} {{ labels('admin_labels.orders', 'Orders') }}</p>
                                     </div>
                                 </div>
                             @empty
@@ -1038,8 +1038,15 @@
                 },
                 xaxis: {
                     categories: chartData.categories,
+                    tickAmount: 8,
                     axisBorder: { show: false },
-                    axisTicks: { show: false }
+                    axisTicks: { show: false },
+                    labels: {
+                        rotate: 0,
+                        hideOverlappingLabels: true,
+                        trim: true,
+                        style: { fontSize: '11px' }
+                    }
                 },
                 yaxis: getYAxisConfig(chartData),
                 fill: {

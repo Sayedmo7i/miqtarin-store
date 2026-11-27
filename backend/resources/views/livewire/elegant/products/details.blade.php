@@ -405,7 +405,7 @@
                                 @endif
                             </div>
                             <div class="freeShipMsg featureText mb-2 d-flex"><ion-icon name="refresh-outline"
-                                    class="fs-5 me-2"></ion-icon>{{ $product_details->is_returnable == 1 ? labels('front_messages.returnable', 'Returnable') : labels('front_messages.non_returnable', 'Non Returnable') }}
+                                    class="fs-5 me-2"></ion-icon>{{ $product_details->is_returnable == 1 ? labels('front_messages.returnable', 'Returnable') . ': ' . labels('front_messages.returnable_30_days', 'Yes (30 Days)') : labels('front_messages.non_returnable', 'Non Returnable') }}
                             </div>
                             <div class="freeShipMsg featureText mb-2 d-flex"><ion-icon name="pin-outline"
                                     class="fs-5 me-2"></ion-icon>
@@ -600,9 +600,15 @@
                             <div class="row">
                                 <div class="col-12 product-description">
                                     {!! $product_details->description !!}
-                                    <div class="mt-3">
-                                        {!! $product_details->extra_description !!}
-                                    </div>
+                                    @php
+                                        $descText = trim(strip_tags((string) ($product_details->description ?? '')));
+                                        $extraText = trim(strip_tags((string) ($product_details->extra_description ?? '')));
+                                    @endphp
+                                    @if ($extraText !== '' && $extraText !== $descText)
+                                        <div class="mt-3">
+                                            {!! $product_details->extra_description !!}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

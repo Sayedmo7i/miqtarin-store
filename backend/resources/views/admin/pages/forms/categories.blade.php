@@ -73,7 +73,7 @@
                                                     <span class="text-asterisks text-sm">*</span>
                                                 </label>
                                                 <input type="text" name="name" class="form-control"
-                                                    placeholder="{{ labels('admin_labels.fashion_placeholder', 'Fashion') }}" value="">
+                                                    placeholder="{{ labels('admin_labels.category_name_placeholder', 'e.g. Electronics') }}" value="">
                                             </div>
                                         </div>
 

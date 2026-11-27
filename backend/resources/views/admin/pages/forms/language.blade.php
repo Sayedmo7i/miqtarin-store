@@ -113,7 +113,7 @@
                                         <input type="checkbox" name="is_rtl" class="form-check-input" id="is_rtl_switch">
                                     </div>
                                     <label for="is_rtl_switch" class="mb-0 ms-2">
-                                        {{ labels('admin_labels.is_rtl', 'Is RTL') }}?
+                                        {{ labels('admin_labels.is_rtl', 'Is RTL?') }}
                                     </label>
                                 </div>
                             </div>

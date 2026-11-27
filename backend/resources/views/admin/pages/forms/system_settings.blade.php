@@ -1204,7 +1204,7 @@
                                                 <div class="col-md-6">
                                                     <a class="btn btn-xs mx-2 btn-primary text-white mb-2"
                                                         data-bs-toggle="modal" data-bs-target="#howItWorksModal"
-                                                        title="{{ labels('admin_labels.how_it_works_title', 'How it works') }}">{{ labels('admin_labels.how_it_works', 'How It Works') }}?</a>
+                                                        title="{{ labels('admin_labels.how_it_works_title', 'How it works') }}">{{ labels('admin_labels.how_it_works', 'How It Works?') }}</a>
                                                 </div>
                                             </div>
                                             <input type="text" disabled class="form-control"
@@ -1220,7 +1220,7 @@
                                                 <div class="col-md-6">
                                                     <a class="btn btn-xs mx-2 btn-primary text-white mb-2"
                                                         data-bs-toggle="modal" data-bs-target="#howItWorksModal1"
-                                                        title="{{ labels('admin_labels.how_it_works_title', 'How it works') }}">{{ labels('admin_labels.how_it_works', 'How It Works') }}?</a>
+                                                        title="{{ labels('admin_labels.how_it_works_title', 'How it works') }}">{{ labels('admin_labels.how_it_works', 'How It Works?') }}</a>
                                                 </div>
                                             </div>
                                             <input type="text" disabled class="form-control"

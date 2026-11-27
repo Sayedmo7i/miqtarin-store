@@ -214,7 +214,7 @@
                                                 <th>{{ labels('admin_labels.product_type', 'Product Type') }}</th>
                                                 <th>{{ labels('admin_labels.variations', 'Variant') }}</th>
                                                 <th>{{ labels('admin_labels.variations_image', 'Variant Images') }}</th>
-                                                <th>{{ labels('admin_labels.discount', 'Discounted Price') }}</th>
+                                                <th>{{ labels('admin_labels.selling_price', 'Selling Price') }}</th>
                                                 <th>{{ labels('admin_labels.sub_total', 'Sub Total') }}</th>
                                                 <th>{{ labels('admin_labels.active_status', 'Active Status') }}</th>
                                             </tr>
@@ -258,8 +258,11 @@
                                                     @endif
                                                     <td class="align-items-center d-flex">{{ $index + 1 }}</td>
                                                     @php
-                                                        $product_name = json_decode($item['pname'], true);
-                                                        $product_name = $product_name['en'] ?? '';
+                                                        $langCode = app(\App\Services\TranslationService::class)->getLanguageCode();
+                                                        $decoded_name = json_decode($item['pname'] ?? '', true);
+                                                        $product_name = is_array($decoded_name)
+                                                            ? ($decoded_name[$langCode] ?? ($decoded_name['en'] ?? reset($decoded_name)))
+                                                            : ($item['pname'] ?? '');
                                                         $product_id = $item['product_id'];
 
                                                     @endphp

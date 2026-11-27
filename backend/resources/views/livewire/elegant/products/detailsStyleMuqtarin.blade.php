@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <div class="product-thumb product-horizontal-thumb mt-3">
-                                        <div id="gallery" class="product-thumb-horizontal slick-slider">
+                                        <div id="gallery" class="product-thumb-horizontal">
                                             @foreach ($product_details->other_images as $images)
                                                 @php
                                                     $other_image = app(MediaService::class)->dynamic_image($images, 600);
@@ -387,7 +387,11 @@
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productAccordian">
                                     <div class="accordion-body product-description">
                                         {!! $product_details->description !!}
-                                        @if (!empty($product_details->extra_description))
+                                        @php
+                                            $descText = trim(strip_tags((string) ($product_details->description ?? '')));
+                                            $extraText = trim(strip_tags((string) ($product_details->extra_description ?? '')));
+                                        @endphp
+                                        @if ($extraText !== '' && $extraText !== $descText)
                                             <div class="mt-3">{!! $product_details->extra_description !!}</div>
                                         @endif
                                     </div>
@@ -517,7 +521,7 @@
                                     <div>
                                         <h6 class="mb-0 fw-bold">{{ labels('front_messages.returnable', 'Returnable') }}</h6>
                                         <p class="small mb-0" style="color: var(--mq-muted);">
-                                            {{ $product_details->is_returnable == 1 ? labels('front_messages.returnable', 'Returnable') : labels('front_messages.non_returnable', 'Non Returnable') }}
+                                            {{ $product_details->is_returnable == 1 ? labels('front_messages.returnable_30_days', 'Yes (30 Days)') : labels('front_messages.non_returnable', 'Non Returnable') }}
                                         </p>
                                     </div>
                                 </div>
@@ -609,7 +613,6 @@
             var deepLinkUrl = "{{ $deepLinkUrl }}";
         </script>
         @include('partials.deep-link-bottom-sheet', ['deepLinkUrl' => $deepLinkUrl])
-        <script src="{{ asset('frontend/elegant/js/lightbox.js') }}" defer></script>
         <script>
             function toggleInput(liElement) {
                 var inputElement = liElement.querySelector('input[type="radio"]');

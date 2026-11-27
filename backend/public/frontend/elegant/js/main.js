@@ -750,14 +750,18 @@ document.addEventListener("livewire:navigated", () => {
 
         /* 13.5 Sidebar Product */
         function side_product_slider() {
-            $(".sideProSlider").slick({
-                dots: false,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                arrows: true,
-                autoplay: true,
-                autoplaySpeed: 4000,
-            });
+            var $sideSlider = $(".sideProSlider");
+            if ($sideSlider.length && $sideSlider.children().length > 1 && !$sideSlider.hasClass("slick-initialized")) {
+                $sideSlider.slick({
+                    dots: false,
+                    infinite: false,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    autoplay: true,
+                    autoplaySpeed: 4000,
+                });
+            }
         }
         side_product_slider();
 
@@ -1662,26 +1666,32 @@ document.addEventListener("livewire:navigated", () => {
          ------------------------------------*/
         /* Horizontal Thumb Slider */
         function product_thumb1() {
-            $(".product-thumb-horizontal").slick({
-                infinite: true,
-                slidesToShow: 5,
-                stageMargin: 5,
-                slidesToScroll: 1,
-            });
+            var $el = $(".product-thumb-horizontal");
+            if ($el.length && $el.children().length > 1 && !$el.hasClass("slick-initialized")) {
+                $el.slick({
+                    infinite: false,
+                    slidesToShow: 5,
+                    stageMargin: 5,
+                    slidesToScroll: 1,
+                });
+            }
         }
         product_thumb1();
 
         /* Vertical Thumb Slider */
         function product_thumb() {
-            $(".product-thumb-vertical").slick({
-                infinite: true,
-                slidesToShow: 5,
-                vertical: true,
-                verticalSwiping: true,
-                centerPadding: "0",
-                draggable: true,
-                slidesToScroll: 1,
-            });
+            var $el = $(".product-thumb-vertical");
+            if ($el.length && $el.children().length > 1 && !$el.hasClass("slick-initialized")) {
+                $el.slick({
+                    infinite: false,
+                    slidesToShow: 5,
+                    vertical: true,
+                    verticalSwiping: true,
+                    centerPadding: "0",
+                    draggable: true,
+                    slidesToScroll: 1,
+                });
+            }
         }
         product_thumb();
 

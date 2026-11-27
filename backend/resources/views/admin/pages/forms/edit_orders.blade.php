@@ -208,8 +208,8 @@
                                                         {{ labels('admin_labels.product_items', 'Product Items') }}
                                                     </th>
                                                     <th>{{ labels('admin_labels.variations', 'Variation') }}</th>
-                                                    <th>{{ labels('admin_labels.discount', 'Discount') }}</th>
-                                                    <th>{{ labels('admin_labels.price', 'Price') }}</th>
+                                                    <th>{{ labels('admin_labels.selling_price', 'Selling Price') }}</th>
+                                                    <th>{{ labels('admin_labels.list_price', 'List Price') }}</th>
                                                     <th>{{ labels('admin_labels.quantity', 'Qty') }}</th>
                                                     <th>{{ labels('admin_labels.deliver_by', 'Deliver By') }}</th>
                                                     <th>{{ labels('admin_labels.active_status', 'Active Status') }}</th>
@@ -248,9 +248,13 @@
                                                                 $order_tracking_data = app(
                                                                     ShiprocketService::class,
                                                                 )->getShipmentId($item['id'], $order_detls[0]->id);
-                                                                $product_name = json_decode($row->pname, true);
-                                                                $product_name = $product_name['en'] ?? '';
-                                                                // dd($item)
+                                                                $langCode = app(\App\Services\TranslationService::class)->getLanguageCode();
+                                                                $decoded_name = json_decode($item['pname'] ?? '', true);
+                                                                $product_name = is_array($decoded_name)
+                                                                    ? ($decoded_name[$langCode] ?? ($decoded_name['en'] ?? reset($decoded_name)))
+                                                                    : ($item['pname'] ?? '');
+                                                                $selling_price = (float) ($item['discounted_price'] > 0 ? $item['discounted_price'] : $item['price']);
+                                                                $list_price = (float) ($item['price'] ?? 0);
                                                             @endphp
                                                             <tr>
                                                                 <td class="align-items-center d-flex">
@@ -264,8 +268,8 @@
                                                                 </td>
                                                                 <td>{{ isset($item['product_variants']) && !empty($item['product_variants']) ? str_replace(',', ' | ', $item['product_variants'][0]['variant_values']) : '-' }}
                                                                 </td>
-                                                                <td>{{ $item['discounted_price'] }}</td>
-                                                                <td>{{ $item['price'] }}</td>
+                                                                <td>{{ app(CurrencyService::class)->formateCurrency(formatePriceDecimal($selling_price)) }}</td>
+                                                                <td>{{ app(CurrencyService::class)->formateCurrency(formatePriceDecimal($list_price)) }}</td>
                                                                 <td>{{ $item['quantity'] }}</td>
                                                                 <td>{{ $item['deliver_by'] }}</td>
 

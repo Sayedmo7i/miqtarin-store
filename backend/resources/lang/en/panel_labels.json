@@ -1602,7 +1602,7 @@
     "choose_how_you_want_to_work": "Choose how you want to work: create a new language or update an existing one.",
     "use_create_option_for_new_languages": "Use the Create option for brand new languages (translation file required). Select lets you optionally upload updated labels to an existing language.",
     "display_name_shown_across_app": "Display name shown across the app (e.g., English, Hindi).",
-    "example_english_hindi": "Example: English, Hindi",
+    "example_english_hindi": "Example: English, Arabic",
     "two_letter_iso_code": "Two-letter ISO code used in file names and API calls (e.g., en, hi).",
     "use_iso_code": "Use ISO code",
     "optional_native_script": "Optional: native script to help translators (e.g., English / हिन्दी).",
@@ -1780,7 +1780,7 @@
     "place_food_license_in_other_documents": "Please attach the food license/pharmacy license in the other documents",
     "shop_by_categories_placeholder": "Shop By Categories",
     "gucci_placeholder": "MUQTARIN",
-    "not_found_alt": "Not Found",
+    "not_found_alt": "Image preview",
     "store_name_instruction": "Enter the store name as it will appear to customers.",
     "popover_choose_offer_slider_style": "Choose the style for offer sliders.",
     "popover_zipcode_wise_deliverability": "Enable zipcode-based product deliverability.",
@@ -1820,7 +1820,7 @@
     "store_name_placeholder": "MUQTARIN Store",
     "store_url_placeholder": "https://store.example.com",
     "brand_name_placeholder": "Brand Name",
-    "category_name_placeholder": "Category Name",
+    "category_name_placeholder": "e.g. Electronics",
     "blog_title_placeholder": "Blog Title",
     "zone_name_placeholder": "Zone Name",
     "section_title_placeholder": "Section Title",
@@ -2148,5 +2148,7 @@
     "total_commissions": "Total Commissions",
     "loss": "Loss",
     "profit": "Profit",
-    "no_store_found": "No Store Found"
+    "no_store_found": "No Store Found",
+    "list_price": "List Price",
+    "confirm_your_password_placeholder": "Confirm Your Password"
 }

@@ -10363,20 +10363,39 @@ function loadingTemplate() {
 }
 
 $(function () {
+    $("table[data-toggle='table'][data-url]").each(function () {
+        var $table = $(this);
+        var $container = $table.closest(".fixed-table-container");
+        if ($container.length && $table.find("tbody tr:not(.no-records-found)").length === 0) {
+            $container.addClass("mq-table-loading");
+            setTimeout(function () {
+                $container.removeClass("mq-table-loading");
+            }, 12000);
+        }
+    });
     $(document).on(
         "refresh.bs.table page-change.bs.table sort.bs.table search.bs.table column-switch.bs.table",
         "table[data-toggle='table']",
         function () {
-            $(this).closest(".fixed-table-container").addClass("mq-table-loading");
+            var $container = $(this).closest(".fixed-table-container");
+            $container.addClass("mq-table-loading");
         }
     );
     $(document).on(
-        "load-success.bs.table load-error.bs.table post-body.bs.table",
+        "load-success.bs.table load-error.bs.table",
         "table[data-toggle='table']",
         function () {
-            var $container = $(this).closest(".fixed-table-container");
+            $(this).closest(".fixed-table-container").removeClass("mq-table-loading");
+        }
+    );
+    $(document).on(
+        "post-body.bs.table",
+        "table[data-toggle='table']",
+        function () {
+            var $table = $(this);
+            var $container = $table.closest(".fixed-table-container");
             var $loading = $container.find(".fixed-table-loading");
-            if ($loading.length === 0 || !$loading.hasClass("open")) {
+            if ($table.find("tbody tr:not(.no-records-found)").length > 0 && ($loading.length === 0 || !$loading.hasClass("open"))) {
                 $container.removeClass("mq-table-loading");
             }
         }

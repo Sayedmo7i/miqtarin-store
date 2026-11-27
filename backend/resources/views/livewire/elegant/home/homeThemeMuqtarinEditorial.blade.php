@@ -45,8 +45,8 @@
                     <div class="mq-hero-editorial-aside">
                         <div class="d-flex flex-column gap-3 position-relative" style="z-index: 2;">
                             <span class="mq-eyebrow"><i class="bx bxs-sparkles"></i> {{ labels('front_messages.curated_collection', 'Curated Collection') }}</span>
-                            <h1 class="mq-hero-title">{{ $settings->site_title ?? 'MUQTARIN Store' }}</h1>
-                            <p class="mq-hero-desc">{{ $settings->app_short_description ?? labels('front_messages.explore_categories', 'Discover handcrafted essentials, trusted brands, and effortless delivery.') }}</p>
+                            <h1 class="mq-hero-title">{{ $language_code === 'ar' ? labels('front_messages.site_title', 'مقترن ستور') : ($settings->site_title ?? 'MUQTARIN Store') }}</h1>
+                            <p class="mq-hero-desc">{{ $language_code === 'ar' ? labels('front_messages.site_short_description', 'منصة تسوق متعددة التجار من مقترن ستور — توصيل سريع وجودة موثوقة.') : ($settings->app_short_description ?? labels('front_messages.explore_categories', 'Discover handcrafted essentials, trusted brands, and effortless delivery.')) }}</p>
                         </div>
                         <div class="d-flex flex-wrap gap-2 position-relative" style="z-index: 2;">
                             <a wire:navigate href="{{ customUrl('products') }}" class="mq-btn-gold">

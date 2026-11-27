@@ -330,7 +330,7 @@
                                                 <th data-field="mobile" data-sortable='false' data-visible='false'>
                                                     {{ labels('admin_labels.mobile', 'Mobile') }}
                                                 </th>
-                                                <th data-field="notes" data-sortable='false' data-visible='true'>
+                                                <th data-field="notes" data-sortable='false' data-visible='false'>
                                                     {{ labels('admin_labels.order_notes', 'Order Notes') }}
                                                 </th>
                                                 <th data-field="items" data-sortable='false' data-visible="false">
@@ -344,13 +344,13 @@
                                                     {{ labels('admin_labels.delivery_charge', 'Delivery Charge') }}
                                                 </th>
                                                 <th data-field="wallet_balance" data-sortable='false'
-                                                    data-visible="true">
+                                                    data-visible="false">
                                                     {{ labels('admin_labels.wallet_used', 'Wallet Used') }}(<?= $currency ?>)
                                                 </th>
                                                 <th data-field="promo_code" data-sortable='false' data-visible="false">
                                                     {{ labels('admin_labels.promo_codes', 'Promo Code') }}
                                                 </th>
-                                                <th data-field="promo_discount" data-sortable='false'data-visible="true">
+                                                <th data-field="promo_discount" data-sortable='false' data-visible="false">
                                                     {{ labels('admin_labels.promo_dicsount', 'Promo Discount') }}(<?= $currency ?>)
                                                 </th>
                                                 <th data-field="final_total" data-sortable='false'>

@@ -46,7 +46,7 @@
                         <div class="mq-bento-tile mq-bento-tile--pine">
                             <div>
                                 <span class="mq-eyebrow"><i class="bx bxs-grid-alt"></i> {{ labels('front_messages.popular_categories', 'Bento Collections') }}</span>
-                                <h2 class="h4 fw-bold text-white mt-3 mb-1">{{ $settings->site_title ?? 'MUQTARIN Store' }}</h2>
+                                <h2 class="h4 fw-bold text-white mt-3 mb-1">{{ $language_code === 'ar' ? labels('front_messages.site_title', 'مقترن ستور') : ($settings->site_title ?? 'MUQTARIN Store') }}</h2>
                                 <p class="small text-white-50 mb-0">{{ count($cats) }} {{ labels('front_messages.categories', 'Categories') }} &middot; {{ count($brand_list) }} {{ labels('front_messages.brands', 'Brands') }}</p>
                             </div>
                             <a wire:navigate href="{{ customUrl('products') }}" class="mq-btn-gold align-self-start mt-3">

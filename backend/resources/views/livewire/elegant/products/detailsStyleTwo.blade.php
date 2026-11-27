@@ -572,9 +572,15 @@
                                     aria-labelledby="headingOne" data-bs-parent="#productAccordian" style="">
                                     <div class="col-12 product-description">
                                         {!! $product_details->description !!}
-                                        <div class="mt-3">
-                                            {!! $product_details->extra_description !!}
-                                        </div>
+                                        @php
+                                            $descText2 = trim(strip_tags((string) ($product_details->description ?? '')));
+                                            $extraText2 = trim(strip_tags((string) ($product_details->extra_description ?? '')));
+                                        @endphp
+                                        @if ($extraText2 !== '' && $extraText2 !== $descText2)
+                                            <div class="mt-3">
+                                                {!! $product_details->extra_description !!}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

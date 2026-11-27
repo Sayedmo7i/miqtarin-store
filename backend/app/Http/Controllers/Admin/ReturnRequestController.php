@@ -86,14 +86,14 @@ class ReturnRequestController extends Controller
                     ? app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $row->orderItem->store->id, $language_code)
                     : '',
                 'price' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal($row->orderItem?->price ?? 0)),
-                'discounted_price' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal($row->orderItem?->discounted_price ?? 0)),
+                'discounted_price' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal(($row->orderItem?->discounted_price ?? 0) > 0 ? $row->orderItem->discounted_price : ($row->orderItem?->price ?? 0))),
                 'quantity' => $row->orderItem?->quantity ?? 0,
                 'sub_total' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal($row->orderItem?->sub_total ?? 0)),
                 'status_digit' => $row->status,
                 'status' => $statusLabels[$row->status] ?? 'N/A',
                 'remarks' => $row->remarks,
                 'operate' => '<div class="d-flex align-items-center">
-                                <a class="dropdown-item single_action_button dropdown_menu_items edit_request edit_return_request data-id="' . (!empty($row->orderItem) ? $row->orderItem->id : '') . '"
+                                <a class="dropdown-item single_action_button dropdown_menu_items edit_request edit_return_request" data-id="' . (!empty($row->orderItem) ? $row->orderItem->id : '') . '"
                                    data-bs-target="#request_request_modal" data-bs-toggle="modal">
                                    <i class="bx bx-pencil mx-2"></i>
                                 </a>

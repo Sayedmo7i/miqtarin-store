@@ -661,5 +661,16 @@
     "sr_no": "م",
     "variants": "الخيارات",
     "total_order_price": "إجمالي سعر الطلب",
-    "authorized_signatory": "التوقيع المعتمد"
+    "authorized_signatory": "التوقيع المعتمد",
+    "returnable_30_days": "نعم (خلال 30 يوماً)",
+    "site_title": "مقترن ستور",
+    "site_short_description": "منصة تسوق متعددة التجار من مقترن ستور — توصيل سريع وجودة موثوقة.",
+    "support_service_title": "دعم متواصل",
+    "support_service_desc": "مساعدة موثوقة وقتما تحتاج",
+    "shipping_service_title": "شحن سريع",
+    "shipping_service_desc": "توصيل موثوق وسريع لجميع طلباتك",
+    "security_service_title": "دفع آمن",
+    "security_service_desc": "معاملات مشفرة ومحمية بالكامل",
+    "return_service_title": "استرجاع حتى 30 يوماً",
+    "return_service_desc": "سياسة إرجاع مرنة وخالية من التعقيد"
 }

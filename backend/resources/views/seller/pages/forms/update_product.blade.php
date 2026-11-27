@@ -1318,7 +1318,7 @@
                                                                 'width' => 150,
                                                                 'quality' => 90,
                                                             ]) }}"
-                                                            alt="Not Found" />
+                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                     </div>
                                                     <input type="hidden" name="pro_input_image"
                                                         value="{{ $data->image }}">
@@ -1361,7 +1361,7 @@
                                                                             'width' => 150,
                                                                             'quality' => 90,
                                                                         ]) }}"
-                                                                        alt="Not Found" />
+                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                 </div>
                                                                 <a href="javascript:void(0)" class="delete-img"
                                                                     data-id="{{ $data->id }}"

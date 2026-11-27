@@ -76,7 +76,7 @@
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label
-                                                            for="address">{{ labels('admin_labels.copyright_details', 'Copyright Details') }}
+                                                            for="copyright_details">{{ labels('admin_labels.copyright_details', 'Copyright Details') }}
                                                             <span class='text-danger text-xs'>*</span></label>
                                                         <textarea name="copyright_details" id="copyright_details" class="form-control" cols="30" rows="3"><?= isset($web_settings['copyright_details']) ? outputEscaping($web_settings['copyright_details']) : '' ?></textarea>
                                                     </div>

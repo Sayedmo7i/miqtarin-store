@@ -661,5 +661,16 @@
     "sr_no": "No.",
     "variants": "Variants",
     "total_order_price": "Total Order Price",
-    "authorized_signatory": "Authorized Signatory"
+    "authorized_signatory": "Authorized Signatory",
+    "returnable_30_days": "Yes (30 Days)",
+    "site_title": "MUQTARIN Store",
+    "site_short_description": "Curated multi-vendor marketplace by MUQTARIN Store — fast delivery & verified sellers.",
+    "support_service_title": "Online Support",
+    "support_service_desc": "Reliable assistance whenever you need it",
+    "shipping_service_title": "Fast Shipping",
+    "shipping_service_desc": "Speedy delivery across Cairo, Giza & beyond",
+    "security_service_title": "Payment Security",
+    "security_service_desc": "Trusted & encrypted payment methods",
+    "return_service_title": "30-Day Returns",
+    "return_service_desc": "Flexible returns within 30 days"
 }

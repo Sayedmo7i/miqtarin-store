@@ -18,6 +18,23 @@ class DemoDatabaseSeeder extends Seeder
 
         $this->ensureDemoImages();
 
+        // 1A. Brand Store #1 cleanly (remove Demo Store / legacy upload filenames)
+        DB::table('stores')->where('id', $storeId)->update([
+            'name' => json_encode(['en' => 'MUQTARIN Store', 'ar' => 'مقترن ستور'], JSON_UNESCAPED_UNICODE),
+            'slug' => 'muqtarin-store',
+            'description' => json_encode([
+                'en' => 'Official MUQTARIN multi-vendor marketplace connecting verified local sellers with curated everyday products.',
+                'ar' => 'سوق مقترن ستور الرسمي متعدد البائعين — منتجات مختارة وتوصيل موثوق.',
+            ], JSON_UNESCAPED_UNICODE),
+            'image' => 'media/muqtarin-icon.svg',
+            'banner_image' => 'media/hero-editorial-1.jpg',
+            'banner_image_for_most_selling_product' => 'media/hero-editorial-2.jpg',
+            'stack_image' => 'media/muqtarin-icon.svg',
+            'login_image' => 'media/hero-editorial-1.jpg',
+            'half_store_logo' => 'media/muqtarin-logo.svg',
+            'updated_at' => $now,
+        ]);
+
         $passwordHash = Hash::make('12345678');
 
         // 1. Cities
@@ -225,7 +242,7 @@ class DemoDatabaseSeeder extends Seeder
         // 6B. Admin user (id = 1) localized contact (preserve admin@gmail.com & password)
         DB::table('users')->where('id', 1)->update([
             'country_code' => 20,
-            'mobile' => '01000000000',
+            'mobile' => '01002458810',
             'updated_at' => $now,
         ]);
 
@@ -462,6 +479,12 @@ class DemoDatabaseSeeder extends Seeder
                 . '<li><strong>Warranty / Guarantee:</strong> ' . e($p['warranty']) . '</li>'
                 . '<li><strong>Quality Assurance:</strong> Inspected &amp; fulfilled by verified seller across MUQTARIN zones.</li>'
                 . '</ul>';
+            $extraHtml = '<p><strong>Care, Packaging &amp; Fulfillment Details:</strong></p>'
+                . '<ul>'
+                . '<li><strong>Box Contents:</strong> Original sealed packaging for ' . e($p['en']) . ' with seller invoice.</li>'
+                . '<li><strong>Delivery Window:</strong> 24–48 hours inside Greater Cairo &amp; Giza; 2–4 days nationwide.</li>'
+                . '<li><strong>Return Eligibility:</strong> Eligible for 30-day return or exchange in unused condition.</li>'
+                . '</ul>';
             if ($existingProd) {
                 $pId = $existingProd->id;
                 DB::table('products')->where('id', $pId)->update([
@@ -470,9 +493,7 @@ class DemoDatabaseSeeder extends Seeder
                     'tags' => $p['tags'],
                     'warranty_period' => $p['warranty'],
                     'description' => $specHtml,
-                    'extra_description' => $specHtml,
-                    'rating' => $p['rating'],
-                    'no_of_ratings' => $p['no_of_ratings'],
+                    'extra_description' => $extraHtml,
                     'updated_at' => $now,
                 ]);
             } else {
@@ -506,7 +527,7 @@ class DemoDatabaseSeeder extends Seeder
                     'rating' => $p['rating'],
                     'no_of_ratings' => $p['no_of_ratings'],
                     'description' => $specHtml,
-                    'extra_description' => $specHtml,
+                    'extra_description' => $extraHtml,
                     'deliverable_type' => 1,
                     'city_deliverable_type' => 1,
                     'deliverable_cities' => implode(',', $cityIds),
@@ -550,6 +571,10 @@ class DemoDatabaseSeeder extends Seeder
                 'variant_id' => $vId,
                 'seller_id' => $sId,
                 'name' => $p['en'],
+                'ar' => $p['ar'],
+                'slug' => $p['slug'],
+                'tags' => $p['tags'],
+                'image' => $p['image'],
                 'price' => $p['price'],
                 'special_price' => $p['special'],
             ];
@@ -916,36 +941,53 @@ class DemoDatabaseSeeder extends Seeder
             }
         }
 
-        // 12E. Product Ratings & Product FAQs (populate across catalog, especially product #12)
-        if (DB::table('product_ratings')->count() === 0 && !empty($variants) && !empty($customerIds)) {
-            $targetProductIds = collect($variants)->pluck('product_id')->all();
-            $featuredIndices = array_unique(array_filter([
-                0, 1, 6, 9, count($targetProductIds) - 1,
-            ], fn ($i) => isset($targetProductIds[$i])));
-            $sampleReviews = [
+        // 12E. Product Ratings, Product FAQs & Storefront FAQs (populate across all 12 products)
+        if (!empty($variants) && !empty($customerIds)) {
+            $sampleReviewPool = [
                 ['rating' => 5, 'title' => 'جودة ممتازة وتوصيل سريع', 'comment' => 'المنتج مطابق تماماً للوصف والتغليف أنيق ومرتب جداً.'],
-                ['rating' => 4.5, 'title' => 'قيمة رائعة مقابل السعر', 'comment' => 'استخدام يومي مريح والنتائج واضحة منذ الأسبوع الأول. أنصح به بشدة.'],
                 ['rating' => 5, 'title' => 'Authentic & well packaged', 'comment' => 'Arrived on time in Cairo, sealed original packaging and reliable seller.'],
+                ['rating' => 4, 'title' => 'قيمة رائعة مقابل السعر', 'comment' => 'تجربة شراء ممتازة وجودة الخامات عالية جداً مقارنة بالسعر.'],
+                ['rating' => 5, 'title' => 'خدمة موثوقة من مقترن ستور', 'comment' => 'الطلب وصل خلال يومين مع متابعة دقيقة من المندوب. أنصح به بشدة.'],
+                ['rating' => 4, 'title' => 'Solid everyday quality', 'comment' => 'Works smoothly out of the box and matches the photos on the store.'],
             ];
-            foreach ($featuredIndices as $fIdx) {
-                $pid = $targetProductIds[$fIdx];
-                foreach ($sampleReviews as $rIdx => $rev) {
-                    $cId = $customerIds[($fIdx + $rIdx) % count($customerIds)];
-                    DB::table('product_ratings')->insert([
-                        'user_id' => $cId,
-                        'product_id' => $pid,
-                        'rating' => $rev['rating'],
-                        'images' => json_encode([]),
-                        'title' => $rev['title'],
-                        'comment' => $rev['comment'],
-                        'created_at' => $now->copy()->subDays(10 - $rIdx),
-                        'updated_at' => $now->copy()->subDays(10 - $rIdx),
-                    ]);
+            $ratingPatterns = [
+                [5, 5, 5, 5, 4], // 4.8
+                [5, 5, 4, 5, 4], // 4.6
+                [5, 4, 4, 5, 4], // 4.4
+                [5, 4, 4, 3, 5], // 4.2
+            ];
+            foreach ($variants as $vIdx => $v) {
+                $pid = $v['product_id'];
+                $existingCount = DB::table('product_ratings')->where('product_id', $pid)->count();
+                if ($existingCount < 5) {
+                    $pattern = $ratingPatterns[$vIdx % count($ratingPatterns)];
+                    for ($rIdx = $existingCount; $rIdx < 5; $rIdx++) {
+                        $rev = $sampleReviewPool[$rIdx % count($sampleReviewPool)];
+                        $cId = $customerIds[($vIdx + $rIdx) % count($customerIds)];
+                        DB::table('product_ratings')->insert([
+                            'user_id' => $cId,
+                            'product_id' => $pid,
+                            'rating' => $pattern[$rIdx],
+                            'images' => json_encode([]),
+                            'title' => $rev['title'],
+                            'comment' => $rev['comment'],
+                            'created_at' => $now->copy()->subDays(12 - $rIdx),
+                            'updated_at' => $now->copy()->subDays(12 - $rIdx),
+                        ]);
+                    }
                 }
+                // Always keep products.rating & products.no_of_ratings 100% consistent with product_ratings
+                $stats = DB::table('product_ratings')
+                    ->where('product_id', $pid)
+                    ->selectRaw('COUNT(*) as cnt, COALESCE(AVG(rating), 0) as avg_rating')
+                    ->first();
+                DB::table('products')->where('id', $pid)->update([
+                    'no_of_ratings' => (int) ($stats->cnt ?? 0),
+                    'rating' => round((float) ($stats->avg_rating ?? 0), 1),
+                    'updated_at' => $now,
+                ]);
             }
-        }
 
-        if (DB::table('product_faqs')->count() === 0 && !empty($variants) && !empty($customerIds)) {
             $faqTemplates = [
                 [
                     'q' => 'هل المنتج أصلي ومشمول بالضمان؟',
@@ -961,7 +1003,7 @@ class DemoDatabaseSeeder extends Seeder
                 ],
             ];
             foreach ($variants as $vIdx => $v) {
-                if (!in_array($vIdx, [0, 1, 6, 9, count($variants) - 1], true)) {
+                if (DB::table('product_faqs')->where('product_id', $v['product_id'])->count() > 0) {
                     continue;
                 }
                 foreach ($faqTemplates as $fIdx => $fq) {
@@ -977,6 +1019,45 @@ class DemoDatabaseSeeder extends Seeder
                         'updated_at' => $now->copy()->subDays(11 - $fIdx),
                     ]);
                 }
+            }
+        }
+
+        // 12G. Storefront FAQs (/faqs)
+        if (DB::table('faqs')->count() === 0) {
+            $storeFaqs = [
+                [
+                    'question' => 'كم تستغرق مدة الشحن والتوصيل؟ / How long does delivery take?',
+                    'answer' => "يتم توصيل الطلبات داخل القاهرة والجيزة خلال 24–48 ساعة عمل، وباقي المحافظات خلال 2–4 أيام عمل.\nOrders within Cairo & Giza arrive in 24–48 business hours; other governorates take 2–4 business days.",
+                ],
+                [
+                    'question' => 'ما هي سياسة الاسترجاع والاستبدال؟ / What is your return policy?',
+                    'answer' => "يمكنك إرجاع أو استبدال المنتجات المؤهلة خلال 30 يوماً من تاريخ الاستلام بحالتها الأصلية مع التغليف الكامل.\nEligible items may be returned or exchanged within 30 days of delivery in original unused condition.",
+                ],
+                [
+                    'question' => 'ما طرق الدفع المتاحة في مقترن ستور؟ / Which payment methods are accepted?',
+                    'answer' => "ندعم الدفع عند الاستلام (COD)، والبطاقات البنكية، ورصيد محفظة مقترن.\nWe support Cash on Delivery (COD), major cards, and MUQTARIN wallet balance.",
+                ],
+                [
+                    'question' => 'كيف يمكنني تتبع طلبي؟ / How can I track my order?',
+                    'answer' => "يمكنك متابعة حالة الطلب ورقم التتبع مباشرة من حسابك في قسم الطلبات أو عبر رابط التتبع المرسل في رسالة التأكيد.\nTrack your shipment anytime from My Account → Orders using your MUQ-TRK tracking number.",
+                ],
+                [
+                    'question' => 'هل جميع البائعين والمنتجات موثقون؟ / Are all sellers and products verified?',
+                    'answer' => "نعم، يخضع كل بائع في مقترن ستور لمراجعة المستندات التجارية وضمان جودة المنتجات قبل النشر.\nYes, every MUQTARIN seller completes verification and quality checks before listing products.",
+                ],
+                [
+                    'question' => 'متى أحصل على توصيل مجاني؟ / When do I qualify for free shipping?',
+                    'answer' => "الشحن مجاني للطلبات التي تتجاوز 250 ج.م / \$250 حسب نطاق التوصيل الخاص بك.\nOrders above the free-delivery threshold (\$250 in Greater Cairo) qualify automatically at checkout.",
+                ],
+            ];
+            foreach ($storeFaqs as $idx => $sf) {
+                DB::table('faqs')->insert([
+                    'question' => $sf['question'],
+                    'answer' => $sf['answer'],
+                    'status' => 1,
+                    'created_at' => $now->copy()->subDays(6 - $idx),
+                    'updated_at' => $now,
+                ]);
             }
         }
 
@@ -1041,7 +1122,7 @@ class DemoDatabaseSeeder extends Seeder
         $sysVal = $sysRow ? (json_decode($sysRow->value, true) ?: []) : [];
         $sysVal = array_merge($sysVal, [
             'app_name' => 'MUQTARIN Store',
-            'support_number' => '201000000000',
+            'support_number' => '+20 100 245 8810',
             'support_email' => 'support@muqtarinstore.com',
             'country_code' => '20',
             'logo' => '/media/muqtarin-logo.svg',
@@ -1152,7 +1233,7 @@ class DemoDatabaseSeeder extends Seeder
         $webVal = $webRow ? (json_decode($webRow->value, true) ?: []) : [];
         $webVal = array_merge($webVal, [
             'site_title' => 'MUQTARIN Store',
-            'support_number' => '+20 100 000 0000',
+            'support_number' => '+20 100 245 8810',
             'support_email' => 'support@muqtarinstore.com',
             'copyright_details' => 'Copyright © 2026 MUQTARIN Store. All Rights Reserved.',
             'logo' => 'media/muqtarin-logo.svg',
@@ -1162,6 +1243,17 @@ class DemoDatabaseSeeder extends Seeder
             'map_iframe' => '<iframe src="https://maps.google.com/maps?q=Tahrir%20Square,Cairo,Egypt&t=&z=14&ie=UTF8&iwloc=&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>',
             'meta_keywords' => 'MUQTARIN Store, multi-vendor marketplace, electronics, fashion, home living, Cairo',
             'meta_description' => 'Shop verified sellers across electronics, fashion, home living, and organic goods at MUQTARIN Store.',
+            'app_download_section_title' => 'Shop Faster With the MUQTARIN App',
+            'app_download_section_tagline' => 'Track orders, chat with sellers, and unlock app-only offers',
+            'app_download_section_short_description' => 'Download MUQTARIN Store for iOS and Android to manage deliveries and rewards on the go.',
+            'app_download_section_playstore_url' => 'https://play.google.com/store/apps/details?id=com.muqtarin.store',
+            'app_download_section_appstore_url' => 'https://apps.apple.com/app/muqtarin-store/id1000000001',
+            'twitter_link' => 'https://x.com/muqtarinstore',
+            'facebook_link' => 'https://www.facebook.com/muqtarinstore',
+            'instagram_link' => 'https://www.instagram.com/muqtarinstore',
+            'youtube_link' => 'https://www.youtube.com/@muqtarinstore',
+            'shipping_description' => 'Free delivery on eligible orders over $250',
+            'return_description' => '30-day free return & exchange policy',
         ]);
         DB::table('settings')->updateOrInsert(
             ['variable' => 'web_settings'],
@@ -1217,20 +1309,59 @@ class DemoDatabaseSeeder extends Seeder
                     'updated_at' => $now,
                 ]);
             }
+
+            foreach ($variants as $v) {
+                if (DB::table('seo_settings')->where('seo_type', 'product')->where('reference_id', $v['product_id'])->count() === 0) {
+                    DB::table('seo_settings')->insert([
+                        'seo_type' => 'product',
+                        'reference_id' => $v['product_id'],
+                        'meta_title' => $v['name'] . ' | MUQTARIN Store',
+                        'meta_description' => 'Buy ' . $v['name'] . ' (' . $v['ar'] . ') from verified sellers at MUQTARIN Store with fast delivery and 30-day returns.',
+                        'meta_keywords' => $v['tags'] . ',MUQTARIN Store',
+                        'og_title' => $v['name'] . ' — MUQTARIN Store',
+                        'og_description' => 'Verified catalog product at MUQTARIN Store with Cash on Delivery and buyer protection.',
+                        'og_type' => 'product',
+                        'twitter_card' => 'summary_large_image',
+                        'robots' => 'index,follow',
+                        'created_at' => $now,
+                        'updated_at' => $now,
+                    ]);
+                }
+            }
+
+            foreach ($categoriesData as $cIdx => $cat) {
+                $catId = $categoryIds[$cIdx] ?? null;
+                if ($catId && DB::table('seo_settings')->where('seo_type', 'category')->where('reference_id', $catId)->count() === 0) {
+                    DB::table('seo_settings')->insert([
+                        'seo_type' => 'category',
+                        'reference_id' => $catId,
+                        'meta_title' => $cat['en'] . ' | MUQTARIN Store',
+                        'meta_description' => 'Explore curated ' . $cat['en'] . ' (' . $cat['ar'] . ') from trusted local sellers at MUQTARIN Store.',
+                        'meta_keywords' => $cat['slug'] . ',' . $cat['en'] . ',MUQTARIN Store',
+                        'og_title' => $cat['en'] . ' — MUQTARIN Store',
+                        'og_description' => 'Shop top-rated ' . $cat['en'] . ' with reliable delivery across Egypt and MENA.',
+                        'og_type' => 'website',
+                        'twitter_card' => 'summary_large_image',
+                        'robots' => 'index,follow',
+                        'created_at' => $now,
+                        'updated_at' => $now,
+                    ]);
+                }
+            }
         }
 
         $policyDefaults = [
-            'privacy_policy' => '<h4>MUQTARIN Store Privacy Policy</h4><p>MUQTARIN Store collects only the information necessary to process orders, coordinate deliveries, and protect your account.</p>',
-            'return_policy' => '<h4>MUQTARIN Store Return &amp; Refund Policy</h4><p>Eligible items may be returned within 30 days of delivery in original condition. Approved refunds are credited to your original payment method or MUQTARIN wallet.</p>',
-            'shipping_policy' => '<h4>MUQTARIN Store Shipping Policy</h4><p>Orders are dispatched by verified sellers across our active delivery zones with real-time tracking updates.</p>',
-            'terms_and_conditions' => '<h4>MUQTARIN Store Terms &amp; Conditions</h4><p>By accessing or purchasing through MUQTARIN Store, you agree to our marketplace buyer and seller guidelines.</p>',
-            'about_us' => '<h4>About MUQTARIN Store</h4><p>MUQTARIN Store (مقترن ستور) is a bilingual multi-vendor marketplace connecting trusted local sellers with customers across electronics, fashion, home living, and organic goods.</p>',
-            'admin_privacy_policy' => '<h4>Admin Portal Privacy Policy</h4><p>Administrative accounts on MUQTARIN Store must handle customer, order, and payout records strictly in accordance with platform data-protection standards.</p>',
-            'admin_terms_and_conditions' => '<h4>Admin Portal Terms &amp; Conditions</h4><p>Platform administrators are responsible for maintaining accurate catalog approvals, transparent dispute resolution, and secure operational access.</p>',
-            'seller_privacy_policy' => '<h4>Seller Privacy Policy</h4><p>MUQTARIN Store protects seller business, tax, and settlement records and shares order details solely to fulfill customer purchases.</p>',
-            'seller_terms_and_conditions' => '<h4>Seller Terms &amp; Conditions</h4><p>Sellers on MUQTARIN Store agree to list authentic products, maintain accurate stock levels, and dispatch confirmed orders within the committed SLA.</p>',
-            'delivery_boy_privacy_policy' => '<h4>Courier Privacy Policy</h4><p>Courier location, contact, and delivery confirmation data are used strictly for active dispatch routing and payout reconciliation.</p>',
-            'delivery_boy_terms_and_conditions' => '<h4>Courier Terms &amp; Conditions</h4><p>Delivery partners must handle packages safely, verify delivery OTPs where enabled, and settle collected Cash-on-Delivery amounts promptly.</p>',
+            'privacy_policy' => '<h4>MUQTARIN Store Privacy Policy</h4><p>MUQTARIN Store (مقترن ستور) is committed to protecting your personal data. We collect only the details required to process orders, verify accounts, coordinate courier deliveries, and prevent fraudulent activity.</p><h5>1. Information We Collect</h5><p>When you register, browse, or place an order, we store your name, contact number, email address, delivery addresses, and order history. Payment card numbers are processed through certified gateways and are never stored in plain text on our servers.</p><h5>2. How We Use Your Data</h5><p>Your information is shared strictly with the fulfilling verified seller and assigned delivery partner to complete shipment, issue invoices, and support 30-day return requests. You may request account review or deletion anytime via support@muqtarinstore.com.</p>',
+            'return_policy' => '<h4>MUQTARIN Store Return &amp; Refund Policy</h4><p>Customer satisfaction is central to MUQTARIN Store. Eligible items purchased on the marketplace may be returned or exchanged within <strong>30 days</strong> of delivery.</p><h5>1. Eligibility Criteria</h5><p>Returned products must be unused, unwashed, and enclosed in their original packaging with all accessories, manuals, and seller invoice intact. Perishable organic groceries and opened personal-care seals are eligible only if damaged or defective on arrival.</p><h5>2. Pickup &amp; Refund Timeline</h5><p>Submit a return request from your order details page. Once approved, a MUQTARIN courier collects the item within 48 hours. After inspection, refunds are credited within 3–5 business days to your original payment method or instantly to your MUQTARIN wallet.</p>',
+            'shipping_policy' => '<h4>MUQTARIN Store Shipping &amp; Delivery Policy</h4><p>We partner with trusted local and regional couriers to deliver curated marketplace orders quickly and safely across all active service zones.</p><h5>1. Dispatch &amp; Transit Times</h5><p>Verified sellers dispatch confirmed orders within 24 business hours. Standard delivery takes 24–48 hours inside Greater Cairo &amp; Giza, and 2–4 business days across Alexandria and other governorates.</p><h5>2. Free Delivery &amp; Order Tracking</h5><p>Orders meeting the zone minimum threshold qualify automatically for free standard delivery. Real-time tracking codes (MUQ-TRK) and Cash-on-Delivery OTP verification keep every handoff transparent.</p>',
+            'terms_and_conditions' => '<h4>MUQTARIN Store Terms &amp; Conditions</h4><p>Welcome to MUQTARIN Store (مقترن ستور). By creating an account or placing an order through our web storefront or mobile apps, you agree to comply with these marketplace terms.</p><h5>1. Accounts &amp; Orders</h5><p>Customers must provide accurate contact and delivery information. Prices include applicable VAT where marked and remain confirmed once an order is accepted by the seller.</p><h5>2. Buyer Protection &amp; Disputes</h5><p>All purchases carry buyer protection covering damaged, counterfeit, or non-delivered items, backed by our 30-day return window and dedicated support team at support@muqtarinstore.com.</p>',
+            'about_us' => '<h4>About MUQTARIN Store</h4><p>MUQTARIN Store (مقترن ستور) is a bilingual multi-vendor marketplace connecting trusted Egyptian and regional merchants with shoppers seeking verified quality across electronics, fashion, home living, and organic goods.</p><h5>1. Curated &amp; Verified Sellers</h5><p>Every merchant completes identity, tax, and catalog verification before going live, ensuring authentic items, transparent pricing, and reliable fulfillment.</p><h5>2. Built for Seamless Shopping</h5><p>With instant Arabic/English switching, Cash on Delivery, real-time courier tracking, and a 30-day return guarantee, MUQTARIN Store delivers confidence from checkout to doorstep.</p>',
+            'admin_privacy_policy' => '<h4>Admin Portal Privacy Policy</h4><p>Administrative accounts on MUQTARIN Store operate under strict confidentiality and least-privilege access controls across all tenant stores.</p><h5>1. Access &amp; Audit Logging</h5><p>Administrators access customer, seller KYC, payout, and order dispute records solely for operational governance, compliance review, and fraud prevention.</p><h5>2. Data Handling</h5><p>Exporting personal contact details outside authorized administrative workflows is prohibited under MUQTARIN data-protection policy.</p>',
+            'admin_terms_and_conditions' => '<h4>Admin Portal Terms &amp; Conditions</h4><p>Platform administrators are responsible for maintaining accurate catalog approvals, verified seller onboarding, and fair dispute resolution.</p><h5>1. Operational Governance</h5><p>Administrators must review flagged listings, return escalations, and wallet settlement batches within target SLAs while preserving impartial marketplace standards.</p><h5>2. Account Security</h5><p>Portal credentials must never be shared and all sessions should be locked when unattended.</p>',
+            'seller_privacy_policy' => '<h4>Seller Privacy Policy</h4><p>MUQTARIN Store safeguards seller commercial registration, tax IDs, bank settlement accounts, and store analytics.</p><h5>1. Commercial Confidentiality</h5><p>Financial settlement data and verification documents are used strictly for KYC compliance, commission accounting, and scheduled payouts.</p><h5>2. Customer Data Limits</h5><p>Sellers receive customer shipping details solely to pack, invoice, and dispatch confirmed orders.</p>',
+            'seller_terms_and_conditions' => '<h4>Seller Terms &amp; Conditions</h4><p>Approved merchants on MUQTARIN Store commit to listing authentic merchandise, maintaining accurate stock counts, and honoring published warranties.</p><h5>1. Fulfillment &amp; Returns</h5><p>Sellers must hand over confirmed orders within 24 business hours and honor MUQTARIN’s 30-day return policy for eligible items.</p><h5>2. Commissions &amp; Payouts</h5><p>Marketplace commissions are calculated transparently per category and settled to verified seller accounts upon order completion.</p>',
+            'delivery_boy_privacy_policy' => '<h4>Courier Privacy Policy</h4><p>MUQTARIN Store collects courier identity documents, active zone assignments, and route telemetry solely to coordinate deliveries and settle bonuses.</p><h5>1. Route &amp; Contact Privacy</h5><p>Customer phone numbers and delivery locations visible in the courier app may only be used to complete active dispatches and OTP confirmation.</p>',
+            'delivery_boy_terms_and_conditions' => '<h4>Courier Terms &amp; Conditions</h4><p>Delivery partners represent MUQTARIN Store at the customer’s doorstep and must uphold safe package handling and courteous service.</p><h5>1. OTP &amp; COD Settlement</h5><p>Couriers must verify delivery OTPs where enabled, collect exact Cash-on-Delivery amounts, and reconcile collected cash on schedule to receive bonus payouts.</p>',
         ];
         foreach ($policyDefaults as $varName => $html) {
             $row = DB::table('settings')->where('variable', $varName)->first();
@@ -1239,8 +1370,9 @@ class DemoDatabaseSeeder extends Seeder
             $currentText = is_array($decoded) ? trim((string) ($decoded[$varName] ?? '')) : '';
             $needsClean = !$row
                 || $currentText === ''
-                || preg_match('/ezeemart|eshop|cityecommerce/i', $rawVal)
-                || substr_count($currentText, '<h5') > 1;
+                || mb_strlen(strip_tags($currentText)) < 350
+                || preg_match('/14\s*days|ezeemart|eshop|cityecommerce/i', $rawVal)
+                || substr_count($currentText, '<h5') > 4;
             if ($needsClean) {
                 DB::table('settings')->updateOrInsert(
                     ['variable' => $varName],

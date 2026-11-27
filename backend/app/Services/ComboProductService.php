@@ -28,7 +28,9 @@ class ComboProductService
 
     public function fetchComboProduct($user_id = NULL, $filter = NULL, $id = NULL, $limit = NULL, $offset = NULL, $sort = 'p.id', $order = 'DESC', $return_count = NULL, $is_deliverable = NULL, $seller_id = NULL, $store_id = NULL, $category_id = '', $brand_id = '', $type = '', $from_seller = '', $language_code = '')
     {
-        // dd($store_id);
+        if (empty($language_code)) {
+            $language_code = app(TranslationService::class)->getLanguageCode();
+        }
         // Load settings
         $settings = app(SettingService::class)->getSettings('system_settings', true);
         $settings = json_decode($settings, true);

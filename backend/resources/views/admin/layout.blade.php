@@ -14,6 +14,9 @@
                 if (sessionStorage.getItem('muqtarin_sidebar_collapsed') === '1') {
                     document.body.classList.add('sidebar-collapsed');
                 }
+                if (window.innerWidth >= 768 && window.innerWidth < 1200 && sessionStorage.getItem('muqtarin_tablet_sidebar_expanded') === '1') {
+                    document.body.classList.add('sidebar-tablet-expanded');
+                }
             } catch (e) {}
         })();
     </script>

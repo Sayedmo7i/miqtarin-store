@@ -35,7 +35,7 @@
             @if (!empty($settings->app_short_description))
                 <div class="mq-top-strip-promo d-none d-md-inline-flex">
                     <i class="bx bxs-sparkles"></i>
-                    <span>{{ $settings->app_short_description }}</span>
+                    <span>{{ $language_code === 'ar' ? labels('front_messages.site_short_description', $settings->app_short_description) : $settings->app_short_description }}</span>
                 </div>
             @endif
             <div class="mq-top-strip-controls">
