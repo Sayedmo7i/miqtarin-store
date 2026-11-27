@@ -254,6 +254,7 @@
         document.addEventListener('livewire:navigated', home_slider);
     </script>
     <script src="{{ asset('frontend/elegant/js/vendor/jquery.elevatezoom.js') }}" data-navigate-once></script>
+    <script src="{{ asset('frontend/elegant/js/lightbox.js') }}?v={{ $version }}" data-navigate-once></script>
     <script>
         if (!window._livewireInitBound) {
             window._livewireInitBound = true;

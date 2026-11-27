@@ -79,13 +79,23 @@
       self.enable();
       self.build();
     });
+    document.addEventListener('livewire:navigated', function() {
+      if ($('#lightbox').length === 0) {
+        self.build();
+      }
+    });
+    document.addEventListener('livewire:navigating', function() {
+      if ($('#lightbox').is(':visible')) {
+        self.end();
+      }
+    });
   };
 
   // Loop through anchors and areamaps looking for either data-lightbox attributes or rel attributes
   // that contain 'lightbox'. When these are clicked, start lightbox.
   Lightbox.prototype.enable = function() {
     var self = this;
-    $('body').on('click', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]', function(event) {
+    $(document).off('click.lightbox', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]').on('click.lightbox', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]', function(event) {
       self.start($(event.currentTarget));
       return false;
     });
@@ -207,6 +217,9 @@
 
   // Show overlay and lightbox. If the image is part of a set, add siblings to album array.
   Lightbox.prototype.start = function($link) {
+    if ($('#lightbox').length === 0) {
+      this.build();
+    }
     var self    = this;
     var $window = $(window);
 

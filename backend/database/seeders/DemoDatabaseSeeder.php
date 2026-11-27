@@ -976,12 +976,25 @@ class DemoDatabaseSeeder extends Seeder
                         ]);
                     }
                 }
-                // Always keep products.rating & products.no_of_ratings 100% consistent with product_ratings
-                $stats = DB::table('product_ratings')
-                    ->where('product_id', $pid)
-                    ->selectRaw('COUNT(*) as cnt, COALESCE(AVG(rating), 0) as avg_rating')
-                    ->first();
-                DB::table('products')->where('id', $pid)->update([
+            }
+            // Normalize fractional ratings to whole stars (1..5) so star breakdown mean matches product rating
+            $nonIntegerRatings = DB::table('product_ratings')->get(['id', 'rating']);
+            foreach ($nonIntegerRatings as $r) {
+                $rounded = max(1, min(5, (int) round((float) $r->rating)));
+                if ((float) $r->rating !== (float) $rounded) {
+                    DB::table('product_ratings')->where('id', $r->id)->update([
+                        'rating' => $rounded,
+                        'updated_at' => $now,
+                    ]);
+                }
+            }
+            // Always keep products.rating & products.no_of_ratings 100% consistent with product_ratings across all rated products
+            $allStats = DB::table('product_ratings')
+                ->selectRaw('product_id, COUNT(*) as cnt, COALESCE(AVG(rating), 0) as avg_rating')
+                ->groupBy('product_id')
+                ->get();
+            foreach ($allStats as $stats) {
+                DB::table('products')->where('id', $stats->product_id)->update([
                     'no_of_ratings' => (int) ($stats->cnt ?? 0),
                     'rating' => round((float) ($stats->avg_rating ?? 0), 1),
                     'updated_at' => $now,

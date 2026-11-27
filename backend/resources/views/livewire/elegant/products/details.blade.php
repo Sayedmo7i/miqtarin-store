@@ -99,9 +99,26 @@
                                 </div>
                             </div>
                             <div class="zoompro-wrap product-zoom-right rounded-0">
-                                <div class="zoompro-span"><img id="zoompro" class="zoompro rounded-0"
-                                        src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
-                                        alt="product" loading="lazy" decoding="async" /></div>
+                                <div class="zoompro-span">
+                                    <a id="zoompro-lightbox-link" href="{{ $main_image_zoom }}"
+                                        data-lightbox="product-gallery" data-title="{{ $product_details->name }}"
+                                        class="d-block">
+                                        <img id="zoompro" class="zoompro rounded-0"
+                                            src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
+                                            alt="{{ $product_details->name }}" loading="lazy" decoding="async" />
+                                    </a>
+                                </div>
+                                <div class="d-none mq-lightbox-album" aria-hidden="true">
+                                    @foreach ($product_details->other_images as $images)
+                                        @php
+                                            $album_zoom = app(MediaService::class)->dynamic_image($images, 800);
+                                        @endphp
+                                        @if ($album_zoom !== $main_image_zoom)
+                                            <a href="{{ $album_zoom }}" data-lightbox="product-gallery"
+                                                data-title="{{ $product_details->name }}"></a>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         {{-- @dd($system_settings) --}}

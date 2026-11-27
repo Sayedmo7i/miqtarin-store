@@ -1,6 +1,5 @@
  <!--   Core JS Files   -->
  <script src="{{ asset('/assets/admin/js/jquery.min.js') }}"></script>
- <script src="{{ asset('/assets/admin/js/jquery.js') }}"></script>
  <script src="{{ asset('/assets/js/core/popper.min.js') }}"></script>
 
  <script src="{{ asset('/assets/js/core/bootstrap.js') }}"></script>
@@ -14,13 +13,22 @@
  <script src="{{ asset('assets/admin/js/bootstrap-table.min.js') }}"></script>
  <script>
      (function() {
-         if (typeof $ !== 'undefined' && $.fn && $.fn.bootstrapTable && $.fn.bootstrapTable.defaults) {
-             var lblNoMatches = {!! json_encode(labels('admin_labels.no_matching_records', 'No matching records found'), JSON_UNESCAPED_UNICODE) !!};
-             var lblSearch = {!! json_encode(labels('admin_labels.search_records', 'Search records...'), JSON_UNESCAPED_UNICODE) !!};
-             var lblLoading = {!! json_encode(labels('admin_labels.loading_data', 'Loading data...'), JSON_UNESCAPED_UNICODE) !!};
-             var lblShowingRows = {!! json_encode(labels('admin_labels.table_showing_rows', 'Showing %s to %s of %s rows'), JSON_UNESCAPED_UNICODE) !!};
-             var lblRowsPerPage = {!! json_encode(labels('admin_labels.table_rows_per_page', '%s rows per page'), JSON_UNESCAPED_UNICODE) !!};
+         var lblNoMatches = {!! json_encode(labels('admin_labels.no_matching_records', 'No matching records found'), JSON_UNESCAPED_UNICODE) !!};
+         var lblSearch = {!! json_encode(labels('admin_labels.search_records', 'Search records...'), JSON_UNESCAPED_UNICODE) !!};
+         var lblLoading = {!! json_encode(labels('admin_labels.loading_data', 'Loading data...'), JSON_UNESCAPED_UNICODE) !!};
+         var lblShowingRows = {!! json_encode(labels('admin_labels.table_showing_rows', 'Showing %s to %s of %s rows'), JSON_UNESCAPED_UNICODE) !!};
+         var lblRowsPerPage = {!! json_encode(labels('admin_labels.table_rows_per_page', '%s rows per page'), JSON_UNESCAPED_UNICODE) !!};
+         var lblLoadError = {!! json_encode(labels('admin_labels.failed_to_load_data', 'Unable to load records right now.'), JSON_UNESCAPED_UNICODE) !!};
+         var lblRetry = {!! json_encode(labels('admin_labels.retry', 'Retry'), JSON_UNESCAPED_UNICODE) !!};
 
+         window.muqtarinTableTranslations = {
+             loading: lblLoading,
+             noMatches: lblNoMatches,
+             loadError: lblLoadError,
+             retry: lblRetry
+         };
+
+         if (typeof $ !== 'undefined' && $.fn && $.fn.bootstrapTable && $.fn.bootstrapTable.defaults) {
              $.extend($.fn.bootstrapTable.defaults, {
                  formatNoMatches: function() {
                      return '<div class="muqtarin-table-empty"><i class="bx bx-inbox"></i><span>' + lblNoMatches + '</span></div>';
@@ -46,7 +54,7 @@
  <script src="{{ asset('assets/admin/js/jstree.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/jquery.blockUI.js') }}"></script>
  <script src="{{ asset('assets/admin/js/jquery-slimScroll.js') }}"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+ <script src="{{ asset('frontend/elegant/js/intlTelInput.js') }}"></script>
 
  <script src="{{ asset('assets/admin/js/sweetalert2.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/tinymce.min.js') }}"></script>

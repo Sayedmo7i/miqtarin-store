@@ -38,17 +38,19 @@ class ReturnRequestController extends Controller
         $order = request()->input('order', 'ASC');
         $search = trim(request()->input('search', ''));
 
-        $query = ReturnRequest::with(['user', 'product', 'orderItem.store'])
+        $query = ReturnRequest::with(['user', 'product', 'orderItem.store', 'orderItem.deliveryBoy'])
             ->whereHas('orderItem')
             ->whereHas('product')
             ->whereHas('user');
 
         if (!empty($search)) {
-            $query->whereHas('user', fn($q) => $q->where('username', 'like', "%$search%"))
-                ->orWhereHas('product', fn($q) => $q->where('name', 'like', "%$search%"))
-                ->orWhereHas('orderItem.store', fn($q) => $q->where('name', 'like', "%$search%"))
-                ->orWhere('id', 'like', "%$search%")
-                ->orWhereHas('orderItem', fn($q) => $q->where('order_id', 'like', "%$search%"));
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('user', fn($uq) => $uq->where('username', 'like', "%$search%"))
+                    ->orWhereHas('product', fn($pq) => $pq->where('name', 'like', "%$search%"))
+                    ->orWhereHas('orderItem.store', fn($sq) => $sq->where('name', 'like', "%$search%"))
+                    ->orWhere('id', 'like', "%$search%")
+                    ->orWhereHas('orderItem', fn($oq) => $oq->where('order_id', 'like', "%$search%"));
+            });
         }
 
         $total = $query->count();
@@ -62,8 +64,7 @@ class ReturnRequestController extends Controller
         $language_code = app(TranslationService::class)->getLanguageCode();
 
         foreach ($returnRequests as $row) {
-           
-            $delivery_boy_name = !empty($row->orderItem) ? $this->getUserName(userId: $row->orderItem->delivery_boy_id) : '';
+            $delivery_boy_name = $row->orderItem?->deliveryBoy?->username ?? '';
             $statusLabels = [
                 '0' => '<span class="badge bg-success">' . labels('admin_labels.pending', 'Pending') . '</span>',
                 '1' => '<span class="badge bg-primary">' . labels('admin_labels.approved', 'Approved') . '</span>',

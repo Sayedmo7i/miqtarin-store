@@ -29,7 +29,7 @@
                                     </button>
                                 </div>
                                 <table class="table table-striped" data-toolbar="#toolbar" id="media-upload-table"
-                                    data-page-size="5" data-toggle="table" data-url="/seller/media/list"
+                                    data-page-size="5" data-lazy-table="true" data-url="/seller/media/list"
                                     data-click-to-select="true" data-side-pagination="server" data-pagination="true"
                                     data-page-list="[5, 10, 20, 50, 100, 200]" data-search="true"
                                     data-show-columns="true" data-show-refresh="true" data-trim-on-search="false"

@@ -7,6 +7,7 @@ use App\Models\Currency;
 use App\Models\Language;
 use App\Models\Store;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 use App\Services\StoreService;
 use App\Services\SettingService;
@@ -90,6 +91,8 @@ class Header extends Component
             app()->setLocale($lang);
             session()->put('locale', $lang);
             session()->put('is_rtl', $is_rtl);
+            Cookie::queue('mq_locale', $lang, 60 * 24 * 30);
+            Cookie::queue('mq_is_rtl', (string) $is_rtl, 60 * 24 * 30);
             $referer = request()->header('Referer');
             $target = $currentUrl ?: ($referer && !str_contains($referer, '/livewire/') ? $referer : url('/'));
             return $this->redirect($target, navigate: false);

@@ -154,7 +154,7 @@
                                 <div class="col-md-12">
                                     <div class="pt-0">
                                         <div class="table-responsive">
-                                            <table class='table' id="admin_order_tracking_table" data-toggle="table"
+                                            <table class='table' id="admin_order_tracking_table" data-lazy-table="true"
                                                 data-loading-template="loadingTemplate"
                                                 data-url="{{ route('admin.orders.get_order_tracking') }}"
                                                 data-click-to-select="true" data-side-pagination="server"

@@ -63,9 +63,26 @@
                                             800,
                                         );
                                     @endphp
-                                    <div class="zoompro-span"><img id="zoompro" class="zoompro"
-                                            src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
-                                            alt="product" width="625" height="808"></div>
+                                    <div class="zoompro-span">
+                                        <a id="zoompro-lightbox-link" href="{{ $main_image_zoom }}"
+                                            data-lightbox="product-gallery" data-title="{{ $product_details->name }}"
+                                            class="d-block">
+                                            <img id="zoompro" class="zoompro"
+                                                src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
+                                                alt="{{ $product_details->name }}" width="625" height="808">
+                                        </a>
+                                    </div>
+                                    <div class="d-none mq-lightbox-album" aria-hidden="true">
+                                        @foreach ($product_details->other_images as $images)
+                                            @php
+                                                $album_zoom = app(MediaService::class)->dynamic_image($images, 800);
+                                            @endphp
+                                            @if ($album_zoom !== $main_image_zoom)
+                                                <a href="{{ $album_zoom }}" data-lightbox="product-gallery"
+                                                    data-title="{{ $product_details->name }}"></a>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                     <!-- End Product Image -->
                                 </div>
                                 <!-- End Product Main -->

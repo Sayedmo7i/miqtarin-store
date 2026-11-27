@@ -248,6 +248,23 @@ class OrderController extends Controller
 
         $rows = [];
 
+        $orderIds = $orders->pluck('id')->all();
+        $orderChargesByOrder = !empty($orderIds)
+            ? OrderCharges::whereIn('order_id', $orderIds)
+                ->selectRaw('order_id, SUM(delivery_charge) as total_charge')
+                ->groupBy('order_id')
+                ->pluck('total_charge', 'order_id')
+            : collect();
+        $updatedByIds = $orders
+            ->map(fn($o) => $o->items->first()?->updated_by)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+        $updatedByNames = !empty($updatedByIds)
+            ? User::whereIn('id', $updatedByIds)->pluck('username', 'id')
+            : collect();
+
         foreach ($orders as $row) {
             if (!$row->items->isEmpty()) {
                 $tempRow = [];
@@ -270,7 +287,7 @@ class OrderController extends Controller
 
                 // If order delivery charge is zero (e.g. updated after return), fall back to seller-wise delivery charge
                 if ($displayDeliveryCharge == 0) {
-                    $displayDeliveryCharge = (float) OrderCharges::where('order_id', $row->id)->sum('delivery_charge');
+                    $displayDeliveryCharge = (float) ($orderChargesByOrder[$row->id] ?? 0);
                 }
 
                 $tempRow['id'] = $row->id;
@@ -303,13 +320,8 @@ class OrderController extends Controller
                     'bank_transfer' => labels('admin_labels.bank_transfer', 'Bank Transfer'),
                 ];
                 $tempRow['payment_method'] = $paymentMethodMap[$rawPaymentMethod] ?? ucwords(str_replace('_', ' ', $rawPaymentMethod));
-                if (!empty($row->items[0]->updated_by)) {
-                    $updated_username = fetchDetails(User::class, ['id' => $row->items[0]->updated_by], 'username');
-                    $updated_username = !$updated_username->isEmpty() ? $updated_username[0]->username : '';
-                    $tempRow['updated_by'] = $updated_username;
-                } else {
-                    $tempRow['updated_by'] = '';
-                }
+                $updatedById = $row->items[0]->updated_by ?? null;
+                $tempRow['updated_by'] = $updatedById ? ($updatedByNames[$updatedById] ?? '') : '';
 
                 $tempRow['address'] = outputEscaping(str_replace('\r\n', '</br>', $row->address));
                 $tempRow['delivery_date'] = $row->delivery_date;

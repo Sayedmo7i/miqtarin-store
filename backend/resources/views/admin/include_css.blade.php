@@ -32,7 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- filepond Css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" />
+    <link rel="stylesheet" href="{{ asset('frontend/elegant/css/intlTelInput.css') }}" />
     <link href="/assets/filepond/dist/filepond.css" rel="stylesheet" type="text/css" />
     <link href="/assets/filepond/dist/filepond-plugin-image-preview.css" rel="stylesheet" type="text/css" />
     <link href="/assets/filepond/dist/filepond-plugin-pdf-preview.min.css" rel="stylesheet" type="text/css" />

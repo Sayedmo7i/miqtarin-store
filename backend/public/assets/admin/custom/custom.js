@@ -818,14 +818,18 @@ $(document).on("show.bs.modal", "#media-upload-modal", function (event) {
         ? $(current_selected_image).data("media_type")
         : "image";
     $("#media_type").val(media_type);
-    if (ismultipleAllowed == 1) {
-        $("#media-upload-table").bootstrapTable("refreshOptions", {
-            singleSelect: false,
-        });
-    } else {
-        $("#media-upload-table").bootstrapTable("refreshOptions", {
-            singleSelect: true,
-        });
+    var $mediaTable = $("#media-upload-table");
+    var singleSelectFlag = ismultipleAllowed != 1;
+    if ($mediaTable.length) {
+        if (!$mediaTable.data("bootstrap.table")) {
+            $mediaTable.bootstrapTable({
+                singleSelect: singleSelectFlag,
+            });
+        } else {
+            $mediaTable.bootstrapTable("refreshOptions", {
+                singleSelect: singleSelectFlag,
+            });
+        }
     }
 
     if (max_file_allow === "" || max_file_allow == undefined) {
@@ -1397,18 +1401,31 @@ $(document).on("show.bs.modal", "#customer-address-modal", function (event) {
     var triggerElement = $(event.relatedTarget);
     current_selected_image = triggerElement;
     var id = $(current_selected_image).data("id");
-    var existing_url = $(this).find("#customer-address-table").data("url");
-
-    if (existing_url.indexOf("?") > -1) {
-        var temp = $(existing_url).text().split("?");
-        var new_url = temp[0] + "?user_id=" + id;
-    } else {
-        var new_url = existing_url + "?user_id=" + id;
+    var $addressTable = $(this).find("#customer-address-table");
+    var existing_url = String($addressTable.data("base-url") || $addressTable.data("url") || "");
+    if (!$addressTable.data("base-url") && existing_url) {
+        $addressTable.data("base-url", existing_url.split("?")[0]);
     }
+    var baseUrl = String($addressTable.data("base-url") || existing_url.split("?")[0] || "");
+    var new_url = baseUrl + "?user_id=" + id;
     $("#address_user_id").val(id);
-    $("#customer-address-table").bootstrapTable("refreshOptions", {
-        url: new_url,
-    });
+    $addressTable.attr("data-url", new_url).data("url", new_url);
+    if (!$addressTable.data("bootstrap.table")) {
+        $addressTable.bootstrapTable({
+            url: new_url,
+        });
+    } else {
+        $addressTable.bootstrapTable("refreshOptions", {
+            url: new_url,
+        });
+    }
+});
+
+$(document).on("show.bs.modal", "#order-tracking-modal", function () {
+    var $trackingTable = $(this).find("#admin_order_tracking_table");
+    if ($trackingTable.length && !$trackingTable.data("bootstrap.table")) {
+        $trackingTable.bootstrapTable();
+    }
 });
 
 $(document).on("change", "#seller_filter", function () {
@@ -7220,7 +7237,9 @@ $(document).on("click", ".edit_order_tracking", function (e, rows) {
     $("#courier_agency").val(courier_agency);
     $("#tracking_id").val(tracking_id);
     $("#url").val(url);
-    $("#admin_order_tracking_table").bootstrapTable("refresh");
+    if ($("#admin_order_tracking_table").data("bootstrap.table")) {
+        $("#admin_order_tracking_table").bootstrapTable("refresh");
+    }
     $("#order_item_table").bootstrapTable("refresh");
     var parentModal = $(this).closest(".modal");
     if (parentModal.length > 0) {
@@ -10351,6 +10370,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // bootstrap table loading icon & lifecycle state
 
 function loadingTemplate() {
+    var t = window.muqtarinTableTranslations || {};
+    var loadingText = t.loading || "Loading data...";
     return (
         '<div class="mq-table-loader" role="status" aria-live="polite">' +
             '<div class="mq-table-loader-row"></div>' +
@@ -10358,39 +10379,70 @@ function loadingTemplate() {
             '<div class="mq-table-loader-spinner">' +
                 '<i class="bx bx-loader-alt bx-spin"></i>' +
             '</div>' +
+            '<div class="mq-table-loader-text"></div>' +
         '</div>'
+    ).replace(
+        '<div class="mq-table-loader-text"></div>',
+        '<div class="mq-table-loader-text">' + $("<div/>").text(loadingText).html() + "</div>"
     );
 }
 
 $(function () {
+    var tableSelector = "table[data-toggle='table'], table[data-lazy-table='true']";
+
     $("table[data-toggle='table'][data-url]").each(function () {
         var $table = $(this);
         var $container = $table.closest(".fixed-table-container");
         if ($container.length && $table.find("tbody tr:not(.no-records-found)").length === 0) {
             $container.addClass("mq-table-loading");
-            setTimeout(function () {
-                $container.removeClass("mq-table-loading");
-            }, 12000);
         }
     });
     $(document).on(
         "refresh.bs.table page-change.bs.table sort.bs.table search.bs.table column-switch.bs.table",
-        "table[data-toggle='table']",
+        tableSelector,
         function () {
             var $container = $(this).closest(".fixed-table-container");
+            $container.find(".mq-table-load-error").remove();
             $container.addClass("mq-table-loading");
         }
     );
     $(document).on(
-        "load-success.bs.table load-error.bs.table",
-        "table[data-toggle='table']",
+        "load-success.bs.table",
+        tableSelector,
         function () {
-            $(this).closest(".fixed-table-container").removeClass("mq-table-loading");
+            var $container = $(this).closest(".fixed-table-container");
+            $container.removeClass("mq-table-loading");
+            $container.find(".mq-table-load-error").remove();
+        }
+    );
+    $(document).on(
+        "load-error.bs.table",
+        tableSelector,
+        function () {
+            var $table = $(this);
+            var $container = $table.closest(".fixed-table-container");
+            var t = window.muqtarinTableTranslations || {};
+            var errorMsg = t.loadError || "Unable to load records right now.";
+            var retryLabel = t.retry || "Retry";
+            $container.removeClass("mq-table-loading");
+            var $emptyCell = $table.find("tbody tr.no-records-found td").first();
+            if ($emptyCell.length) {
+                var $box = $('<div class="mq-table-load-error" role="alert"></div>');
+                $box.append('<i class="bx bx-error-circle"></i>');
+                $box.append($("<span></span>").text(errorMsg));
+                var $btn = $('<button type="button" class="btn btn-sm btn-outline-primary"></button>').text(retryLabel);
+                $btn.on("click", function () {
+                    $container.addClass("mq-table-loading");
+                    $table.bootstrapTable("refresh");
+                });
+                $box.append($btn);
+                $emptyCell.empty().append($box);
+            }
         }
     );
     $(document).on(
         "post-body.bs.table",
-        "table[data-toggle='table']",
+        tableSelector,
         function () {
             var $table = $(this);
             var $container = $table.closest(".fixed-table-container");

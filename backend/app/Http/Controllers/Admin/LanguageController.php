@@ -20,6 +20,7 @@ use App\Models\Tax;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use ZipArchive;
@@ -280,13 +281,14 @@ class LanguageController extends Controller
             'lang' => 'required|string|max:255',
         ]);
 
-        $is_rtl = fetchDetails(Language::class, ['code' => $request->lang], 'is_rtl');
-        $is_rtl = isset($is_rtl) && !empty($is_rtl) ? $is_rtl[0]->is_rtl : '';
+        $is_rtl = (int) (Language::where('code', $request->lang)->value('is_rtl') ?? (in_array($request->lang, ['ar', 'he', 'fa', 'ur'], true) ? 1 : 0));
 
         app()->setLocale($request->lang);
 
         session()->put('locale', $request->lang);
         session()->put('is_rtl', $is_rtl);
+        Cookie::queue('mq_locale', $request->lang, 60 * 24 * 30);
+        Cookie::queue('mq_is_rtl', (string) $is_rtl, 60 * 24 * 30);
 
         return redirect()->back();
     }
@@ -718,6 +720,8 @@ class LanguageController extends Controller
         session()->put('locale', $locale);
         $isRtl = (int) (Language::where('code', $locale)->value('is_rtl') ?? (in_array($locale, ['ar', 'he', 'fa', 'ur'], true) ? 1 : 0));
         session()->put('is_rtl', $isRtl);
+        Cookie::queue('mq_locale', $locale, 60 * 24 * 30);
+        Cookie::queue('mq_is_rtl', (string) $isRtl, 60 * 24 * 30);
 
         return redirect()->back();
     }

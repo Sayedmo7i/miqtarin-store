@@ -744,7 +744,7 @@ class ComboProductController extends Controller
             ]);
             return [
                 'id' => $p->id,
-                'title' => app(TranslationService::class)->getDynamicTranslation(ComboProduct::class, 'title', $p->id, $language_code) . '<br><small>' . ucwords(str_replace('_', ' ', $p->product_type)) . '</small><br><small class="text-muted">' . labels('admin_labels.by', 'By') . '</small><span class="mx-1"></span><b dir="auto">' . e($p->store_name ?? '') . '</b>',
+                'title' => app(TranslationService::class)->getDynamicTranslation(ComboProduct::class, 'title', $p->id, $language_code) . '<br><small>' . ucwords(str_replace('_', ' ', $p->product_type)) . '</small><br><small class="text-muted">' . labels('admin_labels.by', 'By') . '</small> <b dir="auto">' . e($p->store_name ?? '') . '</b>',
                 'products' => $product_names,
                 'image' => '<div class="d-flex align-items-center"><a href="' . app(MediaService::class)->getMediaImageUrl($p->image) . '" data-lightbox="image-' . $p->id . '"><img src="' . $image . '" onerror="this.onerror=null;this.src=\'' . asset('assets/img/default_full_logo.png') . '\'" class="rounded mx-2" style="width:44px;height:44px;object-fit:cover;"></a></div>',
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' .

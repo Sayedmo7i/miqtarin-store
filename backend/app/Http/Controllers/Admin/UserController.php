@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
@@ -38,10 +39,25 @@ class UserController extends Controller
         return view('delivery_boy/pages/forms/login');
     }
 
+    private function preserveLocaleAfterLogout(Request $request, ?string $locale, ?int $isRtl): void
+    {
+        if (!empty($locale)) {
+            $resolvedRtl = $isRtl !== null ? $isRtl : (in_array($locale, ['ar', 'he', 'fa', 'ur'], true) ? 1 : 0);
+            $request->session()->put('locale', $locale);
+            $request->session()->put('is_rtl', $resolvedRtl);
+            Cookie::queue('mq_locale', $locale, 60 * 24 * 30);
+            Cookie::queue('mq_is_rtl', (string) $resolvedRtl, 60 * 24 * 30);
+        }
+    }
+
     public function logout(Request $request)
     {
+        $locale = session('locale') ?: $request->cookie('mq_locale');
+        $isRtl = session()->has('is_rtl') ? (int) session('is_rtl') : ($request->cookie('mq_is_rtl') !== null ? (int) $request->cookie('mq_is_rtl') : null);
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $this->preserveLocaleAfterLogout($request, $locale, $isRtl);
 
         return redirect('/admin/login')->withHeaders([
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
@@ -52,8 +68,12 @@ class UserController extends Controller
 
     public function seller_logout(Request $request)
     {
+        $locale = session('locale') ?: $request->cookie('mq_locale');
+        $isRtl = session()->has('is_rtl') ? (int) session('is_rtl') : ($request->cookie('mq_is_rtl') !== null ? (int) $request->cookie('mq_is_rtl') : null);
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $this->preserveLocaleAfterLogout($request, $locale, $isRtl);
 
         return redirect('/seller/login')->withHeaders([
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
@@ -63,8 +83,12 @@ class UserController extends Controller
     }
     public function delivery_boy_logout(Request $request)
     {
+        $locale = session('locale') ?: $request->cookie('mq_locale');
+        $isRtl = session()->has('is_rtl') ? (int) session('is_rtl') : ($request->cookie('mq_is_rtl') !== null ? (int) $request->cookie('mq_is_rtl') : null);
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $this->preserveLocaleAfterLogout($request, $locale, $isRtl);
 
         return redirect('/delivery_boy/login')->withHeaders([
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
