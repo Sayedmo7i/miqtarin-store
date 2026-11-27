@@ -24,14 +24,14 @@
                         @csrf
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="attribute_name" for="basic-default-fullname">
+                                <label class="attribute_name" for="combo_attribute_name">
                                     {{ labels('admin_labels.attribute_name', 'Attribute Name') }}
                                     <i class="fa fa-info-circle text-secondary ms-1"
                                        data-bs-toggle="popover"
                                        data-bs-placement="right"
                                        data-bs-content="{{ labels('admin_labels.enter_attribute_name_hint', 'Enter the name of the attribute, e.g. Size, Color.') }}"></i>
                                 </label>
-                                <input type="text" class="form-control" id="basic-default-fullname" placeholder="{{ labels('admin_labels.size_placeholder', 'Size') }}"
+                                <input type="text" class="form-control" id="combo_attribute_name" placeholder="{{ labels('admin_labels.size_placeholder', 'Size') }}"
                                     name="name" value="{{ old('name') }}">
 
                             </div>

@@ -84,7 +84,7 @@
                                             {{ labels('admin_labels.address', 'Address') }}
                                         </th>
                                         <th data-field="address2" data-sortable="false">
-                                            {{ labels('admin_labels.address', 'Address') }}
+                                            {{ labels('admin_labels.address', 'Address') }} 2
                                         </th>
                                         <th data-field="city" data-sortable="false">
                                             {{ labels('admin_labels.city', 'City') }}

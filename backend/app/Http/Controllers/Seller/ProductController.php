@@ -894,9 +894,11 @@ class ProductController extends Controller
             // Check if product is misconfigured
             $isMisconfigured = isProductMisconfigured($p);
 
+            $productTypeLabel = labels('admin_labels.' . $p->type, ucwords(str_replace('_', ' ', $p->type)));
+
             return [
                 'id' => $p->id,
-                'name' => app(TranslationService::class)->getDynamicTranslation(Product::class, 'name', $p->id, $language_code) . '<br><small>' . ucwords(str_replace('_', ' ', $p->type)) . '</small><br><small> By </small><b>' . $p->store_name . '</b>',
+                'name' => app(TranslationService::class)->getDynamicTranslation(Product::class, 'name', $p->id, $language_code) . '<br><small>' . e($productTypeLabel) . '</small><br><small class="text-muted">' . labels('admin_labels.by', 'By') . ' </small><b dir="auto">' . e($p->store_name) . '</b>',
                 'brand' => app(TranslationService::class)->getDynamicTranslation(Brand::class, 'name', $p->brand_id, $language_code),
                 'category_name' => app(TranslationService::class)->getDynamicTranslation(Category::class, 'name', $p->category_id, $language_code),
                 'rating' => $p->rating,
@@ -914,7 +916,7 @@ class ProductController extends Controller
                     ? '<span class="badge bg-warning text-dark"><i class="bx bx-error-circle me-1"></i>' . labels('admin_labels.missing_config', 'Missing Config') . '</span>'
                     : '<span class="badge bg-success"><i class="bx bx-check-circle me-1"></i>' . labels('admin_labels.configured', 'Configured') . '</span>',
 
-                'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($p->image) . '" data-lightbox="image-' . $p->pid . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
+                'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($p->image) . '" data-lightbox="image-' . $p->pid . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
                 'operate' => $action,
 
             ];

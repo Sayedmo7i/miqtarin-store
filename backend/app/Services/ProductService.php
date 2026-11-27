@@ -27,6 +27,9 @@ class ProductService
 {
     public function fetchProduct($user_id = NULL, $filter = NULL, $id = NULL, $category_id = NULL, $limit = 20, $offset = NULL, $sort = 'products.id', $order = 'DESC', $return_count = NULL, $is_deliverable = NULL, $seller_id = NULL, $brand_id = NULL, $store_id = NULL, $is_detailed_data = 0, $type = '', $from_seller = 0, $language_code = "")
     {
+        if (empty($language_code)) {
+            $language_code = app(TranslationService::class)->getLanguageCode();
+        }
 
         $attribute_values_ids = [];
         $productQuery = Product::with([

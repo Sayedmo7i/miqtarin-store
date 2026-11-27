@@ -1,6 +1,5 @@
  <!--   Core JS Files   -->
  <script src="{{ asset('/assets/admin/js/jquery.min.js') }}"></script>
- <script src="{{ asset('/assets/admin/js/jquery.js') }}"></script>
  <script src="{{ asset('/assets/js/core/popper.min.js') }}"></script>
 
  <script src="{{ asset('/assets/js/core/bootstrap.js') }}"></script>
@@ -12,12 +11,53 @@
  <script src="{{ asset('assets/brand/muqtarin-toast.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-toast.js')) }}"></script>
  <script src="{{ asset('assets/admin/js/dropzone.js') }}"></script>
  <script src="{{ asset('assets/admin/js/bootstrap-table.min.js') }}"></script>
+ <script>
+     (function() {
+         var lblNoMatches = {!! json_encode(labels('admin_labels.no_matching_records', 'No matching records found'), JSON_UNESCAPED_UNICODE) !!};
+         var lblSearch = {!! json_encode(labels('admin_labels.search_records', 'Search records...'), JSON_UNESCAPED_UNICODE) !!};
+         var lblLoading = {!! json_encode(labels('admin_labels.loading_data', 'Loading data...'), JSON_UNESCAPED_UNICODE) !!};
+         var lblShowingRows = {!! json_encode(labels('admin_labels.table_showing_rows', 'Showing %s to %s of %s rows'), JSON_UNESCAPED_UNICODE) !!};
+         var lblRowsPerPage = {!! json_encode(labels('admin_labels.table_rows_per_page', '%s rows per page'), JSON_UNESCAPED_UNICODE) !!};
+         var lblLoadError = {!! json_encode(labels('admin_labels.failed_to_load_data', 'Unable to load records right now.'), JSON_UNESCAPED_UNICODE) !!};
+         var lblRetry = {!! json_encode(labels('admin_labels.retry', 'Retry'), JSON_UNESCAPED_UNICODE) !!};
+
+         window.muqtarinTableTranslations = {
+             loading: lblLoading,
+             noMatches: lblNoMatches,
+             loadError: lblLoadError,
+             retry: lblRetry
+         };
+
+         if (typeof $ !== 'undefined' && $.fn && $.fn.bootstrapTable && $.fn.bootstrapTable.defaults) {
+             $.extend($.fn.bootstrapTable.defaults, {
+                 ajaxOptions: {
+                     timeout: 15000
+                 },
+                 formatNoMatches: function() {
+                     return '<div class="muqtarin-table-empty"><i class="bx bx-inbox"></i><span>' + lblNoMatches + '</span></div>';
+                 },
+                 formatSearch: function() {
+                     return lblSearch;
+                 },
+                 formatLoadingMessage: function() {
+                     return lblLoading;
+                 },
+                 formatShowingRows: function(pageFrom, pageTo, totalRows) {
+                     return lblShowingRows.replace('%s', pageFrom).replace('%s', pageTo).replace('%s', totalRows);
+                 },
+                 formatRecordsPerPage: function(pageNumber) {
+                     return lblRowsPerPage.replace('%s', pageNumber);
+                 }
+             });
+         }
+     })();
+ </script>
  <script src="{{ asset('assets/admin/js/select2.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/tagify.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/jstree.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/jquery.blockUI.js') }}"></script>
  <script src="{{ asset('assets/admin/js/jquery-slimScroll.js') }}"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+ <script src="{{ asset('frontend/elegant/js/intlTelInput.js') }}"></script>
 
  <script src="{{ asset('assets/admin/js/sweetalert2.min.js') }}"></script>
  <script src="{{ asset('assets/admin/js/tinymce.min.js') }}"></script>
@@ -237,7 +277,9 @@
          };
 
          window.muqtarinToggleSidebar = function() {
-             var isMobile = window.innerWidth < 1200;
+             var width = window.innerWidth;
+             var isMobile = width < 768;
+             var isTablet = width >= 768 && width < 1200;
              var sidebar = document.querySelector('.navbar-vertical');
              var flyout = document.getElementById('muqtarin-sidebar-flyout');
              if (flyout) {
@@ -247,6 +289,10 @@
              if (isMobile) {
                  if (sidebar) sidebar.classList.toggle('show');
                  document.body.classList.toggle('sidebar-mobile-open');
+             } else if (isTablet) {
+                 document.body.classList.toggle('sidebar-tablet-expanded');
+                 var expanded = document.body.classList.contains('sidebar-tablet-expanded') ? '1' : '0';
+                 try { sessionStorage.setItem('muqtarin_tablet_sidebar_expanded', expanded); } catch (e) {}
              } else {
                  document.body.classList.toggle('sidebar-collapsed');
                  var collapsed = document.body.classList.contains('sidebar-collapsed') ? '1' : '0';
@@ -270,6 +316,10 @@
                      var sidebar = document.querySelector('.navbar-vertical');
                      if (sidebar) sidebar.classList.remove('show');
                      document.body.classList.remove('sidebar-mobile-open');
+                     if (window.innerWidth >= 768 && window.innerWidth < 1200) {
+                         document.body.classList.remove('sidebar-tablet-expanded');
+                         try { sessionStorage.setItem('muqtarin_tablet_sidebar_expanded', '0'); } catch (e) {}
+                     }
                  });
              }
          });

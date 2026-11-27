@@ -135,7 +135,7 @@ class SliderController extends Controller
                     'type' => $type,
                     'operate' => $action,
                     'link' => $s->link,
-                    'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($s->image)  . '" data-lightbox="image-' . $s->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
+                    'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($s->image)  . '" data-lightbox="image-' . $s->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
                 ];
             });
 

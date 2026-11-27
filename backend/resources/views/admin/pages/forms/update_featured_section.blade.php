@@ -43,7 +43,7 @@
                                                 data-bs-toggle="tab" data-bs-target="#content-{{ $lang->code }}"
                                                 type="button" role="tab" aria-controls="content-{{ $lang->code }}"
                                                 aria-selected="false">
-                                                {{ $lang->language }}
+                                                {{ $lang->native_language ?: $lang->language }}
                                             </button>
                                         </li>
                                     @endif
@@ -55,11 +55,11 @@
                                 <div class="tab-pane fade show active" id="content-en" role="tabpanel"
                                     aria-labelledby="tab-en">
                                     <div class="mb-3">
-                                        <label for="brand_name" class="form-label">
+                                        <label for="section_title" class="form-label">
                                             {{ labels('admin_labels.title', 'Title') }}
                                             <span class="text-asterisks text-sm">*</span>
                                         </label>
-                                        <input type="text" class="form-control" placeholder="{{ labels('admin_labels.gucci_placeholder', 'Gucci') }}" name="title"
+                                        <input type="text" id="section_title" class="form-control" placeholder="{{ labels('admin_labels.section_title_placeholder', 'Featured Collection') }}" name="title"
                                             value="{{ isset($data->title) ? json_decode($data->title)->en : '' }}">
 
                                         <label for="short_description" class="control-label mb-2 mt-2">
@@ -79,7 +79,7 @@
                                             aria-labelledby="tab-{{ $lang->code }}">
                                             <div class="mb-3">
                                                 <label for="translated_title_{{ $lang->code }}" class="form-label">
-                                                    {{ labels('admin_labels.title', 'Title') }} ({{ $lang->language }})
+                                                    {{ labels('admin_labels.title', 'Title') }} ({{ $lang->native_language ?: $lang->language }})
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     name="translated_featured_section_title[{{ $lang->code }}]"
@@ -90,7 +90,7 @@
                                                 <label for="translated_short_description_{{ $lang->code }}"
                                                     class="form-label">
                                                     {{ labels('admin_labels.short_description', 'Short Description') }}
-                                                    ({{ $lang->language }})
+                                                    ({{ $lang->native_language ?: $lang->language }})
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     name="translated_featured_section_description[{{ $lang->code }}]"
@@ -255,7 +255,7 @@
                                                                 'width' => 150,
                                                                 'quality' => 90,
                                                             ]) }}"
-                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                     </div>
                                                     <input type="hidden" name="banner_image"
                                                         value="{{ $data->banner_image }}">

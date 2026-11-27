@@ -132,7 +132,7 @@
                         </div>
                     @endif
                     <div class="login-signup-text mt-4 mb-2 fs-6 text-center text-muted">
-                        {{ labels('front_messages.dont_have_an_account', 'Don\'t have an account?') }}?
+                        {{ labels('front_messages.dont_have_an_account', 'Don\'t have an account?') }}
                         <a href="{{ customUrl('register') }}"
                             class="btn-link">{{ labels('front_messages.sign_up_now', 'Sign up now') }}</a>
                     </div>

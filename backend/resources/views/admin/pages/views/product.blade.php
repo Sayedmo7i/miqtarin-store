@@ -18,15 +18,14 @@
             <div class="card-body">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-1">
-                            <div class="product-image-thumbs">
+                        <div class="col-12 col-md-2">
+                            <div class="product-image-thumbs d-flex d-md-block gap-2 flex-wrap">
                                 @php
                                     $other_images = json_decode($data->other_images);
                                 @endphp
                                 @if (!empty($other_images))
                                     @foreach ($other_images as $row)
                                         <div class="mb-2">
-
                                             <a href="{{ asset('/storage/' . $row) }}"
                                                 data-lightbox="image-{{ $data->id }}">
                                                 <img src="{{ route('admin.dynamic_image', [
@@ -34,7 +33,8 @@
                                                     'width' => 100,
                                                     'quality' => 100,
                                                 ]) }}"
-                                                    alt="{{ labels('admin_labels.avatar', 'Avatar') }}" class="" />
+                                                    onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                    alt="{{ labels('admin_labels.product_image', 'Product image') }}" class="img-fluid rounded border" />
                                             </a>
                                         </div>
                                     @endforeach
@@ -42,16 +42,17 @@
                             </div>
 
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-12 col-md-4 mb-3 mb-md-0">
                             <div class="text-center">
                                 <div class="tab-pane active" id="">
-                                    <div class="">
+                                    <div class="product_detail_image_box">
                                         <img src="{{ route('admin.dynamic_image', [
                                             'url' => app(MediaService::class)->getMediaImageUrl($data->image),
                                             'width' => 500,
                                             'quality' => 100,
                                         ]) }}"
-                                            alt="{{ labels('admin_labels.avatar', 'Avatar') }}" class="" />
+                                            onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                            alt="{{ labels('admin_labels.product_image', 'Product image') }}" class="img-fluid rounded" />
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +79,7 @@
                                     <div class="d-flex align-items-center">
                                         <i class='bx bx-cart special_price fs-3 mx-2'></i>
                                         {{ $sales_count }}
-                                        {{ labels('admin_labels.customers_ordered', 'Customers Ordered') }}
+                                        {{ $sales_count == 1 ? labels('admin_labels.customer_ordered', 'Customer Ordered') : labels('admin_labels.customers_ordered', 'Customers Ordered') }}
                                     </div>
                                 @endif
                             </div>
@@ -90,11 +91,11 @@
                                 @if ($data->type == 'simple_product')
                                     <div class="d-flex mt-4">
                                         <p class="special_price mx-2">
-                                            {{ $product_variants[0]['special_price'] > 0 ? $product_variants[0]['special_price'] : $product_variants[0]['price'] }}
+                                            {{ app(\App\Services\CurrencyService::class)->formateCurrency(formatePriceDecimal($product_variants[0]['special_price'] > 0 ? $product_variants[0]['special_price'] : $product_variants[0]['price'])) }}
                                         </p>
                                         @if ($product_variants[0]['special_price'] > 0)
                                             <p class="main_price">
-                                                {{ $product_variants[0]['price'] }}
+                                                {{ app(\App\Services\CurrencyService::class)->formateCurrency(formatePriceDecimal($product_variants[0]['price'])) }}
                                             </p>
                                         @endif
                                     </div>
@@ -103,7 +104,7 @@
                                     @if ($data->rating > 0)
                                         <div id="" data-rating="{{ $data->rating }}" data-rateyo-read-only="true"
                                             class="rateYo bookrating"></div>
-                                        <p>{{ isset($rating['no_of_rating']) && $rating['no_of_rating'] > 0 && !empty($rating['no_of_rating']) ? '( ' . $rating['no_of_rating'] . ' reviews)' : '' }}
+                                        <p>{{ isset($rating['no_of_rating']) && $rating['no_of_rating'] > 0 && !empty($rating['no_of_rating']) ? '( ' . $rating['no_of_rating'] . ' ' . labels('admin_labels.reviews', 'reviews') . ')' : '' }}
                                         </p>
                                     @endif
                                 </div>
@@ -129,27 +130,27 @@
                                 <p class="me-3 mb-1 product_information_label">{{ labels('admin_labels.tags', 'Tags') }} :
                                 </p>
                                 <p class="order_page_title">
-                                    {{ isset($data->tags) ? $data->tags : '' }}</p>
+                                    {{ isset($data->tags) && trim($data->tags) !== '' ? $data->tags : '—' }}</p>
                             </div>
                             <div class="d-flex">
                                 <p class="me-3 mb-1 product_information_label">
                                     {{ labels('admin_labels.cancelable', 'Cancelable') }} :</p>
                                 <p class="order_page_title mb-0">
-                                    {{ isset($data->is_cancelable) && $data->is_cancelable == 1 ? 'Yes' : 'No' }}
+                                    {{ isset($data->is_cancelable) && $data->is_cancelable == 1 ? labels('admin_labels.yes', 'Yes') : labels('admin_labels.no', 'No') }}
                                 </p>
                             </div>
                             <div class="d-flex">
                                 <p class="me-3 mb-1 product_information_label">
                                     {{ labels('admin_labels.returnable', 'Returnable') }} :</p>
                                 <p class="order_page_title mb-0">
-                                    {{ isset($data->is_returnable) && $data->is_returnable == 1 ? 'Yes' : 'No' }}
+                                    {{ isset($data->is_returnable) && $data->is_returnable == 1 ? labels('admin_labels.yes', 'Yes') : labels('admin_labels.no', 'No') }}
                                 </p>
                             </div>
                             <div class="d-flex">
                                 <p class="me-3 mb-1 product_information_label">
                                     {{ labels('admin_labels.warrenty_period', 'Warranty Period') }} :</p>
                                 <p class="order_page_title mb-0">
-                                    {{ isset($data->warranty_period) && $data->warranty_period != '' ? $data->warranty_period : '' }}
+                                    {{ isset($data->warranty_period) && trim($data->warranty_period) !== '' ? $data->warranty_period : '—' }}
                                 </p>
                             </div>
                         </div>
@@ -212,13 +213,15 @@
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $row['attr_name'] . ' | ' . $row['variant_values'] }}</td>
                                                 <td class="d-flex justify-content-center price_row">
-                                                    <div class="mx-2 special_price">{{ $price }}</div>
-                                                    <div class="main_price">{{ $strike_off_price }}</div>
+                                                    <div class="mx-2 special_price">{{ app(\App\Services\CurrencyService::class)->formateCurrency(formatePriceDecimal($price)) }}</div>
+                                                    @if ($strike_off_price !== null)
+                                                        <div class="main_price">{{ app(\App\Services\CurrencyService::class)->formateCurrency(formatePriceDecimal($strike_off_price)) }}</div>
+                                                    @endif
                                                 </td>
 
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <p class="mb-0 mr-2">[Enable / Disable]</p>
+                                                        <p class="mb-0 mr-2">[{{ labels('admin_labels.enable_disable', 'Enable / Disable') }}]</p>
                                                         <div class="form-switch">
                                                             <input type="checkbox"
                                                                 class="form-check-input change_variant_status mx-1"
@@ -324,11 +327,26 @@
                     <div class="tab-pane fade show active mt-4" id="product-detail" role="tabpanel"
                         aria-labelledby="product-detail-tab">
 
-                        {!! $data->description != '' ? $data->description : $data->extra_description !!}
+                        @php
+                            $cleanDesc = trim((string) ($data->description ?? ''));
+                            $cleanExtra = trim((string) ($data->extra_description ?? ''));
+                            if (strtoupper($cleanExtra) === 'NULL') {
+                                $cleanExtra = '';
+                            }
+                            $detailHtml = $cleanDesc !== '' ? $cleanDesc : $cleanExtra;
+                        @endphp
+                        @if ($detailHtml !== '')
+                            {!! $detailHtml !!}
+                        @else
+                            <div class="muqtarin-empty-state py-5 text-center">
+                                <i class="bx bx-detail" style="font-size: 2.25rem;"></i>
+                                <p class="mt-2 mb-0">{{ labels('admin_labels.no_description_available', 'No description available') }}</p>
+                            </div>
+                        @endif
 
                     </div>
                     <div class="tab-pane fade" id="product-review" role="tabpanel" aria-labelledby="product-review-tab">
-                        @foreach ($rating['product_rating'] as $product_rating)
+                        @forelse ($rating['product_rating'] as $product_rating)
                             @php
                                 $user_profile =
                                     !empty($product_rating->user_profile) &&
@@ -354,11 +372,16 @@
                                     </div>
                                 @endif
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="muqtarin-empty-state py-5 text-center">
+                                <i class="bx bx-message-square-detail" style="font-size: 2.25rem;"></i>
+                                <p class="mt-2 mb-0">{{ labels('admin_labels.no_reviews_found', 'No reviews found') }}</p>
+                            </div>
+                        @endforelse
                     </div>
                     <div class="tab-pane fade" id="product-faqs" role="tabpanel" aria-labelledby="product-faqs-tab">
                         <div class="accordion accordion-flush mt-4" id="accordionFlushExample">
-                            @foreach ($product_faqs['data'] as $faq)
+                            @forelse ($product_faqs['data'] as $faq)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-heading{{ $faq['id'] }}">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -373,7 +396,12 @@
                                         <div class="accordion-body">{{ $faq['answer'] }}</div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="muqtarin-empty-state py-5 text-center">
+                                    <i class="bx bx-help-circle" style="font-size: 2.25rem;"></i>
+                                    <p class="mt-2 mb-0">{{ labels('admin_labels.no_faqs_found', 'No FAQs found') }}</p>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>

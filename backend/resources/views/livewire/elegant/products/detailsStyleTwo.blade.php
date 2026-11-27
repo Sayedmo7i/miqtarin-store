@@ -63,9 +63,26 @@
                                             800,
                                         );
                                     @endphp
-                                    <div class="zoompro-span"><img id="zoompro" class="zoompro"
-                                            src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
-                                            alt="product" width="625" height="808"></div>
+                                    <div class="zoompro-span">
+                                        <a id="zoompro-lightbox-link" href="{{ $main_image_zoom }}"
+                                            data-lightbox="product-gallery" data-title="{{ $product_details->name }}"
+                                            class="d-block">
+                                            <img id="zoompro" class="zoompro"
+                                                src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
+                                                alt="{{ $product_details->name }}" width="625" height="808">
+                                        </a>
+                                    </div>
+                                    <div class="d-none mq-lightbox-album" aria-hidden="true">
+                                        @foreach ($product_details->other_images as $images)
+                                            @php
+                                                $album_zoom = app(MediaService::class)->dynamic_image($images, 800);
+                                            @endphp
+                                            @if ($album_zoom !== $main_image_zoom)
+                                                <a href="{{ $album_zoom }}" data-lightbox="product-gallery"
+                                                    data-title="{{ $product_details->name }}"></a>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                     <!-- End Product Image -->
                                 </div>
                                 <!-- End Product Main -->
@@ -572,9 +589,15 @@
                                     aria-labelledby="headingOne" data-bs-parent="#productAccordian" style="">
                                     <div class="col-12 product-description">
                                         {!! $product_details->description !!}
-                                        <div class="mt-3">
-                                            {!! $product_details->extra_description !!}
-                                        </div>
+                                        @php
+                                            $descText2 = trim(strip_tags((string) ($product_details->description ?? '')));
+                                            $extraText2 = trim(strip_tags((string) ($product_details->extra_description ?? '')));
+                                        @endphp
+                                        @if ($extraText2 !== '' && $extraText2 !== $descText2)
+                                            <div class="mt-3">
+                                                {!! $product_details->extra_description !!}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -734,7 +757,7 @@
                                             {{ labels('front_messages.cancel_till', 'Cancel Till') }}</h5>
                                         @if ($product_details->is_cancelable == 1)
                                             <p class="text text-muted text-small">
-                                                {{ $product_details->cancelable_till }}</p>
+                                                {{ labels('front_messages.' . strtolower(trim($product_details->cancelable_till)), ucfirst(str_replace('_', ' ', $product_details->cancelable_till))) }}</p>
                                         @else
                                             <p class="text text-muted text-small">
                                                 {{ labels('front_messages.non_cancelable', 'Non Cancelable') }}</p>
@@ -851,8 +874,8 @@
         @php
             $system_settings = app(\App\Services\SettingService::class)->getSettings('system_settings', true);
             $system_settings = json_decode($system_settings, true);
-            $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'eshop');
-            $host = $system_settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
+            $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'muqtarin');
+            $host = $system_settings['deep_link_host'] ?? 'muqtarin.store';
             $store_slug = session('store_slug') ?? ($product_details->store_slug ?? '');
             $deepLinkUrl =
                 $scheme .

@@ -81,7 +81,7 @@ class NotificationsController extends Controller
                 'type' => $row->type,
                 'message' => $shortMessage,
                 'send_to' => ucwords(str_replace('_', ' ', $row->send_to)),
-                'image' => '<div class="d-flex justify-content-around"><a href="' . $image . '" data-lightbox="banner-' . $row->id . '"><img src="' . $image . '" alt="Avatar" class="rounded table-image"/></a></div>',
+                'image' => '<div class="d-flex justify-content-around"><a href="' . $image . '" data-lightbox="banner-' . $row->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded table-image"/></a></div>',
                 'link' => $row->link,
                 'full_notification' => '<h4>' . e($row->title) . '</h4><p>' . e($row->message) . '</p><img src="' . url($image) . '" alt="Notification Image" />',
             ];

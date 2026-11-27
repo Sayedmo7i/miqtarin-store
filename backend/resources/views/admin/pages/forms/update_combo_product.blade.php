@@ -112,7 +112,7 @@
                                     <button class="language-nav-link nav-link" id="tab-{{ $lang->code }}" data-bs-toggle="tab"
                                         data-bs-target="#content-{{ $lang->code }}" type="button" role="tab"
                                         aria-controls="content-{{ $lang->code }}" aria-selected="false">
-                                        {{ $lang->language }}
+                                        {{ $lang->native_language ?: $lang->language }}
                                     </button>
                                 </li>
                             @endif
@@ -122,7 +122,7 @@
                         <div class="tab-pane fade show active" id="content-en" role="tabpanel" aria-labelledby="tab-en">
                             <div class="row">
                                 <div class="mb-3 col-md-6">
-                                    <label for="brand_name" class="form-label">
+                                    <label for="pro_input_text" class="form-label">
                                         {{ labels('admin_labels.product_name', 'Product Name') }}
                                         <span class="text-asterisks text-sm">*</span>
                                         <i class="fa fa-info-circle text-secondary ms-1"
@@ -131,7 +131,7 @@
                                            data-bs-content="{{ labels('admin_labels.popover_combo_product_name', 'Enter the combo product name.') }}"></i>
                                     </label>
                                     <div class="position-relative">
-                                        <input type="text" class="form-control" id="pro_input_text" placeholder="{{ labels('admin_labels.gucci_placeholder', 'Gucci') }}"
+                                        <input type="text" class="form-control" id="pro_input_text" placeholder="{{ labels('admin_labels.product_name_placeholder', 'e.g., Arabic Coffee Beans') }}"
                                             name="title"
                                             value="{{ isset($data->title) ? json_decode($data->title)->en : '' }}">
                                     </div>
@@ -191,7 +191,7 @@
                                             <div class="mb-3">
                                                 <label for="translated_title_{{ $lang->code }}" class="form-label">
                                                     {{ labels('admin_labels.product_name', 'Product Name') }}
-                                                    ({{ $lang->language }})
+                                                    ({{ $lang->native_language ?: $lang->language }})
                                                 </label>
                                                 <input type="text" class="form-control translated-name-input"
                                                     name="translated_product_title[{{ $lang->code }}]"
@@ -206,7 +206,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label class="form-label mb-0">
                                                         {{ labels('admin_labels.short_description', 'Short Description') }}
-                                                        ({{ $lang->language }})
+                                                        ({{ $lang->native_language ?: $lang->language }})
                                                     </label>
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div class="form-check form-switch">
@@ -231,7 +231,7 @@
                                                         <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                                             data-bs-toggle="popover" data-bs-placement="top"
                                                             data-bs-content="Use AI Assistance :Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can use suggested prompts or write your own.">
-                                                            How It Works?
+                                                            {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                                         </button>
                                                     </div>
 
@@ -337,7 +337,7 @@
                         <div class="form-group col-md-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <label for="tags"
-                                    class="form-label">{{ labels('admin_labels.has_similar_product', 'Has Similar Product') }}?</label>
+                                    class="form-label">{{ labels('admin_labels.has_similar_product', 'Has Similar Product') }}</label>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input has_similar_product" type="checkbox" id=""
                                         name="has_similar_product" {{ isset($data->has_similar_product) && $data->has_similar_product == '1' ? 'checked' : '' }}>
@@ -602,7 +602,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <label for="is_cod_allowed"
-                                            class="form-label">{{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}?</label>
+                                            class="form-label">{{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}</label>
                                     </div>
                                     <div class="d-flex">
                                         <label for="" class="me-6 text-muted">{{ labels('admin_labels.enable_disable_bracket', '[Enable/Disable]') }}</label>
@@ -620,7 +620,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <label for="is_returnable"
-                                            class="form-label">{{ labels('admin_labels.is_returnable', 'IS Returnable') }}?</label>
+                                            class="form-label">{{ labels('admin_labels.is_returnable', 'IS Returnable') }}</label>
                                     </div>
                                     <div class="d-flex">
                                         <label for="" class="me-6 text-muted form-label">{{ labels('admin_labels.enable_disable_bracket', '[Enable/Disable]') }}</label>
@@ -636,7 +636,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <label for="is_cancelable"
-                                            class="form-label">{{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}?</label>
+                                            class="form-label">{{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}</label>
                                     </div>
                                     <div class="d-flex">
                                         <label for="" class="me-6 text-muted form-label">{{ labels('admin_labels.enable_disable_bracket', '[Enable/Disable]') }}</label>
@@ -655,7 +655,7 @@
                             id='cancelable_till'>
                             <div class="form-group">
                                 <label for="cancelable_till"
-                                    class="form-label">{{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}?
+                                    class="form-label">{{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}
                                     <i class="fa fa-info-circle text-secondary ms-1"
                                        data-bs-toggle="popover"
                                        data-bs-placement="right"
@@ -677,7 +677,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <label for="is_attachment_required"
-                                            class="form-label">{{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}?</label>
+                                            class="form-label">{{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}</label>
                                     </div>
                                     <div class="d-flex">
                                         <label for="" class="me-6 text-muted form-label">{{ labels('admin_labels.enable_disable_bracket', '[Enable/Disable]') }}</label>
@@ -694,7 +694,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <label for="is_in_affiliate"
-                                            class="form-label">{{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}?</label>
+                                            class="form-label">{{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}</label>
                                     </div>
                                     <div class="d-flex">
                                         <label class="me-6 text-muted form-label">{{ labels('admin_labels.enable_disable_bracket', '[Enable/Disable]') }}</label>
@@ -968,7 +968,7 @@
                                         <div class="row form-group">
                                             <div class="col-md-6 d-flex">
                                                 <label for="download_allowed"
-                                                    class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}?</label>
+                                                    class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}</label>
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" name="download_allowed"
                                                         id="download_allowed" {{ $data->download_allowed != 'null' && $data->download_allowed == 1 ? 'checked' : '' }}>
@@ -1137,7 +1137,7 @@
                                             <div class='image-upload-div'>
                                                 <img class="img-fluid mb-2"
                                                     src="{{ route('admin.dynamic_image', ['url' => app(MediaService::class)->getMediaImageUrl($data->image), 'width' => 150, 'quality' => 90]) }}"
-                                                    alt="Not Found" />
+                                                    alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                             </div>
                                             <input type="hidden" name="image" value="{{ $data->image }}">
                                         </div>
@@ -1173,17 +1173,17 @@
                                     @php $other_images = json_decode($data->other_images); @endphp
                                     @if (!empty($other_images))
                                         @foreach ($other_images as $row)
-                                            <div class="col-md-6 col-sm-12 shadow p-3 mb-3 bg-white rounded text-center image">
+                                            <div class="col-md-6 col-sm-12 shadow p-3 mb-3 rounded text-center image">
                                                 <div class='image-upload-div'>
                                                     <img class="img-fluid mb-2"
                                                         src="{{ route('admin.dynamic_image', ['url' => app(MediaService::class)->getMediaImageUrl($row), 'width' => 150, 'quality' => 90]) }}"
-                                                        alt="Not Found" />
+                                                        alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                 </div>
                                                 <a href="javascript:void(0)" class="delete-img m-2" data-id="{{ $data->id }}"
                                                     data-field="other_images" data-img="{{ $row }}" data-table="combo_products"
                                                     data-path="{{ $row }}" data-isjson="true">
-                                                    <span class="btn btn-block bg-gradient-danger btn-xs">
-                                                        <i class="far fa-trash-alt "></i> Delete
+                                                    <span class="btn btn-sm btn-outline-danger mt-2">
+                                                        <i class="far fa-trash-alt me-1"></i> {{ labels('admin_labels.title_delete', 'Delete') }}
                                                     </span>
                                                 </a>
                                                 <input type="hidden" name="other_images[]" value="{{ $row }}">
@@ -1211,12 +1211,12 @@
                                             Prompt</label>
                                     </div>
                                     <button type="button" class="btn btn-sm btn-outline-primary generate_description">
-                                        Generate with AI
+                                        {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                     </button>
                                     <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                         data-bs-toggle="popover" data-bs-placement="top"
                                         data-bs-content="Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can write your own.">
-                                        How It Works?
+                                        {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                     </button>
                                 </div>
 

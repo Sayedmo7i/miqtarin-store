@@ -55,7 +55,7 @@
                                                         </span>
                                                     @else
                                                         <span class="badge bg-label-secondary">
-                                                            {{ labels('admin_labels.deactive', 'Deactive') }}
+                                                            {{ labels('admin_labels.deactive', 'Inactive') }}
                                                         </span>
                                                     @endif
                                                 </td>

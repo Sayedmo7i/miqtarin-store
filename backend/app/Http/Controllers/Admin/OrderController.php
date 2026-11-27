@@ -248,6 +248,23 @@ class OrderController extends Controller
 
         $rows = [];
 
+        $orderIds = $orders->pluck('id')->all();
+        $orderChargesByOrder = !empty($orderIds)
+            ? OrderCharges::whereIn('order_id', $orderIds)
+                ->selectRaw('order_id, SUM(delivery_charge) as total_charge')
+                ->groupBy('order_id')
+                ->pluck('total_charge', 'order_id')
+            : collect();
+        $updatedByIds = $orders
+            ->map(fn($o) => $o->items->first()?->updated_by)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+        $updatedByNames = !empty($updatedByIds)
+            ? User::whereIn('id', $updatedByIds)->pluck('username', 'id')
+            : collect();
+
         foreach ($orders as $row) {
             if (!$row->items->isEmpty()) {
                 $tempRow = [];
@@ -270,7 +287,7 @@ class OrderController extends Controller
 
                 // If order delivery charge is zero (e.g. updated after return), fall back to seller-wise delivery charge
                 if ($displayDeliveryCharge == 0) {
-                    $displayDeliveryCharge = (float) OrderCharges::where('order_id', $row->id)->sum('delivery_charge');
+                    $displayDeliveryCharge = (float) ($orderChargesByOrder[$row->id] ?? 0);
                 }
 
                 $tempRow['id'] = $row->id;
@@ -292,19 +309,43 @@ class OrderController extends Controller
                 // $final_total = $row->final_total - $row->wallet_balance - $row->discount;
                 $tempRow['final_total'] = app(CurrencyService::class)->formateCurrency(formatePriceDecimal($final_total));
                 $tempRow['deliver_by'] = $row->delivery_boy;
-                $tempRow['payment_method'] = str_replace('_', ' ', $row->payment_method);
-                if (!empty($row->items[0]->updated_by)) {
-                    $updated_username = fetchDetails(User::class, ['id' => $row->items[0]->updated_by], 'username');
-                    $updated_username = !$updated_username->isEmpty() ? $updated_username[0]->username : '';
-                    $tempRow['updated_by'] = $updated_username;
-                } else {
-                    $tempRow['updated_by'] = '';
-                }
+                $rawPaymentMethod = strtolower((string) $row->payment_method);
+                $paymentMethodMap = [
+                    'cod' => labels('admin_labels.cash_on_delivery', 'Cash On Delivery'),
+                    'wallet' => labels('admin_labels.wallet', 'Wallet'),
+                    'stripe' => 'Stripe',
+                    'paypal' => 'PayPal',
+                    'razorpay' => 'Razorpay',
+                    'paystack' => 'Paystack',
+                    'bank_transfer' => labels('admin_labels.bank_transfer', 'Bank Transfer'),
+                ];
+                $tempRow['payment_method'] = $paymentMethodMap[$rawPaymentMethod] ?? ucwords(str_replace('_', ' ', $rawPaymentMethod));
+                $updatedById = $row->items[0]->updated_by ?? null;
+                $tempRow['updated_by'] = $updatedById ? ($updatedByNames[$updatedById] ?? '') : '';
 
                 $tempRow['address'] = outputEscaping(str_replace('\r\n', '</br>', $row->address));
                 $tempRow['delivery_date'] = $row->delivery_date;
                 $tempRow['delivery_time'] = $row->delivery_time;
                 $tempRow['date_added'] = \Carbon\Carbon::parse($row->created_at)->format('d-m-Y');
+
+                $activeStatusRaw = strtolower((string) ($row->items[0]->active_status ?? ''));
+                $statusBadgeMap = [
+                    'awaiting' => 'bg-secondary',
+                    'received' => 'bg-primary',
+                    'processed' => 'bg-info text-dark',
+                    'shipped' => 'bg-warning text-dark',
+                    'delivered' => 'bg-success',
+                    'cancelled' => 'bg-danger',
+                    'returned' => 'bg-danger',
+                    'return_request_pending' => 'bg-warning text-dark',
+                    'return_request_approved' => 'bg-info text-dark',
+                    'return_request_decline' => 'bg-danger',
+                ];
+                $badgeClass = $statusBadgeMap[$activeStatusRaw] ?? 'bg-secondary';
+                $statusLabel = $activeStatusRaw
+                    ? labels('admin_labels.' . $activeStatusRaw, ucwords(str_replace('_', ' ', $activeStatusRaw)))
+                    : '—';
+                $tempRow['active_status'] = '<span class="badge ' . $badgeClass . '">' . e($statusLabel) . '</span>';
 
                 $edit_url = route('admin.orders.edit', $row->id);
                 $delete_url = route('admin.orders.destroy', $row->id);
@@ -314,7 +355,7 @@ class OrderController extends Controller
                         <i class="bx bx-dots-horizontal-rounded"></i>
                     </a>
                     <div class="dropdown-menu table_dropdown order_action_dropdown" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item dropdown_menu_items" href="' . $edit_url . '"><i class="bx bx-pencil mx-2"></i> ' . labels('admin_labels.edit', 'Edit') . '</a>
+                        <a class="dropdown-item dropdown_menu_items" href="' . $edit_url . '"><i class="bx bx-show mx-2"></i> ' . labels('admin_labels.view_order', 'View / Edit') . '</a>
                         <a class="dropdown-item delete-data dropdown_menu_items" data-url="' . $delete_url . '"><i class="bx bx-trash mx-2"></i> ' . labels('admin_labels.delete', 'Delete') . '</a>
                     </div>
                 </div>';
@@ -606,13 +647,13 @@ class OrderController extends Controller
             }
             switch (optional($item->transaction)->status) {
                 case 'success':
-                    $tempRow['transaction_status'] = '<span class="badge bg-success">Success</span>';
+                    $tempRow['transaction_status'] = '<span class="badge bg-success">' . labels('admin_labels.success', 'Success') . '</span>';
                     break;
                 case 'failed':
-                    $tempRow['transaction_status'] = '<span class="badge bg-danger">Failed</span>';
+                    $tempRow['transaction_status'] = '<span class="badge bg-danger">' . labels('admin_labels.failed', 'Failed') . '</span>';
                     break;
                 case 'pending':
-                    $tempRow['transaction_status'] = '<span class="badge bg-warning text-dark">Pending</span>';
+                    $tempRow['transaction_status'] = '<span class="badge bg-warning text-dark">' . labels('admin_labels.pending', 'Pending') . '</span>';
                     break;
                 default:
                     $txStatus = optional($item->transaction)->status;
@@ -630,8 +671,8 @@ class OrderController extends Controller
             $tempRow['seller_name'] = optional(optional($item->sellerData)->user)->username;
 
             $tempRow['is_credited'] = $item->is_credited
-                ? '<label class="badge bg-success">Credited</label>'
-                : '<label class="badge bg-danger">Not Credited</label>';
+                ? '<label class="badge bg-success">' . labels('admin_labels.credited', 'Credited') . '</label>'
+                : '<label class="badge bg-danger">' . labels('admin_labels.not_credited', 'Not Credited') . '</label>';
 
             $product = optional(optional($item->productVariant)->product);
             $variantName = optional($item->productVariant)->variant_name;
@@ -651,8 +692,17 @@ class OrderController extends Controller
             $final_total_amount += intval($item->sub_total);
 
             $tempRow['delivery_boy'] = optional($item->deliveryBoy)->username;
-            // $tempRow['payment_method'] = ucfirst(optional($item->order)->payment_method);
-            $tempRow['payment_method'] = ucfirst(str_replace('_', ' ', (string) optional($item->order)->payment_method));
+            $rawItemPaymentMethod = strtolower((string) optional($item->order)->payment_method);
+            $itemPaymentMethodMap = [
+                'cod' => labels('admin_labels.cash_on_delivery', 'Cash On Delivery'),
+                'wallet' => labels('admin_labels.wallet', 'Wallet'),
+                'stripe' => 'Stripe',
+                'paypal' => 'PayPal',
+                'razorpay' => 'Razorpay',
+                'paystack' => 'Paystack',
+                'bank_transfer' => labels('admin_labels.bank_transfer', 'Bank Transfer'),
+            ];
+            $tempRow['payment_method'] = $itemPaymentMethodMap[$rawItemPaymentMethod] ?? ucwords(str_replace('_', ' ', $rawItemPaymentMethod));
             $tempRow['delivery_boy_id'] = $item->delivery_boy_id;
             $tempRow['product_variant_id'] = $item->product_variant_id;
 
@@ -708,13 +758,23 @@ class OrderController extends Controller
         $store_id = app(StoreService::class)->getStoreId();
         $search = trim($request->input('search', ''));
         $offset = (int) $request->input('pagination_offset', 0);
-        $limit = (int) $request->input('limit', 10);
-        $sort = $request->input('sort', 'id');
-        $order = $request->input('order', 'DESC');
+        $limit = max(1, min(200, (int) $request->input('limit', 10)));
+        $requestedSort = (string) $request->input('sort', 'id');
+        $sortMap = [
+            'id' => 'id',
+            'order_id' => 'order_id',
+            'order_item_id' => 'order_item_id',
+            'courier_agency' => 'courier_agency',
+            'tracking_id' => 'tracking_id',
+            'date' => 'created_at',
+            'created_at' => 'created_at',
+        ];
+        $sort = $sortMap[$requestedSort] ?? 'id';
+        $order = strtoupper((string) $request->input('order', 'DESC')) === 'ASC' ? 'ASC' : 'DESC';
         $order_id = $request->input('order_id');
 
         // Base query
-        $query = OrderTracking::with(['order', 'orderItem'])
+        $query = OrderTracking::query()
             ->whereHas('orderItem', function ($q) use ($store_id) {
                 $q->where('store_id', $store_id);
             });
@@ -836,9 +896,9 @@ class OrderController extends Controller
                 //dd( $multipleWhere);
                 $orderChargeData = OrderCharges::where($multipleWhere)->get();
 
-                $updated_username = isset($row->updated_by) && !empty($row->updated_by) && $row->updated_by != 0 ? fetchDetails(User::class, ['id' => $row->updated_by], 'username')[0]->username : '';
+                $updated_username = isset($row->updated_by) && !empty($row->updated_by) && $row->updated_by != 0 ? (fetchDetails(User::class, ['id' => $row->updated_by], 'username')[0]->username ?? '') : '';
                 $address_number = (isset($row->address_id) && !empty($row->address_id) && $row->address_id != 0) ? (fetchDetails(Address::class, ['id' => $row->address_id], 'mobile')[0]->mobile ?? '') : '';
-                $deliver_by = isset($row->delivery_boy_id) && !empty($row->delivery_boy_id) && $row->delivery_boy_id != 0 ? fetchDetails(User::class, ['id' => $row->delivery_boy_id], 'username')[0]->username : '';
+                $deliver_by = isset($row->delivery_boy_id) && !empty($row->delivery_boy_id) && $row->delivery_boy_id != 0 ? (fetchDetails(User::class, ['id' => $row->delivery_boy_id], 'username')[0]->username ?? '') : '';
                 $temp = [
                     'id' => $row->order_item_id,
                     'item_otp' => $row->item_otp,
@@ -863,8 +923,8 @@ class OrderController extends Controller
                     'product_variants' => app(ProductService::class)->getVariantsValuesById($row->product_variant_id),
                     'pickup_location' => $row->pickup_location,
                     'seller_otp' => isset($orderChargeData[0]) ? $orderChargeData[0]->otp : '',
-                    'seller_delivery_charge' => !empty($orderChargeData) ? $orderChargeData[0]->delivery_charge : '',
-                    'seller_promo_discount' => !empty($orderChargeData) && is_numeric($orderChargeData[0]->promo_discount)
+                    'seller_delivery_charge' => isset($orderChargeData[0]) ? $orderChargeData[0]->delivery_charge : '',
+                    'seller_promo_discount' => isset($orderChargeData[0]) && is_numeric($orderChargeData[0]->promo_discount)
                         ? (float) $orderChargeData[0]->promo_discount
                         : 0.0,
 

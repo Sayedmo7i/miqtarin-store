@@ -76,7 +76,8 @@
                                 </div>
                                 <div class="mt-3">
                                     <table class="table table-striped" data-toolbar="#toolbar" id="media-upload-table"
-                                        data-page-size="5" data-toggle="table"
+                                        data-page-size="5" data-lazy-table="true"
+                                        data-loading-template="loadingTemplate"
                                         data-url="{{ route('seller.media.list') }}" data-click-to-select="true"
                                         data-side-pagination="server" data-pagination="true"
                                         data-page-list="[5, 10, 20, 50, 100, 200]" data-search="false"
@@ -198,9 +199,9 @@
             <label for=""
                 class="form-label body-default">{{ labels('admin_labels.select_status', 'Select Status') }}</label>
             <select class='form-select' name='status' id="statusFilter">
-                <option value=''>Select Status</option>
-                <option value='1'>Active</option>
-                <option value='0'>Deactive</option>
+                <option value=''>{{ labels('admin_labels.select_status', 'Select Status') }}</option>
+                <option value='1'>{{ labels('admin_labels.active', 'Active') }}</option>
+                <option value='0'>{{ labels('admin_labels.deactive', 'Inactive') }}</option>
             </select>
         </div>
 
@@ -249,7 +250,7 @@
     use App\Services\SettingService;
     $settings = app(SettingService::class)->getSettings('system_settings', true);
     $settings = json_decode($settings, true);
-    $app_name = isset($settings['app_name']) && !empty($settings['app_name']) ? $settings['app_name'] : 'Eshop Plus';
+    $app_name = isset($settings['app_name']) && !empty($settings['app_name']) ? $settings['app_name'] : 'MUQTARIN Store';
 @endphp
 <footer class="footer mt-4 py-3 bg-body">
     <div class="px-4">

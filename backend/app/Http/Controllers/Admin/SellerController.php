@@ -1210,15 +1210,6 @@ class SellerController extends Controller
             ->get()
             ->map(function ($seller) use ($allowModification) {
 
-                $isPublicDisk = $seller->disk == 'public' ? 1 : 0;
-                $logo = $isPublicDisk
-                    ? asset(config('constants.SELLER_IMG_PATH') . $seller->logo)
-                    : $seller->logo;
-
-                $store_thumbnail = $isPublicDisk
-                    ? asset(config('constants.SELLER_IMG_PATH') . $seller->store_thumbnail)
-                    : $seller->store_thumbnail;
-
                 $active_status = "";
                 $delete_url = route('admin.sellers.destroy', $seller->user_id);
                 $edit_url = route('admin.sellers.edit', $seller->user_id);
@@ -1232,19 +1223,17 @@ class SellerController extends Controller
                     </div>
                 </div>';
                 if ($seller->seller_status == '1') {
-                    $active_status = '<label class="badge bg-primary">Approved</label>';
+                    $active_status = '<label class="badge bg-primary">' . labels('admin_labels.approved', 'Approved') . '</label>';
                 }
                 if ($seller->seller_status == '2') {
-                    $active_status = '<label class="badge bg-secondary">Not Approved</label>';
+                    $active_status = '<label class="badge bg-secondary">' . labels('admin_labels.not_approved', 'Not Approved') . '</label>';
                 }
                 if ($seller->seller_status == '0') {
-                    $active_status = '<label class="badge bg-warning">' . labels('admin_labels.deactive', 'Deactive') . '</label>';
+                    $active_status = '<label class="badge bg-warning">' . labels('admin_labels.inactive', 'Inactive') . '</label>';
                 }
                 if ($seller->seller_status == '7') {
-                    $active_status = '<label class="badge bg-secondary">Removed</label>';
+                    $active_status = '<label class="badge bg-secondary">' . labels('admin_labels.removed', 'Removed') . '</label>';
                 }
-
-
 
                 $logo = route('admin.dynamic_image', [
                     'url' => app(MediaService::class)->getMediaImageUrl($seller->logo, 'SELLER_IMG_PATH'),
@@ -1257,12 +1246,18 @@ class SellerController extends Controller
                     'quality' => 90
                 ]);
 
+                $ratingVal = number_format((float) ($seller->rating ?? 0), 1);
+                $ratingCount = (int) ($seller->no_of_ratings ?? 0);
+
+                $fallbackImg = asset('assets/img/default_full_logo.png');
+
                 return [
                     'id' => $seller->id,
                     'name' => $seller->username,
                     'mobile' => $allowModification ? $seller->mobile : '************',
                     'email' => $allowModification ? $seller->email : '************',
                     'balance' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal($seller->balance)),
+                    'rating' => '<span class="fw-semibold text-warning"><i class="bx bxs-star align-middle me-1"></i>' . $ratingVal . '</span> <small class="text-muted">(' . $ratingCount . ')</small>',
                     'store_name' => $seller->store_name ?? '',
                     'address' => $seller->address ?? '',
                     'store_url' => $seller->store_url,
@@ -1274,8 +1269,8 @@ class SellerController extends Controller
                     'tax_name' => $seller->tax_name,
                     'tax_number' => $seller->tax_number,
                     'pan_number' => $seller->pan_number,
-                    'logo' => '<div class="mx-auto"><a href="' . app(MediaService::class)->getMediaImageUrl($seller->logo, 'SELLER_IMG_PATH') . '" data-lightbox="image-' . $seller->id . '" data-gallery="gallery"><img src="' . $logo . '" class="rounded"></a></div>',
-                    'store_thumbnail' => '<div class="mx-auto"><a href="' . app(MediaService::class)->getMediaImageUrl($seller->store_thumbnail, 'SELLER_IMG_PATH') . '" data-lightbox="image-' . $seller->id . '" data-gallery="gallery"><img src="' . $store_thumbnail . '" class="rounded"></a></div>',
+                    'logo' => '<div class="mx-auto"><a href="' . app(MediaService::class)->getMediaImageUrl($seller->logo, 'SELLER_IMG_PATH') . '" data-lightbox="image-' . $seller->id . '" data-gallery="gallery"><img src="' . $logo . '" onerror="this.onerror=null;this.src=\'' . $fallbackImg . '\';" class="rounded" style="width:44px;height:44px;object-fit:cover;"></a></div>',
+                    'store_thumbnail' => '<div class="mx-auto"><a href="' . app(MediaService::class)->getMediaImageUrl($seller->store_thumbnail, 'SELLER_IMG_PATH') . '" data-lightbox="image-' . $seller->id . '" data-gallery="gallery"><img src="' . $store_thumbnail . '" onerror="this.onerror=null;this.src=\'' . $fallbackImg . '\';" class="rounded" style="width:44px;height:44px;object-fit:cover;"></a></div>',
                     'status' => $active_status,
                     'operate' => $action
                 ];

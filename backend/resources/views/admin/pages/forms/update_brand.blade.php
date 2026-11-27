@@ -41,8 +41,8 @@
                                             class="form-label">{{ labels('admin_labels.name', 'Name') }}<span
                                                 class="text-asterisks text-sm">*</span></label>
 
-                                        <input type="text" class="form-control" id="basic-default-fullname"
-                                            placeholder="{{ labels('admin_labels.gucci_placeholder', 'Gucci') }}" name="name"
+                                        <input type="text" class="form-control" id="brand_name"
+                                            placeholder="{{ labels('admin_labels.brand_name_placeholder', 'Al-Nour Roastery') }}" name="name"
                                             value="{{ isset($data->name) ? json_decode($data->name)->en : '' }}">
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                                                         'width' => 120,
                                                                         'quality' => 90,
                                                                     ]) }}"
-                                                                    alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                                    alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                             </div>
                                                             <input type="hidden" name="image"
                                                                 value='{{ $data->image }}'>

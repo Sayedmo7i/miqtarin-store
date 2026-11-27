@@ -9,7 +9,7 @@
                     role="tab"
                     aria-controls="content-{{ $lang->code }}"
                     aria-selected="false">
-                {{ $lang->language }}
+                {{ $lang->native_language ?: $lang->language }}
             </button>
         </li>
     @endif

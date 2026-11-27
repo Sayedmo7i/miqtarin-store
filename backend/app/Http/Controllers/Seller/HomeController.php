@@ -85,7 +85,7 @@ class HomeController extends Controller
                     'price' => $variant?->price ?? '',
                     'special_price' => $variant?->special_price ?? '',
                     'username' => $rating->user?->username ?? '',
-                    'user_image' => $rating->user?->image ? asset(config('constants.USER_IMG_PATH') . $rating->user->image) : null,
+                    'user_image' => $rating->user?->image ? app(MediaService::class)->getMediaImageUrl($rating->user->image, 'USER_IMG_PATH') : null,
                 ];
             });
 

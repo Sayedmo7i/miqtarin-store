@@ -54,13 +54,30 @@
                                 <div class="product-details-img product-horizontal-style">
                                     <div class="zoompro-wrap rounded-4 overflow-hidden">
                                         <div class="zoompro-span">
-                                            <img id="zoompro" class="zoompro w-100 rounded-4"
-                                                src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
-                                                alt="{{ $product_details->name }}" width="625" height="720">
+                                            <a id="zoompro-lightbox-link" href="{{ $main_image_zoom }}"
+                                                data-lightbox="product-gallery" data-title="{{ $product_details->name }}"
+                                                class="d-block">
+                                                <img id="zoompro" class="zoompro w-100 rounded-4"
+                                                    src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
+                                                    alt="{{ $product_details->name }}" width="625" height="720"
+                                                    loading="eager" fetchpriority="high">
+                                            </a>
+                                            <link rel="preload" as="image" href="{{ $main_image_zoom }}">
+                                        </div>
+                                        <div class="d-none mq-lightbox-album" aria-hidden="true">
+                                            @foreach ($product_details->other_images as $images)
+                                                @php
+                                                    $album_zoom = app(MediaService::class)->dynamic_image($images, 800);
+                                                @endphp
+                                                @if ($album_zoom !== $main_image_zoom)
+                                                    <a href="{{ $album_zoom }}" data-lightbox="product-gallery"
+                                                        data-title="{{ $product_details->name }}"></a>
+                                                @endif
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div class="product-thumb product-horizontal-thumb mt-3">
-                                        <div id="gallery" class="product-thumb-horizontal slick-slider">
+                                        <div id="gallery" class="product-thumb-horizontal">
                                             @foreach ($product_details->other_images as $images)
                                                 @php
                                                     $other_image = app(MediaService::class)->dynamic_image($images, 600);
@@ -387,7 +404,11 @@
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productAccordian">
                                     <div class="accordion-body product-description">
                                         {!! $product_details->description !!}
-                                        @if (!empty($product_details->extra_description))
+                                        @php
+                                            $descText = trim(strip_tags((string) ($product_details->description ?? '')));
+                                            $extraText = trim(strip_tags((string) ($product_details->extra_description ?? '')));
+                                        @endphp
+                                        @if ($extraText !== '' && $extraText !== $descText)
                                             <div class="mt-3">{!! $product_details->extra_description !!}</div>
                                         @endif
                                     </div>
@@ -517,7 +538,7 @@
                                     <div>
                                         <h6 class="mb-0 fw-bold">{{ labels('front_messages.returnable', 'Returnable') }}</h6>
                                         <p class="small mb-0" style="color: var(--mq-muted);">
-                                            {{ $product_details->is_returnable == 1 ? labels('front_messages.returnable', 'Returnable') : labels('front_messages.non_returnable', 'Non Returnable') }}
+                                            {{ $product_details->is_returnable == 1 ? labels('front_messages.returnable_30_days', 'Yes (30 Days)') : labels('front_messages.non_returnable', 'Non Returnable') }}
                                         </p>
                                     </div>
                                 </div>
@@ -526,7 +547,7 @@
                                     <div>
                                         <h6 class="mb-0 fw-bold">{{ labels('front_messages.cancel_till', 'Cancel Till') }}</h6>
                                         <p class="small mb-0" style="color: var(--mq-muted);">
-                                            {{ $product_details->is_cancelable == 1 ? $product_details->cancelable_till : labels('front_messages.non_cancelable', 'Non Cancelable') }}
+                                            {{ $product_details->is_cancelable == 1 ? labels('front_messages.' . strtolower(trim($product_details->cancelable_till)), ucfirst(str_replace('_', ' ', $product_details->cancelable_till))) : labels('front_messages.non_cancelable', 'Non Cancelable') }}
                                         </p>
                                     </div>
                                 </div>
@@ -600,8 +621,8 @@
         @php
             $system_settings = app(\App\Services\SettingService::class)->getSettings('system_settings', true);
             $system_settings = json_decode($system_settings, true);
-            $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'eshop');
-            $host = $system_settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
+            $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'muqtarin');
+            $host = $system_settings['deep_link_host'] ?? 'muqtarin.store';
             $store_slug = session('store_slug') ?? ($product_details->store_slug ?? '');
             $deepLinkUrl = $scheme . '://' . $host . '/product/' . $product_details->slug . ($store_slug ? '?store=' . $store_slug : '');
         @endphp
@@ -609,7 +630,6 @@
             var deepLinkUrl = "{{ $deepLinkUrl }}";
         </script>
         @include('partials.deep-link-bottom-sheet', ['deepLinkUrl' => $deepLinkUrl])
-        <script src="{{ asset('frontend/elegant/js/lightbox.js') }}" defer></script>
         <script>
             function toggleInput(liElement) {
                 var inputElement = liElement.querySelector('input[type="radio"]');

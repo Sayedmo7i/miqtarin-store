@@ -174,7 +174,7 @@
                                     class="col-md-6 col-sm-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
                                     <div class='image-upload-div'><img class="img-fluid edit_front_licence_image mb-2"
                                             src="{{ app(MediaService::class)->getMediaImageUrl($user->front_licence_image, 'DELIVERY_BOY_IMG_PATH') }}"
-                                            alt="Not Found">
+                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                     </div>
 
                                     <input type="hidden" name="image" value=''>
@@ -190,7 +190,7 @@
                                     class="col-md-6 col-sm-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
                                     <div class='image-upload-div'><img class="img-fluid edit_back_licence_image mb-2"
                                             src="{{ app(MediaService::class)->getMediaImageUrl($user->back_licence_image, 'DELIVERY_BOY_IMG_PATH') }}"
-                                            alt="Not Found">
+                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                     </div>
 
                                     <input type="hidden" name="image" value=''>

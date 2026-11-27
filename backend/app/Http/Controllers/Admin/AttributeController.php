@@ -140,7 +140,7 @@ class AttributeController extends Controller
                 'category' => $attribute->category ? (app(TranslationService::class)->getDynamicTranslation(Category::class, 'name', $attribute->category->id, $languageCode) ?? "") : "",
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($attribute->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $attribute->id . '" data-url="/attribute/update_status/' . $attribute->id . '" aria-label="">
                 <option value="1" ' . ($attribute->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                <option value="0" ' . ($attribute->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                <option value="0" ' . ($attribute->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
             </select>',
             ];
         });

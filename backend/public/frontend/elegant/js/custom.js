@@ -230,23 +230,59 @@ document.addEventListener("livewire:initialized", () => {
 // });
 
 function product_zoom() {
-    $(".zoompro").elevateZoom({
-        gallery: "gallery",
-        cursor: "pointer",
-        galleryActiveClass: "active",
-        imageCrossfade: true,
-        borderSize: 2,
-        loadingIcon: "https://www.elevateweb.co.uk/spinner.gif",
+    if (typeof $ === "undefined" || !$.fn || typeof $.fn.elevateZoom !== "function") {
+        return;
+    }
+    $(".zoomContainer").remove();
+    $(".zoompro, .zoompro_style_2").each(function () {
+        $.removeData(this, "elevateZoom");
     });
-    $(".zoompro_style_2").elevateZoom({
-        gallery: "gallery",
-        cursor: "pointer",
-        zoomType: "inner",
-        galleryActiveClass: "active",
-        imageCrossfade: true,
-        borderSize: 2,
-        loadingIcon: "https://www.elevateweb.co.uk/spinner.gif",
-    });
+    if ($(".zoompro").length) {
+        $(".zoompro").elevateZoom({
+            gallery: "gallery",
+            cursor: "pointer",
+            galleryActiveClass: "active",
+            imageCrossfade: true,
+            borderSize: 2,
+            loadingIcon: false,
+        });
+    }
+    if ($(".zoompro_style_2").length) {
+        $(".zoompro_style_2").elevateZoom({
+            gallery: "gallery",
+            cursor: "pointer",
+            zoomType: "inner",
+            galleryActiveClass: "active",
+            imageCrossfade: true,
+            borderSize: 2,
+            loadingIcon: false,
+        });
+    }
+    $(document)
+        .off("click.mqLightboxThumb", "#gallery a")
+        .on("click.mqLightboxThumb", "#gallery a", function () {
+            var nextZoom = $(this).attr("data-zoom-image") || $(this).attr("data-image");
+            if (nextZoom && $("#zoompro-lightbox-link").length) {
+                $("#zoompro-lightbox-link").attr("href", nextZoom);
+            }
+        });
+    $(document)
+        .off("click.mqLightboxZoom", ".zoomContainer")
+        .on("click.mqLightboxZoom", ".zoomContainer", function (e) {
+            e.preventDefault();
+            var $link = $("#zoompro-lightbox-link");
+            if ($link.length) {
+                var activeZoom = $("#zoompro").attr("data-zoom-image") || $("#zoompro").attr("src");
+                if (activeZoom) {
+                    $link.attr("href", activeZoom);
+                }
+                if (window.lightbox && typeof window.lightbox.start === "function") {
+                    window.lightbox.start($link);
+                } else {
+                    $link.trigger("click");
+                }
+            }
+        });
 }
 
 function FirebaseAuth() {
@@ -1396,6 +1432,7 @@ qnt_incre();
 // livewire:navigating and livewire:navigated — duplicating it here just opens
 // races between the two handlers, so this listener is now scoped to ratings.
 document.addEventListener("livewire:navigating", () => {
+    $(".zoomContainer").remove();
     if ($.fn && $.fn.rating) {
         try { $(".kv-ltr-theme-svg-star").rating("destroy"); } catch (e) {}
     }
@@ -1544,13 +1581,13 @@ document.addEventListener("livewire:navigated", () => {
 
     var currency_symbol = $("#currency").val();
 
-    $(".changeLang").on("click", function () {
+    $(document).on("click", ".changeLang", function () {
         let lang = $(this).data("lang-code");
-        Livewire.dispatch("changeLang", { lang });
+        Livewire.dispatch("changeLang", { lang, currentUrl: window.location.href });
     });
-    $(".changeCurrency").on("click", function () {
+    $(document).on("click", ".changeCurrency", function () {
         let currency = $(this).data("currency-code");
-        Livewire.dispatch("changeCurrency", { currency });
+        Livewire.dispatch("changeCurrency", { currency, currentUrl: window.location.href });
     });
     if ($("#user_id").val() >= 1) {
         is_logged = true;
@@ -1633,22 +1670,28 @@ document.addEventListener("livewire:navigated", () => {
     // product_image_swap();
 
     function product_image_swap() {
-        $(".swatchLbl").on("click", function () {
-            // Handle the active class toggle
-            $(this).parent().siblings(".active").removeClass("active");
-            $(this).parent().addClass("active");
+        $(".swatchLbl")
+            .off("click.mqSwatch")
+            .on("click.mqSwatch", function () {
+                // Handle the active class toggle
+                $(this).parent().siblings(".active").removeClass("active");
+                $(this).parent().addClass("active");
 
-            // Get new image from the selected variant
-            var newImage = $(this).attr("data-image");
-            // console.log(newImage);
-            var newZoomImage = $(this).attr("data-zoom-image");
+                // Get new image from the selected variant
+                var newImage = $(this).attr("data-image");
+                var newZoomImage = $(this).attr("data-zoom-image");
 
-            // Update the main product image
-            if (newImage && newZoomImage) {
-                $("#zoompro").attr("src", newImage);
-                $("#zoompro").attr("data-zoom-image", newZoomImage);
-            }
-        });
+                // Update the main product image and Lightbox href
+                if (newImage && newZoomImage) {
+                    $("#zoompro").attr("src", newImage);
+                    $("#zoompro").attr("data-zoom-image", newZoomImage);
+                    $("#zoompro-lightbox-link").attr("href", newZoomImage);
+                    var ez = $("#zoompro").data("elevateZoom");
+                    if (ez && typeof ez.swaptheimage === "function") {
+                        ez.swaptheimage(newImage, newZoomImage);
+                    }
+                }
+            });
     }
 
     product_image_swap();

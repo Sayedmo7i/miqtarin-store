@@ -767,9 +767,9 @@ class ComboProductController extends Controller
             ]);
             return [
                 'id' => $p->id,
-                'title' => app(TranslationService::class)->getDynamicTranslation(ComboProduct::class, 'title', $p->id, $language_code) . '<br><small>' . ucwords(str_replace('_', ' ', $p->product_type)) . '</small><br><small> By </small><b>' . $p->store_name . '</b>',
+                'title' => app(TranslationService::class)->getDynamicTranslation(ComboProduct::class, 'title', $p->id, $language_code) . '<br><small>' . ucwords(str_replace('_', ' ', $p->product_type)) . '</small><br><small class="text-muted">' . labels('admin_labels.by', 'By') . ' </small><b dir="auto">' . e($p->store_name ?? '') . '</b>',
                 'products' => $product_names,
-                'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($p->image) . '" data-lightbox="image-' . $p->pid . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
+                'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($p->image) . '" data-lightbox="image-' . $p->pid . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($p->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $p->id . '" data-url="/seller/combo_products/update_status/' . $p->id . '" aria-label="">
                               <option value="1" ' . ($p->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
                               <option value="0" ' . ($p->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.inactive', 'Inactive') . '</option>

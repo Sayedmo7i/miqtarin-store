@@ -23,9 +23,9 @@
                                 <i class="bx bxs-diamond"></i>
                                 {{ labels('front_messages.boutique_experience', 'Glass Boutique') }}
                             </span>
-                            <h1 class="mq-hero-title" style="color: var(--mq-ink);">{{ $settings->site_title ?? 'MUQTARIN Boutique' }}</h1>
+                            <h1 class="mq-hero-title" style="color: var(--mq-ink);">{{ $language_code === 'ar' ? labels('front_messages.site_title', 'مقترن ستور') : ($settings->site_title ?? 'MUQTARIN Boutique') }}</h1>
                             <p class="mq-hero-desc" style="color: var(--mq-muted);">
-                                {{ $settings->app_short_description ?? labels('front_messages.explore_categories', 'Elevated shopping crafted with calm depth, crisp glass layers, and verified sellers.') }}
+                                {{ $language_code === 'ar' ? labels('front_messages.site_short_description', 'منصة تسوق متعددة التجار من مقترن ستور — توصيل سريع وجودة موثوقة.') : ($settings->app_short_description ?? labels('front_messages.explore_categories', 'Elevated shopping crafted with calm depth, crisp glass layers, and verified sellers.')) }}
                             </p>
                             <div class="d-flex flex-wrap gap-2">
                                 <a wire:navigate href="{{ customUrl('products') }}" class="mq-btn-primary">

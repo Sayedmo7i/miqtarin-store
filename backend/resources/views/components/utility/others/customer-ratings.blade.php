@@ -23,11 +23,11 @@
 
                 @php
                     $product_ratings = $product_details->product_rating_data;
-                    $rating1 = empty($product_ratings['star_1']) ? $product_ratings['star_1'] : 0;
-                    $rating2 = empty($product_ratings['star_2']) ? $product_ratings['star_2'] : 0;
-                    $rating3 = empty($product_ratings['star_3']) ? $product_ratings['star_3'] : 0;
-                    $rating4 = empty($product_ratings['star_4']) ? $product_ratings['star_4'] : 0;
-                    $rating5 = empty($product_ratings['star_5']) ? $product_ratings['star_5'] : 0;
+                    $rating1 = !empty($product_ratings['star_1']) ? (int) $product_ratings['star_1'] : 0;
+                    $rating2 = !empty($product_ratings['star_2']) ? (int) $product_ratings['star_2'] : 0;
+                    $rating3 = !empty($product_ratings['star_3']) ? (int) $product_ratings['star_3'] : 0;
+                    $rating4 = !empty($product_ratings['star_4']) ? (int) $product_ratings['star_4'] : 0;
+                    $rating5 = !empty($product_ratings['star_5']) ? (int) $product_ratings['star_5'] : 0;
 
                     $ratings = [
                         'star_1' => $rating1,
@@ -199,11 +199,11 @@
                         </fieldset>
                         <div class="spr-form-actions clearfix">
                             <input type="submit" class="btn btn-primary spr-button spr-button-primary"
-                                value="Submit Review" />
+                                value="{{ labels('front_messages.submit_review', 'Submit Review') }}" />
                         </div>
                     </form>
                 </div>
-            @endauth
-        @endif
+            @endif
+        @endauth
     </div>
 </div>

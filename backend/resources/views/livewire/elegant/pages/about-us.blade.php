@@ -10,9 +10,11 @@
                 <div class="col-12 col-sm-12 col-md-4">
                     <div class="about-images mb-4 mb-md-0">
                         <div class="row g-3">
-                            <img class="rounded-0 blur-up lazyload" data-src="{{ asset('storage/' . $settings->logo) }}"
-                                src="{{ asset('storage/' . $settings->logo) }}" alt="about" width="700"
-                                height="827" />
+                            <img class="rounded-4 shadow-sm w-100 object-fit-cover"
+                                src="{{ asset('storage/media/hero-editorial-1.jpg') }}"
+                                onerror="this.onerror=null;this.src='{{ asset('assets/brand/logo.jpg') }}';"
+                                alt="{{ labels('front_messages.about_us', 'About Us') }}"
+                                style="max-height: 440px;" />
                         </div>
                     </div>
                 </div>

@@ -424,7 +424,7 @@ class NotificationController extends Controller
                 'users' => $usernames,
                 'image' => '<div class="d-flex justify-content-around">
                                 <a href="' . asset('/storage/' . $row->image) . '" data-lightbox="banner-' . $row->id . '">
-                                    <img src="' . $image . '" alt="Avatar" class="rounded"/>
+                                    <img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/>
                                 </a>
                             </div>',
                 'link' => $row->link,
@@ -496,7 +496,7 @@ class NotificationController extends Controller
                 'users' => $usernames,
                 'image' => '<div class="d-flex justify-content-around">
                                 <a href="' . asset('/storage/' . $row->image) . '" data-lightbox="banner-' . $row->id . '">
-                                    <img src="' . $image . '" alt="Avatar" class="rounded"/>
+                                    <img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/>
                                 </a>
                             </div>',
                 'link' => $row->link,

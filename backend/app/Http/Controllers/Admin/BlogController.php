@@ -203,14 +203,14 @@ class BlogController extends Controller
                     'width' => 60,
                     'quality' => 90
                 ]);
-                $imageHtml = '<div class="d-flex justify-content-center"><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>';
+                $imageHtml = '<div class="d-flex justify-content-center"><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>';
             }
             return [
                 'id' => $b->id,
                 'name' => app(TranslationService::class)->getDynamicTranslation(BlogCategory::class, 'name', $b->id, $languageCode),
                 'status' => '<div class="d-flex justify-content-center"><select class="form-select status_dropdown change_toggle_status ' . ($b->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $b->id . '" data-url="admin/blog_categories/update_status/' . $b->id . '" aria-label="">
                   <option value="1" ' . ($b->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                  <option value="0" ' . ($b->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                  <option value="0" ' . ($b->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
               </div></select>',
                 'image' => $imageHtml,
                 'operate' => $action,
@@ -344,9 +344,9 @@ class BlogController extends Controller
                 'title' => app(TranslationService::class)->getDynamicTranslation(Blog::class, 'title', $b->id, $languageCode),
                 'status' => '<div><select class="form-select status_dropdown change_toggle_status ' . ($b->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $b->id . '" data-url="admin/blogs/update_status/' . $b->id . '" aria-label="">
                   <option value="1" ' . ($b->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                  <option value="0" ' . ($b->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                  <option value="0" ' . ($b->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
               </div></select>',
-                'image' => '<div class="d-flex justify-content-center"><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
+                'image' => '<div class="d-flex justify-content-center"><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
                 'operate' => $action,
             ];
         });

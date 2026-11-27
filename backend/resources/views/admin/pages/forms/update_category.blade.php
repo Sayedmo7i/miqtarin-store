@@ -41,15 +41,15 @@
                                     <div class="tab-content mt-3" id="UpdatebrandTabsContent">
                                         <!-- Default 'en' tab content -->
                                         <div class="tab-pane fade show active" id="content-en" role="tabpanel"
-                                            aria-labelledby="tab-en">
+                                            aria-labelledby="tab-en" dir="ltr">
                                             <div class="mb-3">
-                                                <label for="brand_name"
+                                                <label for="category_name"
                                                     class="form-label">{{ labels('admin_labels.name', 'Name') }}<span
                                                         class="text-asterisks text-sm">*</span>
                                                 </label>
 
-                                                <input type="text" class="form-control" id="basic-default-fullname"
-                                                    placeholder="{{ labels('admin_labels.gucci_placeholder', 'Gucci') }}" name="name"
+                                                <input type="text" class="form-control" id="category_name"
+                                                    placeholder="{{ labels('admin_labels.category_name_placeholder', 'Enter category name') }}" name="name"
                                                     value="{{ isset($data->name) ? json_decode($data->name)->en : '' }}">
                                             </div>
                                         </div>
@@ -59,9 +59,9 @@
                                     </div>
                                     <div class="col-md-12">
                                         <label class="form-label"
-                                            for="basic-default-fullname">{{ labels('admin_labels.select_catgeory_for_sub_categories', 'Select Category for subCategory') }}
-                                        </label></label>
-                                        <select id="" name="parent_id" class="form-select">
+                                            for="parent_id">{{ labels('admin_labels.select_catgeory_for_sub_categories', 'Select Category for subCategory') }}
+                                        </label>
+                                        <select id="parent_id" name="parent_id" class="form-select">
                                             <option value="">{{ labels('admin_labels.select_a_category_option', 'select a category') }}</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
@@ -106,7 +106,7 @@
                                                                     'width' => 150,
                                                                     'quality' => 90,
                                                                 ]) }}"
-                                                                alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                                alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                         </div>
                                                         <input type="hidden" name="category_image"
                                                             value='{{ $data->image }}'>
@@ -145,7 +145,7 @@
                                                                     'width' => 150,
                                                                     'quality' => 90,
                                                                 ]) }}"
-                                                                alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                                alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                         </div>
                                                         <input type="hidden" name="banner"
                                                             value='{{ $data->banner }}'>

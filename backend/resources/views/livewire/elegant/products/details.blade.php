@@ -99,9 +99,27 @@
                                 </div>
                             </div>
                             <div class="zoompro-wrap product-zoom-right rounded-0">
-                                <div class="zoompro-span"><img id="zoompro" class="zoompro rounded-0"
-                                        src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
-                                        alt="product" loading="lazy" decoding="async" /></div>
+                                <div class="zoompro-span">
+                                    <a id="zoompro-lightbox-link" href="{{ $main_image_zoom }}"
+                                        data-lightbox="product-gallery" data-title="{{ $product_details->name }}"
+                                        class="d-block">
+                                        <img id="zoompro" class="zoompro rounded-0"
+                                            src="{{ $main_image }}" data-zoom-image="{{ $main_image_zoom }}"
+                                            alt="{{ $product_details->name }}" loading="eager" fetchpriority="high" decoding="async" />
+                                    </a>
+                                    <link rel="preload" as="image" href="{{ $main_image_zoom }}">
+                                </div>
+                                <div class="d-none mq-lightbox-album" aria-hidden="true">
+                                    @foreach ($product_details->other_images as $images)
+                                        @php
+                                            $album_zoom = app(MediaService::class)->dynamic_image($images, 800);
+                                        @endphp
+                                        @if ($album_zoom !== $main_image_zoom)
+                                            <a href="{{ $album_zoom }}" data-lightbox="product-gallery"
+                                                data-title="{{ $product_details->name }}"></a>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         {{-- @dd($system_settings) --}}
@@ -405,7 +423,7 @@
                                 @endif
                             </div>
                             <div class="freeShipMsg featureText mb-2 d-flex"><ion-icon name="refresh-outline"
-                                    class="fs-5 me-2"></ion-icon>{{ $product_details->is_returnable == 1 ? labels('front_messages.returnable', 'Returnable') : labels('front_messages.non_returnable', 'Non Returnable') }}
+                                    class="fs-5 me-2"></ion-icon>{{ $product_details->is_returnable == 1 ? labels('front_messages.returnable', 'Returnable') . ': ' . labels('front_messages.returnable_30_days', 'Yes (30 Days)') : labels('front_messages.non_returnable', 'Non Returnable') }}
                             </div>
                             <div class="freeShipMsg featureText mb-2 d-flex"><ion-icon name="pin-outline"
                                     class="fs-5 me-2"></ion-icon>
@@ -415,7 +433,7 @@
                                     class="fs-5 me-2"></ion-icon>
                                 @if ($product_details->is_cancelable == 1)
                                     <b class="freeShip me-1">{{ labels('front_messages.cancel_till', 'Cancel Till') }}
-                                        {{ $product_details->cancelable_till }}</b>
+                                        {{ labels('front_messages.' . strtolower(trim($product_details->cancelable_till)), ucfirst(str_replace('_', ' ', $product_details->cancelable_till))) }}</b>
                                 @else
                                     {{ labels('front_messages.non_cancelable', 'Non Cancelable') }}
                                 @endif
@@ -600,9 +618,15 @@
                             <div class="row">
                                 <div class="col-12 product-description">
                                     {!! $product_details->description !!}
-                                    <div class="mt-3">
-                                        {!! $product_details->extra_description !!}
-                                    </div>
+                                    @php
+                                        $descText = trim(strip_tags((string) ($product_details->description ?? '')));
+                                        $extraText = trim(strip_tags((string) ($product_details->extra_description ?? '')));
+                                    @endphp
+                                    @if ($extraText !== '' && $extraText !== $descText)
+                                        <div class="mt-3">
+                                            {!! $product_details->extra_description !!}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -852,8 +876,8 @@
         @php
             $system_settings = app(\App\Services\SettingService::class)->getSettings('system_settings', true);
             $system_settings = json_decode($system_settings, true);
-            $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'eshop');
-            $host = $system_settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
+            $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'muqtarin');
+            $host = $system_settings['deep_link_host'] ?? 'muqtarin.store';
             $store_slug = session('store_slug') ?? ($product_details->store_slug ?? '');
             $deepLinkUrl =
                 $scheme .

@@ -199,19 +199,20 @@ class HomeController extends Controller
         if ($store) {
             $top_sellers = $store->sellers()
                 ->with(['order_items' => function ($q) {
-                    $q->select('seller_id', 'sub_total', 'seller_commission_amount', 'active_status');
+                    $q->select('seller_id', 'sub_total', 'quantity', 'seller_commission_amount', 'active_status');
                 }, 'user'])
                 ->get()
                 ->map(function ($seller) {
                     $deliveredItems = $seller->order_items->where('active_status', 'delivered');
-                    // dd($seller->order_items);
                     return [
                         'seller_id' => $seller->id,
                         'store_name' => $seller->pivot->store_name,
                         'logo' => $seller->pivot->logo,
                         'seller_name' => optional($seller->user)->username,
                         'total_sales' => intval($deliveredItems->sum('sub_total')),
-                        'total_commission' => intval($seller->order_items->sum('seller_commission_amount')),
+                        'orders_count' => intval($deliveredItems->count()),
+                        'total_units' => intval($deliveredItems->sum('quantity')),
+                        'total_commission' => intval($deliveredItems->sum('seller_commission_amount')),
                     ];
                 })
                 ->sortByDesc('total_sales')

@@ -57,7 +57,7 @@
                                         aria-labelledby="tab-{{ $lang->code }}">
                                         <div class="mb-3">
                                             <label for="translated_title_{{ $lang->code }}" class="form-label">
-                                                {{ labels('admin_labels.title', 'Title') }} ({{ $lang->language }})
+                                                {{ labels('admin_labels.title', 'Title') }} ({{ $lang->native_language ?: $lang->language }})
                                             </label>
                                             <input type="text" class="form-control"
                                                 id="translated_title_{{ $lang->code }}"
@@ -68,7 +68,7 @@
                                             <label for="translated_short_description_{{ $lang->code }}"
                                                 class="form-label">
                                                 {{ labels('admin_labels.short_description', 'Short Description') }}
-                                                ({{ $lang->language }})
+                                                ({{ $lang->native_language ?: $lang->language }})
                                             </label>
                                             <input type="text" class="form-control"
                                                 id="translated_short_description_{{ $lang->code }}"

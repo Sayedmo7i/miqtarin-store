@@ -127,19 +127,19 @@
                                         </div>
                                         <button type="button"
                                             class="btn btn-sm btn-outline-primary generate_short_description">
-                                            Generate with AI
+                                            {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                         </button>
                                         <div id="prompt_actions" class="d-none">
                                             <button type="button"
                                                 class="btn btn-sm btn-outline-secondary get_prompt_suggestions">
-                                                Get Prompt Suggestions
+                                                {{ labels('admin_labels.get_prompt_suggestions', 'Get Prompt Suggestions') }}
                                             </button>
                                         </div>
 
                                         <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                             data-bs-toggle="popover" data-bs-placement="top"
                                             data-bs-content="Use AI Assistance :Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can use suggested prompts or write your own.">
-                                            How It Works?
+                                            {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                         </button>
 
                                     </div>
@@ -166,7 +166,7 @@
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">
                                             {{ labels('admin_labels.product_name', 'Product Name') }}
-                                            ({{ $lang->language }})
+                                            ({{ $lang->native_language ?: $lang->language }})
                                         </label>
                                         <div class="position-relative">
                                             <input type="text" class="form-control translated-name-input"
@@ -180,7 +180,7 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <label class="form-label mb-0">
                                                 {{ labels('admin_labels.short_description', 'Short Description') }}
-                                                ({{ $lang->language }})
+                                                ({{ $lang->native_language ?: $lang->language }})
                                             </label>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div class="form-check form-switch">
@@ -196,20 +196,20 @@
                                                     class="btn btn-sm btn-outline-primary generate_translated_short_description"
                                                     data-lang="{{ $lang->code }}"
                                                     data-lang-name="{{ $lang->language }}">
-                                                    Generate with AI
+                                                    {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                                 </button>
                                                 <div id="language_prompt_action_{{ $lang->code }}"
                                                     class="language_prompt_action d-none">
                                                     <button type="button"
                                                         class="btn btn-sm btn-outline-secondary get_language_prompt_suggestions">
-                                                        Get Prompt Suggestions
+                                                        {{ labels('admin_labels.get_prompt_suggestions', 'Get Prompt Suggestions') }}
                                                     </button>
                                                 </div>
                                                 <button type="button" class="btn btn-secondary btn-sm"
                                                     data-container="body" data-bs-toggle="popover"
                                                     data-bs-placement="top"
                                                     data-bs-content="Use AI Assistance :Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can use suggested prompts or write your own.">
-                                                    How It Works?
+                                                    {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                                 </button>
 
                                             </div>
@@ -527,7 +527,7 @@
 
                                         <div id="affiliate_info" style="display:none;">
                                             <label for="is_in_affiliate"
-                                                class="form-label">{{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}?
+                                                class="form-label">{{ labels('admin_labels.is_in_affiliate', 'Is In Affiliate') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="Enable if this product is available for affiliate marketing."></i>
@@ -543,7 +543,7 @@
                                         </div>
                                         <div>
                                             <label for="is_cod_allowed"
-                                                class="form-label">{{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}?
+                                                class="form-label">{{ labels('admin_labels.is_cod_allowed', 'IS COD Allowed') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="Enable if cash on delivery is allowed for this product."></i>
@@ -566,7 +566,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <label for="is_returnable"
-                                                class="form-label">{{ labels('admin_labels.is_returnable', 'IS Returnable') }}?
+                                                class="form-label">{{ labels('admin_labels.is_returnable', 'IS Returnable') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="Enable if this product can be returned."></i>
@@ -587,7 +587,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <label for="is_cancelable"
-                                                class="form-label">{{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}?
+                                                class="form-label">{{ labels('admin_labels.is_cancelable', 'IS Cancelable') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="Enable if this product can be canceled."></i>
@@ -609,7 +609,7 @@
                             <div class="col-md-6 mt-7 collapse" id='cancelable_till'>
                                 <div class="form-group">
                                     <label for="cancelable_till"
-                                        class="form-label">{{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}?
+                                        class="form-label">{{ labels('admin_labels.till_which_status', 'Cancelable Till Which Status') }}
                                         <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                             data-bs-placement="right"
                                             data-bs-content="Select the status till which the product can be canceled."></i>
@@ -626,7 +626,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <label for="is_attachment_required"
-                                                class="form-label">{{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}?
+                                                class="form-label">{{ labels('admin_labels.is_attachment_required', 'IS Attachment Required') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="Enable if attachment is required for this product."></i>
@@ -990,7 +990,7 @@
                                             <div class="row form-group">
                                                 <div class="col-md-6 d-flex">
                                                     <label for="download_allowed"
-                                                        class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}?</label>
+                                                        class="col form-label">{{ labels('admin_labels.is_download_allowed', 'IS Download Allowed') }}</label>
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox"
                                                             name="download_allowed" id="download_allowed">
@@ -1263,12 +1263,12 @@
                                             Prompt</label>
                                     </div>
                                     <button type="button" class="btn btn-sm btn-outline-primary generate_description">
-                                        Generate with AI
+                                        {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                     </button>
                                     <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                         data-bs-toggle="popover" data-bs-placement="top"
                                         data-bs-content="Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can write your own.">
-                                        How It Works?
+                                        {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                     </button>
                                 </div>
 
@@ -1294,12 +1294,12 @@
                                     </div>
                                     <button type="button"
                                         class="btn btn-sm btn-outline-primary generate_extra_description">
-                                        Generate with AI
+                                        {{ labels('admin_labels.generate_with_ai', 'Generate with AI') }}
                                     </button>
                                     <button type="button" class="btn btn-secondary btn-sm" data-container="body"
                                         data-bs-toggle="popover" data-bs-placement="top"
                                         data-bs-content="Enter the product name first to generate a description. To improve results, enable the custom prompt option—you can write your own.">
-                                        How It Works?
+                                        {{ labels('admin_labels.how_it_works_question', 'How It Works?') }}
                                     </button>
                                 </div>
 

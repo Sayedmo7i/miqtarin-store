@@ -34,12 +34,12 @@
                                 <div class="tab-pane fade show active" id="content-en" role="tabpanel"
                                     aria-labelledby="tab-en">
                                     <div class="mb-3">
-                                        <label for="brand_name"
+                                        <label for="offer_slider_title"
                                             class="form-label">{{ labels('admin_labels.title', 'Title') }}<span
                                                 class="text-asterisks text-sm">*</span></label>
 
-                                        <input type="text" class="form-control" id="basic-default-fullname"
-                                            placeholder="{{ labels('admin_labels.gucci_placeholder', 'Gucci') }}" name="title"
+                                        <input type="text" class="form-control" id="offer_slider_title"
+                                            placeholder="{{ labels('admin_labels.best_deals', 'Best Deals') }}" name="title"
                                             value="{{ isset($data->title) ? json_decode($data->title)->en : '' }}">
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"
-                                    for="basic-default-fullname">{{ labels('admin_labels.select_offer', 'Select Offer') }}</label>
+                                    for="offer_sliders_offer">{{ labels('admin_labels.select_offer', 'Select Offer') }}</label>
                                 <select name="offer_ids[]" id="offer_sliders_offer"
                                     class="offer_sliders_offer form-select w-100" multiple
                                     data-placeholder="{{ labels('admin_labels.type_to_search_and_select_categories', 'Type to search and select categories') }}">

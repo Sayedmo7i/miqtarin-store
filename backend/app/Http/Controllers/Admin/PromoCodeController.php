@@ -186,10 +186,10 @@ class PromoCodeController extends Controller
                     'min_order_amt' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal($p->minimum_order_amount)),
                     'max_discount_amount' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal($p->max_discount_amount)),
                     'operate' => $action,
-                    'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($p->image)  . '" data-lightbox="image-' . $p->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
+                    'image' => '<div><a href="' . app(MediaService::class)->getMediaImageUrl($p->image)  . '" data-lightbox="image-' . $p->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
                     'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($p->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $p->id . '" data-url="/admin/promo_code/update_status/' . $p->id . '" aria-label="">
                   <option value="1" ' . ($p->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                  <option value="0" ' . ($p->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                  <option value="0" ' . ($p->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
               </select>',
                 ];
             });

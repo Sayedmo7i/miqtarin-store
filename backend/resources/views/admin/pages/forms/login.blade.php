@@ -730,7 +730,7 @@
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                                     </span>
                                     <input type="text" class="form-control" name="login" id="login_input"
-                                        placeholder="admin@gmail.com / admin / 9876543210"
+                                        placeholder="admin@gmail.com / admin / 01002458810"
                                         value="admin@gmail.com" required autofocus>
                                 </div>
                             </div>
@@ -764,7 +764,7 @@
                                     </label>
                                 </div>
                                 <a class="forgot-link" href="{{ route('password.request') }}">
-                                    {{ labels('panel_labels.forgot_password', 'Forgot Password') }}?
+                                    {{ labels('panel_labels.forgot_password', 'Forgot Password?') }}
                                 </a>
                             </div>
 
@@ -783,6 +783,8 @@
                 {{ labels('panel_labels.all_rights_reserved', 'All rights reserved.') }}
             </div>
         </div>
+
+        <div id="app_url" data-app-url="{{ rtrim(url('/'), '/') . '/' }}"></div>
 
         <!-- Core JS Files -->
         <script src="{{ asset('/assets/admin/js/jquery.min.js') }}"></script>

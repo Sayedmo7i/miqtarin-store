@@ -1,6 +1,6 @@
 @extends('admin/layout')
 @section('title')
-    {{ labels('admin_labels.system_settings', 'System Settings') }}
+    {{ labels('admin_labels.system_update', 'System Update') }}
 @endsection
 @section('content')
     @php
@@ -17,7 +17,7 @@
 
     <div class="row">
         <div class="alert alert-primary alert-dismissible" role="alert">
-            <?= labels('post_update_clear_browser_cache', 'Clear your browser cache by pressing CTRL+F5 after updating the system.') ?><button
+            {{ labels('admin_labels.post_update_clear_browser_cache', 'Clear your browser cache by pressing CTRL+F5 after updating the system.') }}<button
                 type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
         <div class="alert alert-info alert-dismissible" role="alert">
             {{ labels('admin_labels.if_package_includes_web_files_upload', 'If your package includes web files, upload the web updater file immediately after uploading the update file.') }}
@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="text-center"><span
-                                class="badge bg-primary"><?= labels('admin_labels.current_version_label', 'Current version') . ' - ' ?>
+                                class="badge bg-primary">{{ labels('admin_labels.current_version_label', 'Current version') . ' - ' }}
                                 {{ get_current_version() }}</span>
                         </div>
                         <form class="form-horizontal" id="system-update" action="{{ url('admin/settings/system-update') }}"
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-group mt-4 text-center">
                                     <button type="submit" class="btn btn-primary"
-                                        id="system_update_btn"><?= labels('update_the_system', 'Update the system') ?></button>
+                                        id="system_update_btn">{{ labels('admin_labels.update_the_system', 'Update the system') }}</button>
                                 </div>
                             </div>
                         </form>

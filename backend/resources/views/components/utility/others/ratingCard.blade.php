@@ -5,13 +5,21 @@
     @endphp
     @foreach ($customer_reviews as $reviews)
         @php
-            $img = app(MediaService::class)->getMediaImageUrl($reviews->user_profile);
-            $img = app(MediaService::class)->dynamic_image($img, 80);
+            $avatarUrl = !empty($reviews->user_profile)
+                ? app(MediaService::class)->getMediaImageUrl($reviews->user_profile, 'USER_IMG_PATH')
+                : asset('assets/brand/icon.jpg');
+            if (str_contains($avatarUrl, 'no-image.jpg') && !empty($reviews->user_profile)) {
+                $avatarUrl = app(MediaService::class)->getMediaImageUrl($reviews->user_profile);
+            }
+            $img = str_contains($avatarUrl, 'no-image.jpg')
+                ? asset('assets/brand/icon.jpg')
+                : app(MediaService::class)->dynamic_image($avatarUrl, 80);
         @endphp
         <div class="spr-review d-flex w-100">
             <div class="spr-review-profile flex-shrink-0">
-                <img class="blur-up lazyload" data-src="{{ $img }}" src="{{ $img }}" alt=""
-                    width="200" height="200" />
+                <img class="rounded-circle object-fit-cover" src="{{ $img }}"
+                    onerror="this.onerror=null;this.src='{{ asset('assets/brand/icon.jpg') }}';"
+                    alt="{{ $reviews->user_name }}" width="56" height="56" />
             </div>
             <div class="spr-review-content flex-grow-1">
                 <div class="d-flex justify-content-between flex-column mb-2">

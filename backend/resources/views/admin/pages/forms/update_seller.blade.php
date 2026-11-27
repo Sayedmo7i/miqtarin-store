@@ -68,9 +68,9 @@
                                             {{ labels('admin_labels.mobile', 'Mobile') }}
                                             <span class="text-asterisks text-sm">*</span>
                                         </label>
-                                        <div class="input-group input-group-merge">
+                                        <div class="input-group input-group-merge flex-nowrap">
                                             <select class="form-select" id="country_code" name="country_code"
-                                                style="max-width: 90px;">
+                                                style="min-width: 96px; max-width: 112px;">
                                                 <option value="93">+93</option>
                                                 <option value="355">+355</option>
                                                 <option value="213">+213</option>
@@ -295,7 +295,7 @@
                                                 <option value="263">+263</option>
                                             </select>
                                             @php
-                                                $sellerCountryCode = isset($seller_data->country_code) && !empty($seller_data->country_code) ? $seller_data->country_code : '91';
+                                                $sellerCountryCode = isset($seller_data->country_code) && !empty($seller_data->country_code) ? $seller_data->country_code : '20';
                                             @endphp
                                             <script>
                                                 (function() {
@@ -531,7 +531,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <div class="mb-3">
-                                            <label for="tax_name"
+                                            <label for="account_number"
                                                 class="col-sm-12 form-label">{{ labels('admin_labels.account_number', 'Account Number') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
@@ -542,7 +542,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="mb-3">
-                                            <label for="tax_name"
+                                            <label for="account_name"
                                                 class="col-sm-4 form-label">{{ labels('admin_labels.account_name', 'Account Name') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
@@ -555,7 +555,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <div class="mb-3">
-                                            <label for="tax_name"
+                                            <label for="bank_name"
                                                 class="col-sm-4 form-label">{{ labels('admin_labels.bank_name', 'Bank Name') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
@@ -566,7 +566,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="mb-3">
-                                            <label for="tax_name"
+                                            <label for="bank_code"
                                                 class="col-sm-4 form-label">{{ labels('admin_labels.bank_code', 'Bank Code') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
@@ -591,8 +591,8 @@
                                             for="store_name">{{ labels('admin_labels.store_name', 'Store Name') }}
                                             <span class="text-asterisks text-sm">*</span></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="store_name" class="form-control"
-                                                placeholder="{{ labels('admin_labels.starbucks_placeholder', 'starbucks') }}"
+                                            <input type="text" id="store_name" name="store_name" class="form-control"
+                                                placeholder="{{ labels('admin_labels.starbucks_placeholder', 'Al-Nour Store') }}"
                                                 value="{{ isset($store_data[0]->store_name) && !empty($store_data[0]->store_name) ? $store_data[0]->store_name : '' }}" />
                                         </div>
                                     </div>
@@ -601,8 +601,8 @@
                                             for="store_url">{{ labels('admin_labels.store_url', 'Store URL') }}
                                         </label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="store_url" class="form-control"
-                                                placeholder="{{ labels('admin_labels.starbucks_placeholder', 'starbucks') }}" value="{{ $store_data[0]->store_url }}" />
+                                            <input type="text" id="store_url" name="store_url" class="form-control"
+                                                placeholder="{{ labels('admin_labels.store_url_placeholder', 'https://store.example.com') }}" value="{{ $store_data[0]->store_url }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -719,7 +719,7 @@
                                                                             'width' => 150,
                                                                             'quality' => 90,
                                                                         ]) }}"
-                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}" />
+                                                                        alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -857,21 +857,21 @@
                                         class="form-label">{{ labels('admin_labels.status', 'Status') }}
                                     </label>
                                     <div class="mt-2">
-                                        <div id="stsatus" class="btn-group" role="group" aria-label="Status">
+                                        <div id="seller_status_group" class="btn-group" role="group" aria-label="Status">
                                             <label class="btn btn-outline-secondary flex-fill">
                                                 <input type="radio" name="status" class="mx-1" value="0"
                                                     {{ isset($store_data[0]->seller->status) && $store_data[0]->seller->status == '0' ? 'Checked' : '' }}>
-                                                Deactive
+                                                {{ labels('admin_labels.inactive', 'Inactive') }}
                                             </label>
                                             <label class="btn btn-outline-primary flex-fill">
                                                 <input type="radio" name="status" class="mx-1" value="1"
                                                     {{ isset($store_data[0]->seller->status) && $store_data[0]->seller->status == '1' ? 'Checked' : '' }}>
-                                                Approved
+                                                {{ labels('admin_labels.approved', 'Approved') }}
                                             </label>
                                             <label class="btn btn-outline-danger flex-fill">
                                                 <input type="radio" name="status" class="mx-1" value="2"
                                                     {{ isset($store_data[0]->seller->status) && $store_data[0]->seller->status == '2' ? 'Checked' : '' }}>
-                                                Not-Approved
+                                                {{ labels('admin_labels.not_approved', 'Not Approved') }}
                                             </label>
                                         </div>
                                     </div>
@@ -881,16 +881,16 @@
                                         class="form-label">{{ labels('admin_labels.store_status', 'Store Status') }}
                                     </label>
                                     <div class="mt-2">
-                                        <div id="stsatus" class="btn-group" role="group" aria-label="Status">
+                                        <div id="store_status_group" class="btn-group" role="group" aria-label="Status">
                                             <label class="btn btn-outline-primary flex-fill">
                                                 <input type="radio" name="store_status" class="mx-1" value="1"
                                                     {{ isset($store_data[0]->status) && $store_data[0]->status == '1' ? 'Checked' : '' }}>
-                                                Approved
+                                                {{ labels('admin_labels.approved', 'Approved') }}
                                             </label>
                                             <label class="btn btn-outline-danger flex-fill">
                                                 <input type="radio" name="store_status" class="mx-1" value="2"
                                                     {{ isset($store_data[0]->status) && $store_data[0]->status == '2' ? 'Checked' : '' }}>
-                                                Not-Approved
+                                                {{ labels('admin_labels.not_approved', 'Not Approved') }}
                                             </label>
                                         </div>
                                     </div>
@@ -1024,7 +1024,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="require_products_approval"
-                                                class="col-sm-6 col-form-label">{{ labels('admin_labels.require_product_approvel', 'Require Product Approvel') }}?
+                                                class="col-sm-6 col-form-label">{{ labels('admin_labels.require_product_approvel', 'Require Product Approvel') }}
                                             </label>
                                             <div class="col-sm-6 form-check form-switch">
                                                 <input type="checkbox" class="form-check-input mx-2 float-end"
@@ -1036,7 +1036,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="customer_privacy"
-                                                class="col-sm-5 col-form-label">{{ labels('admin_labels.view_customer_details', 'View Customer Details') }}?
+                                                class="col-sm-5 col-form-label">{{ labels('admin_labels.view_customer_details', 'View Customer Details') }}
                                             </label>
                                             <div class="col-sm-7 form-check form-switch">
                                                 <input type="checkbox" name="customer_privacy"
@@ -1050,7 +1050,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="view_order_otp"
-                                                class="col-sm-8 col-form-label">{{ labels('admin_labels.view_order_otp_and_change_delivery_status', 'View Order OTP & Can Change Delivery Status') }}?
+                                                class="col-sm-8 col-form-label">{{ labels('admin_labels.view_order_otp_and_change_delivery_status', 'View Order OTP & Can Change Delivery Status') }}
                                             </label>
                                             <div class="col-sm-4 form-check form-switch">
                                                 <input type="checkbox" name="view_order_otp"

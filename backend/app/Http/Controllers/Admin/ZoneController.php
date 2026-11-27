@@ -114,7 +114,7 @@ class ZoneController extends Controller
             $edit_url = route('admin.zones.edit', $z->id);
             $status = '<select class="form-select status_dropdown change_toggle_status ' . ($z->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $z->id . '" data-url="/admin/zones/update_status/' . $z->id . '" aria-label="">
             <option value="1" ' . ($z->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-            <option value="0" ' . ($z->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+            <option value="0" ' . ($z->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
         </select>';
             $action = '<div class="dropdown bootstrap-table-dropdown">
                 <a href="#" class="text-dark" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

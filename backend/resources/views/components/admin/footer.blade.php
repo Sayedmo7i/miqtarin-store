@@ -3,23 +3,20 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Media</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">{{ labels('admin_labels.media', 'Media') }}</h5>
                 <div class="d-flex justify-content-end"><button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button></div>
             </div>
             <div class="modal-body">
                 <div class="col-md-12 main-content">
-                    <div class="content-area p-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="g-1-5x"></div>
+                    <div class="content-area p-2">
                                 <input type="hidden" name="media_type" id="media_type" value="image">
                                 <input type="hidden" name="current_input">
                                 <input type="hidden" name="remove_state">
                                 <input type="hidden" name="multiple_images_allowed_state">
 
                                 <div class="row">
-                                    <div class="col-md-12 mt-3 mb-5">
+                                    <div class="col-md-12 mt-2 mb-4">
                                         <form action="{{ route('admin.media.upload') }}" class="media_submit_form"
                                             enctype="multipart/form-data" method="POST">
                                             @csrf
@@ -32,16 +29,16 @@
                                     </div>
                                 </div>
 
-                                <div class="alert alert-secondary text-dark">Select media and click choose media</div>
+                                <div class="mq-notice-card mb-4">{{ labels('admin_labels.select_media_and_click_choose_media', 'Select media and click choose media') }}</div>
 
-                                <div class="row align-items-center d-flex heading mb-5">
-                                    <div class="col-md-6">
-                                        <button id="upload-media" class="btn btn-danger">
-                                            <i class="fa fa-plus"></i> Choose Media
+                                <div class="row align-items-center d-flex heading mb-4 g-2">
+                                    <div class="col-md-5">
+                                        <button id="upload-media" class="btn btn-primary">
+                                            <i class="bx bx-check-circle me-1"></i> {{ labels('admin_labels.choose_media', 'Choose Media') }}
                                         </button>
                                     </div>
-                                    <div class="col-md-6 d-flex justify-content-end ">
-                                        <div class="input-group me-3 search-input-grp ">
+                                    <div class="col-md-7 d-flex justify-content-end align-items-center gap-2 flex-wrap">
+                                        <div class="input-group search-input-grp">
                                             <span class="search-icon"><i class='bx bx-search-alt'></i></span>
                                             <input type="text" data-table="media-upload-table"
                                                 class="form-control searchInput"
@@ -49,7 +46,7 @@
                                             <span
                                                 class="input-group-text">{{ labels('admin_labels.search', 'Search') }}</span>
                                         </div>
-                                        <a class="btn me-3" id="tableRefresh" data-table="media-upload-table"><i
+                                        <a class="btn" id="tableRefresh" data-table="media-upload-table"><i
                                                 class='bx bx-refresh'></i></a>
                                         <div class="dropdown">
                                             <a class="btn dropdown-toggle export-btn" type="button"
@@ -59,16 +56,16 @@
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="exportOptionsDropdown">
                                                 <li><button class="dropdown-item" type="button"
-                                                        onclick="exportTableData('media-upload-table','csv')">CSV</button>
+                                                        onclick="exportTableData('media-upload-table','csv')">{{ labels('admin_labels.csv', 'CSV') }}</button>
                                                 </li>
                                                 <li><button class="dropdown-item" type="button"
-                                                        onclick="exportTableData('media-upload-table','json')">JSON</button>
+                                                        onclick="exportTableData('media-upload-table','json')">{{ labels('admin_labels.json', 'JSON') }}</button>
                                                 </li>
                                                 <li><button class="dropdown-item" type="button"
-                                                        onclick="exportTableData('media-upload-table','sql')">SQL</button>
+                                                        onclick="exportTableData('media-upload-table','sql')">{{ labels('admin_labels.sql', 'SQL') }}</button>
                                                 </li>
                                                 <li><button class="dropdown-item" type="button"
-                                                        onclick="exportTableData('media-upload-table','excel')">Excel</button>
+                                                        onclick="exportTableData('media-upload-table','excel')">{{ labels('admin_labels.excel', 'Excel') }}</button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -76,7 +73,8 @@
                                 </div>
                                 <div class="mt-3">
                                     <table class="table table-striped" data-toolbar="#toolbar" id="media-upload-table"
-                                        data-page-size="5" data-toggle="table"
+                                        data-page-size="5" data-lazy-table="true"
+                                        data-loading-template="loadingTemplate"
                                         data-url="{{ route('admin.media.list') }}" data-click-to-select="true"
                                         data-side-pagination="server" data-pagination="true"
                                         data-page-list="[5, 10, 20, 50, 100, 200]" data-search="false"
@@ -88,16 +86,16 @@
                                                 <th data-field="state" data-checkbox="true"></th>
                                                 <th data-field="id" data-sortable="true" data-visible="true">ID</th>
                                                 <th class="d-flex justify-content-center" data-field="image"
-                                                    data-sortable="false">Image</th>
-                                                <th data-field="name" data-disabled="1" data-sortable="false">Name
+                                                    data-sortable="false">{{ labels('admin_labels.image', 'Image') }}</th>
+                                                <th data-field="name" data-disabled="1" data-sortable="false">{{ labels('admin_labels.name', 'Name') }}
                                                 </th>
-                                                <th data-field="size" data-sortable="false">Size</th>
+                                                <th data-field="size" data-sortable="false">{{ labels('admin_labels.size', 'Size') }}</th>
                                                 <th data-field="extension" data-sortable="false" data-visible="true">
-                                                    Extension</th>
+                                                    {{ labels('admin_labels.extension', 'Extension') }}</th>
                                                 <th data-field="sub_directory" data-sortable="false"
-                                                    data-visible="true">
+                                                    data-visible="true">{{ labels('admin_labels.sub_directory', 'Sub Directory') }}</th>
                                                 <th data-field="disk" data-sortable="false" data-visible="true">
-                                                    Disk</th>
+                                                    {{ labels('admin_labels.disk', 'Disk') }}</th>
                                                 <th data-field="object_url" data-sortable="false"
                                                     data-visible="false">
                                                     S3 URL</th>
@@ -105,9 +103,6 @@
                                         </thead>
                                     </table>
                                 </div>
-
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -179,9 +174,9 @@
             <label for=""
                 class="form-label body-default">{{ labels('admin_labels.select_status', 'Select Status') }}</label>
             <select class='form-select' name='status' id="statusFilter">
-                <option value=''>Select Status</option>
-                <option value='1'>Active</option>
-                <option value='0'>Deactive</option>
+                <option value=''>{{ labels('admin_labels.select_status', 'Select Status') }}</option>
+                <option value='1'>{{ labels('admin_labels.active', 'Active') }}</option>
+                <option value='0'>{{ labels('admin_labels.deactive', 'Inactive') }}</option>
             </select>
         </div>
 
@@ -281,7 +276,7 @@
             $settings = app(SettingService::class)->getSettings('system_settings', true);
             $settings = json_decode($settings, true);
             $app_name =
-                isset($settings['app_name']) && !empty($settings['app_name']) ? $settings['app_name'] : 'Eshop Plus';
+                isset($settings['app_name']) && !empty($settings['app_name']) ? $settings['app_name'] : 'MUQTARIN Store';
         @endphp
 
         <div class="sellerFilter mt-5 d-none">

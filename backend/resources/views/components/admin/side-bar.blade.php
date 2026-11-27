@@ -1230,9 +1230,17 @@
 
         let hideTimer = null;
         let currentTriggerItem = null;
+        let lastHoverOpenAt = 0;
 
         function isCollapsedDesktop() {
-            return window.innerWidth >= 1200 && document.body.classList.contains('sidebar-collapsed');
+            if (window.innerWidth >= 1200) {
+                return document.body.classList.contains('sidebar-collapsed');
+            }
+            if (window.innerWidth >= 768) {
+                const nav = document.querySelector('.navbar-vertical');
+                return Boolean(nav && !nav.classList.contains('show'));
+            }
+            return false;
         }
 
         function clearHideTimer() {
@@ -1365,20 +1373,21 @@
 
         document.querySelectorAll('.navbar-vertical .navbar-nav > li.sidebar-section, .navbar-vertical .navbar-nav > li.sidebar-direct').forEach(item => {
             item.addEventListener('mouseenter', function () {
+                lastHoverOpenAt = Date.now();
                 openFlyoutFor(item);
             });
             item.addEventListener('mouseleave', function () {
                 scheduleCloseFlyout();
             });
 
-            // When collapsed, clicking a section trigger opens/toggles the flyout cleanly without expanding accordion behind icon
+            // When collapsed (desktop or tablet rail), clicking a section trigger opens/toggles the flyout cleanly
             const trigger = item.querySelector('.sidebar-section-trigger');
             if (trigger) {
                 trigger.addEventListener('click', function (e) {
                     if (isCollapsedDesktop()) {
                         e.preventDefault();
                         e.stopPropagation();
-                        if (currentTriggerItem === item && flyout.classList.contains('is-visible')) {
+                        if (currentTriggerItem === item && flyout.classList.contains('is-visible') && (Date.now() - lastHoverOpenAt > 350)) {
                             closeFlyout();
                         } else {
                             openFlyoutFor(item);
@@ -1390,6 +1399,12 @@
 
         flyout.addEventListener('mouseenter', clearHideTimer);
         flyout.addEventListener('mouseleave', scheduleCloseFlyout);
+
+        document.addEventListener('click', function (e) {
+            if (!flyout.classList.contains('is-visible')) return;
+            if (e.target.closest('.navbar-vertical') || e.target.closest('#muqtarin-sidebar-flyout')) return;
+            closeFlyout();
+        });
 
         if (navScroller) {
             navScroller.addEventListener('scroll', function () {

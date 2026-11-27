@@ -25,10 +25,10 @@
                                 </h5>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label for="firstName" class="form-label">{{ labels('admin_labels.name', 'Name') }}
+                                        <label for="name" class="form-label">{{ labels('admin_labels.name', 'Name') }}
                                             <span class="text-asterisks text-sm">*</span>
                                         </label>
-                                        <input class="form-control" type="text" placeholder="{{ labels('admin_labels.john_doe_placeholder', 'John Doe') }}" id="name"
+                                        <input class="form-control" type="text" placeholder="{{ labels('admin_labels.john_doe_placeholder', 'Enter seller full name') }}" id="name"
                                             name="name" value="{{ old('name') }}" autofocus />
                                     </div>
                                     <div class="mb-3 col-md-6">
@@ -36,9 +36,9 @@
                                             for="phone">{{ labels('admin_labels.mobile', 'Mobile') }}
                                             <span class="text-asterisks text-sm">*</span>
                                         </label>
-                                        <div class="input-group input-group-merge">
+                                        <div class="input-group input-group-merge flex-nowrap">
                                             <select class="form-select" id="country_code" name="country_code"
-                                                style="max-width: 90px;">
+                                                style="min-width: 96px; max-width: 112px;">
                                                 <option value="93">+93</option>
                                                 <option value="355">+355</option>
                                                 <option value="213">+213</option>
@@ -97,7 +97,7 @@
                                                 <option value="1767">+1767</option>
                                                 <option value="1809">+1809</option>
                                                 <option value="593">+593</option>
-                                                <option value="20">+20</option>
+                                                <option value="20" selected>+20</option>
                                                 <option value="503">+503</option>
                                                 <option value="240">+240</option>
                                                 <option value="291">+291</option>
@@ -130,7 +130,7 @@
                                                 <option value="852">+852</option>
                                                 <option value="36">+36</option>
                                                 <option value="354">+354</option>
-                                                <option value="91" selected>+91</option>
+                                                <option value="91">+91</option>
                                                 <option value="62">+62</option>
                                                 <option value="98">+98</option>
                                                 <option value="964">+964</option>
@@ -264,7 +264,7 @@
                                             </select>
 
                                             <input type="text" class="form-control" id="phone" name="mobile"
-                                                maxlength="16" placeholder="{{ labels('admin_labels.mobile_number_example', '8787878787') }}"
+                                                maxlength="16" placeholder="{{ labels('admin_labels.mobile_number_example', '01012345678') }}"
                                                 oninput="validateNumberInput(this)" value="{{ old('mobile') }}">
                                         </div>
                                     </div>
@@ -445,7 +445,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <div class="mb-3">
-                                            <label for="tax_name"
+                                            <label for="account_number"
                                                 class="col-sm-12 form-label">{{ labels('admin_labels.account_number', 'Account Number') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
@@ -458,7 +458,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="mb-3">
-                                            <label for="tax_name"
+                                            <label for="account_name"
                                                 class="col-sm-4 form-label">{{ labels('admin_labels.account_name', 'Account Name') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
@@ -473,7 +473,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <div class="mb-3">
-                                            <label for="tax_name"
+                                            <label for="bank_name"
                                                 class="col-sm-4 form-label">{{ labels('admin_labels.bank_name', 'Bank Name') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
@@ -485,7 +485,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <div class="mb-3">
-                                            <label for="tax_name"
+                                            <label for="bank_code"
                                                 class="col-sm-4 form-label">{{ labels('admin_labels.bank_code', 'Bank Code') }}
                                                 <span class='text-asterisks text-sm'>*</span>
                                             </label>
@@ -512,8 +512,8 @@
                                             <span class="text-asterisks text-sm">*</span>
                                         </label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="store_name" class="form-control"
-                                                placeholder="{{ labels('admin_labels.starbucks_placeholder', 'starbucks') }}" value="{{ old('store_name') }}" />
+                                            <input type="text" id="store_name" name="store_name" class="form-control"
+                                                placeholder="{{ labels('admin_labels.starbucks_placeholder', 'Al-Nour Store') }}" value="{{ old('store_name') }}" />
                                         </div>
 
                                     </div>
@@ -522,8 +522,8 @@
                                             for="store_url">{{ labels('admin_labels.store_url', 'Store URL') }}
                                         </label>
                                         <div class="input-group input-group-merge">
-                                            <input type="text" name="store_url" class="form-control"
-                                                placeholder="{{ labels('admin_labels.starbucks_placeholder', 'starbucks') }}" value="{{ old('store_url') }}" />
+                                            <input type="text" id="store_url" name="store_url" class="form-control"
+                                                placeholder="{{ labels('admin_labels.store_url_placeholder', 'https://store.example.com') }}" value="{{ old('store_url') }}" />
                                         </div>
 
                                     </div>
@@ -643,7 +643,7 @@
                                             role="group" aria-label="Status">
                                             <label class="btn status_button btn-outline-secondary flex-fill">
                                                 <input type="radio" name="status" class="mx-1" value="0">
-                                                {{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                                {{ labels('admin_labels.deactive_users', 'Inactive') }}
                                             </label>
                                             <label class="btn status_button btn-outline-primary flex-fill">
                                                 <input type="radio" name="status" class="mx-1" value="1">
@@ -771,7 +771,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="require_products_approval"
-                                                class="col-sm-6 col-form-label">{{ labels('admin_labels.require_product_approvel', 'Require Product Approvel') }}?
+                                                class="col-sm-6 col-form-label">{{ labels('admin_labels.require_product_approvel', 'Require Product Approvel') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="{{ labels('admin_labels.enable_if_products_require_approval_before_listing', 'Enable if products require approval before being listed.') }}"></i>
@@ -786,7 +786,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="customer_privacy"
-                                                class="col-sm-5 col-form-label">{{ labels('admin_labels.view_customer_details', 'View Customer Details') }}?
+                                                class="col-sm-5 col-form-label">{{ labels('admin_labels.view_customer_details', 'View Customer Details') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="{{ labels('admin_labels.enable_if_seller_can_view_customer_details', 'Enable if seller can view customer details.') }}"></i>
@@ -803,7 +803,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group row">
                                             <label for="view_order_otp"
-                                                class="col-sm-8 col-form-label">{{ labels('admin_labels.view_order_otp_and_change_delivery_status', 'View Order OTP & Can Change Delivery Status') }}?
+                                                class="col-sm-8 col-form-label">{{ labels('admin_labels.view_order_otp_and_change_delivery_status', 'View Order OTP & Can Change Delivery Status') }}
                                                 <i class="fa fa-info-circle text-secondary ms-1" data-bs-toggle="popover"
                                                     data-bs-placement="right"
                                                     data-bs-content="{{ labels('admin_labels.enable_if_seller_can_view_order_otp_and_change_delivery_status', 'Enable if seller can view order OTP and change delivery status.') }}"></i>

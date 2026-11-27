@@ -2,14 +2,14 @@
 <html>
 
     <head>
-        <title>Deep Link Tester - Eshop</title>
+        <title>Deep Link Tester - MUQTARIN Store</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             @php
                 $system_settings = app(\App\Services\SettingService::class)->getSettings('system_settings', true);
                 $system_settings = json_decode($system_settings, true);
-                $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'eshop');
-                $host = $system_settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
+                $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'muqtarin');
+                $host = $system_settings['deep_link_host'] ?? 'muqtarin.store';
             @endphp
             * {
                 margin: 0;
@@ -353,7 +353,7 @@
                 if (isAndroid) {
                     var scheme = "{{ $scheme }}";
                     var host = "{{ $host }}";
-                    var packageName = "com.eshop"; // Fallback package
+                    var packageName = "com.muqtarin.store"; // Fallback package
                     var storeLink = "https://play.google.com/store/apps/details?id=" + packageName;
 
                     var intentPath = fullScheme.replace(scheme + '://', '');

@@ -141,17 +141,17 @@ class BrandController extends Controller
                 'operate' => $action,
                 'status' => ($b->status == 2)
                     ? '<select class="form-select brand_status_dropdown change_toggle_status" data-id="' . $b->id . '" data-url="/admin/brand/update_status/' . $b->id . '" aria-label="">' .
-                    '<option value="2" selected>Not Approved</option>' .
-                    '<option value="1">Approve</option>' .
-                    '<option value="3">Rejected</option>' .
+                    '<option value="2" selected>' . labels('admin_labels.not_approved', 'Not Approved') . '</option>' .
+                    '<option value="1">' . labels('admin_labels.approve', 'Approve') . '</option>' .
+                    '<option value="3">' . labels('admin_labels.rejected', 'Rejected') . '</option>' .
                     '</select>'
                     : '<select class="form-select brand_status_dropdown change_toggle_status ' . ($b->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $b->id . '" data-url="/admin/brand/update_status/' . $b->id . '" aria-label="">' .
                     '<option value="1" ' . ($b->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>' .
-                    '<option value="0" ' . ($b->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>' .
-                    '<option value="3" ' . ($b->status == 3 ? 'selected' : '') . '>Rejected</option>' .
+                    '<option value="0" ' . ($b->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>' .
+                    '<option value="3" ' . ($b->status == 3 ? 'selected' : '') . '>' . labels('admin_labels.rejected', 'Rejected') . '</option>' .
                     '</select>',
 
-                'image' => '<div class=""><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="Avatar" class="rounded"/></a></div>',
+                'image' => '<div class=""><a href="' . app(MediaService::class)->getMediaImageUrl($b->image) . '" data-lightbox="image-' . $b->id . '"><img src="' . $image . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded"/></a></div>',
             ];
         });
 

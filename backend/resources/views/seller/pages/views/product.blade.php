@@ -35,7 +35,7 @@
                                                         'width' => 100,
                                                         'quality' => 100,
                                                     ]) }}"
-                                                        alt="Avatar" class="" />
+                                                        alt="{{ labels('admin_labels.product_image', 'Product image') }}" class="" />
                                                 </a>
                                             </div>
                                         @endforeach
@@ -52,7 +52,7 @@
                                                 'width' => 500,
                                                 'quality' => 100,
                                             ]) }}"
-                                                alt="Avatar" class="" />
+                                                alt="{{ labels('admin_labels.product_image', 'Product image') }}" class="" />
                                         </div>
                                     </div>
                                 </div>

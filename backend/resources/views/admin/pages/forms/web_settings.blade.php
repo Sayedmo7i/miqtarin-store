@@ -8,50 +8,49 @@
         $role = auth()->user()->role->name;
         use App\Services\MediaService;
     @endphp
-    <div class="container-fluid flex-grow-1 container-p-y">
-        <div class="card mb-1">
-            <div class="card-body">
-                <h4 class="card-title">{{ labels('admin_labels.web_settings', 'Web Settings') }}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <div class="card sticky-top">
-                    <ul class="nav flex-column nav-pills menu payment-sidebar">
+    <x-admin.breadcrumb :title="labels('admin_labels.web_settings', 'Web Settings')" :subtitle="labels(
+        'admin_labels.fine_tune_platform_dynamics_with_system_settings_mastery',
+        'Configure storefront appearance, SEO metadata, and Firebase integration',
+    )" :breadcrumbs="[
+        ['label' => labels('admin_labels.settings', 'Settings'), 'url' => route('settings.index')],
+        ['label' => labels('admin_labels.web_settings', 'Web Settings')],
+    ]" />
+
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 mb-3">
+            <div class="card sticky-top">
+                <div class="card-body p-2">
+                    <ul class="nav flex-column nav-pills menu payment-sidebar" role="tablist" aria-orientation="vertical">
                         <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" role="tab"
+                            <a class="nav-link active" data-bs-toggle="tab" role="tab" aria-selected="true"
                                 href="#general_setting">{{ labels('admin_labels.general_settings', 'General Settings') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab"
+                            <a class="nav-link" data-bs-toggle="tab" role="tab" aria-selected="false"
                                 href="#themes">{{ labels('admin_labels.themes', 'Themes') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab"
+                            <a class="nav-link" data-bs-toggle="tab" role="tab" aria-selected="false"
                                 href="#languages">{{ labels('admin_labels.language', 'Language') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab"
+                            <a class="nav-link" data-bs-toggle="tab" role="tab" aria-selected="false"
                                 href="#firebase_setting">{{ labels('admin_labels.firebase_settings', 'Firebase Settings') }}</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="tab-content col-md-10">
-
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="general_setting" class="card tab-pane active">
-                                <div class="card-body">
-                                    <form id="general_setting_form" action="{{ route('web_settings.store') }}"
-                                        class="submit_form" enctype="multipart/form-data" method="POST">
-                                        @csrf
-                                        <h5 class="card-title">General Settings</h5>
-                                        <div class="row">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="form-group col-md-4">
+        </div>
+        <div class="col-xl-9 col-lg-8">
+            <div class="tab-content">
+                <div id="general_setting" class="card tab-pane fade show active" role="tabpanel">
+                    <div class="card-body">
+                        <form id="general_setting_form" action="{{ route('web_settings.store') }}"
+                            class="submit_form" enctype="multipart/form-data" method="POST">
+                            @csrf
+                            <h5 class="card-title mb-3">{{ labels('admin_labels.general_settings', 'General Settings') }}</h5>
+                            <div class="row">
+                                <div class="form-group col-md-4">
                                                         <label
                                                             for="site_title">{{ labels('admin_labels.site_title', 'Site Title') }}
                                                             <span class='text-danger text-xs'>*</span></label>
@@ -77,7 +76,7 @@
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label
-                                                            for="address">{{ labels('admin_labels.copyright_details', 'Copyright Details') }}
+                                                            for="copyright_details">{{ labels('admin_labels.copyright_details', 'Copyright Details') }}
                                                             <span class='text-danger text-xs'>*</span></label>
                                                         <textarea name="copyright_details" id="copyright_details" class="form-control" cols="30" rows="3"><?= isset($web_settings['copyright_details']) ? outputEscaping($web_settings['copyright_details']) : '' ?></textarea>
                                                     </div>
@@ -100,40 +99,43 @@
                                                         <textarea name="map_iframe" id="map_iframe" class="form-control" cols="30" rows="5"><?= isset($web_settings['map_iframe']) ? outputEscaping($web_settings['map_iframe']) : '' ?></textarea>
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <div class="row">
+                                                        <div class="row g-3">
                                                             <div class="col-md-6 form-group">
                                                                 <label
                                                                     for="image">{{ labels('admin_labels.logo', 'Logo') }}
                                                                     <span
                                                                         class='text-asterisks text-sm'>*</span><small>({{ labels('admin_labels.recommended_size_logo_120_150', 'Recommended Size : larger than 120 x 120 & smaller than 150 x 150 pixels.') }})</small></label>
-                                                                <div class="col-sm-10">
-                                                                    <div class='col-md-12'>
-                                                                        <a class="uploadFile img btn btn-secondary btn-sm"
+                                                                <div>
+                                                                    <div class='mt-2'>
+                                                                        <a class="uploadFile img btn btn-outline-primary btn-sm"
                                                                             data-input='logo' data-isremovable='0'
                                                                             data-is-multiple-uploads-allowed='0'
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#media-upload-modal"
                                                                             value="Upload Photo">
-                                                                            <i class='fa fa-upload text-sm'></i> {{ labels('admin_labels.upload_image', 'Upload Image') }}
+                                                                            <i class='bx bx-upload me-1'></i> {{ labels('admin_labels.upload_image', 'Upload Image') }}
                                                                         </a>
                                                                     </div>
 
                                                                     @if (!empty($web_settings['logo']))
                                                                         <label for=""
-                                                                            class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_is_necessary', 'Only Choose When Update is necessary') }}</label>
+                                                                            class="text-danger mt-3 d-block">*{{ labels('admin_labels.only_choose_when_update_is_necessary', 'Only Choose When Update is necessary') }}</label>
                                                                         <div
-                                                                            class="container-fluid row image-upload-section">
+                                                                            class="row image-upload-section mt-2">
                                                                             <div
-                                                                                class="col-md-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
+                                                                                class="col-auto p-3 rounded text-center grow image"
+                                                                                style="min-width: 140px; max-width: 220px;">
                                                                                 <div>
                                                                                     <div class="upload-media-div">
                                                                                         <img class="img-fluid mb-2"
+                                                                                            style="max-height: 88px; width: auto; object-fit: contain;"
                                                                                             src="{{ route('admin.dynamic_image', [
                                                                                                 'url' => app(MediaService::class)->getMediaImageUrl($web_settings['logo']),
                                                                                                 'width' => 150,
                                                                                                 'quality' => 90,
                                                                                             ]) }}"
-                                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                                                            onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                                                     </div>
                                                                                     <input type="hidden" name="logo"
                                                                                         id="logo"
@@ -143,68 +145,68 @@
                                                                         </div>
                                                                     @else
                                                                         <div
-                                                                            class="container-fluid row image-upload-section">
+                                                                            class="row image-upload-section mt-2">
                                                                             <div
-                                                                                class="col-md-4 shadow p-2 mb-5 bg-white rounded m-2 text-center grow image d-none">
+                                                                                class="col-auto p-2 rounded text-center grow image d-none"
+                                                                                style="min-width: 140px; max-width: 220px;">
                                                                             </div>
                                                                         </div>
                                                                     @endif
-
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label
-                                                                            for="image">{{ labels('admin_labels.favicon', 'Favicon') }}
-                                                                            <span
-                                                                                class='text-asterisks text-sm'>*</span></label>
-                                                                        <div class="col-sm-10">
-                                                                            <div class='col-md-12'>
-                                                                                <a class="uploadFile img btn btn-secondary btn-sm"
-                                                                                    data-input='favicon'
-                                                                                    data-isremovable='0'
-                                                                                    data-is-multiple-uploads-allowed='0'
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#media-upload-modal"
-                                                                                    value="Upload Photo">
-                                                                                    <i class='fa fa-upload text-sm'></i>
-                                                                                    {{ labels('admin_labels.upload_image', 'Upload Image') }}
-                                                                                </a>
-                                                                            </div>
-                                                                            @if (!empty($web_settings['favicon']))
-                                                                                <label for=""
-                                                                                    class="text-danger mt-3">*{{ labels('admin_labels.only_choose_when_update_is_necessary', 'Only Choose When Update is necessary') }}</label>
-                                                                                <div
-                                                                                    class="container-fluid row image-upload-section">
-                                                                                    <div
-                                                                                        class="col-md-12 shadow p-3 mb-5 bg-white rounded m-4 text-center grow image">
-                                                                                        <div>
-                                                                                            <div class="upload-media-div">
-                                                                                                <img class="img-fluid mb-2"
-                                                                                                    src="{{ route('admin.dynamic_image', [
-                                                                                                        'url' => app(MediaService::class)->getMediaImageUrl($web_settings['favicon']),
-                                                                                                        'width' => 150,
-                                                                                                        'quality' => 90,
-                                                                                                    ]) }}"
-                                                                                                    alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
-                                                                                            </div>
-                                                                                            <input type="hidden"
-                                                                                                name="favicon"
-                                                                                                id="favicon"
-                                                                                                value="{{ $web_settings['favicon'] }}">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            @else
-                                                                                <div
-                                                                                    class="container-fluid row image-upload-section">
-                                                                                    <div
-                                                                                        class="col-md-4 shadow p-2 mb-5 bg-white rounded m-2 text-center grow image d-none">
-                                                                                    </div>
-                                                                                </div>
-                                                                            @endif
-
-                                                                        </div>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label
+                                                                    for="image">{{ labels('admin_labels.favicon', 'Favicon') }}
+                                                                    <span
+                                                                        class='text-asterisks text-sm'>*</span></label>
+                                                                <div>
+                                                                    <div class='mt-2'>
+                                                                        <a class="uploadFile img btn btn-outline-primary btn-sm"
+                                                                            data-input='favicon'
+                                                                            data-isremovable='0'
+                                                                            data-is-multiple-uploads-allowed='0'
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#media-upload-modal"
+                                                                            value="Upload Photo">
+                                                                            <i class='bx bx-upload me-1'></i>
+                                                                            {{ labels('admin_labels.upload_image', 'Upload Image') }}
+                                                                        </a>
                                                                     </div>
+                                                                    @if (!empty($web_settings['favicon']))
+                                                                        <label for=""
+                                                                            class="text-danger mt-3 d-block">*{{ labels('admin_labels.only_choose_when_update_is_necessary', 'Only Choose When Update is necessary') }}</label>
+                                                                        <div
+                                                                            class="row image-upload-section mt-2">
+                                                                            <div
+                                                                                class="col-auto p-3 rounded text-center grow image"
+                                                                                style="min-width: 140px; max-width: 220px;">
+                                                                                <div>
+                                                                                    <div class="upload-media-div">
+                                                                                        <img class="img-fluid mb-2"
+                                                                                            style="max-height: 88px; width: auto; object-fit: contain;"
+                                                                                            src="{{ route('admin.dynamic_image', [
+                                                                                                'url' => app(MediaService::class)->getMediaImageUrl($web_settings['favicon']),
+                                                                                                'width' => 150,
+                                                                                                'quality' => 90,
+                                                                                            ]) }}"
+                                                                                            onerror="this.onerror=null;this.src='{{ asset('assets/img/default_full_logo.png') }}'"
+                                                                                            alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
+                                                                                    </div>
+                                                                                    <input type="hidden"
+                                                                                        name="favicon"
+                                                                                        id="favicon"
+                                                                                        value="{{ $web_settings['favicon'] }}">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    @else
+                                                                        <div
+                                                                            class="row image-upload-section mt-2">
+                                                                            <div
+                                                                                class="col-md-6 p-2 rounded text-center grow image d-none">
+                                                                            </div>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -223,17 +225,14 @@
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                <h4>{{ labels('admin_labels.app_download_section', 'App Download Section') }}
-                                                </h4>
+                                                <h4>{{ labels('admin_labels.app_download_section', 'App Download Section') }}</h4>
                                                 <div class="row">
                                                     <div class="form-group col-md-2">
-                                                        <label for="app_download_section"> Enable / Disable</label>
-                                                        <div class="card-body">
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="app_download_section" name="app_download_section"
-                                                                    <?= isset($web_settings['app_download_section']) && $web_settings['app_download_section'] == '1' ? 'Checked' : '' ?>>
-                                                            </div>
+                                                        <label for="app_download_section">{{ labels('admin_labels.status', 'Enable / Disable') }}</label>
+                                                        <div class="form-check form-switch mt-2">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="app_download_section" name="app_download_section"
+                                                                <?= isset($web_settings['app_download_section']) && $web_settings['app_download_section'] == '1' ? 'Checked' : '' ?>>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-5">
@@ -263,7 +262,7 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label
-                                                            for="app_download_section_title">{{ labels('admin_labels.playstore_url', 'Playstore URL') }}
+                                                            for="app_download_section_playstore_url">{{ labels('admin_labels.playstore_url', 'Playstore URL') }}
                                                             <span class='text-danger text-xs'>*</span></label>
                                                         <input type="text" class="form-control"
                                                             name="app_download_section_playstore_url"
@@ -272,7 +271,7 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label
-                                                            for="app_download_section_tagline">{{ labels('admin_labels.app_store_url', 'App Store URL') }}<span
+                                                            for="app_download_section_appstore_url">{{ labels('admin_labels.app_store_url', 'App Store URL') }}<span
                                                                 class='text-danger text-xs'>*</span></label>
                                                         <input type="text" class="form-control"
                                                             name="app_download_section_appstore_url"
@@ -281,8 +280,7 @@
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                <h4>{{ labels('admin_labels.social_media_links', 'Social Media Links') }}
-                                                </h4>
+                                                <h4>{{ labels('admin_labels.social_media_links', 'Social Media Links') }}</h4>
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <label
@@ -319,13 +317,11 @@
                                                         {{ labels('admin_labels.shipping', 'Shipping') }}
                                                     </h4>
                                                     <div class="form-group col-md-2 col-sm-4">
-                                                        <label for="shipping_mode"> Enable / Disable</label>
-                                                        <div class="card-body">
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="shipping_mode" name="shipping_mode"
-                                                                    <?= isset($web_settings['shipping_mode']) && $web_settings['shipping_mode'] == '1' ? 'Checked' : '' ?>>
-                                                            </div>
+                                                        <label for="shipping_mode">{{ labels('admin_labels.status', 'Enable / Disable') }}</label>
+                                                        <div class="form-check form-switch mt-2">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="shipping_mode" name="shipping_mode"
+                                                                <?= isset($web_settings['shipping_mode']) && $web_settings['shipping_mode'] == '1' ? 'Checked' : '' ?>>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-5">
@@ -346,13 +342,11 @@
                                                         {{ labels('admin_labels.returns', 'Returns') }}
                                                     </h4>
                                                     <div class="form-group col-md-2 col-sm-4">
-                                                        <label for="return_mode"> Enable / Disable</label>
-                                                        <div class="card-body">
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="return_mode" name="return_mode"
-                                                                    <?= isset($web_settings['return_mode']) && $web_settings['return_mode'] == '1' ? 'Checked' : '' ?>>
-                                                            </div>
+                                                        <label for="return_mode">{{ labels('admin_labels.status', 'Enable / Disable') }}</label>
+                                                        <div class="form-check form-switch mt-2">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="return_mode" name="return_mode"
+                                                                <?= isset($web_settings['return_mode']) && $web_settings['return_mode'] == '1' ? 'Checked' : '' ?>>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-5">
@@ -373,13 +367,11 @@
                                                         {{ labels('admin_labels.support', 'Support') }}
                                                     </h4>
                                                     <div class="form-group col-md-2 col-sm-4">
-                                                        <label for="support_mode"> Enable / Disable</label>
-                                                        <div class="card-body">
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="support_mode" name="support_mode"
-                                                                    <?= isset($web_settings['support_mode']) && $web_settings['support_mode'] == '1' ? 'Checked' : '' ?>>
-                                                            </div>
+                                                        <label for="support_mode">{{ labels('admin_labels.status', 'Enable / Disable') }}</label>
+                                                        <div class="form-check form-switch mt-2">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="support_mode" name="support_mode"
+                                                                <?= isset($web_settings['support_mode']) && $web_settings['support_mode'] == '1' ? 'Checked' : '' ?>>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-5">
@@ -391,7 +383,7 @@
                                                     </div>
                                                     <div class="form-group col-md-5">
                                                         <label
-                                                            for="shipping_description">{{ labels('admin_labels.description', 'Description') }}</label>
+                                                            for="support_description">{{ labels('admin_labels.description', 'Description') }}</label>
                                                         <textarea name="support_description" class="form-control" id="support_description" cols="30" rows="4"
                                                             placeholder="Support Description"><?= isset($web_settings['support_description']) ? outputEscaping($web_settings['support_description']) : '' ?></textarea>
                                                     </div>
@@ -400,13 +392,11 @@
                                                         {{ labels('admin_labels.safety_and_security', 'Safety & Security') }}
                                                     </h4>
                                                     <div class="form-group col-md-2 col-sm-4">
-                                                        <label for="safety_security_mode"> Enable / Disable</label>
-                                                        <div class="card-body">
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="safety_security_mode" name="safety_security_mode"
-                                                                    <?= isset($web_settings['safety_security_mode']) && $web_settings['safety_security_mode'] == '1' ? 'Checked' : '' ?>>
-                                                            </div>
+                                                        <label for="safety_security_mode">{{ labels('admin_labels.status', 'Enable / Disable') }}</label>
+                                                        <div class="form-check form-switch mt-2">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="safety_security_mode" name="safety_security_mode"
+                                                                <?= isset($web_settings['safety_security_mode']) && $web_settings['safety_security_mode'] == '1' ? 'Checked' : '' ?>>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-5">
@@ -425,133 +415,113 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex justify-content-center">
-                                                    <div class="form-group" id="error_box">
-                                                    </div>
+                                                    <div class="form-group" id="error_box"></div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="reset" class="btn reset-btn"
-                                                    id="">{{ labels('admin_labels.reset', 'Reset') }}</button>
-                                                <button type="submit" class="btn btn-dark"
-                                                    id="">{{ labels('admin_labels.update_settings', 'Update Settings') }}</button>
-                                            </div>
-                                    </form>
+                                                <div class="d-flex justify-content-end gap-2 mt-3">
+                                                    <button type="reset" class="btn reset-btn">{{ labels('admin_labels.reset', 'Reset') }}</button>
+                                                    <button type="submit" class="btn btn-primary submit_button">{{ labels('admin_labels.update_settings', 'Update Settings') }}</button>
+                                                </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card tab-pane fade" id="themes" role="tabpanel">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">{{ labels('admin_labels.themes', 'Themes') }}</h5>
+                        <form id="themes_form" action="" class="submit_form" enctype="multipart/form-data" method="POST">
+                            @csrf
+                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                <button type="reset" class="btn reset-btn">{{ labels('admin_labels.reset', 'Reset') }}</button>
+                                <button type="submit" class="btn btn-primary submit_button">{{ labels('admin_labels.update_settings', 'Update Settings') }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card tab-pane fade" id="languages" role="tabpanel">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">{{ labels('admin_labels.language', 'Language') }}</h5>
+                        <form id="languages_form" action="" class="submit_form" enctype="multipart/form-data" method="POST">
+                            @csrf
+                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                <button type="reset" class="btn reset-btn">{{ labels('admin_labels.reset', 'Reset') }}</button>
+                                <button type="submit" class="btn btn-primary submit_button">{{ labels('admin_labels.update_settings', 'Update Settings') }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card tab-pane fade" id="firebase_setting" role="tabpanel">
+                    <div class="card-body">
+                        <form id="firebase_setting_form" action="{{ route('firebase_settings.store') }}"
+                            class="submit_form" enctype="multipart/form-data" method="POST">
+                            @csrf
+                            <h5 class="card-title mb-3">
+                                {{ labels('admin_labels.firebase_settings', 'Firebase Settings') }}
+                            </h5>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="apiKey">{{ labels('admin_labels.api_key', 'APIkey') }} <span
+                                            class='text-danger text-xs'>*</span></label>
+                                    <input type="text" class="form-control" name="apiKey"
+                                        value="<?= isset($firebase_settings['apiKey']) ? $firebase_settings['apiKey'] : '' ?>"
+                                        placeholder="{{ labels('admin_labels.placeholder_apikey', 'apiKey') }}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="authDomain">{{ labels('admin_labels.auth_domain', 'Auth Domain') }}
+                                        <span class='text-danger text-xs'>*</span></label>
+                                    <input type="text" class="form-control" name="authDomain"
+                                        value="<?= isset($firebase_settings['authDomain']) ? $firebase_settings['authDomain'] : '' ?>"
+                                        placeholder="{{ labels('admin_labels.placeholder_authdomain', 'authDomain') }}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="databaseURL">{{ labels('admin_labels.database_url', 'Database URL') }}
+                                        <span class='text-danger text-xs'>*</span></label>
+                                    <input type="text" class="form-control" name="databaseURL"
+                                        value="<?= isset($firebase_settings['databaseURL']) ? $firebase_settings['databaseURL'] : '' ?>"
+                                        placeholder="{{ labels('admin_labels.placeholder_databaseurl', 'databaseURL') }}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="projectId">{{ labels('admin_labels.project_id', 'Project ID') }}
+                                        <span class='text-danger text-xs'>*</span></label>
+                                    <input type="text" class="form-control" name="projectId"
+                                        value="<?= isset($firebase_settings['projectId']) ? $firebase_settings['projectId'] : '' ?>"
+                                        placeholder="{{ labels('admin_labels.placeholder_projectid', 'projectId') }}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="storageBucket">{{ labels('admin_labels.storage_bucket', 'Storage Bucket') }}
+                                        <span class='text-danger text-xs'>*</span></label>
+                                    <input type="text" class="form-control" name="storageBucket"
+                                        value="<?= isset($firebase_settings['storageBucket']) ? $firebase_settings['storageBucket'] : '' ?>"
+                                        placeholder="{{ labels('admin_labels.placeholder_storagebucket', 'storageBucket') }}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="messagingSenderId">{{ labels('admin_labels.messaging_sender_id', 'Messaging Sender ID') }}
+                                        <span class='text-danger text-xs'>*</span></label>
+                                    <input type="text" class="form-control" name="messagingSenderId"
+                                        value="<?= isset($firebase_settings['messagingSenderId']) ? $firebase_settings['messagingSenderId'] : '' ?>"
+                                        placeholder="{{ labels('admin_labels.placeholder_messagingsenderid', 'messagingSenderId') }}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="appId">{{ labels('admin_labels.app_id', 'APP ID') }} <span
+                                            class='text-danger text-xs'>*</span></label>
+                                    <input type="text" class="form-control" name="appId"
+                                        value="<?= isset($firebase_settings['appId']) ? $firebase_settings['appId'] : '' ?>"
+                                        placeholder="{{ labels('admin_labels.placeholder_appid', 'appId') }}" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="measurementId">{{ labels('admin_labels.measurement_id', 'Measurement ID') }}
+                                        <span class='text-danger text-xs'>*</span></label>
+                                    <input type="text" class="form-control" name="measurementId"
+                                        value="<?= isset($firebase_settings['measurementId']) ? $firebase_settings['measurementId'] : '' ?>"
+                                        placeholder="{{ labels('admin_labels.placeholder_measurementid', 'measurementId') }}" />
                                 </div>
                             </div>
-                            <div class="card m-2 tab-pane" id="themes">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ labels('admin_labels.themes', 'Themes') }}</h5>
-                                    <!-- Themes form fields go here -->
-                                    <form id="themes_form" action="" class="submit_form"
-                                        enctype="multipart/form-data" method="POST">
-                                        @csrf
-                                        <div class="form-group">
-                                            <button type="reset" class="btn reset-btn"
-                                                id="">{{ labels('admin_labels.reset', 'Reset') }}</button>
-                                            <button type="submit" class="btn btn-dark"
-                                                id="">{{ labels('admin_labels.update_settings', 'Update Settings') }}</button>
-                                        </div>
-                                    </form>
-                                </div>
+                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                <button type="reset" class="btn reset-btn">{{ labels('admin_labels.reset', 'Reset') }}</button>
+                                <button type="submit" class="btn btn-primary submit_button">{{ labels('admin_labels.update_settings', 'Update Settings') }}</button>
                             </div>
-                            <div class="card m-2 tab-pane" id="languages">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ labels('admin_labels.language', 'Language') }}</h5>
-                                    <!-- Languages form fields go here -->
-                                    <form id="languages_form" action="" class="submit_form"
-                                        enctype="multipart/form-data" method="POST">
-                                        @csrf
-                                        <div class="form-group">
-                                            <button type="reset" class="btn reset-btn"
-                                                id="">{{ labels('admin_labels.reset', 'Reset') }}</button>
-                                            <button type="submit" class="btn btn-dark"
-                                                id="">{{ labels('admin_labels.update_settings', 'Update Settings') }}</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="card m-2 tab-pane" id="firebase_setting">
-                                <div class="card-body">
-                                    <form id="general_setting_form" action="{{ route('firebase_settings.store') }}"
-                                        class="submit_form" enctype="multipart/form-data" method="POST">
-                                        @csrf
-                                        <h5 class="card-title">
-                                            {{ labels('admin_labels.firebase_settings', 'Firebase Settings') }}
-                                        </h5>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label for="apiKey">{{ labels('admin_labels.api_key', 'APIkey') }} <span
-                                                        class='text-danger text-xs'>*</span></label>
-                                                <input type="text" class="form-control" name="apiKey"
-                                                    value="<?= isset($firebase_settings['apiKey']) ? $firebase_settings['apiKey'] : '' ?>"
-                                                    placeholder="{{ labels('admin_labels.placeholder_apikey', 'apiKey') }}" />
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label
-                                                    for="authDomain">{{ labels('admin_labels.auth_domain', 'Auth Domain') }}
-                                                    <span class='text-danger text-xs'>*</span></label>
-                                                <input type="text" class="form-control" name="authDomain"
-                                                    value="<?= isset($firebase_settings['authDomain']) ? $firebase_settings['authDomain'] : '' ?>"
-                                                    placeholder="{{ labels('admin_labels.placeholder_authdomain', 'authDomain') }}" />
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label
-                                                    for="databaseURL">{{ labels('admin_labels.database_url', 'Database URL') }}
-                                                    <span class='text-danger text-xs'>*</span></label>
-                                                <input type="text" class="form-control" name="databaseURL"
-                                                    value="<?= isset($firebase_settings['databaseURL']) ? $firebase_settings['databaseURL'] : '' ?>"
-                                                    placeholder="{{ labels('admin_labels.placeholder_databaseurl', 'databaseURL') }}" />
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label
-                                                    for="projectId">{{ labels('admin_labels.project_id', 'Project ID') }}
-                                                    <span class='text-danger text-xs'>*</span></label>
-                                                <input type="text" class="form-control" name="projectId"
-                                                    value="<?= isset($firebase_settings['projectId']) ? $firebase_settings['projectId'] : '' ?>"
-                                                    placeholder="{{ labels('admin_labels.placeholder_projectid', 'projectId') }}" />
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label
-                                                    for="storageBucket">{{ labels('admin_labels.storage_bucket', 'Storage Bucket') }}
-                                                    <span class='text-danger text-xs'>*</span></label>
-                                                <input type="text" class="form-control" name="storageBucket"
-                                                    value="<?= isset($firebase_settings['storageBucket']) ? $firebase_settings['storageBucket'] : '' ?>"
-                                                    placeholder="{{ labels('admin_labels.placeholder_storagebucket', 'storageBucket') }}" />
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label
-                                                    for="messagingSenderId">{{ labels('admin_labels.messaging_sender_id', 'Messaging Sender ID') }}
-                                                    <span class='text-danger text-xs'>*</span></label>
-                                                <input type="text" class="form-control" name="messagingSenderId"
-                                                    value="<?= isset($firebase_settings['messagingSenderId']) ? $firebase_settings['messagingSenderId'] : '' ?>"
-                                                    placeholder="{{ labels('admin_labels.placeholder_messagingsenderid', 'messagingSenderId') }}" />
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="appId">{{ labels('admin_labels.app_id', 'APP ID') }} <span
-                                                        class='text-danger text-xs'>*</span></label>
-                                                <input type="text" class="form-control" name="appId"
-                                                    value="<?= isset($firebase_settings['appId']) ? $firebase_settings['appId'] : '' ?>"
-                                                    placeholder="{{ labels('admin_labels.placeholder_appid', 'appId') }}" />
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label
-                                                    for="measurementId">{{ labels('admin_labels.measurement_id', 'Measurement ID') }}
-                                                    <span class='text-danger text-xs'>*</span></label>
-                                                <input type="text" class="form-control" name="measurementId"
-                                                    value="<?= isset($firebase_settings['measurementId']) ? $firebase_settings['measurementId'] : '' ?>"
-                                                    placeholder="{{ labels('admin_labels.placeholder_measurementid', 'measurementId') }}" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="reset" class="btn reset-btn"
-                                                id="">{{ labels('admin_labels.reset', 'Reset') }}</button>
-                                            <button type="submit" class="btn btn-dark"
-                                                id="">{{ labels('admin_labels.update_settings', 'Update Settings') }}</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

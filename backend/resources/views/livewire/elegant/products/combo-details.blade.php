@@ -299,7 +299,7 @@
                                     class="fs-5 me-2"></ion-icon>
                                 @if ($product_details->is_cancelable == 1)
                                     <b class="freeShip me-1">{{ labels('front_messages.cancel_till', 'Cancel Till') }}
-                                        {{ $product_details->cancelable_till }}</b>
+                                        {{ labels('front_messages.' . strtolower(trim($product_details->cancelable_till)), ucfirst(str_replace('_', ' ', $product_details->cancelable_till))) }}</b>
                                 @else
                                     {{ labels('front_messages.non_cancelable', 'Non Cancelable') }}
                                 @endif
@@ -684,8 +684,8 @@
                 @php
                     $system_settings = app(\App\Services\SettingService::class)->getSettings('system_settings', true);
                     $system_settings = json_decode($system_settings, true);
-                    $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'eshop');
-                    $host = $system_settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
+                    $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'muqtarin');
+                    $host = $system_settings['deep_link_host'] ?? 'muqtarin.store';
                     $store_slug = session('store_slug') ?? ($product_details->store_slug ?? '');
                     $deepLinkUrl =
                         $scheme .

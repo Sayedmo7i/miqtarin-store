@@ -43,7 +43,7 @@
                             @if ($lang->code !== 'en')
                                 <div class="mb-3 col-md-12">
                                     <label for="translated_name_{{ $lang->code }}" class="form-label">
-                                        {{ labels('admin_labels.name', 'Name') }} ({{ $lang->language }})
+                                        {{ labels('admin_labels.name', 'Name') }} ({{ $lang->native_language ?: $lang->language }})
                                     </label>
                                     <input type="text" class="form-control translated_name_{{ $lang->code }}"
                                         id="translated_name_{{ $lang->code }}"
@@ -116,7 +116,7 @@
                             @if ($lang->code !== 'en')
                                 <div class="mb-3 col-md-12">
                                     <label for="translated_name_{{ $lang->code }}" class="form-label">
-                                        {{ labels('admin_labels.name', 'Name') }} ({{ $lang->language }})
+                                        {{ labels('admin_labels.name', 'Name') }} ({{ $lang->native_language ?: $lang->language }})
                                     </label>
                                     <input type="text" class="form-control translated_name_{{ $lang->code }}"
                                         id="translated_name_{{ $lang->code }}"
@@ -167,12 +167,12 @@
             <div class="row align-items-center d-flex heading mb-5">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="ol-md-12 col-lg-12 col-xxl-6">
+                        <div class="col-md-12 col-lg-12 col-xxl-6">
                             <h4>{{ labels('admin_labels.manage_cities', 'Manage Cities') }}
                             </h4>
                         </div>
-                        <div class="ol-md-12 col-lg-12 col-xxl-6 d-flex justify-content-end ">
-                            <button type="button" class="btn btn-dark me-3" data-bs-target="#add_city"
+                        <div class="col-md-12 col-lg-12 col-xxl-6 d-flex justify-content-end flex-wrap gap-2">
+                            <button type="button" class="btn btn-dark me-2" data-bs-target="#add_city"
                                 data-bs-toggle="modal"><i
                                     class='bx bx-plus-circle me-1'></i>{{ labels('admin_labels.add_city', 'Add City') }}</button>
                             <div

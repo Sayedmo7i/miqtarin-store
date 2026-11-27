@@ -372,6 +372,18 @@ Route::middleware(['CheckInstallation'])->group(function () {
     Route::get('/delivery_boy', function () {
         return redirect()->route('delivery_boy.login');
     });
+    Route::get('/delivery-boy', function () {
+        return redirect()->route('delivery_boy.login');
+    });
+    Route::get('/delivery-boy/login', function () {
+        return redirect()->route('delivery_boy.login');
+    });
+    Route::get('/delivery', function () {
+        return redirect()->route('delivery_boy.login');
+    });
+    Route::get('/delivery/login', function () {
+        return redirect()->route('delivery_boy.login');
+    });
 
     Route::get('delivery_boy/login', [UserController::class, 'delivery_boy_login'])->name('delivery_boy.login');
     Route::get('delivery_boy/logout', [UserController::class, 'delivery_boy_logout'])->name('delivery_boy.logout');

@@ -499,7 +499,7 @@
                                                                                                     'width' => 150,
                                                                                                     'quality' => 90,
                                                                                                 ]) }}"
-                                                                                                alt="Not Found" />
+                                                                                                alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}" />
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>

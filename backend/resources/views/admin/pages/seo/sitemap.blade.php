@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3 mb-md-0">
                             <div class="border rounded p-3 h-100">
-                                <h6 class="font-weight-bold mb-2">
+                                <h6 class="fw-bold mb-2">
                                     <i class="fas fa-file-code text-primary me-1"></i>
                                     {{ labels('admin_labels.sitemap_url', 'Sitemap URL') }}
                                 </h6>
@@ -36,10 +36,10 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="alert alert-info mb-0">
-                                <h5><i class="fas fa-info-circle"></i>
-                                    {{ labels('admin_labels.about_sitemap', 'About Sitemap') }}</h5>
-                                <p class="mb-0">
+                            <div class="mq-notice-card h-100 mb-0">
+                                <h6 class="fw-bold mb-2"><i class="bx bx-info-circle text-primary me-1"></i>
+                                    {{ labels('admin_labels.about_sitemap', 'About Sitemap') }}</h6>
+                                <p class="mb-0 text-muted">
                                     {{ labels('admin_labels.sitemap_description', 'The sitemap is automatically generated based on your products, categories, and blogs. standard sitemap index containing links to separate sitemaps for each content type.') }}
                                 </p>
                             </div>

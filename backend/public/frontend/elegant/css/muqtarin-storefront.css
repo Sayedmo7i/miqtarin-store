@@ -671,7 +671,9 @@ body[dir="rtl"]:has(.mq-page),
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 14px 8px 8px;
+    padding-block: 8px;
+    padding-inline-start: 8px;
+    padding-inline-end: 14px;
     border-radius: var(--mq-radius-pill);
     background: var(--mq-surface);
     border: 1px solid var(--mq-border);
@@ -1267,5 +1269,20 @@ body[dir="rtl"]:has(.mq-page),
 [dir="rtl"] .mq-details-breadcrumb ion-icon[name="chevron-forward-outline"] {
     display: inline-block;
     transform: scaleX(-1);
+}
+
+[dir="rtl"] .mq-header,
+[dir="rtl"] .mq-page,
+[dir="rtl"] .mq-footer,
+[dir="rtl"] .mq-hero-title,
+[dir="rtl"] .mq-section-title,
+[dir="rtl"] .mq-footer h4,
+[dir="rtl"] .mq-brand-badge,
+[dir="rtl"] .mq-eyebrow,
+[dir="rtl"] .mq-badge,
+[dir="rtl"] .mq-card-vendor {
+    font-family: var(--mq-font-ar);
+    letter-spacing: 0 !important;
+    font-feature-settings: "liga" 1, "calt" 1;
 }
 

@@ -76,7 +76,7 @@
                                         <th data-field="id" data-sortable="true" data-visible='true'>
                                             {{ labels('admin_labels.id', 'ID') }}
                                         </th>
-                                        <th class="d-flex justify-content-center" data-field="image" data-sortable="false">
+                                        <th class="text-center" data-field="image" data-sortable="false">
                                             {{ labels('admin_labels.image', 'Image') }}
                                         </th>
                                         <th data-field="name" data-sortable="false" data-disabled="1">

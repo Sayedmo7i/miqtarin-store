@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
     @php
         use App\Services\MediaService;
@@ -10,7 +11,7 @@
         <link rel="icon" type="image/png"
             href="{{ app(MediaService::class)->getMediaImageUrl($system_settings['favicon']) }}">
         <title>{{ labels('panel_labels.login', 'Login') }} | {{ $system_settings['app_name'] }}</title>
-        <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/brand/icon.svg') }}">
         <!--     Fonts and icons     -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 
@@ -335,7 +336,7 @@
                                 <div class="d-flex justify-content-between mt-4">
 
                                     <a class="view_all"
-                                        href="{{ route('password.request') }}">{{ labels('panel_labels.forgot_password', 'Forgot Password') }}?</a>
+                                        href="{{ route('password.request') }}">{{ labels('panel_labels.forgot_password', 'Forgot Password?') }}</a>
                                 </div>
                                 <button type="submit"
                                     class="btn btn-lg btn-primary login_button w-100 mt-4 mb-0">{{ labels('panel_labels.sign_in', 'Sign In') }}</button>
@@ -368,12 +369,14 @@
                     </div>
                     <div class="copyright mt-4">
                         {{ labels('panel_labels.copyright', 'Copyright') }} © {{ date('Y') }} <a
-                            href="{{ config('app.url') . 'admin/home' }}">{{ $system_settings['app_name'] }}.</a>
+                            href="{{ url('/admin/home') }}">{{ $system_settings['app_name'] }}.</a>
                         {{ labels('panel_labels.all_rights_reserved', 'All rights reserved.') }}
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="app_url" data-app-url="{{ rtrim(url('/'), '/') . '/' }}"></div>
 
         <!--   Core JS Files   -->
         <script src="{{ asset('/assets/admin/js/jquery.min.js') }}"></script>
@@ -382,7 +385,6 @@
         <script src="{{ asset('/assets/js/core/bootstrap.min.js') }}"></script>
         <script src="{{ asset('/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
         <script src="{{ asset('/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
-        <script src="{{ asset('/assets/js/plugins/chartjs.min.js') }}"></script>
         <script src="{{ asset('assets/admin/js/iziToast.min.js') }}"></script>
         <script src="{{ asset('assets/brand/muqtarin-toast.js') }}?v={{ filemtime(public_path('assets/brand/muqtarin-toast.js')) }}"></script>
         <script src="{{ asset('assets/admin/js/dropzone.js') }}"></script>
@@ -392,10 +394,9 @@
         <script src="{{ asset('assets/admin/js/jstree.min.js') }}"></script>
         <script src="{{ asset('assets/admin/js/jquery.blockUI.js') }}"></script>
         <script src="{{ asset('assets/admin/js/sweetalert2.min.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/tinymce.min.js') }}"></script>
-        <script src="{{ asset('/assets/js/boxicons.js') }}">
-            < script >
-                var win = navigator.platform.indexOf('Win') > -1;
+        <script src="{{ asset('/assets/js/boxicons.js') }}"></script>
+        <script>
+            var win = navigator.platform.indexOf('Win') > -1;
             if (win && document.querySelector('#sidenav-scrollbar')) {
                 var options = {
                     damping: '0.5'

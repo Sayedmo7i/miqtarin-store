@@ -28,7 +28,7 @@
                                         <div class="row">
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="aws_access_key_id">
                                                     {{ labels('admin_labels.aws_access_key_id', 'AWS Access Key ID ') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -36,7 +36,7 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.enter_aws_access_key_id_help', 'Enter your AWS Access Key ID from your AWS IAM user credentials.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="aws_access_key_id"
                                                     placeholder="" name="aws_access_key_id"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'aws_access_key_id') ? $settings['aws_access_key_id'] : '' ?>">
 
@@ -44,7 +44,7 @@
 
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="aws_secret_access_key">
                                                     {{ labels('admin_labels.aws_secret_access_key', 'AWS Secret Access Key') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -52,14 +52,14 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.enter_aws_secret_access_key_help', 'Enter your AWS Secret Access Key from your AWS IAM user credentials.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="aws_secret_access_key"
                                                     placeholder="" name="aws_secret_access_key"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'aws_secret_access_key') ? $settings['aws_secret_access_key'] : '' ?>">
 
                                             </div>
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="aws_default_region">
                                                     {{ labels('admin_labels.aws_default_region', 'AWS Default Region') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -67,7 +67,7 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.enter_aws_default_region_help', 'Enter the AWS region where your S3 bucket is located, e.g. us-east-1.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="aws_default_region"
                                                     placeholder="" name="aws_default_region"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'aws_default_region') ? $settings['aws_default_region'] : '' ?>">
 
@@ -76,7 +76,7 @@
                                         <div class="row">
                                             <div class="mb-3 col-md-12">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">
+                                                    for="aws_bucket">
                                                     {{ labels('admin_labels.aws_bucket', 'AWS Bucket') }}
                                                     <span class='text-asterisks text-sm'>*</span>
                                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -84,7 +84,7 @@
                                                        data-bs-placement="right"
                                                        data-bs-content="{{ labels('admin_labels.enter_aws_bucket_name_help', 'Enter the name of your S3 bucket where files will be stored.') }}"></i>
                                                 </label>
-                                                <input type="text" class="form-control" id="basic-default-fullname"
+                                                <input type="text" class="form-control" id="aws_bucket"
                                                     placeholder="" name="aws_bucket"
                                                     value="<?= isKeySetAndNotEmpty($settings, 'aws_bucket') ? $settings['aws_bucket'] : '' ?>">
 

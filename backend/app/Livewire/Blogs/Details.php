@@ -68,8 +68,8 @@ class Details extends Component
         $blogUrl = customUrl('blogs/' . $blogSlug);
 
         // Deep linking URL for mobile app (adjust scheme and host based on your app configuration)
-        $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'eshop');
-        $host = $system_settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
+        $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'muqtarin');
+        $host = $system_settings['deep_link_host'] ?? 'muqtarin.store';
         $store_slug = session('store_slug') ?? '';
         $deepLinkUrl = $scheme . '://' . $host . '/blog/' . $blogSlug . ($store_slug ? '?store=' . $store_slug : '');
 

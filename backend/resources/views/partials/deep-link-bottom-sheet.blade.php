@@ -1,23 +1,23 @@
 @php
     $system_settings = app(\App\Services\SettingService::class)->getSettings('system_settings', true);
     $system_settings = $system_settings ? json_decode($system_settings, true) : null;
-    $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'eshop');
-    $appName = $system_settings['app_name'] ?? 'eShop';
+    $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'muqtarin');
+    $appName = $system_settings['app_name'] ?? 'MUQTARIN Store';
 
     // CRITICAL: Use the host configured in system settings to match AndroidManifest.xml
     // If not set, fall back to a default that matches your app's manifest
-$host = $system_settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
+$host = $system_settings['deep_link_host'] ?? 'muqtarin.store';
 
 $androidLink =
     $system_settings['play_store_link_for_customer_app'] ??
     ($system_settings['play_store_link_for_customer_app'] ??
-        'https://play.google.com/store/apps/details?id=com.eshop');
+        'https://play.google.com/store/apps/details?id=com.muqtarin.store');
 $iosLink =
     $system_settings['app_store_link_for_customer_app'] ??
-    ($system_settings['app_store_link_for_customer_app'] ?? 'https://apps.apple.com/app/eshop');
+    ($system_settings['app_store_link_for_customer_app'] ?? 'https://apps.apple.com/app/muqtarin-store');
 
-$androidPackage = $system_settings['android_package_name'] ?? 'com.eshop';
-if ($androidPackage == 'com.eshop' && preg_match('/id=([^&]+)/', $androidLink, $matches)) {
+$androidPackage = $system_settings['android_package_name'] ?? 'com.muqtarin.store';
+if (in_array($androidPackage, ['com.eshop', 'com.muqtarin.store'], true) && preg_match('/id=([^&]+)/', $androidLink, $matches)) {
     $androidPackage = $matches[1];
 }
 

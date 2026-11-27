@@ -35,7 +35,7 @@ class ComboProductRatingController extends Controller
             $ratingArray['images'] = $rating->images ? array_map(fn($img) => asset('storage/' . $img), json_decode($rating->images, true)) : [];
 
             // Add user data
-            $ratingArray['user_profile'] = $rating->user?->image ? asset(config('constants.USER_IMG_PATH') . $rating->user->image) : null;
+            $ratingArray['user_profile'] = $rating->user?->image ? app(\App\Services\MediaService::class)->getMediaImageUrl($rating->user->image, 'USER_IMG_PATH') : null;
             $ratingArray['user_name'] = $rating->user?->username ?? null;
             unset($ratingArray['user']);
             return $ratingArray;

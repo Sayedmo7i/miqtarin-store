@@ -80,14 +80,14 @@
                                                         'width' => 120,
                                                         'quality' => 90,
                                                     ]) }}"
-                                                        alt="Avatar" class="rounded">
+                                                        alt="{{ labels('admin_labels.image_preview', 'Image preview') }}" class="rounded">
                                                 </a>
                                             </div>
                                             <div class="media-title">
                                                 <h6>{{ Str::limit($row->name, 22, '...') }}</h6>
                                             </div>
                                             <div class="media-details d-flex justify-content-between">
-                                                <p class="text-muted">{{ $row->size }} KB</p>
+                                                <p class="text-muted">{{ app(MediaService::class)->formatSize($row->size) }}</p>
                                                 <div class="d-flex">
                                                     <div
                                                         class="align-items-center d-flex delete-media justify-content-center me-1">
@@ -95,7 +95,7 @@
                                                                 class='bx bx-trash'></i></a>
                                                     </div>
                                                     <span
-                                                        class='path d-none'>{{ config('app.url') . 'storage' . $row->sub_directory . '/' . $row->file_name }}</span>
+                                                        class='path d-none'>{{ asset('storage/' . ltrim($row->sub_directory . '/' . $row->file_name, '/')) }}</span>
                                                     <div
                                                         class="copy-to-clipboard me-1 align-items-center d-flex justify-content-center">
                                                         <a><i class='bx bx-copy-alt'></i></a>

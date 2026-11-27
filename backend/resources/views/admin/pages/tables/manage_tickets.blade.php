@@ -95,7 +95,7 @@
                                             <th data-field="subject" data-disabled="1" data-sortable="false">
                                                 {{ labels('admin_labels.subject', 'subject') }}
                                             </th>
-                                            <th data-field="email" data-sortable="false">
+                                            <th data-field="email" data-sortable="false" data-visible="false">
                                                 {{ labels('admin_labels.email', 'Email') }}
                                             </th>
                                             <th data-field="description" data-sortable="false">

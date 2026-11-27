@@ -7,6 +7,7 @@ use App\Models\Currency;
 use App\Models\Language;
 use App\Models\Store;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 use App\Services\StoreService;
 use App\Services\SettingService;
@@ -82,18 +83,22 @@ class Header extends Component
         ]);
     }
 
-    public function changeLang($lang)
+    public function changeLang($lang, $currentUrl = null)
     {
         if ($lang != "") {
             $is_rtl = fetchDetails(Language::class, ['code' => $lang], 'is_rtl');
-            $is_rtl = isset($is_rtl) && !empty($is_rtl) ? $is_rtl[0]->is_rtl : '';
+            $is_rtl = isset($is_rtl) && !empty($is_rtl) ? (int) $is_rtl[0]->is_rtl : (in_array($lang, ['ar', 'he', 'fa', 'ur'], true) ? 1 : 0);
             app()->setLocale($lang);
             session()->put('locale', $lang);
             session()->put('is_rtl', $is_rtl);
-            return $this->redirect(request()->header('Referer') ?? url()->current());
+            Cookie::queue('mq_locale', $lang, 60 * 24 * 30);
+            Cookie::queue('mq_is_rtl', (string) $is_rtl, 60 * 24 * 30);
+            $referer = request()->header('Referer');
+            $target = $currentUrl ?: ($referer && !str_contains($referer, '/livewire/') ? $referer : url('/'));
+            return $this->redirect($target, navigate: false);
         }
     }
-    public function changeCurrency($currency)
+    public function changeCurrency($currency, $currentUrl = null)
     {
         $shipping_settings = app(SettingService::class)->getSettings('shipping_method', true);
         $shipping_settings = json_decode($shipping_settings, true);
@@ -103,7 +108,9 @@ class Header extends Component
 
         if ($currency) {
             session()->put('currency', $currency);
-            return $this->redirect(request()->header('Referer') ?? url()->current());
+            $referer = request()->header('Referer');
+            $target = $currentUrl ?: ($referer && !str_contains($referer, '/livewire/') ? $referer : url('/'));
+            return $this->redirect($target, navigate: false);
         }
     }
 }

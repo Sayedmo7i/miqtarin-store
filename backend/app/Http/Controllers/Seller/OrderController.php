@@ -563,7 +563,7 @@ class OrderController extends Controller
                 $orderChargeData = OrderCharges::where($multipleWhere)->get();
                 $updated_username = isset($row->updated_by) && !empty($row->updated_by) && $row->updated_by != 0 ? fetchDetails(User::class, ['id' => $row->updated_by], 'username') : '';
                 $updated_username = isset($updated_username) && !empty($updated_username) ? $updated_username[0]->username : '';
-                $deliver_by = isset($row->delivery_boy_id) && !empty($row->delivery_boy_id) && $row->delivery_boy_id != 0 ? fetchDetails(User::class, ['id' => $row->delivery_boy_id], 'username')[0]->username : '';
+                $deliver_by = isset($row->delivery_boy_id) && !empty($row->delivery_boy_id) && $row->delivery_boy_id != 0 ? (fetchDetails(User::class, ['id' => $row->delivery_boy_id], 'username')[0]->username ?? '') : '';
 
                 $temp = [
                     'id' => $row->order_item_id,
@@ -592,7 +592,7 @@ class OrderController extends Controller
                     'product_image' => $row->product_image,
                     'product_variants' => app(ProductService::class)->getVariantsValuesById($row->product_variant_id),
                     'pickup_location' => $row->pickup_location,
-                    'seller_otp' => $orderChargeData ?? $orderChargeData[0]->otp,
+                    'seller_otp' => isset($orderChargeData[0]) ? $orderChargeData[0]->otp : '',
                     'seller_delivery_charge' => isset($orderChargeData[0]) ? $orderChargeData[0]->delivery_charge : 0,
                     'seller_promo_discount' => isset($orderChargeData[0]) ? $orderChargeData[0]->promo_discount : 0,
                     'is_sent' => $row->is_sent,

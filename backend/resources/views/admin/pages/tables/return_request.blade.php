@@ -88,11 +88,11 @@
                                         <th data-field="product_name" data-disabled="1" data-sortable="false">
                                             {{ labels('admin_labels.product_name', 'Product Name') }}
                                         </th>
-                                        <th data-field="price" data-sortable="false">
-                                            {{ labels('admin_labels.price', 'Price') }}
+                                        <th data-field="price" data-sortable="false" data-visible="false">
+                                            {{ labels('admin_labels.list_price', 'List Price') }}
                                         </th>
-                                        <th data-field="discounted_price" data-sortable="false" data-visible="false">
-                                            {{ labels('admin_labels.discounted_price', 'Discounted Price') }}
+                                        <th data-field="discounted_price" data-sortable="false" data-visible="true">
+                                            {{ labels('admin_labels.selling_price', 'Selling Price') }}
                                         </th>
                                         <th data-field="quantity" data-sortable="false">
                                             {{ labels('admin_labels.quantity', 'Quantity') }}

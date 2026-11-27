@@ -76,7 +76,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
         Model::unguard();
 
-        $version = rand(0, 9999);
+        $version = (string) (@filemtime(public_path('frontend/elegant/css/muqtarin-storefront.css')) ?: @filemtime(public_path('frontend/elegant/js/custom.js')) ?: '1');
 
 
         $data = [];

@@ -35,7 +35,7 @@
                                                 data-bs-toggle="tab" data-bs-target="#content-{{ $lang->code }}"
                                                 type="button" role="tab" aria-controls="content-{{ $lang->code }}"
                                                 aria-selected="false">
-                                                {{ $lang->language }}
+                                                {{ $lang->native_language ?: $lang->language }}
                                             </button>
                                         </li>
                                     @endif
@@ -71,7 +71,7 @@
                                             aria-labelledby="tab-{{ $lang->code }}">
                                             <div class="mb-3">
                                                 <label for="translated_title_{{ $lang->code }}" class="form-label">
-                                                    {{ labels('admin_labels.title', 'Title') }} ({{ $lang->language }})
+                                                    {{ labels('admin_labels.title', 'Title') }} ({{ $lang->native_language ?: $lang->language }})
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     name="translated_promocode_title[{{ $lang->code }}]"
@@ -81,7 +81,7 @@
                                             <div class="mb-3">
                                                 <label for="translated_message_{{ $lang->code }}" class="form-label">
                                                     {{ labels('admin_labels.message', 'Message') }}
-                                                    ({{ $lang->language }})
+                                                    ({{ $lang->native_language ?: $lang->language }})
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     name="translated_promocode_message[{{ $lang->code }}]"
@@ -103,15 +103,17 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="mb-2 mt-2"
-                                    for="">{{ labels('admin_labels.start_date', 'Start Date') }}
+                                    for="start_date">{{ labels('admin_labels.start_date', 'Start Date') }}
                                     <span class='text-asterisks text-sm'>*</span></label>
-                                <input type="date" class="form-control" name="start_date" id="start_date"
+                                <input type="text" class="form-control mq-single-datepicker" name="start_date" id="start_date"
+                                    placeholder="YYYY-MM-DD" autocomplete="off"
                                     value="{{ isset($data->start_date) ? $data->start_date : '' }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="mb-2 mt-2" for="">{{ labels('admin_labels.end_date', 'End Date') }}
+                                <label class="mb-2 mt-2" for="end_date">{{ labels('admin_labels.end_date', 'End Date') }}
                                     <span class='text-asterisks text-sm'>*</span></label>
-                                <input type="date" class="form-control" name="end_date" id="end_date"
+                                <input type="text" class="form-control mq-single-datepicker" name="end_date" id="end_date"
+                                    placeholder="YYYY-MM-DD" autocomplete="off"
                                     value="{{ isset($data->end_date) ? $data->end_date : '' }}">
                             </div>
 
@@ -191,7 +193,7 @@
                                         {{ isset($data->status) && $data->status == '1' ? 'selected' : '' }}>{{ labels('admin_labels.active_users', 'Active') }}
                                     </option>
                                     <option value="0"
-                                        {{ isset($data->status) && $data->status == '0' ? 'selected' : '' }}>{{ labels('admin_labels.deactive_users', 'Deactive') }}
+                                        {{ isset($data->status) && $data->status == '0' ? 'selected' : '' }}>{{ labels('admin_labels.deactive_users', 'Inactive') }}
                                     </option>
                                 </select>
                             </div>
@@ -235,7 +237,7 @@
                                                                         'width' => 150,
                                                                         'quality' => 90,
                                                                     ]) }}"
-                                                                    alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}">
+                                                                    alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}">
                                                             </div>
                                                             <input type="hidden" name="image"
                                                                 value='{{ $data->image }}'>

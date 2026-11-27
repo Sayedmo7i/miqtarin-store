@@ -21,8 +21,9 @@ class Reviews extends Component
         $reviews = fetchDetails(ProductRating::class, ['product_id' => $this->product_id]);
         foreach ($reviews as $key => $ratings) {
             $user_profile = fetchDetails(User::class, ['id' => $ratings->user_id], ['image', 'username']);
-            $reviews[$key]->user_profile = $user_profile[$key]->image ?? "frontend/elegant/user-profile-icon.jpg";
-            $reviews[$key]->user_name = $user_profile[$key]->username ?? "";
+            $userRow = $user_profile[0] ?? null;
+            $reviews[$key]->user_profile = !empty($userRow?->image) ? $userRow->image : 'demo-avatar.jpg';
+            $reviews[$key]->user_name = !empty($userRow?->username) ? $userRow->username : 'Verified Customer';
         }
         return view('livewire.' . config('constants.theme') . '.products.reviews', [
             'customer_reviews' => $reviews

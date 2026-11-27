@@ -66,7 +66,7 @@
                                             <div class="mb-3">
                                                 <label for="translated_promocode_title_{{ $lang->code }}"
                                                     class="form-label">
-                                                    {{ labels('admin_labels.title', 'Title') }} ({{ $lang->language }})
+                                                    {{ labels('admin_labels.title', 'Title') }} ({{ $lang->native_language ?: $lang->language }})
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     id="translated_promocode_title_{{ $lang->code }}"
@@ -76,7 +76,7 @@
                                                 <label for="translated_promocode_message_{{ $lang->code }}"
                                                     class="form-label">
                                                     {{ labels('admin_labels.message', 'Message') }}
-                                                    ({{ $lang->language }})
+                                                    ({{ $lang->native_language ?: $lang->language }})
                                                 </label>
                                                 <input type="text" class="form-control"
                                                     id="translated_promocode_message_{{ $lang->code }}"
@@ -102,7 +102,7 @@
 
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="mb-2 mt-2" for="">
+                                <label class="mb-2 mt-2" for="start_date">
                                     {{ labels('admin_labels.start_date', 'Start Date') }}
                                     <span class='text-asterisks text-sm'>*</span>
                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -110,10 +110,10 @@
                                        data-bs-placement="right"
                                        data-bs-content="{{ labels('admin_labels.select_promo_start_date_help', 'Select the date when the promo code becomes active.') }}"></i>
                                 </label>
-                                <input type="date" class="form-control" name="start_date" id="start_date" value="">
+                                <input type="text" class="form-control mq-single-datepicker" name="start_date" id="start_date" value="" placeholder="YYYY-MM-DD" autocomplete="off">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="mb-2 mt-2" for="">
+                                <label class="mb-2 mt-2" for="end_date">
                                     {{ labels('admin_labels.end_date', 'End Date') }}
                                     <span class='text-asterisks text-sm'>*</span>
                                     <i class="fa fa-info-circle text-secondary ms-1"
@@ -121,7 +121,7 @@
                                        data-bs-placement="right"
                                        data-bs-content="{{ labels('admin_labels.select_promo_end_date_help', 'Select the date when the promo code expires.') }}"></i>
                                 </label>
-                                <input type="date" class="form-control" name="end_date" id="end_date" value="">
+                                <input type="text" class="form-control mq-single-datepicker" name="end_date" id="end_date" value="" placeholder="YYYY-MM-DD" autocomplete="off">
                             </div>
 
                             <div class="col-md-6 mb-3">
@@ -228,7 +228,7 @@
                                         {{ labels('admin_labels.select', 'Select') }}
                                     </option>
                                     <option value="1">{{ labels('admin_labels.active_users', 'Active') }}</option>
-                                    <option value="0">{{ labels('admin_labels.deactive_users', 'Deactive') }}</option>
+                                    <option value="0">{{ labels('admin_labels.deactive_users', 'Inactive') }}</option>
                                 </select>
                             </div>
                         </div>

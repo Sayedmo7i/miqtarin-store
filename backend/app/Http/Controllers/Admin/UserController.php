@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
@@ -38,10 +39,25 @@ class UserController extends Controller
         return view('delivery_boy/pages/forms/login');
     }
 
+    private function preserveLocaleAfterLogout(Request $request, ?string $locale, ?int $isRtl): void
+    {
+        if (!empty($locale)) {
+            $resolvedRtl = $isRtl !== null ? $isRtl : (in_array($locale, ['ar', 'he', 'fa', 'ur'], true) ? 1 : 0);
+            $request->session()->put('locale', $locale);
+            $request->session()->put('is_rtl', $resolvedRtl);
+            Cookie::queue('mq_locale', $locale, 60 * 24 * 30);
+            Cookie::queue('mq_is_rtl', (string) $resolvedRtl, 60 * 24 * 30);
+        }
+    }
+
     public function logout(Request $request)
     {
+        $locale = session('locale') ?: $request->cookie('mq_locale');
+        $isRtl = session()->has('is_rtl') ? (int) session('is_rtl') : ($request->cookie('mq_is_rtl') !== null ? (int) $request->cookie('mq_is_rtl') : null);
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $this->preserveLocaleAfterLogout($request, $locale, $isRtl);
 
         return redirect('/admin/login')->withHeaders([
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
@@ -52,8 +68,12 @@ class UserController extends Controller
 
     public function seller_logout(Request $request)
     {
+        $locale = session('locale') ?: $request->cookie('mq_locale');
+        $isRtl = session()->has('is_rtl') ? (int) session('is_rtl') : ($request->cookie('mq_is_rtl') !== null ? (int) $request->cookie('mq_is_rtl') : null);
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $this->preserveLocaleAfterLogout($request, $locale, $isRtl);
 
         return redirect('/seller/login')->withHeaders([
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
@@ -63,8 +83,12 @@ class UserController extends Controller
     }
     public function delivery_boy_logout(Request $request)
     {
+        $locale = session('locale') ?: $request->cookie('mq_locale');
+        $isRtl = session()->has('is_rtl') ? (int) session('is_rtl') : ($request->cookie('mq_is_rtl') !== null ? (int) $request->cookie('mq_is_rtl') : null);
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $this->preserveLocaleAfterLogout($request, $locale, $isRtl);
 
         return redirect('/delivery_boy/login')->withHeaders([
             'Cache-Control' => 'no-cache, no-store, must-revalidate',
@@ -111,12 +135,14 @@ class UserController extends Controller
             if ($user) {
                 if ($user->role->name == 'delivery_boy') {
                     if ($user->status != 1) {
+                        Auth::logout();
                         return response()->json([
                             'errors' => [
                                 'status' => ['Your account is not active. Please contact super admin.']
                             ]
                         ], 422);
                     }
+                    $request->session()->regenerate();
                     return response()->json([
                         'message' => 'Login successful',
                         'location' => '/delivery_boy/home'
@@ -127,6 +153,7 @@ class UserController extends Controller
                     $affiliate = $user->affiliateUser;
 
                     if (!$affiliate) {
+                        Auth::logout();
                         return response()->json([
                             'errors' => [
                                 'status' => ['Affiliate account not found. Please contact support.']
@@ -135,6 +162,7 @@ class UserController extends Controller
                     }
 
                     if ($affiliate->status == 2) {
+                        Auth::logout();
                         return response()->json([
                             'errors' => [
                                 'status' => ['Your affiliate account is pending approval.']
@@ -143,6 +171,7 @@ class UserController extends Controller
                     }
 
                     if ($affiliate->status == 0) {
+                        Auth::logout();
                         return response()->json([
                             'errors' => [
                                 'status' => ['Your affiliate account has been rejected.']
@@ -150,6 +179,7 @@ class UserController extends Controller
                         ], 422);
                     }
 
+                    $request->session()->regenerate();
                     return response()->json([
                         'message' => 'Login successful',
                         'location' => '/affiliate/home'
@@ -157,6 +187,7 @@ class UserController extends Controller
                 }
 
                 if ($user->role->name == 'seller') {
+                    $request->session()->regenerate();
                     return response()->json([
                         'message' => 'Login successful',
                         'location' => '/seller/home'
@@ -164,18 +195,21 @@ class UserController extends Controller
                 }
 
                 if (in_array($user->role->name, ['super_admin', 'admin', 'editor'])) {
+                    $request->session()->regenerate();
                     return response()->json([
                         'message' => 'Login successful',
                         'location' => '/admin/home'
                     ]);
                 }
 
+                Auth::logout();
                 return response()->json([
                     'errors' => [
                         'role' => ['You do not have access to this panel']
                     ]
                 ], 422);
             } else {
+                Auth::logout();
                 return response()->json([
                     'errors' => [
                         'account' => ['Your account is not activated yet. Please wait for activation.']
@@ -526,7 +560,7 @@ class UserController extends Controller
                 'operate' => $action,
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($row->active == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $row->id . '" data-url="/admin/customers/update_status/' . $row->id . '" aria-label="">
                   <option value="1" ' . ($row->active == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                  <option value="0" ' . ($row->active == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                  <option value="0" ' . ($row->active == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
               </select>',
 
             ];

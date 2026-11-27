@@ -70,17 +70,17 @@
                                         <div class="media-image-box">
                                             <a href="{{ $imagePath }}" data-lightbox="image-{{ $row->id }}">
                                                 <img src="{{ route('admin.dynamic_image', ['url' => $imagePath, 'width' => 120, 'quality' => 90]) }}"
-                                                    alt="Avatar" class="rounded">
+                                                    alt="{{ labels('admin_labels.image_preview', 'Image preview') }}" class="rounded">
                                             </a>
                                         </div>
                                         <div class="media-title">
                                             <h6>{{ Str::limit($row->name, 22, '...') }}</h6>
                                         </div>
                                         <div class="media-details d-flex justify-content-between">
-                                            <p class="text-muted">{{ $row->size }} KB</p>
+                                            <p class="text-muted">{{ app(\App\Services\MediaService::class)->formatSize($row->size) }}</p>
                                             <div class="d-flex">
                                                 <a class="delete-media me-1 delete-data" data-url="{{ $delete_url }}"><i class='bx bx-trash'></i></a>
-                                                <span class="path d-none">{{ config('app.url').'storage'.$row->sub_directory.'/'.$row->file_name }}</span>
+                                                <span class="path d-none">{{ asset('storage/' . ltrim($row->sub_directory . '/' . $row->file_name, '/')) }}</span>
                                                 <a class="copy-to-clipboard me-1"><i class='bx bx-copy-alt'></i></a>
                                                 <span class="relative-path d-none">{{ $row->sub_directory.'/'.$row->file_name }}</span>
                                                 <a class="copy-relative-path"><i class='bx bx-images'></i></a>

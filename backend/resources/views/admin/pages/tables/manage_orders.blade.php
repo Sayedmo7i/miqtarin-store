@@ -20,25 +20,22 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12 col mb-6">
+            <div class="row g-3">
+                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12">
                     <div class="info-box align-items-center">
                         <div class="primary-icon">
-                            <img src="{{ asset('storage/dashboard_icon/dashboard_overview.svg') }}" class="dashboard-icon"
-                                alt="">
+                            <i class="bx bx-receipt fs-3"></i>
                         </div>
                         <div class="content">
-                            <p class="body-default">{{ labels('admin_labels.received', 'Received') }}
-                            </p>
+                            <p class="body-default">{{ labels('admin_labels.received', 'Received') }}</p>
                             <h5>{{ app(OrderService::class)->ordersCount('received', '', '', $store_id) }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12 col mb-6">
+                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12">
                     <div class="info-box align-items-center">
-                        <div class="success-icon">
-                            <img src="{{ asset('storage/dashboard_icon/processed.svg') }}" class="dashboard-icon"
-                                alt="">
+                        <div class="warning-icon">
+                            <i class="bx bx-cog fs-3"></i>
                         </div>
                         <div class="content">
                             <p class="body-default">{{ labels('admin_labels.processed', 'Processed') }}</p>
@@ -46,11 +43,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12 col mb-6">
+                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12">
                     <div class="info-box align-items-center">
-                        <div class="danger-icon">
-                            <img src="{{ asset('storage/dashboard_icon/shipped.svg') }}" class="dashboard-icon"
-                                alt="">
+                        <div class="info-icon">
+                            <i class="bx bx-package fs-3"></i>
                         </div>
                         <div class="content">
                             <p class="body-default">{{ labels('admin_labels.shipped', 'Shipped') }}</p>
@@ -58,11 +54,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12 col">
+                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12">
                     <div class="info-box align-items-center">
-                        <div class="warning-icon">
-                            <img src="{{ asset('storage/dashboard_icon/delivered.svg') }}" class="dashboard-icon"
-                                alt="">
+                        <div class="success-icon">
+                            <i class="bx bx-check-circle fs-3"></i>
                         </div>
                         <div class="content">
                             <p class="body-default">{{ labels('admin_labels.delivered', 'Delivered') }}</p>
@@ -70,11 +65,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12 col">
+                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12">
                     <div class="info-box align-items-center">
-                        <div class="info-icon">
-                            <img src="{{ asset('storage/dashboard_icon/cancelled.svg') }}" class="dashboard-icon"
-                                alt="">
+                        <div class="danger-icon">
+                            <i class="bx bx-x-circle fs-3"></i>
                         </div>
                         <div class="content">
                             <p class="body-default">{{ labels('admin_labels.cancelled', 'Cancelled') }}</p>
@@ -82,11 +76,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12 col">
+                <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12">
                     <div class="info-box align-items-center">
                         <div class="pink-icon">
-                            <img src="{{ asset('storage/dashboard_icon/returned.svg') }}" class="dashboard-icon"
-                                alt="">
+                            <i class="bx bx-undo fs-3"></i>
                         </div>
                         <div class="content">
                             <p class="body-default">{{ labels('admin_labels.returned', 'Returned') }}</p>
@@ -161,7 +154,7 @@
                                 <div class="col-md-12">
                                     <div class="pt-0">
                                         <div class="table-responsive">
-                                            <table class='table' id="admin_order_tracking_table" data-toggle="table"
+                                            <table class='table' id="admin_order_tracking_table" data-lazy-table="true"
                                                 data-loading-template="loadingTemplate"
                                                 data-url="{{ route('admin.orders.get_order_tracking') }}"
                                                 data-click-to-select="true" data-side-pagination="server"
@@ -271,19 +264,19 @@
                 <div class="col-md-12">
                     <div class="row">
 
-                        <div class="col-md-12 d-flex justify-content-end ">
-                            <a href="#" class="btn btn-dark me-3 add_promo_code_discount"
+                        <div class="col-md-12 d-flex justify-content-end align-items-center gap-2 flex-wrap">
+                            <a href="#" class="btn btn-outline-primary text-nowrap add_promo_code_discount"
                                 title="{{ labels('admin_labels.promo_code_discount_cron_tooltip', 'If you found Promo Code Discount not crediting using cron job you can update Promo Code Discount from here!') }}">{{ labels('admin_labels.settle_promo_code_discount', 'Settle Promo Code Discount') }}</a>
-                            <div class="input-group me-2 search-input-grp ">
+                            <div class="input-group search-input-grp">
                                 <span class="search-icon"><i class='bx bx-search-alt'></i></span>
                                 <input type="text" data-table="admin_order_table" class="form-control searchInput"
                                     placeholder="{{ labels('admin_labels.search', 'Search') }}">
                                 <span class="input-group-text">{{ labels('admin_labels.search', 'Search') }}</span>
                             </div>
-                            <a class="btn me-2" id="tableFilter" data-bs-toggle="offcanvas"
+                            <a class="btn" id="tableFilter" data-bs-toggle="offcanvas"
                                 data-bs-target="#columnFilterOffcanvas" data-table="admin_order_table" dateFilter='true'
                                 paymentMethodFilter='true' orderTypeFilter='true'><i class='bx bx-filter-alt'></i></a>
-                            <a class="btn me-2" id="tableRefresh" data-table="admin_order_table"><i
+                            <a class="btn" id="tableRefresh" data-table="admin_order_table"><i
                                     class='bx bx-refresh'></i></a>
                             <div class="dropdown">
                                 <a class="btn dropdown-toggle export-btn" type="button" id="exportOptionsDropdown"
@@ -337,7 +330,7 @@
                                                 <th data-field="mobile" data-sortable='false' data-visible='false'>
                                                     {{ labels('admin_labels.mobile', 'Mobile') }}
                                                 </th>
-                                                <th data-field="notes" data-sortable='false' data-visible='true'>
+                                                <th data-field="notes" data-sortable='false' data-visible='false'>
                                                     {{ labels('admin_labels.order_notes', 'Order Notes') }}
                                                 </th>
                                                 <th data-field="items" data-sortable='false' data-visible="false">
@@ -351,13 +344,13 @@
                                                     {{ labels('admin_labels.delivery_charge', 'Delivery Charge') }}
                                                 </th>
                                                 <th data-field="wallet_balance" data-sortable='false'
-                                                    data-visible="true">
+                                                    data-visible="false">
                                                     {{ labels('admin_labels.wallet_used', 'Wallet Used') }}(<?= $currency ?>)
                                                 </th>
                                                 <th data-field="promo_code" data-sortable='false' data-visible="false">
                                                     {{ labels('admin_labels.promo_codes', 'Promo Code') }}
                                                 </th>
-                                                <th data-field="promo_discount" data-sortable='false'data-visible="true">
+                                                <th data-field="promo_discount" data-sortable='false' data-visible="false">
                                                     {{ labels('admin_labels.promo_dicsount', 'Promo Discount') }}(<?= $currency ?>)
                                                 </th>
                                                 <th data-field="final_total" data-sortable='false'>
@@ -377,6 +370,10 @@
                                                 <th data-field="delivery_time" data-sortable='false'
                                                     data-visible='false'>
                                                     {{ labels('admin_labels.delivery_time', 'Delivery Time') }}
+                                                </th>
+                                                <th data-field="active_status" data-sortable='false'
+                                                    data-visible='true'>
+                                                    {{ labels('admin_labels.status', 'Status') }}
                                                 </th>
                                                 <th data-field="date_added" data-sortable='false'>
                                                     {{ labels('admin_labels.order_date', 'Order Date') }}

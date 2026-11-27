@@ -43,13 +43,13 @@
   Lightbox.defaults = {
     albumLabel: 'Image %1 of %2',
     alwaysShowNavOnTouchDevices: false,
-    fadeDuration: 600,
+    fadeDuration: 120,
     fitImagesInViewport: true,
-    imageFadeDuration: 600,
+    imageFadeDuration: 120,
     // maxWidth: 800,
     // maxHeight: 600,
     positionFromTop: 50,
-    resizeDuration: 700,
+    resizeDuration: 120,
     showImageNumberLabel: true,
     wrapAround: false,
     disableScrolling: false,
@@ -79,13 +79,23 @@
       self.enable();
       self.build();
     });
+    document.addEventListener('livewire:navigated', function() {
+      if ($('#lightbox').length === 0) {
+        self.build();
+      }
+    });
+    document.addEventListener('livewire:navigating', function() {
+      if ($('#lightbox').is(':visible')) {
+        self.end();
+      }
+    });
   };
 
   // Loop through anchors and areamaps looking for either data-lightbox attributes or rel attributes
   // that contain 'lightbox'. When these are clicked, start lightbox.
   Lightbox.prototype.enable = function() {
     var self = this;
-    $('body').on('click', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]', function(event) {
+    $(document).off('click.lightbox', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]').on('click.lightbox', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]', function(event) {
       self.start($(event.currentTarget));
       return false;
     });
@@ -207,6 +217,9 @@
 
   // Show overlay and lightbox. If the image is part of a set, add siblings to album array.
   Lightbox.prototype.start = function($link) {
+    if ($('#lightbox').length === 0) {
+      this.build();
+    }
     var self    = this;
     var $window = $(window);
 
@@ -279,15 +292,18 @@
     // Disable keyboard nav during transitions
     this.disableKeyboardNav();
 
-    // Show loading state
     this.$overlay.fadeIn(this.options.fadeDuration);
-    $('.lb-loader').fadeIn('slow');
-    this.$lightbox.find('.lb-image, .lb-nav, .lb-prev, .lb-next, .lb-dataContainer, .lb-numbers, .lb-caption').hide();
+    this.$lightbox.find('.lb-nav, .lb-prev, .lb-next, .lb-dataContainer, .lb-numbers, .lb-caption').hide();
     this.$outerContainer.addClass('animating');
 
-    // When image to show is preloaded, we send the width and height to sizeContainer()
     var preloader = new Image();
-    preloader.onload = function() {
+    var handled = false;
+    var onLoaded = function() {
+      if (handled) {
+        return;
+      }
+      handled = true;
+
       var $preloader;
       var imageHeight;
       var imageWidth;
@@ -357,8 +373,15 @@
       self.sizeContainer($image.width(), $image.height());
     };
 
-    // Preload image before showing
+    preloader.onload = onLoaded;
     preloader.src = this.album[imageNumber].link;
+    if (preloader.complete && preloader.naturalWidth > 0) {
+      this.$lightbox.find('.lb-loader').stop(true).hide();
+      onLoaded();
+    } else {
+      $image.hide();
+      this.$lightbox.find('.lb-loader').show();
+    }
     this.currentImageIndex = imageNumber;
   };
 
@@ -402,7 +425,7 @@
     }
 
     if (oldWidth !== newWidth || oldHeight !== newHeight) {
-      this.$outerContainer.animate({
+      this.$outerContainer.stop(true).animate({
         width: newWidth,
         height: newHeight
       }, this.options.resizeDuration, 'swing', function() {
@@ -416,7 +439,7 @@
   // Display the image and its details and begin preload neighboring images.
   Lightbox.prototype.showImage = function() {
     this.$lightbox.find('.lb-loader').stop(true).hide();
-    this.$lightbox.find('.lb-image').fadeIn(this.options.imageFadeDuration);
+    this.$lightbox.find('.lb-image').stop(true, true).fadeIn(this.options.imageFadeDuration);
 
     this.updateNav();
     this.updateDetails();

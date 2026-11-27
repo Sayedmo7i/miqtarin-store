@@ -95,7 +95,7 @@
                             placeholder="{{ labels('admin_labels.placeholder_measurementid', 'measurementId') }}" />
                     </div>
                     <hr>
-                    <p class="text-danger">"{{ labels('admin_labels.google_facebook_credentials_note', 'If you have web application than field below Google and Facebook Credentials') }}"
+                    <p class="text-danger">{{ labels('admin_labels.google_facebook_credentials_note', 'If you have a web application, then fill in the Google and Facebook credentials below.') }}
                     </p>
                     <div class="form-group col-md-6">
                         <label class="form-label mb-3 mt-3"

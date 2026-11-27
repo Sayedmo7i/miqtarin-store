@@ -1,7 +1,7 @@
 /**
  * Initialize intl-tel-input for login page
  */
-let loginIti = null;
+var loginIti = window.loginIti || null;
 
 function initLoginPhone() {
     const input = document.querySelector("#mobile");

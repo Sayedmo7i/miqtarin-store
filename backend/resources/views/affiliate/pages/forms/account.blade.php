@@ -109,7 +109,7 @@
                                     class="form-control-label mb-2">{{ labels('admin_labels.confirm_password', 'Confirm Password') }}</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control show_profile_password"
-                                        name="new_password_confirmation" placeholder="Confirm Your Password">
+                                        name="new_password_confirmation" placeholder="{{ labels('admin_labels.confirm_your_password_placeholder', 'Confirm Your Password') }}">
                                     <span class="input-group-text cursor-pointer toggle_profile_password"><i
                                             class="bx bx-hide"></i></span>
                                 </div>

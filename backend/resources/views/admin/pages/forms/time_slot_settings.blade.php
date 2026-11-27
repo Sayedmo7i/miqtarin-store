@@ -181,7 +181,7 @@
                                         {{ labels('admin_labels.active_users', 'Active') }}</option>
                                     <option value="0"
                                         <?= isset($fetched_data[0]['status']) && $fetched_data[0]['status'] == 0 ? 'selected' : '' ?>>
-                                        {{ labels('admin_labels.deactive_users', 'Deactive') }}</option>
+                                        {{ labels('admin_labels.deactive_users', 'Inactive') }}</option>
                                 </select>
 
                             </div>

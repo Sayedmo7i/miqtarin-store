@@ -55,7 +55,7 @@
                                                         data-bs-toggle="tab" data-bs-target="#content-{{ $lang->code }}"
                                                         type="button" role="tab"
                                                         aria-controls="content-{{ $lang->code }}" aria-selected="false">
-                                                        {{ $lang->language }}
+                                                        {{ $lang->native_language ?: $lang->language }}
                                                     </button>
                                                 </li>
                                             @endif
@@ -66,14 +66,14 @@
                                     <div class="tab-content mt-3" id="brandTabsContent">
                                         <!-- Default 'en' tab content -->
                                         <div class="tab-pane fade show active" id="content-en" role="tabpanel"
-                                            aria-labelledby="tab-en">
+                                            aria-labelledby="tab-en" dir="ltr">
                                             <div class="mb-3">
                                                 <label for="name" class="form-label">
                                                     {{ labels('admin_labels.name', 'Name') }}
                                                     <span class="text-asterisks text-sm">*</span>
                                                 </label>
                                                 <input type="text" name="name" class="form-control"
-                                                    placeholder="{{ labels('admin_labels.fashion_placeholder', 'Fashion') }}" value="">
+                                                    placeholder="{{ labels('admin_labels.category_name_placeholder', 'e.g. Electronics') }}" value="">
                                             </div>
                                         </div>
 
@@ -83,10 +83,10 @@
 
                                     </div>
                                     <div class="mb-3 col-md-12">
-                                        <label class="form-label" for="basic-default-fullname">
+                                        <label class="form-label" for="parent_id">
                                             {{ labels('admin_labels.select_catgeory_for_sub_categories', 'Select Category for subCategory') }}
                                         </label>
-                                        <select id="" name="parent_id" class="form-select">
+                                        <select id="parent_id" name="parent_id" class="form-select">
                                             <option value="">
                                                 {{ labels('admin_labels.select_category', 'Select Category') }}
                                             </option>
@@ -116,8 +116,7 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#media-upload-modal"
                                                                     value="Upload Photo">
-                                                                    <h4><i class='bx bx-upload'></i> Upload
-                                                                    </h4>
+                                                                    <h4><i class='bx bx-upload'></i> {{ labels('admin_labels.upload_option', 'Upload') }}</h4>
                                                                 </a>
 
                                                             </div>
@@ -139,12 +138,11 @@
                                             {{ labels('admin_labels.banner', 'Banner') }}
                                             <span class='text-asterisks text-sm'>*</span>
                                         </label>
-                                        </label>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="col-md-6 file_upload_box border file_upload_border mt-2">
                                                     <div class="mt-2">
-                                                        <div class="col-md-12  text-center">
+                                                        <div class="col-md-12 text-center">
                                                             <div>
                                                                 <a class="media_link" data-input="banner"
                                                                     data-isremovable="0"
@@ -152,8 +150,8 @@
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#media-upload-modal"
                                                                     value="Upload Photo">
-                                                                    <h4><i class='bx bx-upload'></i> Upload
-                                                                </a></h4>
+                                                                    <h4><i class='bx bx-upload'></i> {{ labels('admin_labels.upload_option', 'Upload') }}</h4>
+                                                                </a>
 
                                                             </div>
 

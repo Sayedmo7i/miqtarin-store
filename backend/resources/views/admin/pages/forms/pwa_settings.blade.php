@@ -26,7 +26,7 @@
                         </label>
                         <input type="text" class="form-control" name="name"
                             value="<?= isset($pwa_settings['name']) ? $pwa_settings['name'] : '' ?>"
-                            placeholder="Eshop Plus" />
+                            placeholder="MUQTARIN Store" />
                     </div>
                     <div class="form-group col-md-6">
                         <label class="form-label mb-3 mt-3"
@@ -35,7 +35,7 @@
                         </label>
                         <input type="text" class="form-control" name="short_name"
                             value="<?= isset($pwa_settings['short_name']) ? $pwa_settings['short_name'] : '' ?>"
-                            placeholder="Eshop Plus" />
+                            placeholder="MUQTARIN" />
                     </div>
                 </div>
                 <div class="row">
@@ -112,7 +112,7 @@
                                             <div class=''>
                                                 <div class='upload-media-div'><img class="img-fluid mb-2"
                                                         src="{{ asset('storage' . $pwa_settings['logo']) }}"
-                                                        alt="{{ labels('admin_labels.not_found_alt', 'Not Found') }}"></div>
+                                                        alt="{{ labels('admin_labels.not_found_alt', 'Image preview') }}"></div>
                                                 <input type="hidden" name="logo" id='logo'
                                                     value='<?= $pwa_settings['logo'] ?>'>
                                             </div>

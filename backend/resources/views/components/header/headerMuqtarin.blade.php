@@ -30,12 +30,12 @@
         <div class="mq-container mq-top-strip-inner">
             <div class="d-flex align-items-center gap-2">
                 <ion-icon wire:ignore name="call-outline"></ion-icon>
-                <a href="tel:{{ $settings->support_number }}">{{ $settings->support_number }}</a>
+                <a dir="ltr" href="tel:{{ $settings->support_number }}">{{ $settings->support_number }}</a>
             </div>
             @if (!empty($settings->app_short_description))
                 <div class="mq-top-strip-promo d-none d-md-inline-flex">
                     <i class="bx bxs-sparkles"></i>
-                    <span>{{ $settings->app_short_description }}</span>
+                    <span>{{ $language_code === 'ar' ? labels('front_messages.site_short_description', $settings->app_short_description) : $settings->app_short_description }}</span>
                 </div>
             @endif
             <div class="mq-top-strip-controls">
@@ -112,19 +112,20 @@
     <header wire:ignore.self class="header mq-header {{ $home_theme === 'web_home_page_theme_muqtarin_glass' ? 'mq-header-glass' : '' }} d-flex align-items-center header-fixed">
         <div id="app_url" data-app-url="{{ route('home') }}"></div>
         @php
-            $img =
-                !empty($store_details[0]->half_store_logo) &&
-                file_exists(public_path(config('constants.STORE_IMG_PATH') . $store_details[0]->half_store_logo))
-                    ? app(MediaService::class)->getImageUrl(
-                        $store_details[0]->half_store_logo,
-                        '',
-                        '',
-                        'image',
-                        'STORE_IMG_PATH',
-                    )
-                    : app(MediaService::class)->getImageUrl($settings->logo);
+            $halfStoreLogoUrl = !empty($store_details[0]->half_store_logo)
+                ? app(MediaService::class)->getMediaImageUrl($store_details[0]->half_store_logo, 'STORE_IMG_PATH')
+                : '';
+            $noImageUrl = asset(config('constants.NO_IMAGE'));
+            $img = (!empty($halfStoreLogoUrl) && $halfStoreLogoUrl !== $noImageUrl)
+                ? $halfStoreLogoUrl
+                : app(MediaService::class)->getMediaImageUrl($settings->logo);
             $img = app(MediaService::class)->dynamic_image($img, 150);
-            $store_display_name = !empty($store_details[0]->name) ? $store_details[0]->name : ($settings->site_title ?? 'MUQTARIN Store');
+            $store_display_name = !empty($store_details[0]->id)
+                ? app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $store_details[0]->id, $language_code)
+                : ($settings->site_title ?? 'MUQTARIN Store');
+            if (empty($store_display_name)) {
+                $store_display_name = $settings->site_title ?? 'MUQTARIN Store';
+            }
         @endphp
         <div class="mq-container mq-header-row">
             <div class="logo align-self-center">
@@ -304,7 +305,7 @@
                         <li class="title h5">{{ labels('front_messages.need_help', 'Need Help?') }}</li>
                         <li><a href="tel:{{ $settings->support_number }}" class="d-flex align-items-center"><ion-icon
                                     name="call-outline" class="me-1"></ion-icon>
-                                {{ $settings->support_number }}</a></li>
+                                <span dir="ltr">{{ $settings->support_number }}</span></a></li>
                         <li><a href="mailto:{{ $settings->support_email }}" class="d-flex align-items-center"><ion-icon
                                     name="mail-outline" class="me-1"></ion-icon> {{ $settings->support_email }}</a>
                         </li>

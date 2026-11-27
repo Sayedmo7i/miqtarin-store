@@ -563,7 +563,7 @@
                                             {{ labels('front_messages.cancel_till', 'Cancel Till') }}</h5>
                                         @if ($product_details->is_cancelable == 1)
                                             <p class="text text-muted text-small">
-                                                {{ $product_details->cancelable_till }}</p>
+                                                {{ labels('front_messages.' . strtolower(trim($product_details->cancelable_till)), ucfirst(str_replace('_', ' ', $product_details->cancelable_till))) }}</p>
                                         @else
                                             <p class="text text-muted text-small">
                                                 {{ labels('front_messages.non_cancelable', 'Non Cancelable') }}</p>
@@ -662,8 +662,8 @@
                 @php
                     $system_settings = app(\App\Services\SettingService::class)->getSettings('system_settings', true);
                     $system_settings = json_decode($system_settings, true);
-                    $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'eshop');
-                    $host = $system_settings['deep_link_host'] ?? 'eshop-pro.eshopweb.store';
+                    $scheme = str_replace('://', '', $system_settings['deep_link_scheme'] ?? 'muqtarin');
+                    $host = $system_settings['deep_link_host'] ?? 'muqtarin.store';
                     $store_slug = session('store_slug') ?? ($product_details->store_slug ?? '');
                     $deepLinkUrl =
                         $scheme .

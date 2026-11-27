@@ -161,7 +161,7 @@
                                                             <label for="translated_title_{{ $lang->code }}"
                                                                 class="form-label">
                                                                 {{ labels('admin_labels.name', 'Name') }}
-                                                                ({{ $lang->language }})
+                                                                ({{ $lang->native_language ?: $lang->language }})
                                                             </label>
                                                             <input type="text" class="form-control"
                                                                 id="translated_title_{{ $lang->code }}"
@@ -172,7 +172,7 @@
                                                             <label for="translated_short_description_{{ $lang->code }}"
                                                                 class="form-label">
                                                                 {{ labels('admin_labels.description', 'Description') }}
-                                                                ({{ $lang->language }})
+                                                                ({{ $lang->native_language ?: $lang->language }})
                                                             </label>
                                                             <input type="text" class="form-control"
                                                                 id="translated_short_description_{{ $lang->code }}"
@@ -634,7 +634,7 @@
                                                         type="button" role="tab"
                                                         aria-controls="content-{{ $lang->code }}"
                                                         aria-selected="false">
-                                                        {{ $lang->language }}
+                                                        {{ $lang->native_language ?: $lang->language }}
                                                     </button>
                                                 </li>
                                             @endif
@@ -646,10 +646,10 @@
                                             role="tabpanel" aria-labelledby="tab-en">
                                             <div class="mb-3">
                                                 <label class="form-label"
-                                                    for="basic-default-fullname">{{ labels('admin_labels.categories_section_title', 'Categories Section Title') }}<span
+                                                    for="category_section_title">{{ labels('admin_labels.categories_section_title', 'Categories Section Title') }}<span
                                                         class='text-asterisks text-sm'>*</span></label>
                                                 <input type="text" class="form-control"
-                                                    id="basic-default-fullname"
+                                                    id="category_section_title"
                                                     placeholder="{{ labels('admin_labels.shop_by_categories_placeholder', 'Shop By Categories') }}"
                                                     name="category_section_title">
                                             </div>
@@ -665,7 +665,7 @@
                                                             for="translated_categories_section_title_{{ $lang->code }}"
                                                             class="form-label">
                                                             {{ labels('admin_labels.categories_section_title', 'Categories Section Title') }}
-                                                            ({{ $lang->language }})
+                                                            ({{ $lang->native_language ?: $lang->language }})
                                                         </label>
                                                         <input type="text" class="form-control"
                                                             name="translated_categories_section_title[{{ $lang->code }}]">
@@ -1017,7 +1017,7 @@
 
                                             <div class="row g-3 mt-1">
                                                 <div class="col-md-6 d-none" id="delivery_charge_amount_field">
-                                                    <label class="form-label" for="basic-default-fullname">
+                                                    <label class="form-label" for="delivery_charge_amount">
                                                         {{ labels('admin_labels.delivery_charge', 'Delivery Charge') }}
                                                         <span class='text-asterisks text-sm'>*</span>
                                                         <i class="fa fa-info-circle text-secondary ms-1"
@@ -1025,11 +1025,11 @@
                                                             data-bs-content="{{ labels('admin_labels.popover_delivery_charge_amount', 'Enter the delivery charge amount.') }}"></i>
                                                     </label>
                                                     <input type="number" min=0 class="form-control"
-                                                        id="basic-default-fullname" placeholder=""
+                                                        id="delivery_charge_amount" placeholder=""
                                                         name="delivery_charge_amount" value="">
                                                 </div>
                                                 <div class="col-md-6 d-none" id="minimum_free_delivery_amount_field">
-                                                    <label class="form-label" for="basic-default-fullname">
+                                                    <label class="form-label" for="minimum_free_delivery_amount">
                                                         {{ labels('admin_labels.minimum_free_delivery_amount', 'Minimum Amount for Free Delivery') }}
                                                         <span class='text-asterisks text-sm'>*</span>
                                                         <i class="fa fa-info-circle text-secondary ms-1"
@@ -1037,7 +1037,7 @@
                                                             data-bs-content="{{ labels('admin_labels.popover_minimum_free_delivery_amount', 'Set the minimum order amount for free delivery.') }}"></i>
                                                     </label>
                                                     <input type="number" min=0 class="form-control"
-                                                        id="basic-default-fullname" placeholder=""
+                                                        id="minimum_free_delivery_amount" placeholder=""
                                                         name="minimum_free_delivery_amount" value="">
                                                 </div>
                                             </div>

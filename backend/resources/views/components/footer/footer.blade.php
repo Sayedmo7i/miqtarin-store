@@ -59,7 +59,7 @@
                         {{ $settings->address }}</p>
                     <p class="phone d-flex align-items-center"><ion-icon class="fs-5 me-2"
                             name="call-outline"></ion-icon></i> <b
-                            class="me-1 d-none">{{ labels('front_messages.phone', 'Phone') }}:</b> <a
+                            class="me-1 d-none">{{ labels('front_messages.phone', 'Phone') }}:</b> <a dir="ltr"
                             href="tel:{{ $settings->support_number }}">{{ $settings->support_number }}</a></p>
                     <p class="email d-flex align-items-center"><ion-icon class="fs-5 me-2"
                             name="mail-outline"></ion-icon></i> <b
@@ -128,8 +128,7 @@
                     <li><i class="icon anm anm-cc-paypal"></i></li>
                     <li><i class="icon anm anm-cc-stripe"></i></li>
                 </ul>
-                <div class="copytext text"> {!! preg_replace('/\b\d{4}\b/', date('Y'), $settings->copyright_details) !!}
-                </div>
+                <div class="copytext text">{!! $settings->copyright_details !!}</div>
             </div>
         </div>
     </div>

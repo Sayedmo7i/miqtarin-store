@@ -431,7 +431,7 @@ class StoreController extends Controller
                           <input class="form-check-input" type="checkbox" role="switch"></a>',
                 'image' => '<div>
                                 <a href="' . app(MediaService::class)->getMediaImageUrl($s->image, 'STORE_IMG_PATH') . '" data-lightbox="image-' . $s->id . '">
-                                    <img src="' . $image_src . '" alt="Avatar" class="rounded" />
+                                    <img src="' . $image_src . '" alt="' . e(labels('admin_labels.image_preview', 'Image preview')) . '" class="rounded" />
                                 </a>
                             </div>',
                 'banner' => '<div>
@@ -441,7 +441,7 @@ class StoreController extends Controller
                             </div>',
                 'status' => '<select class="form-select status_dropdown change_toggle_status ' . ($s->status == 1 ? 'active_status' : 'inactive_status') . '" data-id="' . $s->id . '" data-url="/admin/store/update_status/' . $s->id . '" aria-label="">
                       <option value="1" ' . ($s->status == 1 ? 'selected' : '') . '>' . labels('admin_labels.active', 'Active') . '</option>
-                      <option value="0" ' . ($s->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Deactive') . '</option>
+                      <option value="0" ' . ($s->status == 0 ? 'selected' : '') . '>' . labels('admin_labels.deactive', 'Inactive') . '</option>
                   </select>',
                 'operate' => $action,
             ];

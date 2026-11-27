@@ -38,17 +38,19 @@ class ReturnRequestController extends Controller
         $order = request()->input('order', 'ASC');
         $search = trim(request()->input('search', ''));
 
-        $query = ReturnRequest::with(['user', 'product', 'orderItem.store'])
+        $query = ReturnRequest::with(['user', 'product', 'orderItem.store', 'orderItem.deliveryBoy'])
             ->whereHas('orderItem')
             ->whereHas('product')
             ->whereHas('user');
 
         if (!empty($search)) {
-            $query->whereHas('user', fn($q) => $q->where('username', 'like', "%$search%"))
-                ->orWhereHas('product', fn($q) => $q->where('name', 'like', "%$search%"))
-                ->orWhereHas('orderItem.store', fn($q) => $q->where('name', 'like', "%$search%"))
-                ->orWhere('id', 'like', "%$search%")
-                ->orWhereHas('orderItem', fn($q) => $q->where('order_id', 'like', "%$search%"));
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('user', fn($uq) => $uq->where('username', 'like', "%$search%"))
+                    ->orWhereHas('product', fn($pq) => $pq->where('name', 'like', "%$search%"))
+                    ->orWhereHas('orderItem.store', fn($sq) => $sq->where('name', 'like', "%$search%"))
+                    ->orWhere('id', 'like', "%$search%")
+                    ->orWhereHas('orderItem', fn($oq) => $oq->where('order_id', 'like', "%$search%"));
+            });
         }
 
         $total = $query->count();
@@ -62,14 +64,13 @@ class ReturnRequestController extends Controller
         $language_code = app(TranslationService::class)->getLanguageCode();
 
         foreach ($returnRequests as $row) {
-           
-            $delivery_boy_name = !empty($row->orderItem) ? $this->getUserName(userId: $row->orderItem->delivery_boy_id) : '';
+            $delivery_boy_name = $row->orderItem?->deliveryBoy?->username ?? '';
             $statusLabels = [
-                '0' => '<span class="badge bg-success">Pending</span>',
-                '1' => '<span class="badge bg-primary">Approved</span>',
-                '2' => '<span class="badge bg-danger">Rejected</span>',
-                '8' => '<span class="badge bg-secondary">Return Pickedup</span>',
-                '3' => '<span class="badge bg-success">Returned</span>',
+                '0' => '<span class="badge bg-success">' . labels('admin_labels.pending', 'Pending') . '</span>',
+                '1' => '<span class="badge bg-primary">' . labels('admin_labels.approved', 'Approved') . '</span>',
+                '2' => '<span class="badge bg-danger">' . labels('admin_labels.rejected', 'Rejected') . '</span>',
+                '8' => '<span class="badge bg-secondary">' . labels('admin_labels.return_pickedup', 'Return Pickedup') . '</span>',
+                '3' => '<span class="badge bg-success">' . labels('admin_labels.returned', 'Returned') . '</span>',
             ];
             // dd($row->orderItem->order_id);
             $rows[] = [
@@ -86,14 +87,14 @@ class ReturnRequestController extends Controller
                     ? app(TranslationService::class)->getDynamicTranslation(Store::class, 'name', $row->orderItem->store->id, $language_code)
                     : '',
                 'price' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal($row->orderItem?->price ?? 0)),
-                'discounted_price' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal($row->orderItem?->discounted_price ?? 0)),
+                'discounted_price' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal(($row->orderItem?->discounted_price ?? 0) > 0 ? $row->orderItem->discounted_price : ($row->orderItem?->price ?? 0))),
                 'quantity' => $row->orderItem?->quantity ?? 0,
                 'sub_total' => app(CurrencyService::class)->formateCurrency(formatePriceDecimal($row->orderItem?->sub_total ?? 0)),
                 'status_digit' => $row->status,
                 'status' => $statusLabels[$row->status] ?? 'N/A',
                 'remarks' => $row->remarks,
                 'operate' => '<div class="d-flex align-items-center">
-                                <a class="dropdown-item single_action_button dropdown_menu_items edit_request edit_return_request data-id="' . (!empty($row->orderItem) ? $row->orderItem->id : '') . '"
+                                <a class="dropdown-item single_action_button dropdown_menu_items edit_request edit_return_request" data-id="' . (!empty($row->orderItem) ? $row->orderItem->id : '') . '"
                                    data-bs-target="#request_request_modal" data-bs-toggle="modal">
                                    <i class="bx bx-pencil mx-2"></i>
                                 </a>

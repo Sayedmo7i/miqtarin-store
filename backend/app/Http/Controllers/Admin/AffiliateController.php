@@ -138,7 +138,7 @@ class AffiliateController extends Controller
                 $statusLabel = 'Not Approved';
                 $badgeClass = 'warning';
             } elseif ($status == 0) {
-                $statusLabel = 'Deactive';
+                $statusLabel = labels('admin_labels.deactive', 'Inactive');
                 $badgeClass = 'danger';
             }
 

@@ -366,7 +366,7 @@
                                         <label class="form-label">{{ labels('admin_labels.status', 'Status') }} <span class="text-danger">*</span></label>
                                         <div class="d-flex gap-4">
                                             @php $status = old('status', $user->affiliateUser->status ?? '') @endphp
-                                            @foreach (['0' => 'Deactive', '1' => 'Approved', '2' => 'Not-Approved'] as $value => $label)
+                                            @foreach (['0' => labels('admin_labels.deactive', 'Inactive'), '1' => labels('admin_labels.approved', 'Approved'), '2' => labels('admin_labels.not_approved', 'Not-Approved')] as $value => $label)
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_{{ $value }}" value="{{ $value }}"
                                                     {{ $status == $value ? 'checked' : '' }}>
