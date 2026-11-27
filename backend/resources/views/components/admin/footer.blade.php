@@ -275,7 +275,7 @@
             $settings = app(SettingService::class)->getSettings('system_settings', true);
             $settings = json_decode($settings, true);
             $app_name =
-                isset($settings['app_name']) && !empty($settings['app_name']) ? $settings['app_name'] : 'Eshop Plus';
+                isset($settings['app_name']) && !empty($settings['app_name']) ? $settings['app_name'] : 'MUQTARIN Store';
         @endphp
 
         <div class="sellerFilter mt-5 d-none">

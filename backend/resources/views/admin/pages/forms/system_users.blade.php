@@ -16,13 +16,13 @@
             id="" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-md-12 col-lg-4">
+                <div class="col-md-12 col-xl-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="mb-3">
                                 {{ labels('admin_labels.manage_system_users', 'Manage System Users') }}
                             </h5>
-                            <div class="card-body row">
+                            <div class="row">
                                 <div class="">
                                     <!-- form start -->
                                     <div class="form-group">
@@ -344,7 +344,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-12 permission-table mt-md-0 mt-sm-2">
+                <div class="col-xl-8 col-md-12 permission-table mt-xl-0 mt-3">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="mb-4">

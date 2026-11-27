@@ -308,7 +308,7 @@
                                         <input type="text" maxlength="16" oninput="validateNumberInput(this)"
                                             class="form-control copied_mobile" name="mobile"
                                             placeholder="{{ labels('panel_labels.enter_your_mobile_number', 'Enter Your Mobile Number') }}"
-                                            value={{ config('constants.ALLOW_MODIFICATION') === 0 ? '9876543210' : '' }}>
+                                            value={{ config('constants.ALLOW_MODIFICATION') === 0 ? '01000000000' : '' }}>
                                     </div>
                                 </div>
                                 <label class="form-label"
@@ -344,7 +344,7 @@
                                         <div class="flex-grow-1">
                                             <div class="d-flex gap-2">
                                                 <p class="data_total_font mb-1">{{ labels('panel_labels.mobile', 'Mobile') }} :</p>
-                                                <p id="mobileInfo" class="mb-1 data_total_font">9876543210</p>
+                                                <p id="mobileInfo" class="mb-1 data_total_font">01000000000</p>
                                             </div>
                                             <div class="d-flex gap-2">
                                                 <p class="data_total_font mb-1">{{ labels('panel_labels.password', 'Password') }} :</p>

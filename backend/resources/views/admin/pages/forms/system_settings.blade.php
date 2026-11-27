@@ -1067,12 +1067,12 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="mb-3 col-lg-4 col-md-6">
+                                        <div class="mb-3 col-12 col-xl-4">
                                             <div class="d-flex align-items-center justify-content-between gap-2">
-                                                <label class="form-label mb-0" for="customer_app_maintenance_status">
+                                                <label class="form-label mb-0 text-nowrap" for="customer_app_maintenance_status">
                                                     {{ labels('admin_labels.customer_app', 'Customer App') }}
                                                 </label>
-                                                <div class="form-check form-switch mb-0">
+                                                <div class="form-check form-switch mb-0 flex-shrink-0">
                                                     <input class="form-check-input" type="checkbox"
                                                         id="customer_app_maintenance_status"
                                                         name="customer_app_maintenance_status"
@@ -1080,12 +1080,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mb-3 col-lg-4 col-md-6">
+                                        <div class="mb-3 col-12 col-xl-4">
                                             <div class="d-flex align-items-center justify-content-between gap-2">
-                                                <label class="form-label mb-0" for="seller_app_maintenance_status">
+                                                <label class="form-label mb-0 text-nowrap" for="seller_app_maintenance_status">
                                                     {{ labels('admin_labels.seller_app', 'Seller App') }}
                                                 </label>
-                                                <div class="form-check form-switch mb-0">
+                                                <div class="form-check form-switch mb-0 flex-shrink-0">
                                                     <input class="form-check-input" type="checkbox"
                                                         id="seller_app_maintenance_status"
                                                         name="seller_app_maintenance_status"
@@ -1094,13 +1094,13 @@
                                             </div>
                                         </div>
 
-                                        <div class="mb-3 col-lg-4 col-md-6">
+                                        <div class="mb-3 col-12 col-xl-4">
                                             <div class="d-flex align-items-center justify-content-between gap-2">
-                                                <label class="form-label mb-0"
+                                                <label class="form-label mb-0 text-nowrap"
                                                     for="delivery_boy_app_maintenance_status">
                                                     {{ labels('admin_labels.delivery_boy_app', 'Delivery boy App') }}
                                                 </label>
-                                                <div class="form-check form-switch mb-0">
+                                                <div class="form-check form-switch mb-0 flex-shrink-0">
                                                     <input class="form-check-input" type="checkbox"
                                                         id="delivery_boy_app_maintenance_status"
                                                         name="delivery_boy_app_maintenance_status"

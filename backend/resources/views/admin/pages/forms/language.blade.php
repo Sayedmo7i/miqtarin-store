@@ -70,43 +70,43 @@
                         <!-- Create New Language Fields -->
                         <div id="create_language_fields" class="language-fields-section">
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6">
+                                <div class="col-12 col-md-6">
                                     <div class="d-flex align-items-center gap-2">
                                         <label class="form-label mb-0" for="language">
                                             {{ labels('admin_labels.language', 'Language') }} <span
                                                 class="text-danger">*</span>
                                         </label>
                                         <i class="fas fa-info-circle text-secondary" data-bs-toggle="popover"
-                                            data-bs-content="{{ labels('admin_labels.display_name_shown_across_app', 'Display name shown across the app (e.g., English, Hindi).') }}"></i>
+                                            data-bs-content="{{ labels('admin_labels.display_name_shown_across_app', 'Display name shown across the app (e.g., English, Arabic).') }}"></i>
                                     </div>
                                     <input type="text" class="form-control" id="language" name="language"
                                         placeholder="{{ labels('admin_labels.english_placeholder', 'English') }}" value="{{ old('language') }}">
                                     <small
-                                        class="text-muted">{{ labels('admin_labels.example_english_hindi', 'Example: English, Hindi') }}</small>
+                                        class="text-muted">{{ labels('admin_labels.example_english_hindi', 'Example: English, Arabic') }}</small>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-12 col-sm-6 col-xl-3">
                                     <div class="d-flex align-items-center gap-2">
                                         <label class="form-label mb-0" for="code">
                                             {{ labels('admin_labels.code', 'Code') }} <span class="text-danger">*</span>
                                         </label>
                                         <i class="fas fa-info-circle text-secondary" data-bs-toggle="popover"
-                                            data-bs-content="{{ labels('admin_labels.two_letter_iso_code', 'Two-letter ISO code used in file names and API calls (e.g., en, hi).') }}"></i>
+                                            data-bs-content="{{ labels('admin_labels.two_letter_iso_code', 'Two-letter ISO code used in file names and API calls (e.g., en, ar).') }}"></i>
                                     </div>
                                     <input type="text" class="form-control" id="code" name="code"
                                         placeholder="{{ labels('admin_labels.en_placeholder', 'en') }}" value="{{ old('code') }}">
                                     <small
                                         class="text-muted">{{ labels('admin_labels.use_iso_code', 'Use ISO code') }}</small>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-12 col-sm-6 col-xl-3">
                                     <div class="d-flex align-items-center gap-2">
                                         <label class="form-label mb-0" for="native_language">
                                             {{ labels('admin_labels.native_language', 'Native Language') }}
                                         </label>
                                         <i class="fas fa-info-circle text-secondary" data-bs-toggle="popover"
-                                            data-bs-content="{{ labels('admin_labels.optional_native_script', 'Optional: native script to help translators (e.g., English / हिन्दी).') }}"></i>
+                                            data-bs-content="{{ labels('admin_labels.optional_native_script', 'Optional: native script to help translators (e.g., English / العربية).') }}"></i>
                                     </div>
                                     <input type="text" class="form-control" id="native_language" name="native_language"
-                                        placeholder="English / हिन्दी" value="{{ old('native_language') }}">
+                                        placeholder="English / العربية" value="{{ old('native_language') }}">
                                 </div>
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check form-switch ms-4 mt-2">
@@ -258,7 +258,7 @@
                         </div>
                     </div>
                     <div class="row g-3">
-                        <div class="col-md-6">
+                        <div class="col-12 col-xl-6">
                             <label for="download_language_code"
                                 class="form-label">{{ labels('admin_labels.select_language', 'Select Language') }}</label>
                             <select name="download_language_code" id="download_language_code" class="form-control">
@@ -270,7 +270,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12 col-xl-6">
                             <label for="download_file_type"
                                 class="form-label">{{ labels('admin_labels.file_type', 'File Type') }}</label>
                             <select name="download_file_type" id="download_file_type" class="form-control form-select">

@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12">
                     <div class="info-box align-items-center">
-                        <div class="success-icon">
+                        <div class="warning-icon">
                             <i class="bx bx-cog fs-3"></i>
                         </div>
                         <div class="content">
@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12">
                     <div class="info-box align-items-center">
-                        <div class="warning-icon">
+                        <div class="success-icon">
                             <i class="bx bx-check-circle fs-3"></i>
                         </div>
                         <div class="content">

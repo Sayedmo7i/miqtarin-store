@@ -7,7 +7,7 @@
 
     <div class="row">
         <!-- Card for Adding Language -->
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">{{ labels('admin_labels.add_language', 'Add Language') }}</h5>
@@ -16,7 +16,7 @@
                         @csrf
                         <div class="col-xl">
                             <div class="row">
-                                <div class="form-group col-md-6 col-xl-4">
+                                <div class="form-group col-12 col-sm-8 col-xl-5">
                                     <div class="mb-3">
                                         <label class="form-label"
                                             for="language">{{ labels('admin_labels.language', 'Language') }}
@@ -29,7 +29,7 @@
                                             placeholder="{{ labels('admin_labels.english_placeholder', 'English') }}" name="language" value="{{ old('language') }}">
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-xl-2">
+                                <div class="form-group col-12 col-sm-4 col-xl-2">
                                     <div class="mb-3">
                                         <label class="form-label"
                                             for="code">{{ labels('admin_labels.code', 'Code') }}
@@ -42,7 +42,7 @@
                                             placeholder="{{ labels('admin_labels.en_placeholder', 'en') }}" name="code" value="{{ old('code') }}">
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-xl-4">
+                                <div class="form-group col-12 col-sm-8 col-xl-3">
                                     <div class="mb-3">
                                         <label class="form-label"
                                             for="native_language">{{ labels('admin_labels.native_language', 'Native Language') }}
@@ -56,7 +56,7 @@
                                             value="{{ old('native_language') }}">
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-xl-2">
+                                <div class="form-group col-12 col-sm-4 col-xl-2">
                                     <label for="is_rtl"
                                         class="col-form-label">{{ labels('admin_labels.is_rtl', 'Is RTL') }}? <span
                                             class='text-asterisks text-sm'>*</span>

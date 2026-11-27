@@ -355,7 +355,7 @@ $allowModification = config('constants.ALLOW_MODIFICATION') == 1;
                             </label>
                             <div class="input-group">
                                 <input type="password" class="form-control show_profile_password" name="new_password"
-                                    placeholder="Enter Your Password">
+                                    placeholder="{{ labels('admin_labels.enter_your_password_placeholder', 'Enter Your Password') }}">
                                 <span class="input-group-text cursor-pointer toggle_profile_password"><i
                                         class="bx bx-hide"></i></span>
                             </div>

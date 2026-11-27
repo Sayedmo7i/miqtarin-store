@@ -109,6 +109,7 @@
     <x-admin.footer />
     <!-- Scripts -->
     @include('admin.include_script')
+    @yield('scripts')
 </body>
 
 </html>

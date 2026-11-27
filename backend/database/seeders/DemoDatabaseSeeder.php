@@ -1180,6 +1180,45 @@ class DemoDatabaseSeeder extends Seeder
             }
         }
 
+        $pwaRow = DB::table('settings')->where('variable', 'pwa_settings')->first();
+        $pwaVal = $pwaRow ? (json_decode($pwaRow->value, true) ?: []) : [];
+        $pwaVal = array_merge($pwaVal, [
+            'name' => 'MUQTARIN Store',
+            'short_name' => 'MUQTARIN',
+            'theme_color' => '#0F4C3A',
+            'background_color' => '#F8FAF9',
+            'description' => 'Curated multi-vendor marketplace by MUQTARIN Store — fast delivery & verified quality.',
+            'logo' => '/media/muqtarin-icon.svg',
+        ]);
+        DB::table('settings')->updateOrInsert(
+            ['variable' => 'pwa_settings'],
+            ['value' => json_encode($pwaVal, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), 'updated_at' => $now]
+        );
+
+        if (\Illuminate\Support\Facades\Schema::hasTable('seo_settings')) {
+            DB::table('seo_settings')
+                ->where('seo_type', 'global')
+                ->where('reference_id', 0)
+                ->update(['reference_id' => null, 'updated_at' => $now]);
+
+            if (DB::table('seo_settings')->where('seo_type', 'global')->whereNull('reference_id')->count() === 0) {
+                DB::table('seo_settings')->insert([
+                    'seo_type' => 'global',
+                    'reference_id' => null,
+                    'meta_title' => 'MUQTARIN Store',
+                    'meta_description' => 'Shop verified sellers across electronics, fashion, home living, and organic goods at MUQTARIN Store.',
+                    'meta_keywords' => 'MUQTARIN Store, marketplace, Cairo, electronics, fashion',
+                    'og_title' => 'MUQTARIN Store',
+                    'og_description' => 'Curated multi-vendor marketplace by MUQTARIN Store.',
+                    'og_type' => 'website',
+                    'twitter_card' => 'summary_large_image',
+                    'robots' => 'index,follow',
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ]);
+            }
+        }
+
         $policyDefaults = [
             'privacy_policy' => '<h4>MUQTARIN Store Privacy Policy</h4><p>MUQTARIN Store collects only the information necessary to process orders, coordinate deliveries, and protect your account.</p>',
             'return_policy' => '<h4>MUQTARIN Store Return &amp; Refund Policy</h4><p>Eligible items may be returned within 30 days of delivery in original condition. Approved refunds are credited to your original payment method or MUQTARIN wallet.</p>',
